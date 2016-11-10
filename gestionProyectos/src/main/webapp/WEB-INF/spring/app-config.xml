@@ -43,8 +43,8 @@
 				<list>
 					<value>/WEB-INF/spring/tiles/tiles.xml</value>
 					<value>/WEB-INF/spring/tiles/home.xml</value>
-					<!-- <value>/WEB-INF/spring/tiles/almacen.xml</value>
-					<value>/WEB-INF/spring/tiles/logistica.xml</value>
+					<value>/WEB-INF/spring/tiles/administracion.xml</value>
+					<!--<value>/WEB-INF/spring/tiles/logistica.xml</value>
 					<value>/WEB-INF/spring/tiles/produccion.xml</value>
 					<value>/WEB-INF/spring/tiles/costos.xml</value>
 					<value>/WEB-INF/spring/tiles/reportes.xml</value> -->

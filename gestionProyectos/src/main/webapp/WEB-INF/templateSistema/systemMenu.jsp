@@ -8,7 +8,7 @@
 		<!-- INICIO -->
 		<li id="inicio">
 			<a href="#" class="dropdown-toggle"> 
-				<i class="icon-home"></i> <span class="menu-text"> Inicio </span> <b class="arrow icon-angle-down"></b>
+				<i class="icon-home"></i> <span class="menu-text"> INICIO </span> <b class="arrow icon-angle-down"></b>
 			</a>
 			<ul class="submenu">
 				<li id="inicio_bienvenida">
@@ -31,10 +31,10 @@
 
 		<!-- -----------------------MENU GESTION PROYECTO ------------------------>
 		<%-- <security:authorize access="hasAnyRole('ROLE_BIENESTAR_JEFE','ROLE_BIENESTAR_ASISTENTA','ROLE_ALUMNO','ROLE_COMEDOR','ROLE_MEDICO','ROLE_DEPORTES')"> --%>
-			<li id="bienestar">
+			<li id="gestionProyectos">
 				<a href="#" class="dropdown-toggle">
 					<i class="icon-edit"></i> 
-						<span class="menu-text"> Gesti&oacute;n de Proyectos </span> <b class="arrow icon-angle-down"></b>
+						<span class="menu-text"> GESTI&Oacute;N DE PROYECTOS </span> <b class="arrow icon-angle-down"></b>
 				</a>
 
 				<ul class="submenu">
@@ -101,7 +101,7 @@
 							<ul class="submenu">								
 								<!-- ------------------------------------------------------ -->
 								<%-- <security:authorize access="hasAnyRole('ROLE_BIENESTAR_JEFE')"> --%>
-									<li id="bienestar_historial">
+									<li id="bienestar_historial1">
 										<a href="../bienestar/historiaSocial.htm">
 											<i class="icon-align-justify"></i> Paso 1
 										</a>
@@ -114,6 +114,54 @@
 
 				</ul></li>
 		<%-- </security:authorize> --%>
+		
+		<!-- MENU ADMINISTRACION -->
+		<li>
+			<a href="#" class="dropdown-toggle"> <i	class="icon-edit"></i> 
+			<span class="menu-text"> ADMINISTRACI&Oacute;N </span> <b class="arrow icon-angle-down"></b>
+			</a>
+
+			<ul class="submenu">
+				<!-- EMPRESA  -->
+				<li id="idEmpresa">
+					<a href="../administracion/empresa.htm">
+						<i class="icon-double-angle-right"></i> Empresa 
+					</a>
+				</li>
+				<!-- RECURSOS  -->
+				<li id="idRecursos">
+					<a href="../administracion/recursos.htm">
+						<i class="icon-double-angle-right"></i> Recursos 
+					</a>
+				</li>
+				<!-- ORGANIGRAMA  -->
+				<li id="idOrganigrama">
+					<a href="../administracion/organigrama.htm">
+						<i class="icon-double-angle-right"></i> Organigrama 
+					</a>
+				</li>
+				<!-- ASOCIADO A PROYECTO  -->
+				<li id="idAsociadoProyecto">
+					<a href="../administracion/asociadoProyecto.htm">
+						<i class="icon-double-angle-right"></i> Asociado a Proyecto 
+					</a>
+				</li>
+				<!-- ASOCIADO A ENTRAGABLE  -->
+				<li id="idAsociadoEntregable">
+					<a href="../administracion/asociadoEntregable.htm">
+						<i class="icon-double-angle-right"></i> Asociado a Entregable 
+					</a>
+				</li>
+				<!-- TIPO DE CAMBIO  -->
+				<li id="idTipoCambio">
+					<a href="../administracion/tipoCambio.htm">
+						<i class="icon-double-angle-right"></i> Tipo de Cambio 
+					</a>
+				</li>
+
+
+			</ul></li>
+		<!-- [FIN] MENU ADMINISTRACION -->
 
 	</ul>
 

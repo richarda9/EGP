@@ -23,12 +23,12 @@
 
 		<security:intercept-url pattern="/login.htm" access="permitAll" />
 		<security:intercept-url pattern="/home/*" access="isAuthenticated()" />
-		<!-- <security:intercept-url pattern="/almacen/*" access="isAuthenticated()" 
-			/> <security:intercept-url pattern="/logistica/*" access="isAuthenticated()" 
-			/> <security:intercept-url pattern="/produccion/*" access="isAuthenticated()" 
-			/> <security:intercept-url pattern="/costos/*" access="isAuthenticated()" 
-			/> <security:intercept-url pattern="/reportes/*" access="isAuthenticated()" 
-			/> -->
+		<security:intercept-url pattern="/administracion/*" access="isAuthenticated()" /> 
+		 <!--<security:intercept-url pattern="/logistica/*" access="isAuthenticated()" />
+			<security:intercept-url pattern="/produccion/*" access="isAuthenticated()" /> 
+			 <security:intercept-url pattern="/costos/*" access="isAuthenticated()" />
+			 <security:intercept-url pattern="/reportes/*" access="isAuthenticated()" />
+		 -->
 
 		<!-- access="hasAnyRole('ROLE_ALUMNO','ROLE_DOCENTE','ROLE_BIENESTAR','ROLE_ADMIN')" 
 			/> -->

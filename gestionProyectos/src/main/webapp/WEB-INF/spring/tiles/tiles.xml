@@ -27,11 +27,6 @@
 
 	<definition name="error403" template="/WEB-INF/error/error403.jsp"></definition>
 	<definition name="error404" template="/WEB-INF/error/error404.jsp"></definition>
-	
-	
-	
-	
-	
-	
+		
 </tiles-definitions>
 
