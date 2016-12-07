@@ -15,13 +15,15 @@ public class AdministracionServiceImp implements AdministracionService
 	@Autowired
 	AdministracionDao administracionDao;
 
-	public void registrarTipoProyecto(TipoProyecto param) {
+	public int registrarTipoProyecto(TipoProyecto param) {
 		
 		int ind = administracionDao.buscarTipoProyecto(param);
 		
 		if(ind == 0){
 			administracionDao.registrarTipoProyecto(param);
 		}
+		
+		return ind;
 	}
 
 	public List<TipoProyecto> listarTipoProyecto() {

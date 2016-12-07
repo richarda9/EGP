@@ -42,8 +42,8 @@ public class AdministracionController
 	@RequestMapping(value = "/registrar_tipoProyecto.htm", method = RequestMethod.POST)
 	public @ResponseBody int registrarTipoProyecto(@RequestBody TipoProyecto dato) 
 	{
-		administracionService.registrarTipoProyecto(dato); 
-		return 0;
+		int ind = administracionService.registrarTipoProyecto(dato); 
+		return ind;
 	}
 	
 	

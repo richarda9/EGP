@@ -45,6 +45,9 @@ window.jQuery || document.write("<script src='../assets/js/jquery-1.10.2.min.js'
 
 <script src="../assets/js/ace-elements.min.js"></script>
 <script src="../assets/js/ace.min.js"></script>
+<script src="../assets/plugins/DataTables-1.10.12/media/js/jquery.dataTables.min.js"></script>
+<script src="../assets/js/jquery.dataTables.bootstrap.js"></script>
+<script src="../assets/js/jquery.gritter.min.js"></script>
 
 <script type="text/javascript">
 	$(document).on("ready", function() {

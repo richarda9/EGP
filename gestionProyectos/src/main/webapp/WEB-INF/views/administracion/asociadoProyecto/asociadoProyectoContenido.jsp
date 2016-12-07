@@ -87,7 +87,6 @@
 											<tr>
 												<td class="center">
 													<label>
-														<input type="checkbox" />
 														<span class="lbl"></span>
 													</label>
  												</td>

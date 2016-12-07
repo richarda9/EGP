@@ -1,5 +1,3 @@
-<script src="../assets/plugins/DataTables-1.10.12/media/js/jquery.dataTables.min.js"></script>
-<script src="../assets/js/jquery.dataTables.bootstrap.js"></script>
 <script type="text/javascript">
 
 //[INI] CARGA DE TABLAS
@@ -78,10 +76,36 @@ $("#registrarTipoProyecto").submit(
 					.postJSON(
 							'${pageContext.request.contextPath}/administracion/registrar_tipoProyecto.htm', objeto, 
 							function(data) {
+								if(data == 0){
+								$.gritter.add({
+									title: 'Info!',
+									text: 'Se registro con éxito.',
+									sticky: false,
+									time: '1200',
+									class_name: 'gritter-info gritter-light'
+								});
+								
 								listarTipoProyecto();
+								}else if(data == 1){
+									$.gritter.add({
+										title: 'Advertencia!',
+										text: 'Existe un registro con los mismos datos.',
+										sticky: false,
+										time: '1200',
+										class_name: 'gritter-warning gritter-light'
+									});
+								}
 							})
 					.fail(
 							function() {
+
+								$.gritter.add({
+									title: 'Error!',
+									text: 'Ocurrio un error al tratar de realizar el registro',
+									sticky: false,
+									time: '1200',
+									class_name: 'gritter-error'
+								});
 							});
 			return false;
 });
@@ -132,6 +156,14 @@ $("#formEliminarTipoProyecto").submit(
 			$.postJSON('${pageContext.request.contextPath}/administracion/eliminar_tipoProyecto.htm',objeto, 
 					function(data) {
 								$('#eliminarTipoProyecto').modal('hide');
+								$.gritter.add({
+									title: 'Info!',
+									text: 'Se eliminó correctamente.',
+									sticky: false,
+									time: '1200',
+									class_name: 'gritter-info gritter-light'
+								});
+								
 								listarTipoProyecto();
 					}).fail(
 							function() {
