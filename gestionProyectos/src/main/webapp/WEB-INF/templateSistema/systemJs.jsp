@@ -54,12 +54,12 @@ window.jQuery || document.write("<script src='../assets/js/jquery-1.10.2.min.js'
 		});
 	});
 
-	$(function() {
-		//Para escribir solo letras
-		$('#miCampo1').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou');
+// 	$(function() {
+// 		//Para escribir solo letras
+// 		$('#miCampo1').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou');
 
-		//Para escribir solo numeros    
-		$('.numeros').validCampoFranz('0123456789');
+// 		//Para escribir solo numeros    
+// 		$('.numeros').validCampoFranz('0123456789');
 
-	});
+// 	});
 </script>

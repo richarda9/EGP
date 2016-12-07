@@ -57,7 +57,7 @@
 	</security:http>
 
 	<security:authentication-manager alias="authenticationManager">
-		<security:authentication-provider user-service-ref="customUserDetailsService">
+		<security:authentication-provider user-service-ref="customUserDetailsServiceImp">
 			<!-- <security:password-encoder hash="md5"> </security:password-encoder> -->
 		</security:authentication-provider>
 		<!-- <security:authentication-provider> <security:user-service> <security:user 

@@ -5,10 +5,12 @@
 
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.sigcomt.gestionProyectos.dominio.SecurityUser" alias="Usuario"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.seguridad.SecurityUser" alias="Usuario"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.TipoProyecto" alias="TipoProyecto"/>
 	</typeAliases>
 	
     <mappers>
-        <mapper resource="mapper/usuario/UsuarioMapper.xml" />
+        <mapper resource="mapper/usuario/UsuarioMapper.xml" />        
+        <mapper resource="mapper/administracion/administracionMapper.xml" />
     </mappers>
 </configuration>

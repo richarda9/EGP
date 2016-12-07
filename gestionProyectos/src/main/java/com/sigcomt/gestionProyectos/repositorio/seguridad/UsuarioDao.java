@@ -5,7 +5,7 @@ package com.sigcomt.gestionProyectos.repositorio.seguridad;
 
 import java.util.List;
 
-import com.sigcomt.gestionProyectos.dominio.SecurityUser;
+import com.sigcomt.gestionProyectos.dominio.seguridad.SecurityUser;
 
 
 /**

@@ -1,0 +1,25 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.sigcomt.gestionProyectos.repositorio.administracion.AdministracionDao">
+	
+	<insert id="registrarTipoProyecto" parameterType="TipoProyecto">
+		insert into "CREAR_PROYECTO"."TIPO_PROYECTO"
+		values(nextval('"CREAR_PROYECTO".sq_tipo_proyecto'), #{descripcion}, #{estado});
+	</insert>
+	
+	<select id="listarTipoProyecto" resultType="TipoProyecto">
+	   select  "ID_TIPO_PROYECTO" as id, "DESCRIPCION_TIPO_PROYECTO" as descripcion, "ESTADO" as estado
+ 	   from "CREAR_PROYECTO"."TIPO_PROYECTO";
+	</select>
+	
+	<delete id="eliminarTipoProyecto" parameterType="int">
+	  delete from "CREAR_PROYECTO"."TIPO_PROYECTO" where "ID_TIPO_PROYECTO" = #{id};
+	</delete>
+	
+	<select id="buscarTipoProyecto" resultType="int" parameterType="TipoProyecto">
+		select  count(*)
+		from "CREAR_PROYECTO"."TIPO_PROYECTO"
+		where "DESCRIPCION_TIPO_PROYECTO" = #{descripcion}
+		and "ESTADO" = #{estado};
+	</select>
+</mapper>

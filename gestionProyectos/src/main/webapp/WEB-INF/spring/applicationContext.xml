@@ -52,9 +52,6 @@
 	    <context:component-scan base-package="com.sigcomt.gestionProyectos.servicio"/>
 	    				
 		<!-- En el archivo especificado se pondrá la definición de las interfaces mappers -->
-		<beans>
-			<import resource="classpath:config/beanInterfaceDao.xml"/>
-		</beans>
-		
-		
+		<beans:import resource="classpath:config/beanInterfaceDao.xml"/>
+					
 </beans>

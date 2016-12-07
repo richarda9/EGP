@@ -5,8 +5,12 @@
            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 	<bean id="userDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface"
-			value="com.sigcomt.gestionProyectos.repositorio.seguridad.UsuarioDao" />
+		<property name="mapperInterface" value="com.sigcomt.gestionProyectos.repositorio.seguridad.UsuarioDao" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
+	<bean id="administracionDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.sigcomt.gestionProyectos.repositorio.administracion.AdministracionDao" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 
