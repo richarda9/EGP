@@ -2,6 +2,7 @@
 
 <mapper namespace="com.sigcomt.gestionProyectos.repositorio.administracion.AdministracionDao">
 	
+	<!-- [INI] TIPO PROYECTO -->
 	<insert id="registrarTipoProyecto" parameterType="TipoProyecto">
 		insert into "CREAR_PROYECTO"."TIPO_PROYECTO"
 		values(nextval('"CREAR_PROYECTO".sq_tipo_proyecto'), #{descripcion}, #{estado});
@@ -22,4 +23,56 @@
 		where "DESCRIPCION_TIPO_PROYECTO" = #{descripcion}
 		and "ESTADO" = #{estado};
 	</select>
+	<!-- [FIN] TIPO PROYECTO -->
+	
+	<!-- [INI] ESTADO PROYECTO -->
+	<insert id="registrarEstadoProyecto" parameterType="EstadoProyecto">
+		insert into "CREAR_PROYECTO"."ESTADO_PROYECTO"
+		values(nextval('"CREAR_PROYECTO".sq_estado_proyecto'), #{descripcion}, #{estado});
+	</insert>
+	
+	<select id="listarEstadoProyecto" resultType="EstadoProyecto">
+	   select  "ID_ESTADO_PROYECTO" as id, "DESCRIPCION_ESTADO_PROYECTO" as descripcion, "ESTADO" as estado
+ 	   from "CREAR_PROYECTO"."ESTADO_PROYECTO";
+	</select>
+	
+	<delete id="eliminarEstadoProyecto" parameterType="int">
+	  delete from "CREAR_PROYECTO"."ESTADO_PROYECTO" where "ID_ESTADO_PROYECTO" = #{id};
+	</delete>
+	
+	<select id="buscarEstadoProyecto" resultType="int" parameterType="EstadoProyecto">
+		select  count(*)
+		from "CREAR_PROYECTO"."ESTADO_PROYECTO"
+		where "DESCRIPCION_ESTADO_PROYECTO" = #{descripcion}
+		and "ESTADO" = #{estado};
+	</select>
+	<!-- [FIN] ESTADO PROYECTO -->
+	
+	<!-- [INI] TIPO REQUISITO -->
+	<insert id="registrarTipoRequisitoProyecto" parameterType="TipoRequisito">
+		insert into "PLANIFICAR_PROYECTO"."TIPO_REQUISITO"
+		values(nextval('"CREAR_PROYECTO".sq_estado_proyecto'), #{descripcion}, #{estado});
+	</insert>
+	
+	<select id="listarTipoRequisitoProyecto" resultType="hashmap">
+	   select  tr."ID_TIPO_REQUISITO" as id, tr."DESCRIPCION_TIPO_REQUISITO" as descripcion, 
+			   tr."ESTADO" as estado, "ID_TIPO_PROYECTO" as idTipoProyecto,
+			   (select "DESCRIPCION_TIPO_PROYECTO"
+				from "CREAR_PROYECTO"."TIPO_PROYECTO"
+				where "ID_TIPO_PROYECTO" = tr."ID_TIPO_PROYECTO") dsc_tipoproyecto
+	   from "PLANIFICAR_PROYECTO"."TIPO_REQUISITO" tr;
+	</select>
+	
+	<delete id="eliminarTipoRequisitoProyecto" parameterType="int">
+	  delete from "PLANIFICAR_PROYECTO"."TIPO_REQUISITO" where "ID_TIPO_REQUISITO" = #{id};
+	</delete>
+	
+	<select id="buscarTipoRequisitoProyecto" resultType="int" parameterType="TipoRequisito">
+		select  count(*)
+		from "CREAR_PROYECTO"."ESTADO_PROYECTO"
+		where "DESCRIPCION_ESTADO_PROYECTO" = #{descripcion}
+		and "ESTADO" = #{estado};
+	</select>
+	<!-- [FIN] TIPO REQUISITO -->
+	
 </mapper>

@@ -7,6 +7,8 @@
 	<typeAliases>
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.seguridad.SecurityUser" alias="Usuario"/>
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.TipoProyecto" alias="TipoProyecto"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.EstadoProyecto" alias="EstadoProyecto"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.TipoRequisito" alias="TipoRequisito"/>
 	</typeAliases>
 	
     <mappers>
