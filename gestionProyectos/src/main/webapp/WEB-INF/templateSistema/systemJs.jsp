@@ -37,9 +37,10 @@ window.jQuery || document.write("<script src='../assets/js/jquery-1.10.2.min.js'
 <!-- AJAX FIN -->
 <script src="../assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script src="../assets/js/jquery.ui.touch-punch.min.js"></script>
+<script src="../assets/js/chosen.jquery.min.js"></script>
 <script src="../assets/js/jquery.slimscroll.min.js"></script>
-<script src="../assets/js/validarCampos.js"></script>
-<script src="../assets/js/menu.js"></script>
+<!-- <script src="../assets/js/validarCampos.js"></script> -->
+<!-- <script src="../assets/js/menu.js"></script> -->
 
 <!--ace scripts-->
 
@@ -48,6 +49,10 @@ window.jQuery || document.write("<script src='../assets/js/jquery-1.10.2.min.js'
 <script src="../assets/plugins/DataTables-1.10.12/media/js/jquery.dataTables.min.js"></script>
 <script src="../assets/js/jquery.dataTables.bootstrap.js"></script>
 <script src="../assets/js/jquery.gritter.min.js"></script>
+<script src="../assets/js/jquery.validate.min.js"></script>
+<script src="../assets/plugins/validate/localization/messages_es.js"></script>
+<script src="../assets/js/date-time/bootstrap-datepicker.min.js"></script>
+<script src="../assets/js/date-time/bootstrap-datepicker.es.js"></script>
 
 <script type="text/javascript">
 	$(document).on("ready", function() {
@@ -66,3 +71,4 @@ window.jQuery || document.write("<script src='../assets/js/jquery-1.10.2.min.js'
 
 // 	});
 </script>
+

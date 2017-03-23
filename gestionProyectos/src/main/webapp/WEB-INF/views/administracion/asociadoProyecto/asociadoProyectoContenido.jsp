@@ -52,10 +52,16 @@
 					<div class="span9 center">
 						<form class="form-horizontal" id="registrarTipoProyecto">
 								<div class="row-fluid">
-									<input type="text" class="span6" id="descripcionTipoProyecto" 
-										   name="descripcion" placeholder="Tipo de Proyecto" />
-								    <br/><br/>
-								    <label class="span4"></label>
+								<div class="control-group">
+<!-- 									<label class="control-label" for="email">Email Address:</label> -->
+
+									<div class="controls">
+										<div class="span12">
+											<input type="text" class="span6" id="descripcionTipoProyecto" 
+													name="descripcion" placeholder="Tipo de Proyecto" />
+										</div>
+									</div>
+								</div>
 								    <button class="btn btn-small btn-primary" type="submit">
 								    	<i class="icon-save bigger-125"></i> Agregar
 								    </button>								    
@@ -72,7 +78,6 @@
 										<tr>
 											<th class="center">
 												<label>
-													<input type="checkbox" />
 													<span class="lbl"></span>
 												</label>
 											</th>
@@ -87,7 +92,7 @@
 											<tr>
 												<td class="center">
 													<label>
-														<span class="lbl"></span>
+														<c:out value="${contador.count}"/>
 													</label>
  												</td>
 												<td><c:out value="${tipoProyecto.descripcion}"></c:out></td>
@@ -142,211 +147,200 @@
 			<!-- [FIN] TIPO DE PROYECTO -->
 
 			<!-- [INI] ESTADO DE PROYECTO -->
-			<div id="estadoProyecto" class="tab-pane">
-				<div class="row-fluid">
-					<div class="span9 center">
-						<form class="form-horizontal">
+				<div id="estadoProyecto" class="tab-pane">
+					<div class="row-fluid">
+						<div class="span9 center">
+							<form class="form-horizontal" id="registrarEstadoProyecto">
 								<div class="row-fluid">
-									<input type="text" class="span6" id="idEstadoProyecto" placeholder="Estado de Proyecto" />
-								    <br/><br/>
-								    <label class="span4"></label>
-								    <button id="idguardarProyecto" class="btn btn-small btn-primary">
-								    	<i class="icon-save bigger-125"></i> Agregar
-								    </button>								    
+									<div class="control-group">
+	<!-- 									<label class="control-label" for="email">Email Address:</label> -->
+										<div class="controls">
+											<div class="span12">
+												<input type="text" class="span6" id="descripcionEstadoProyecto"
+											name="descripcion" placeholder="Estado de Proyecto" />
+											</div>
+										</div>
+									</div>
+									<button type="submit" class="btn btn-small btn-primary">
+										<i class="icon-save bigger-125"></i> Agregar
+									</button>
 								</div>
-								
-								<hr/>
-								
-								<div class="row-fluid">
-									<select id="idselectEstadoProyecto" class="span6" multiple="multiple" size="10" onmousedown ="detectarBoton(event);">
-										<option value="AL" />Alabama
-										<option value="AK" />Alaska
-										<option value="AZ" />Arizona
-										<option value="AR" />Arkansas
-										<option value="CA" />California
-										<option value="CO" />Colorado
-										<option value="CT" />Connecticut
-										<option value="DE" />Delaware
-										<option value="FL" />Florida
-										<option value="GA" />Georgia
-										<option value="HI" />Hawaii
-										<option value="ID" />Idaho
-										<option value="IL" />Illinois
-										<option value="IN" />Indiana
-										<option value="IA" />Iowa
-										<option value="KS" />Kansas
-										<option value="KY" />Kentucky
-										<option value="LA" />Louisiana
-										<option value="ME" />Maine
-										<option value="MD" />Maryland
-										<option value="MA" />Massachusetts
-										<option value="MI" />Michigan
-										<option value="MN" />Minnesota
-										<option value="MS" />Mississippi
-										<option value="MO" />Missouri
-										<option value="MT" />Montana
-										<option value="NE" />Nebraska
-										<option value="NV" />Nevada
-										<option value="NH" />New Hampshire
-										<option value="NJ" />New Jersey
-										<option value="NM" />New Mexico
-										<option value="NY" />New York
-										<option value="NC" />North Carolina
-										<option value="ND" />North Dakota
-										<option value="OH" />Ohio
-										<option value="OK" />Oklahoma
-										<option value="OR" />Oregon
-										<option value="PA" />Pennsylvania
-										<option value="RI" />Rhode Island
-										<option value="SC" />South Carolina
-										<option value="SD" />South Dakota
-										<option value="TN" />Tennessee
-										<option value="TX" />Texas
-										<option value="UT" />Utah
-										<option value="VT" />Vermont
-										<option value="VA" />Virginia
-										<option value="WA" />Washington
-										<option value="WV" />West Virginia
-										<option value="WI" />Wisconsin
-										<option value="WY" />Wyoming
-									</select>
-								</div>
-						</form>
+							</form>
+
+							<hr />
+
+							<div class="table-header">Lista Estado de Proyecto</div>
+							<table id="tablaEstadoProyecto"
+								class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+										<th class="center"><label>
+												<span class="lbl"></span>
+										</label></th>
+										<th>Descripci&oacute;n</th>
+										<th>Estado</th>
+										<th></th>
+									</tr>
+								</thead>
+
+								<tbody>
+									<c:forEach var="estadoProyecto" items="${model.listaEstadoProyecto}" varStatus="contador">
+										<tr>
+											<td class="center">												
+												<c:out value="${contador.count}"/>
+											</td>
+											<td><c:out value="${estadoProyecto.descripcion}"></c:out></td>
+											<c:choose>
+												<c:when test="${estadoProyecto.estado == 1}">
+													<td class="hidden-480"><span class="label label-info"><b>ACTIVO</b></span>
+													</td>
+												</c:when>
+												<c:otherwise>
+													<td class="hidden-480"><span
+														class="label label-danger"><b>INACTIVO</b></span></td>
+												</c:otherwise>
+											</c:choose>
+											<td class="td-actions">
+												<div class="hidden-phone visible-desktop action-buttons">
+													<a class="abrir-eliminarEproyecto red"
+														href="#eliminarEstadoProyecto" data-toggle="modal"
+														data-id="${estadoProyecto.id}"> <i
+														class="icon-trash bigger-130" data-rel="tooltip"
+														title="Eliminar"> </i>
+													</a>
+												</div>
+
+												<div class="hidden-desktop visible-phone">
+													<div class="inline position-relative">
+														<button class="btn btn-minier btn-yellow dropdown-toggle"
+															data-toggle="dropdown">
+															<i class="icon-caret-down icon-only bigger-120"></i>
+														</button>
+
+														<ul
+															class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+															<li><a href="#eliminarEstadoProyecto"
+																class="abrir-eliminarEproyecto tooltip-error"
+																data-rel="tooltip" title="Eliminar" data-toggle="modal"
+																data-id="${estadoProyecto.id}"> <span class="red">
+																		<i class="icon-trash bigger-120"></i>
+																</span>
+															</a></li>
+														</ul>
+													</div>
+												</div>
+											</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
-			</div>
-			<!-- [FIN] ESTADO DE PROYECTO -->
+				<!-- [FIN] ESTADO DE PROYECTO -->
 
 			<!-- [INI] TIPO DE REQUISITO -->
 			<div id="tipoRequisito" class="tab-pane">
 				<div class="row-fluid">
 					<div class="span9 center">
-						<form class="form-horizontal">
+						<form class="form-horizontal" id="registrarTipoRequisito">
 								<div class="row-fluid">
-									<select id="idTipoProyectoReq" class="span6" title="Tipo de Proyecto">
-										<option value="" />Seleccione tipo de proyecto...
-										<option value="AL" />Alabama
-										<option value="AK" />Alaska
-										<option value="AZ" />Arizona
-										<option value="AR" />Arkansas
-										<option value="CA" />California
-										<option value="CO" />Colorado
-										<option value="CT" />Connecticut
-										<option value="DE" />Delaware
-										<option value="FL" />Florida
-										<option value="GA" />Georgia
-										<option value="HI" />Hawaii
-										<option value="ID" />Idaho
-										<option value="IL" />Illinois
-										<option value="IN" />Indiana
-										<option value="IA" />Iowa
-										<option value="KS" />Kansas
-										<option value="KY" />Kentucky
-										<option value="LA" />Louisiana
-										<option value="ME" />Maine
-										<option value="MD" />Maryland
-										<option value="MA" />Massachusetts
-										<option value="MI" />Michigan
-										<option value="MN" />Minnesota
-										<option value="MS" />Mississippi
-										<option value="MO" />Missouri
-										<option value="MT" />Montana
-										<option value="NE" />Nebraska
-										<option value="NV" />Nevada
-										<option value="NH" />New Hampshire
-										<option value="NJ" />New Jersey
-										<option value="NM" />New Mexico
-										<option value="NY" />New York
-										<option value="NC" />North Carolina
-										<option value="ND" />North Dakota
-										<option value="OH" />Ohio
-										<option value="OK" />Oklahoma
-										<option value="OR" />Oregon
-										<option value="PA" />Pennsylvania
-										<option value="RI" />Rhode Island
-										<option value="SC" />South Carolina
-										<option value="SD" />South Dakota
-										<option value="TN" />Tennessee
-										<option value="TX" />Texas
-										<option value="UT" />Utah
-										<option value="VT" />Vermont
-										<option value="VA" />Virginia
-										<option value="WA" />Washington
-										<option value="WV" />West Virginia
-										<option value="WI" />Wisconsin
-										<option value="WY" />Wyoming
-									</select>								
-									<br/><br/>
-									<input type="text" class="span6" id="idEstadoProyecto" placeholder="Tipo de Requisito" />
-									<br/><br/>
-									<label class="span4"></label>									
-								    <button id="idguardarProyecto" class="btn btn-small btn-primary">
+									<div class="control-group">
+	<!-- 									<label class="control-label" for="email">Email Address:</label> -->
+										<div class="controls">
+											<div class="span12">
+												<select id="idTipoProyectoReq" name="idTipoProyecto" class="span6" title="Tipo de Proyecto">
+													<option value="">Seleccionar</option>
+													<c:forEach var="tipoProyecto" items="${model.listaTipoProyecto}" varStatus="contador">
+													   <option value="${tipoProyecto.id}">${tipoProyecto.descripcion}</option>
+													</c:forEach>
+												</select>	
+											</div>
+										</div>
+									</div>
+									
+									<div class="control-group">
+	<!-- 									<label class="control-label" for="email">Email Address:</label> -->
+										<div class="controls">
+											<div class="span12">
+												<input type="text" class="span6" id="idReqProyecto" name="descripcion" placeholder="Tipo de Requisito" />
+											</div>
+										</div>
+									</div>								
+								    <button type="submit" class="btn btn-small btn-primary">
 								    	<i class="icon-save bigger-125"></i> Agregar
 								    </button>		
-								</div>
-								<div class="row-fluid">
-								</div>
-								<br/>
-								<div class="row-fluid">
-								</div>
-								
-								<hr/>
-								
-								<div class="row-fluid">
-									<select id="idselectEstadoProyecto" class="span6" multiple="multiple" size="10">
-										<option value="AL" />Alabama
-										<option value="AK" />Alaska
-										<option value="AZ" />Arizona
-										<option value="AR" />Arkansas
-										<option value="CA" />California
-										<option value="CO" />Colorado
-										<option value="CT" />Connecticut
-										<option value="DE" />Delaware
-										<option value="FL" />Florida
-										<option value="GA" />Georgia
-										<option value="HI" />Hawaii
-										<option value="ID" />Idaho
-										<option value="IL" />Illinois
-										<option value="IN" />Indiana
-										<option value="IA" />Iowa
-										<option value="KS" />Kansas
-										<option value="KY" />Kentucky
-										<option value="LA" />Louisiana
-										<option value="ME" />Maine
-										<option value="MD" />Maryland
-										<option value="MA" />Massachusetts
-										<option value="MI" />Michigan
-										<option value="MN" />Minnesota
-										<option value="MS" />Mississippi
-										<option value="MO" />Missouri
-										<option value="MT" />Montana
-										<option value="NE" />Nebraska
-										<option value="NV" />Nevada
-										<option value="NH" />New Hampshire
-										<option value="NJ" />New Jersey
-										<option value="NM" />New Mexico
-										<option value="NY" />New York
-										<option value="NC" />North Carolina
-										<option value="ND" />North Dakota
-										<option value="OH" />Ohio
-										<option value="OK" />Oklahoma
-										<option value="OR" />Oregon
-										<option value="PA" />Pennsylvania
-										<option value="RI" />Rhode Island
-										<option value="SC" />South Carolina
-										<option value="SD" />South Dakota
-										<option value="TN" />Tennessee
-										<option value="TX" />Texas
-										<option value="UT" />Utah
-										<option value="VT" />Vermont
-										<option value="VA" />Virginia
-										<option value="WA" />Washington
-										<option value="WV" />West Virginia
-										<option value="WI" />Wisconsin
-										<option value="WY" />Wyoming
-									</select>
-								</div>
-						</form>
+								</div>							
+						</form>															
+						
+						<hr/>	
+						
+						<div class="table-header">Lista Tipo de Requisito de Proyecto</div>
+								<table id="tablaTipoRequisitoProyecto"
+								class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+										<th class="center"><label>
+												<span class="lbl"></span>
+										</label></th>
+										<th>Tipo Proyecto</th>
+										<th>Descripci&oacute;n Tipo Requisito</th>
+										<th>Estado</th>
+										<th></th>
+									</tr>
+								</thead>
+
+								<tbody>
+									<c:forEach var="tiporequisitoProyecto" items="${model.listaTipoRequisito}" varStatus="contador">
+										<tr>
+											<td class="center">												
+												<c:out value="${contador.count}"/>
+											</td>
+											<td><c:out value="${tiporequisitoProyecto.descripcion}"></c:out></td>
+											<c:choose>
+												<c:when test="${tiporequisitoProyecto.estado == 1}">
+													<td class="hidden-480"><span class="label label-info"><b>ACTIVO</b></span>
+													</td>
+												</c:when>
+												<c:otherwise>
+													<td class="hidden-480"><span
+														class="label label-danger"><b>INACTIVO</b></span></td>
+												</c:otherwise>
+											</c:choose>
+											<td class="td-actions">
+												<div class="hidden-phone visible-desktop action-buttons">
+													<a class="abrir-eliminarEproyecto red"
+														href="#eliminarEstadoProyecto" data-toggle="modal"
+														data-id="${tiporequisitoProyecto.id}"> <i
+														class="icon-trash bigger-130" data-rel="tooltip"
+														title="Eliminar"> </i>
+													</a>
+												</div>
+
+												<div class="hidden-desktop visible-phone">
+													<div class="inline position-relative">
+														<button class="btn btn-minier btn-yellow dropdown-toggle"
+															data-toggle="dropdown">
+															<i class="icon-caret-down icon-only bigger-120"></i>
+														</button>
+
+														<ul
+															class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+															<li><a href="#eliminarEstadoProyecto"
+																class="abrir-eliminarEproyecto tooltip-error"
+																data-rel="tooltip" title="Eliminar" data-toggle="modal"
+																data-id="${estadoProyecto.id}"> <span class="red">
+																		<i class="icon-trash bigger-120"></i>
+																</span>
+															</a></li>
+														</ul>
+													</div>
+												</div>
+											</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
 					</div>
 				</div>
 			</div>
@@ -362,54 +356,6 @@
 										<option value="" />Seleccione tipo de proyecto...
 										<option value="AL" />Alabama
 										<option value="AK" />Alaska
-										<option value="AZ" />Arizona
-										<option value="AR" />Arkansas
-										<option value="CA" />California
-										<option value="CO" />Colorado
-										<option value="CT" />Connecticut
-										<option value="DE" />Delaware
-										<option value="FL" />Florida
-										<option value="GA" />Georgia
-										<option value="HI" />Hawaii
-										<option value="ID" />Idaho
-										<option value="IL" />Illinois
-										<option value="IN" />Indiana
-										<option value="IA" />Iowa
-										<option value="KS" />Kansas
-										<option value="KY" />Kentucky
-										<option value="LA" />Louisiana
-										<option value="ME" />Maine
-										<option value="MD" />Maryland
-										<option value="MA" />Massachusetts
-										<option value="MI" />Michigan
-										<option value="MN" />Minnesota
-										<option value="MS" />Mississippi
-										<option value="MO" />Missouri
-										<option value="MT" />Montana
-										<option value="NE" />Nebraska
-										<option value="NV" />Nevada
-										<option value="NH" />New Hampshire
-										<option value="NJ" />New Jersey
-										<option value="NM" />New Mexico
-										<option value="NY" />New York
-										<option value="NC" />North Carolina
-										<option value="ND" />North Dakota
-										<option value="OH" />Ohio
-										<option value="OK" />Oklahoma
-										<option value="OR" />Oregon
-										<option value="PA" />Pennsylvania
-										<option value="RI" />Rhode Island
-										<option value="SC" />South Carolina
-										<option value="SD" />South Dakota
-										<option value="TN" />Tennessee
-										<option value="TX" />Texas
-										<option value="UT" />Utah
-										<option value="VT" />Vermont
-										<option value="VA" />Virginia
-										<option value="WA" />Washington
-										<option value="WV" />West Virginia
-										<option value="WI" />Wisconsin
-										<option value="WY" />Wyoming
 									</select>								
 									<br/><br/>
 									<input type="text" class="span6" id="idTipoSupuesto" placeholder="Tipo de Supuesto" />
@@ -431,54 +377,6 @@
 									<select id="idselectTipoSupuesto" class="span6" multiple="multiple" size="10">
 										<option value="AL" />Alabama
 										<option value="AK" />Alaska
-										<option value="AZ" />Arizona
-										<option value="AR" />Arkansas
-										<option value="CA" />California
-										<option value="CO" />Colorado
-										<option value="CT" />Connecticut
-										<option value="DE" />Delaware
-										<option value="FL" />Florida
-										<option value="GA" />Georgia
-										<option value="HI" />Hawaii
-										<option value="ID" />Idaho
-										<option value="IL" />Illinois
-										<option value="IN" />Indiana
-										<option value="IA" />Iowa
-										<option value="KS" />Kansas
-										<option value="KY" />Kentucky
-										<option value="LA" />Louisiana
-										<option value="ME" />Maine
-										<option value="MD" />Maryland
-										<option value="MA" />Massachusetts
-										<option value="MI" />Michigan
-										<option value="MN" />Minnesota
-										<option value="MS" />Mississippi
-										<option value="MO" />Missouri
-										<option value="MT" />Montana
-										<option value="NE" />Nebraska
-										<option value="NV" />Nevada
-										<option value="NH" />New Hampshire
-										<option value="NJ" />New Jersey
-										<option value="NM" />New Mexico
-										<option value="NY" />New York
-										<option value="NC" />North Carolina
-										<option value="ND" />North Dakota
-										<option value="OH" />Ohio
-										<option value="OK" />Oklahoma
-										<option value="OR" />Oregon
-										<option value="PA" />Pennsylvania
-										<option value="RI" />Rhode Island
-										<option value="SC" />South Carolina
-										<option value="SD" />South Dakota
-										<option value="TN" />Tennessee
-										<option value="TX" />Texas
-										<option value="UT" />Utah
-										<option value="VT" />Vermont
-										<option value="VA" />Virginia
-										<option value="WA" />Washington
-										<option value="WV" />West Virginia
-										<option value="WI" />Wisconsin
-										<option value="WY" />Wyoming
 									</select>
 								</div>
 						</form>
@@ -521,11 +419,6 @@
 										<option value="AL" />Alabama
 										<option value="AK" />Alaska
 										<option value="AZ" />Arizona
-										<option value="AR" />Arkansas
-										<option value="CA" />California
-										<option value="CO" />Colorado
-										<option value="CT" />Connecticut
-										<option value="DE" />Delaware
 									</select>
 								</div>
 						</form>
@@ -554,24 +447,6 @@
 									<select id="idselectCategoriaAdquisiciones" class="span6" multiple="multiple" size="10">
 										<option value="AL" />Alabama
 										<option value="AK" />Alaska
-										<option value="AZ" />Arizona
-										<option value="AR" />Arkansas
-										<option value="CA" />California
-										<option value="CO" />Colorado
-										<option value="CT" />Connecticut
-										<option value="DE" />Delaware
-										<option value="FL" />Florida
-										<option value="GA" />Georgia
-										<option value="HI" />Hawaii
-										<option value="ID" />Idaho
-										<option value="IL" />Illinois
-										<option value="IN" />Indiana
-										<option value="IA" />Iowa
-										<option value="KS" />Kansas
-										<option value="KY" />Kentucky
-										<option value="LA" />Louisiana
-										<option value="ME" />Maine
-										<option value="MD" />Maryland
 									</select>
 								</div>
 						</form>
@@ -600,24 +475,6 @@
 									<select id="idselectCategoriaAdquisiciones" class="span6" multiple="multiple" size="10">
 										<option value="AL" />Alabama
 										<option value="AK" />Alaska
-										<option value="AZ" />Arizona
-										<option value="AR" />Arkansas
-										<option value="CA" />California
-										<option value="CO" />Colorado
-										<option value="CT" />Connecticut
-										<option value="DE" />Delaware
-										<option value="FL" />Florida
-										<option value="GA" />Georgia
-										<option value="HI" />Hawaii
-										<option value="ID" />Idaho
-										<option value="IL" />Illinois
-										<option value="IN" />Indiana
-										<option value="IA" />Iowa
-										<option value="KS" />Kansas
-										<option value="KY" />Kentucky
-										<option value="LA" />Louisiana
-										<option value="ME" />Maine
-										<option value="MD" />Maryland
 									</select>
 								</div>
 						</form>
@@ -647,23 +504,6 @@
 										<option value="AL" />Alabama
 										<option value="AK" />Alaska
 										<option value="AZ" />Arizona
-										<option value="AR" />Arkansas
-										<option value="CA" />California
-										<option value="CO" />Colorado
-										<option value="CT" />Connecticut
-										<option value="DE" />Delaware
-										<option value="FL" />Florida
-										<option value="GA" />Georgia
-										<option value="HI" />Hawaii
-										<option value="ID" />Idaho
-										<option value="IL" />Illinois
-										<option value="IN" />Indiana
-										<option value="IA" />Iowa
-										<option value="KS" />Kansas
-										<option value="KY" />Kentucky
-										<option value="LA" />Louisiana
-										<option value="ME" />Maine
-										<option value="MD" />Maryland
 									</select>
 								</div>
 						</form>
@@ -675,6 +515,7 @@
 	</div>
 </div>
 
+	<!-- [INI] ELIMINAR TIPO PROYECTO -->
 	<form id="formEliminarTipoProyecto">
 		<div id="eliminarTipoProyecto" class="modal hide fade" tabindex="-1">
 			<div class="modal-header no-padding">
@@ -699,4 +540,32 @@
 
 		</div>
 	</form>
+	<!-- [FIN] ELIMINAR TIPO PROYECTO -->
+
+	<!-- [INI] ELIMINAR ESTADO PROYECTO -->
+	<form id="formEliminarEstadoProyecto">
+		<div id="eliminarEstadoProyecto" class="modal hide fade" tabindex="-1">
+			<div class="modal-header no-padding">
+				<div class="table-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+			</div>
+
+			<div class="modal-body padding">
+				<b style="text-align: center">¿SEGURO DE ELIMINAR? </b> <input
+					type="hidden" name="idEstadoProyecto" id="idEstadoProyecto" />
+			</div>
+
+			<div class="modal-footer">
+				<button class="btn btn-small btn-primary" type="submit">
+					<i class="icon-ok"></i> Confirmar
+				</button>
+				<button class="btn btn-small btn-light" data-dismiss="modal">
+					<i class="icon-remove"></i> Salir
+				</button>
+			</div>
+
+		</div>
+	</form>
+	<!-- [FIN] ELIMINAR ESTADO PROYECTO -->
 </div>

@@ -41,20 +41,10 @@
 					<%-- <security:authorize access="hasAnyRole('ROLE_BIENESTAR_JEFE','ROLE_BIENESTAR_ASISTENTA','ROLE_ALUMNO')"> --%>
 						<!-- ANTEPROYECTO  -->
 						<li id="idAnteproyecto">
-							<a href="#" class="dropdown-toggle">
-								<i class="icon-double-angle-right"></i> Anteproyecto<b class="arrow icon-angle-down"></b>
+							<a href="../anteproyecto/anteproyecto.htm">
+								<i class="icon-double-angle-right"></i> Anteproyecto
 							</a>
-							<ul class="submenu">								
-								<!-- ------------------------------------------------------ -->
-								<%-- <security:authorize access="hasAnyRole('ROLE_BIENESTAR_JEFE')"> --%>
-									<li id="bienestar_historial">
-										<a href="../bienestar/historiaSocial.htm">
-											<i class="icon-align-justify"></i> Paso 1 
-										</a>
-									</li>
-								<%-- </security:authorize> --%>
-								<!-- ------------------------------------------------------ -->
-							</ul></li>
+						</li>
 					<%-- </security:authorize> --%>
 					<%-- <security:authorize access="hasAnyRole('ROLE_BIENESTAR_JEFE','ROLE_BIENESTAR_ASISTENTA','ROLE_ALUMNO')"> --%>
 						<!-- PLANIFICACION  -->
@@ -95,20 +85,10 @@
 					<%-- <security:authorize access="hasAnyRole('ROLE_BIENESTAR_JEFE','ROLE_BIENESTAR_ASISTENTA','ROLE_ALUMNO')"> --%>
 						<!-- CIERRE  -->
 						<li id="idCierre">
-							<a href="#" class="dropdown-toggle">
-								<i class="icon-double-angle-right"></i> Cierre<b class="arrow icon-angle-down"></b>
+							<a href="../cierre/cierre.htm" >
+								<i class="icon-double-angle-right"></i> Cierre
 							</a>
-							<ul class="submenu">								
-								<!-- ------------------------------------------------------ -->
-								<%-- <security:authorize access="hasAnyRole('ROLE_BIENESTAR_JEFE')"> --%>
-									<li id="bienestar_historial1">
-										<a href="../bienestar/historiaSocial.htm">
-											<i class="icon-align-justify"></i> Paso 1
-										</a>
-									</li>
-								<%-- </security:authorize> --%>
-								<!-- ------------------------------------------------------ -->
-							</ul></li>
+						</li>
 					<%-- </security:authorize> --%>
 
 

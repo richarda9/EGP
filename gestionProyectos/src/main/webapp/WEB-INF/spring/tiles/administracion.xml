@@ -9,5 +9,45 @@
 		<put-attribute name="contenido" value="/WEB-INF/views/administracion/asociadoProyecto/asociadoProyectoContenido.jsp" />
 		<put-attribute name="js2" value="/WEB-INF/views/administracion/asociadoProyecto/asociadoProyectoJs.jsp" />
 	</definition>
+	
+	<definition name="asociadoEntregable" extends="templateSistema">
+		<put-attribute name="css2" value="/WEB-INF/views/administracion/asociadoEntregable/asociadoEntregableCss.jsp" />
+		<put-attribute name="contenido" value="/WEB-INF/views/administracion/asociadoEntregable/asociadoEntregableContenido.jsp" />
+		<put-attribute name="js2" value="/WEB-INF/views/administracion/asociadoEntregable/asociadoEntregableJs.jsp" />
+	</definition>
+	
+	<definition name="tipoCambio" extends="templateSistema">
+		<put-attribute name="css2" value="/WEB-INF/views/administracion/tipoCambio/tipoCambioCss.jsp" />
+		<put-attribute name="contenido" value="/WEB-INF/views/administracion/tipoCambio/tipoCambioContenido.jsp" />
+		<put-attribute name="js2" value="/WEB-INF/views/administracion/tipoCambio/tipoCambioJs.jsp" />
+	</definition>
+	
+	<!-- [INI] CIERRE PROYECTO -->
+	<definition name="cierre" extends="templateSistema">
+		<put-attribute name="css2" value="/WEB-INF/views/cierre/busqueda/cierreCss.jsp" />
+		<put-attribute name="contenido" value="/WEB-INF/views/cierre/busqueda/cierreContenido.jsp" />
+		<put-attribute name="js2" value="/WEB-INF/views/cierre/busqueda/cierreJs.jsp" />
+	</definition>
+	
+	<definition name="mntCierre" extends="templateSistema">
+		<put-attribute name="css2" value="/WEB-INF/views/cierre/mantenimiento/mntCierreCss.jsp" />
+		<put-attribute name="contenido" value="/WEB-INF/views/cierre/mantenimiento/mntCierreContenido.jsp" />
+		<put-attribute name="js2" value="/WEB-INF/views/cierre/mantenimiento/mntCierreJs.jsp" />
+	</definition>
+	<!-- [FIN] CIERRE PROYECTO -->
+	
+	<!-- [INI] ANTEPROYECTO PROYECTO -->
+	<definition name="anteproyecto" extends="templateSistema">
+		<put-attribute name="css2" value="/WEB-INF/views/anteproyecto/busqueda/anteproyectoCss.jsp" />
+		<put-attribute name="contenido" value="/WEB-INF/views/anteproyecto/busqueda/anteproyectoContenido.jsp" />
+		<put-attribute name="js2" value="/WEB-INF/views/anteproyecto/busqueda/anteproyectoJs.jsp" />
+	</definition>
+	
+	<definition name="mntAnteproyecto" extends="templateSistema">
+		<put-attribute name="css2" value="/WEB-INF/views/anteproyecto/mantenimiento/mntAnteproyectoCss.jsp" />
+		<put-attribute name="contenido" value="/WEB-INF/views/anteproyecto/mantenimiento/mntAnteproyectoContenido.jsp" />
+		<put-attribute name="js2" value="/WEB-INF/views/anteproyecto/mantenimiento/mntAnteproyectoJs.jsp" />
+	</definition>
+	<!-- [FIN] ANTEPROYECTO PROYECTO -->
 
 </tiles-definitions>
