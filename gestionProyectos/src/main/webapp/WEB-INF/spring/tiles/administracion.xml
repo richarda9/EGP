@@ -49,5 +49,19 @@
 		<put-attribute name="js2" value="/WEB-INF/views/anteproyecto/mantenimiento/mntAnteproyectoJs.jsp" />
 	</definition>
 	<!-- [FIN] ANTEPROYECTO PROYECTO -->
+	
+	<!-- [INI] PLANIFICACION PROYECTO -->
+	<definition name="planificacion" extends="templateSistema">
+		<put-attribute name="css2" value="/WEB-INF/views/planificacion/busqueda/planificacionCss.jsp" />
+		<put-attribute name="contenido" value="/WEB-INF/views/planificacion/busqueda/planificacionContenido.jsp" />
+		<put-attribute name="js2" value="/WEB-INF/views/planificacion/busqueda/planificacionJs.jsp" />
+	</definition>
+	
+	<definition name="mntPlanificacion" extends="templateSistema">
+		<put-attribute name="css2" value="/WEB-INF/views/planificacion/mantenimiento/mntPlanificacionCss.jsp" />
+		<put-attribute name="contenido" value="/WEB-INF/views/planificacion/mantenimiento/mntPlanificacionContenido.jsp" />
+		<put-attribute name="js2" value="/WEB-INF/views/planificacion/mantenimiento/mntPlanificacionJs.jsp" />
+	</definition>
+	<!-- [FIN] ANTEPROYECTO PROYECTO -->
 
 </tiles-definitions>

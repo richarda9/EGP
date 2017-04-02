@@ -24,7 +24,7 @@ public interface AdministracionService
 		
 	//[INI] TIPO REQUISITO PROYECTO
 	public int registrarTipoRequisitoProyecto(TipoRequisito param);
-	public HashMap listarTipoRequisitoProyecto();
+	public List<HashMap> listarTipoRequisitoProyecto();
 	public void eliminarTipoRequisitoProyecto(Integer id);
 	//[FIN] TIPO REQUISITO PROYECTO
 

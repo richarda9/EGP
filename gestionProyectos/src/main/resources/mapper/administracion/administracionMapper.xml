@@ -51,7 +51,7 @@
 	<!-- [INI] TIPO REQUISITO -->
 	<insert id="registrarTipoRequisitoProyecto" parameterType="TipoRequisito">
 		insert into "PLANIFICAR_PROYECTO"."TIPO_REQUISITO"
-		values(nextval('"CREAR_PROYECTO".sq_estado_proyecto'), #{descripcion}, #{estado});
+		values(nextval('"CREAR_PROYECTO".sq_estado_proyecto'), #{descripcion}, #{estado}, #{idTipoProyecto});
 	</insert>
 	
 	<select id="listarTipoRequisitoProyecto" resultType="hashmap">

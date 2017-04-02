@@ -25,7 +25,7 @@ public interface AdministracionDao
 		
 	//[INI] ESTADO PROYECTO
 	public void registrarTipoRequisitoProyecto(TipoRequisito param);
-	public HashMap listarTipoRequisitoProyecto();
+	public List<HashMap> listarTipoRequisitoProyecto();
 	public void eliminarTipoRequisitoProyecto(Integer id);
 	public int buscarTipoRequisitoProyecto(TipoRequisito param);
 	//[FIN] ESTADO PROYECTO

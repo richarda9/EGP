@@ -370,7 +370,7 @@
 							<div class="row-fluid">
 								<fieldset>
 									<legend>Interesados</legend>
-									<div class="span2">
+									<div class="span6">
 										<div class="control-group">
 <!-- 												<label class="control-label" for="idEmpresa">Empresa</label> -->
 											<div class="controls">
@@ -378,7 +378,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="span5">
+									<div class="span3">
 										<div class="control-group">
 <!-- 												<label class="control-label" for="idEmpresa">Empresa</label> -->
 											<div class="controls">

@@ -96,7 +96,7 @@ public class AdministracionController
 	}
 	
 	@RequestMapping(value = "/listar_tipoRequisitoProyecto.htm", method = RequestMethod.POST)
-	public @ResponseBody HashMap listarTipoRequisitoProyecto(@RequestBody int dato) 
+	public @ResponseBody List<HashMap> listarTipoRequisitoProyecto(@RequestBody int dato) 
 	{	
 		return administracionService.listarTipoRequisitoProyecto();
 	}

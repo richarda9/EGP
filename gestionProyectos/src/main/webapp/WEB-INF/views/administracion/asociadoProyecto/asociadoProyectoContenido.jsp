@@ -53,11 +53,10 @@
 						<form class="form-horizontal" id="registrarTipoProyecto">
 								<div class="row-fluid">
 								<div class="control-group">
-<!-- 									<label class="control-label" for="email">Email Address:</label> -->
-
+									<label class="control-label" for="descripcionTipoProyecto">Tipo de Proyecto:</label>
 									<div class="controls">
 										<div class="span12">
-											<input type="text" class="span6" id="descripcionTipoProyecto" 
+											<input type="text" class="span12" id="descripcionTipoProyecto" 
 													name="descripcion" placeholder="Tipo de Proyecto" />
 										</div>
 									</div>
@@ -67,109 +66,115 @@
 								    </button>								    
 								</div>								
 						</form>
-																
-								<hr/>
-								
-								<div class="table-header">
-									Lista Tipo de Proyecto
-								</div>
-								<table id="tablaTipoProyecto" class="table table-striped table-bordered table-hover">
-									<thead>
-										<tr>
-											<th class="center">
-												<label>
-													<span class="lbl"></span>
-												</label>
-											</th>
-											<th>Descripci&oacute;n</th>
-											<th>Estado</th>
-											<th></th>
-										</tr>
-									</thead>
-
-									<tbody>
-										<c:forEach var="tipoProyecto" items="${model.listaTipoProyecto}" varStatus="contador">
-											<tr>
-												<td class="center">
-													<label>
-														<c:out value="${contador.count}"/>
-													</label>
- 												</td>
-												<td><c:out value="${tipoProyecto.descripcion}"></c:out></td>
-												<c:choose>
-													<c:when test="${tipoProyecto.estado == 1}">
-														<td class="hidden-480"> 
-															<span class="label label-info"><b>ACTIVO</b></span>
- 														</td>
-													</c:when>
-													<c:otherwise>
-														<td class="hidden-480"> 
-															<span class="label label-danger"><b>INACTIVO</b></span>
- 														</td>
-													</c:otherwise>
-												</c:choose>
-												<td class="td-actions">
-													<div class="hidden-phone visible-desktop action-buttons">
-														<a class="abrir-eliminarTproyecto red" href="#eliminarTipoProyecto" data-toggle="modal" data-id="${tipoProyecto.id}">
-															<i class="icon-trash bigger-130" data-rel="tooltip" title="Eliminar"> </i>
-														</a>
-													</div>
-
-													<div class="hidden-desktop visible-phone">
-														<div class="inline position-relative">
-															<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
-																<i class="icon-caret-down icon-only bigger-120"></i>
-															</button>
-	
-															<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
-																<li>
-																	<a href="##eliminarTipoProyecto" class="abrir-eliminarTproyecto tooltip-error" 
-																		data-rel="tooltip" title="Eliminar" data-toggle="modal" data-id="${tipoProyecto.id}">
-																		<span class="red">
-																			<i class="icon-trash bigger-120"></i>
-																		</span>
-																	</a>
-																</li>
-															</ul>
-														</div>
-													</div>
-												</td>
-											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
 					</div>
 				</div>
-				<!--/row-fluid-->
+				<hr/>
+				<c:if test="${not empty model.listaTipoProyecto}">
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="table-header center">
+							<b>LISTA TIPO DE PROYECTO</b> 
+						</div>
+						<table id="tablaTipoProyecto" class="table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th class="center">
+										<label>
+											<span class="lbl"></span>
+										</label>
+									</th>
+									<th>Descripci&oacute;n</th>
+									<th>Estado</th>
+									<th></th>
+								</tr>
+							</thead>
 
+							<tbody>
+								<c:forEach var="tipoProyecto" items="${model.listaTipoProyecto}" varStatus="contador">
+									<tr>
+										<td class="center">
+											<label>
+												<c:out value="${contador.count}"/>
+											</label>
+											</td>
+										<td><c:out value="${tipoProyecto.descripcion}"></c:out></td>
+										<c:choose>
+											<c:when test="${tipoProyecto.estado == 1}">
+												<td class="hidden-480"> 
+													<span class="label label-info"><b>ACTIVO</b></span>
+													</td>
+											</c:when>
+											<c:otherwise>
+												<td class="hidden-480"> 
+													<span class="label label-danger"><b>INACTIVO</b></span>
+													</td>
+											</c:otherwise>
+										</c:choose>
+										<td class="td-actions">
+											<div class="hidden-phone visible-desktop action-buttons">
+												<a class="abrir-eliminarTproyecto red" href="#eliminarTipoProyecto" data-toggle="modal" data-id="${tipoProyecto.id}">
+													<i class="icon-trash bigger-130" data-rel="tooltip" title="Eliminar"> </i>
+												</a>
+											</div>
+
+											<div class="hidden-desktop visible-phone">
+												<div class="inline position-relative">
+													<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+														<i class="icon-caret-down icon-only bigger-120"></i>
+													</button>
+
+													<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+														<li>
+															<a href="##eliminarTipoProyecto" class="abrir-eliminarTproyecto tooltip-error" 
+																data-rel="tooltip" title="Eliminar" data-toggle="modal" data-id="${tipoProyecto.id}">
+																<span class="red">
+																	<i class="icon-trash bigger-120"></i>
+																</span>
+															</a>
+														</li>
+													</ul>
+												</div>
+											</div>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				</c:if>
+				<!--/row-fluid-->
 				<div class="space-20"></div>
 			</div>
 			<!-- [FIN] TIPO DE PROYECTO -->
 
 			<!-- [INI] ESTADO DE PROYECTO -->
-				<div id="estadoProyecto" class="tab-pane">
-					<div class="row-fluid">
-						<div class="span9 center">
-							<form class="form-horizontal" id="registrarEstadoProyecto">
-								<div class="row-fluid">
-									<div class="control-group">
-	<!-- 									<label class="control-label" for="email">Email Address:</label> -->
-										<div class="controls">
-											<div class="span12">
-												<input type="text" class="span6" id="descripcionEstadoProyecto"
-											name="descripcion" placeholder="Estado de Proyecto" />
-											</div>
+			<div id="estadoProyecto" class="tab-pane">
+				<div class="row-fluid">
+					<div class="span9 center">
+						<form class="form-horizontal" id="registrarEstadoProyecto">
+							<div class="row-fluid">
+								<div class="control-group">
+									<label class="control-label" for="descripcionEstadoProyecto">Estado de Proyecto:</label>
+									<div class="controls">
+										<div class="span12">
+											<input type="text" class="span12" id="descripcionEstadoProyecto"
+										name="descripcion" placeholder="Estado de Proyecto" />
 										</div>
 									</div>
-									<button type="submit" class="btn btn-small btn-primary">
-										<i class="icon-save bigger-125"></i> Agregar
-									</button>
 								</div>
-							</form>
-
-							<hr />
-
-							<div class="table-header">Lista Estado de Proyecto</div>
+								<button type="submit" class="btn btn-small btn-primary">
+									<i class="icon-save bigger-125"></i> Agregar
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<hr />
+				<c:if test="${not empty model.listaEstadoProyecto}">
+					<div class="row-fluid">
+						<div class="span12">
+							<div class="table-header center">Lista Estado de Proyecto</div>
 							<table id="tablaEstadoProyecto"
 								class="table table-striped table-bordered table-hover">
 								<thead>
@@ -236,8 +241,9 @@
 							</table>
 						</div>
 					</div>
-				</div>
-				<!-- [FIN] ESTADO DE PROYECTO -->
+				</c:if>
+			</div>
+			<!-- [FIN] ESTADO DE PROYECTO -->
 
 			<!-- [INI] TIPO DE REQUISITO -->
 			<div id="tipoRequisito" class="tab-pane">
@@ -246,10 +252,10 @@
 						<form class="form-horizontal" id="registrarTipoRequisito">
 								<div class="row-fluid">
 									<div class="control-group">
-	<!-- 									<label class="control-label" for="email">Email Address:</label> -->
+										<label class="control-label" for="idTipoProyecto">Tipo de Proyecto:</label>
 										<div class="controls">
 											<div class="span12">
-												<select id="idTipoProyectoReq" name="idTipoProyecto" class="span6" title="Tipo de Proyecto">
+												<select id="idTipoProyectoReq" name="idTipoProyecto" class="span12" title="Tipo de Proyecto">
 													<option value="">Seleccionar</option>
 													<c:forEach var="tipoProyecto" items="${model.listaTipoProyecto}" varStatus="contador">
 													   <option value="${tipoProyecto.id}">${tipoProyecto.descripcion}</option>
@@ -260,10 +266,10 @@
 									</div>
 									
 									<div class="control-group">
-	<!-- 									<label class="control-label" for="email">Email Address:</label> -->
+										<label class="control-label" for="idReqProyecto">Descripcion:</label>
 										<div class="controls">
 											<div class="span12">
-												<input type="text" class="span6" id="idReqProyecto" name="descripcion" placeholder="Tipo de Requisito" />
+												<input type="text" class="span12" id="idReqProyecto" name="descripcion" placeholder="Tipo de Requisito" />
 											</div>
 										</div>
 									</div>								
@@ -272,11 +278,14 @@
 								    </button>		
 								</div>							
 						</form>															
-						
-						<hr/>	
-						
-						<div class="table-header">Lista Tipo de Requisito de Proyecto</div>
-								<table id="tablaTipoRequisitoProyecto"
+					</div>
+				</div>
+				<hr/>	
+				<c:if test="${not empty model.listaTipoRequisito}">
+					<div class="row-fluid">
+						<div class="span12">
+							<div class="table-header center">Lista Tipo de Requisito de Proyecto</div>
+							<table id="tablaTipoRequisitoProyecto"
 								class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
@@ -296,6 +305,7 @@
 											<td class="center">												
 												<c:out value="${contador.count}"/>
 											</td>
+											<td><c:out value="${tiporequisitoProyecto.dsc_tipoproyecto}"></c:out></td>
 											<td><c:out value="${tiporequisitoProyecto.descripcion}"></c:out></td>
 											<c:choose>
 												<c:when test="${tiporequisitoProyecto.estado == 1}">
@@ -324,15 +334,16 @@
 															<i class="icon-caret-down icon-only bigger-120"></i>
 														</button>
 
-														<ul
-															class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
-															<li><a href="#eliminarEstadoProyecto"
-																class="abrir-eliminarEproyecto tooltip-error"
-																data-rel="tooltip" title="Eliminar" data-toggle="modal"
-																data-id="${estadoProyecto.id}"> <span class="red">
-																		<i class="icon-trash bigger-120"></i>
-																</span>
-															</a></li>
+														<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+															<li>
+																<a href="#eliminarEstadoProyecto"
+																	class="abrir-eliminarEproyecto tooltip-error"
+																	data-rel="tooltip" title="Eliminar" data-toggle="modal"
+																	data-id="${tiporequisitoProyecto.id}"> <span class="red">
+																			<i class="icon-trash bigger-120"></i>
+																	</span>
+																</a>
+															</li>
 														</ul>
 													</div>
 												</div>
@@ -341,8 +352,9 @@
 									</c:forEach>
 								</tbody>
 							</table>
+						</div>					
 					</div>
-				</div>
+				</c:if>
 			</div>
 			<!-- [FIN] TIPO DE REQUISITO -->
 

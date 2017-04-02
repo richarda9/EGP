@@ -5,17 +5,23 @@
 $(function() {
 		 $('#tablaTipoProyecto').DataTable({
 				"paging" : true,
-				"autoWidth": true
+				"autoWidth": true,
+				 "language": {
+			            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+			        }
 			});
 		 
 		 $('#tablaEstadoProyecto').DataTable({
 				"paging" : true,
-				"autoWidth": true
+				"autoWidth": true,
+				 "language": {
+			            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+			        }
 			});
 });	
 //[FIN] CARGA DE TABLAS
 
-//[INI] TIPO PROYECTO
+//#################################################### [INI] TIPO PROYECTO ####################################################
 //Validar tipo proyecto
 $('#registrarTipoProyecto').validate({
 	errorClass: 'help-block',
@@ -138,9 +144,9 @@ $("#formEliminarTipoProyecto").submit(
 			
 		return false;
 });
-//[FIN] TIPO PROYECTO
+//#################################################### [FIN] TIPO PROYECTO ####################################################
 
-//[INI] ESTADO PROYECTO
+//#################################################### [INI] ESTADO PROYECTO ##################################################
 //Validar estado proyecto
 $('#registrarEstadoProyecto').validate({
 	errorClass: 'help-block',
@@ -263,8 +269,8 @@ $("#formEliminarEstadoProyecto").submit(
 			
 		return false;
 });
-//[FIN] ESTADO PROYECTO
-//[INI] TIPO REQUISITO
+//#################################################### [FIN] ESTADO PROYECTO ####################################################
+//#################################################### [INI] TIPO REQUISITO #####################################################
 //validar tipo requisito
 $('#registrarTipoRequisito').validate({
 	errorClass: 'help-block',
@@ -307,7 +313,7 @@ function registrarTipoRequisitoProyecto()
 				class_name: 'gritter-info gritter-light'
 			});
 			
-			listarEstadoProyecto();
+			listarTipoRequisitoProyecto();
 		}else if(data == 1){
 			$.gritter.add({
 				title: 'Advertencia!',
@@ -328,6 +334,38 @@ function registrarTipoRequisitoProyecto()
 	});
 	
 	$("#descripcionEstadoProyecto").val('');	
+};
+
+//Listar tipo Requisito proyectos
+function listarTipoRequisitoProyecto() {
+	var t = $("#tablaTipoRequisitoProyecto").DataTable();
+	t.clear().draw();
+	var dato = 1;
+	$.postJSON('${pageContext.request.contextPath}/administracion/listarTipoRequisitoProyecto.htm',dato,
+		function(data) {
+			console.log(data);
+			for (i in data) {
+				var descripcion = data[i].descripcion;
+				var activado = '';
+				if (data[i].estado == 1) {
+					activado = '<span class="label label-info"><b>ACTIVO</b></span>';
+				} else {
+					activado = '<span class="label label-danger"><b>INACTIVO</b></span>';
+				}
+							 
+				var accion = '<td class="td-actions">'+'<div class="hidden-phone visible-desktop action-buttons">'+
+							 '<a class="abrir-eliminarEproyecto red" href="#eliminarEstadoProyecto" data-toggle="modal" data-id="'+ data[i].id+'">'+
+							 '<i class="icon-trash bigger-130" data-rel="tooltip" title="Eliminar"></i></a></div>'+
+							 '<div class="hidden-desktop visible-phone"><div class="inline position-relative">'+
+							 '<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">'+
+							 '<i class="icon-caret-down icon-only bigger-120"></i></button>'+
+							 '<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">'+ 
+							 '<li><a href="#eliminarEstadoProyecto" class="abrir-eliminarEproyecto tooltip-error" data-rel="tooltip"'+
+							 ' title="Eliminar" data-toggle="modal" data-id="'+data[i].id+'"> <span class="red">'+
+							 '<i class="icon-trash bigger-120"></i></span></a></li></ul></div></div></td>';
+				t.row.add([++i, descripcion, activado, accion ]).draw();
+			}
+		});
 };
 //[FIN] TIPO REQUISITO
 </script>

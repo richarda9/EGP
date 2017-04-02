@@ -71,7 +71,7 @@ public class AdministracionServiceImp implements AdministracionService
 		return ind;
 	}
 
-	public HashMap listarTipoRequisitoProyecto() {
+	public List<HashMap> listarTipoRequisitoProyecto() {
 		return administracionDao.listarTipoRequisitoProyecto();
 	}
 

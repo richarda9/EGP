@@ -49,20 +49,10 @@
 					<%-- <security:authorize access="hasAnyRole('ROLE_BIENESTAR_JEFE','ROLE_BIENESTAR_ASISTENTA','ROLE_ALUMNO')"> --%>
 						<!-- PLANIFICACION  -->
 						<li id="idPlanificacion">
-							<a href="#" class="dropdown-toggle">
-								<i class="icon-double-angle-right"></i> Planificaci&oacute;n<b class="arrow icon-angle-down"></b>
+							<a href="../planificacion/planificacion.htm">
+								<i class="icon-double-angle-right"></i> Planificaci&oacute;n
 							</a>
-							<ul class="submenu">								
-								<!-- ------------------------------------------------------ -->
-								<%-- <security:authorize access="hasAnyRole('ROLE_BIENESTAR_JEFE')"> --%>
-									<li id="bienestar_historial">
-										<a href="../bienestar/historiaSocial.htm">
-											<i class="icon-align-justify"></i> Paso 1 
-										</a>
-									</li>
-								<%-- </security:authorize> --%>
-								<!-- ------------------------------------------------------ -->
-							</ul></li>
+						</li>
 					<%-- </security:authorize> --%>
 					<%-- <security:authorize access="hasAnyRole('ROLE_BIENESTAR_JEFE','ROLE_BIENESTAR_ASISTENTA','ROLE_ALUMNO')"> --%>
 						<!-- EJECUCION  -->
