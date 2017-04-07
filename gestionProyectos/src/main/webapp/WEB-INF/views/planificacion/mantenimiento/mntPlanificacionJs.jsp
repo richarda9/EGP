@@ -114,7 +114,7 @@ $(function()
 		"autoWidth": true,
 		"pageLength": 10,
 		"searching": false,
-		"bLengthChange": false,
+		//"bLengthChange": false,
 		"language": {
 	            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
 	        }
@@ -125,7 +125,7 @@ $(function()
 		"autoWidth": true,
 		"pageLength": 10,
 		"searching": false,
-		"bLengthChange": false,
+		//"bLengthChange": false,
 		"language": {
 	            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
 	        }
@@ -136,7 +136,7 @@ $(function()
 		"autoWidth": true,
 		"pageLength": 10,
 		"searching": false,
-		"bLengthChange": false,
+		//"bLengthChange": false,
 		"language": {
 	            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
 	        }
@@ -147,7 +147,7 @@ $(function()
 		"autoWidth": true,
 		"pageLength": 10,
 		"searching": false,
-		"bLengthChange": false,
+		//"bLengthChange": false,
 		"language": {
 	            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
 	        }
@@ -158,7 +158,7 @@ $(function()
 		"autoWidth": true,
 		"pageLength": 10,
 		"searching": false,
-		"bLengthChange": false,
+		//"bLengthChange": false,
 		"language": {
 	            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
 	        }
@@ -191,11 +191,45 @@ $(function()
 		"autoWidth": true,
 		"pageLength": 10,
 		"searching": false,
-		"bLengthChange": false,
+		//"bLengthChange": false,
 		"language": {
 	            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
 	        }
 	});
+	
+	$('#tablaRiesgosProyecto').DataTable({
+		"paging" : true,
+		"autoWidth": true,
+		"pageLength": 10,
+		"searching": false,
+		//"bLengthChange": false,
+		"language": {
+	            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+	        }
+	});
+	
+	$('#tablaAdquisicionesProyecto').DataTable({
+		"paging" : true,
+		"autoWidth": true,
+		"pageLength": 10,
+		"searching": false,
+		//"bLengthChange": false,
+		"language": {
+	            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+	        }
+	});
+	
+	$('#tablaCostosProyecto').DataTable({
+		"paging" : true,
+		"autoWidth": true,
+		"pageLength": 10,
+		"searching": false,
+		//"bLengthChange": false,
+		"language": {
+	            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+	        }
+	});	
+	
 				
 });
 </script>

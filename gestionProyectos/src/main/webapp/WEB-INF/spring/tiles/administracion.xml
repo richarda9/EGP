@@ -62,6 +62,20 @@
 		<put-attribute name="contenido" value="/WEB-INF/views/planificacion/mantenimiento/mntPlanificacionContenido.jsp" />
 		<put-attribute name="js2" value="/WEB-INF/views/planificacion/mantenimiento/mntPlanificacionJs.jsp" />
 	</definition>
-	<!-- [FIN] ANTEPROYECTO PROYECTO -->
+	<!-- [FIN] PLANIFICACION PROYECTO -->
+	
+	<!-- [INI] EJECUCION PROYECTO -->
+	<definition name="ejecucion" extends="templateSistema">
+		<put-attribute name="css2" value="/WEB-INF/views/ejecucion/busqueda/ejecucionCss.jsp" />
+		<put-attribute name="contenido" value="/WEB-INF/views/ejecucion/busqueda/ejecucionContenido.jsp" />
+		<put-attribute name="js2" value="/WEB-INF/views/ejecucion/busqueda/ejecucionJs.jsp" />
+	</definition>
+	
+	<definition name="mntEjecucion" extends="templateSistema">
+		<put-attribute name="css2" value="/WEB-INF/views/ejecucion/mantenimiento/mntEjecucionCss.jsp" />
+		<put-attribute name="contenido" value="/WEB-INF/views/ejecucion/mantenimiento/mntEjecucionContenido.jsp" />
+		<put-attribute name="js2" value="/WEB-INF/views/ejecucion/mantenimiento/mntEjecucionJs.jsp" />
+	</definition>
+	<!-- [FIN] EJECUCION PROYECTO -->
 
 </tiles-definitions>

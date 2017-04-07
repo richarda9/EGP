@@ -1,4 +1,4 @@
-package com.sigcomt.gestionProyectos.controlador.planificacion;
+package com.sigcomt.gestionProyectos.controlador.ejecucion;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -7,20 +7,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping(value = "/planificacion")
-public class PlanificacionController 
+@RequestMapping(value = "/ejecucion")
+public class EjecucionController 
 {
-	protected final Log logger = LogFactory.getLog(getClass());
-	
-	@RequestMapping(value = "/planificacion.htm")
-	public ModelAndView planificacion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+
+	@RequestMapping(value = "/ejecucion.htm")
+	public ModelAndView ejecucion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		HashMap<String, Object> myModel = new HashMap<String, Object>();
 		String index = request.getParameter("idanteproyecto");
@@ -28,19 +25,19 @@ public class PlanificacionController
 //		myModel.put("listaEstadoProyecto", this.administracionService.listarEstadoProyecto());
 //		myModel.put("listaTipoRequisito", this.administracionService.listarTipoRequisitoProyecto());
 		
-		return new ModelAndView("planificacion", "model", myModel);
+		return new ModelAndView("ejecucion", "model", myModel);
 	}
 	
-	@RequestMapping(value = "/mntPlanificacion.htm")
-	public ModelAndView mntPlanificacion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	@RequestMapping(value = "/mntEjecucion.htm")
+	public ModelAndView mntEjecucion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		HashMap<String, Object> myModel = new HashMap<String, Object>();
-		String index = request.getParameter("idPlanificacion");
+		String index = request.getParameter("idEjecucion");
 //		myModel.put("listaTipoProyecto", this.administracionService.listarTipoProyecto());
 //		myModel.put("listaEstadoProyecto", this.administracionService.listarEstadoProyecto());
 //		myModel.put("listaTipoRequisito", this.administracionService.listarTipoRequisitoProyecto());
 		
-		return new ModelAndView("mntPlanificacion", "model", myModel);
+		return new ModelAndView("mntEjecucion", "model", myModel);
 	}
 
 }

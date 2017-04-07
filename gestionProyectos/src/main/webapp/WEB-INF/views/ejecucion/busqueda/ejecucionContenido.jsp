@@ -109,7 +109,7 @@
 					<th>Tipo de Proyecto</th>
 					<th>Fecha de Inicio</th>
 					<th>Responsable</th>
-					<th></th>
+					<th>Opciones</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -122,7 +122,7 @@
 					<td class="td-actions">
 						<div class="hidden-phone visible-desktop action-buttons">
 							<a class="abrir-eliminarEproyecto red"
-								href="../planificacion/mntPlanificacion.htm?idPlanificacion=1" data-toggle="modal"
+								href="../ejecucion/mntEjecucion.htm?idEjecucion=1" data-toggle="modal"
 								data-id="${estadoProyecto.id}"> <i
 								class="icon-edit bigger-130" data-rel="tooltip"
 								title="Editar"> </i>
@@ -138,7 +138,7 @@
 	
 								<ul
 									class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
-									<li><a href="../planificacion/mntPlanificacion.htm?idPlanificacion=1"
+									<li><a href="../ejecucion/mntEjecucion.htm?idEjecucion=1"
 										class="abrir-eliminarEproyecto tooltip-error"
 										data-rel="tooltip" title="Editar" data-toggle="modal"
 										data-id="${estadoProyecto.id}"> <span class="red">

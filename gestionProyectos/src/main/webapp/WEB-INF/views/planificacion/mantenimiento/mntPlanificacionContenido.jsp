@@ -61,7 +61,7 @@
 					</li>
 
 					<li>
-						<a data-toggle="tab" href="#costosOperaciones">
+						<a data-toggle="tab" href="#costosOperativos">
 							<i class="icon-rocket"></i>
 							Costos Operativos
 						</a>
@@ -91,6 +91,17 @@
 
 				<div class="tab-content">
 					<div id="dscProducto" class="tab-pane in active">
+						<div class="row-fluid">
+							<div class="span12">
+								<div class="span9">Descripci&oacute;n del Producto del Proyecto</div>
+								<div class="span3">
+									<button class="btn btn-info span12">
+										<i class="icon-plus bigger-125"></i>
+										Importar Plantilla
+									</button>
+								</div>
+							</div>
+						</div>
 						<br>
 						<div class="wysiwyg-editor" id="editor1"></div>
 					</div>
@@ -340,10 +351,10 @@
 					</div>
 
 					<div id="recursoHumanos" class="tab-pane">
-						<div id="accordion2" class="accordion">
+						<div id="accordion3" class="accordion">
 							<div class="accordion-group">
 								<div class="accordion-heading">
-									<a href="#OrgEquipo" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle collapsed">
+									<a href="#OrgEquipo" data-parent="#accordion3" data-toggle="collapse" class="accordion-toggle collapsed">
 										Organigrama del Equipo
 									</a>
 								</div>
@@ -383,7 +394,7 @@
 							
 							<div class="accordion-group">
 								<div class="accordion-heading">
-									<a href="#responsabilidades" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle collapsed">
+									<a href="#responsabilidades" data-parent="#accordion3" data-toggle="collapse" class="accordion-toggle collapsed">
 										Responsabilidades
 									</a>
 								</div>
@@ -456,23 +467,184 @@
 					</div>
 
 					<div id="riesgos" class="tab-pane">
-						<p>riesgos.</p>
-						<p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
+						<div class="row-fluid">
+							<div class="span12">
+								<div class="span9">Riesgos del Proyecto</div>
+								<div class="span3">
+									<button class="btn btn-info span12">
+										<i class="icon-plus bigger-125"></i>
+										Agregar Riesgo
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="space-20"></div>
+						<div class="row-fluid">
+							<table id="tablaRiesgosProyecto" class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>Riesgo</th>
+										<th>Responsable</th>
+										<th>Impacto</th>
+										<th>Probabilidad</th>
+										<th>Contingencia</th>
+										<th>Mitigaci&oacute;n</th>
+										<th>Opciones</th>
+									</tr>
+								</thead>	
+								<tbody>
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>	
+										<td></td>
+										<td></td>		
+										<td></td>
+										<td></td>											
+									</tr>
+								</tbody>
+							</table>
+						</div>
+<!-- 						<div class="space-20"></div> -->
+						<br>
+						<div class="row-fluid">
+							<div class="span12">
+								<fieldset>
+								  <legend style="font-size: 10px;margin-bottom: 0px;">LEYENDA IMPACTO</legend>
+								
+								  <div class="span1"></div>
+								  <div class="span2"><label class="leyendaClass">5 - Muy bajo.</label></div>
+								  <div class="span2"><label class="leyendaClass">10 - Bajo.</label></div>
+								  <div class="span2"><label class="leyendaClass">20 - Moderado.</label></div>
+								  <div class="span2"><label class="leyendaClass">40 - Alto.</label></div>
+								  <div class="span2"><label class="leyendaClass">80 - Muy alto.</label></div>
+									  <div class="span1"></div>
+								</fieldset>
+							</div>
+						</div>
+						<div class="row-fluid">
+							<div class="span12">
+								<fieldset>
+								  <legend style="font-size: 10px;margin-bottom: 0px;">LEYENDA PROBABILIDAD</legend>
+								
+								  <div class="span1"></div>
+								  <div class="span2"><label class="leyendaClass">10 - Muy bajo.</label></div>
+								  <div class="span2"><label class="leyendaClass">30 - Bajo.</label></div>
+								  <div class="span2"><label class="leyendaClass">50 - Moderado.</label></div>
+								  <div class="span2"><label class="leyendaClass">70 - Alto.</label></div>
+								  <div class="span2"><label class="leyendaClass">90 - Muy alto.</label></div>
+								  <div class="span1"></div>
+								</fieldset>
+							</div>
+						</div>
 					</div>
 
 					<div id="adquisiciones" class="tab-pane">
-						<p>"adquisiciones"	.</p>
-						<p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
+						<div class="row-fluid">
+							<div class="span12">
+								<div class="span9">Adquisiciones para el Proyecto</div>
+								<div class="span3">
+									<button class="btn btn-info span12">
+										<i class="icon-plus bigger-125"></i>
+										Agregar Adquisici&oacute;n
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="space-20"></div>
+						<div class="row-fluid">
+							<table id="tablaAdquisicionesProyecto" class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>Producto</th>
+										<th>Categor&iacute;a</th>
+										<th>Cantidad</th>
+										<th>Costo Un.</th>
+										<th>Fecha de Adquisici&oacute;n</th>
+										<th>Opciones</th>
+									</tr>
+								</thead>	
+								<tbody>
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>	
+										<td></td>
+										<td></td>
+										<td></td>												
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 
 					<div id="costos" class="tab-pane">
-						<p>"costos"	.</p>
-						<p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
+						<div class="row-fluid">
+							<div class="span12">
+								<div class="span9">Costos del Proyecto</div>
+								<div class="span3">
+									<label>TOTAL COSTOS: S/. xxx.xx</label>
+								</div>
+							</div>
+						</div>
+						<div class="space-20"></div>
+						<div class="row-fluid">
+							<table id="tablaCostosProyecto" class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>Rol</th>
+										<th>Tipo</th>
+										<th>Banda Salarial</th>
+										<th>Costo</th>
+									</tr>
+								</thead>	
+								<tbody>
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>	
+										<td></td>												
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 
 					<div id="costosOperativos" class="tab-pane">
-						<p>"costosOperativos"	.</p>
-						<p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
+						<div class="row-fluid">
+							<div class="span12">
+								<div class="span8">Costos Operativos</div>
+								<div class="span4">
+									<button class="btn btn-info span12">
+										<i class="icon-plus bigger-125"></i>
+										Agregar Costo operativo
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="space-20"></div>
+						<div class="row-fluid">
+							<table id="tablaCostosProyecto" class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>Tipo</th>
+										<th>Descripci&oacute;n</th>
+										<th>Fecha</th>
+										<th>Monto</th>
+										<th>Opciones</th>
+									</tr>
+								</thead>	
+								<tbody>
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>	
+										<td></td>	
+										<td></td>												
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 
 					<div id="presupuesto" class="tab-pane">
