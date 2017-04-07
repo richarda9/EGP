@@ -76,7 +76,7 @@
 		<%-- </security:authorize> --%>
 		
 		<!-- MENU ADMINISTRACION -->
-		<li>
+		<li id="administracionProyectos">
 			<a href="#" class="dropdown-toggle"> <i	class="icon-edit"></i> 
 			<span class="menu-text"> ADMINISTRACI&Oacute;N </span> <b class="arrow icon-angle-down"></b>
 			</a>

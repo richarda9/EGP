@@ -3,8 +3,11 @@
 
 <a href="#" class="brand">
 	<small>
-		<img src="../assets/images/logo.png" style="max-width: 15%;">
-		Gesti&oacute;n de Proyectos
+		<img src="../assets/images/sigcomt.png" style="max-width: 7%; border-radius: 24px 24px 24px 24px;
+-moz-border-radius: 24px 24px 24px 24px;
+-webkit-border-radius: 24px 24px 24px 24px;
+border: 0px solid #000000;">
+		GESTI&Oacute;N DE PROYECTOS
 	</small>
 </a>
 

@@ -10,7 +10,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Expires" content="0" /> 
 		<meta http-equiv="Pragma" content="no-cache" />
-		
+		<link rel="shortcut icon" href="<c:url value="/assets/images/sigcomt.ico"/>">
 
 		<!-- ##########################  HEAD ######################  -->
 		<tiles:insertAttribute name="css"/>
@@ -55,28 +55,21 @@
 					<li >Bienvenida</li>
 				</ul>
 
-				<div class="nav-search" id="nav-search">
+				<!-- <div class="nav-search" id="nav-search">
 					<form class="form-search">
 						<span class="input-icon">
 							<input type="text" placeholder="Buscar ..." class="input-small nav-search-input" id="nav-search-input" autocomplete="off" />
 							<i class="icon-search nav-search-icon"></i>
 						</span>
 					</form>
-				</div>
+				</div> -->
 			</div>
 
 			<div class="page-content">
-<!-- 				<div class="page-header position-relative"> -->
-<!-- 					<h1> -->
-<!-- 						Bienvenida <small><i class="icon-double-angle-right"></i> Bienvenida</small> -->
-<!-- 					</h1> -->
-<!-- 				</div>/.page-header -->
-
 				<!-- ##########################  CONTENIDO ######################  -->
 				<tiles:insertAttribute name="contenido"/>
 				<!-- ########################  END CONTENIDO ######################  -->
-				
-			</div><!--/.page-content-->
+			</div>
 
 		</div><!--/.main-content-->
 	</div><!--/.main-container-->

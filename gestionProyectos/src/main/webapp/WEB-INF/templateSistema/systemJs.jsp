@@ -40,7 +40,7 @@ window.jQuery || document.write("<script src='../assets/js/jquery-1.10.2.min.js'
 <script src="../assets/js/chosen.jquery.min.js"></script>
 <script src="../assets/js/jquery.slimscroll.min.js"></script>
 <!-- <script src="../assets/js/validarCampos.js"></script> -->
-<!-- <script src="../assets/js/menu.js"></script> -->
+<script src="../assets/js/menu.js"></script>
 
 <!--ace scripts-->
 
