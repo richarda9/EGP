@@ -82,7 +82,7 @@ $(document).ready(function() {
 	//ADMINISTRACION DE PROYECTOS
 	case "empresa.htm": {
 		module = "#administracionProyectos";
-		item = "#bienestar_verificarPadron";
+		item = "#idEmpresa";
 		break;
 	}
 	

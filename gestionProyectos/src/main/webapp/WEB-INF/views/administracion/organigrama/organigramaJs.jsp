@@ -1,7 +1,7 @@
 <script>
 $(function() 
 {
-	$('#tablaEmpresaProyecto').DataTable({
+	$('#tablaOrganigramaProyecto').DataTable({
 		"paging" : true,
 		"autoWidth": true,
 		"pageLength": 10,

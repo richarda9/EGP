@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC  
+    "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  
+    "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+	
+	<!-- [INI] CIERRE PROYECTO -->
+	<definition name="cierre" extends="templateSistema">
+		<put-attribute name="css2" value="/WEB-INF/views/cierre/busqueda/cierreCss.jsp" />
+		<put-attribute name="contenido" value="/WEB-INF/views/cierre/busqueda/cierreContenido.jsp" />
+		<put-attribute name="js2" value="/WEB-INF/views/cierre/busqueda/cierreJs.jsp" />
+	</definition>
+	
+	<definition name="mntCierre" extends="templateSistema">
+		<put-attribute name="css2" value="/WEB-INF/views/cierre/mantenimiento/mntCierreCss.jsp" />
+		<put-attribute name="contenido" value="/WEB-INF/views/cierre/mantenimiento/mntCierreContenido.jsp" />
+		<put-attribute name="js2" value="/WEB-INF/views/cierre/mantenimiento/mntCierreJs.jsp" />
+	</definition>
+	<!-- [FIN] CIERRE PROYECTO -->
+	
+	<!-- [INI] ANTEPROYECTO PROYECTO -->
+	<definition name="anteproyecto" extends="templateSistema">
+		<put-attribute name="css2" value="/WEB-INF/views/anteproyecto/busqueda/anteproyectoCss.jsp" />
+		<put-attribute name="contenido" value="/WEB-INF/views/anteproyecto/busqueda/anteproyectoContenido.jsp" />
+		<put-attribute name="js2" value="/WEB-INF/views/anteproyecto/busqueda/anteproyectoJs.jsp" />
+	</definition>
+	
+	<definition name="mntAnteproyecto" extends="templateSistema">
+		<put-attribute name="css2" value="/WEB-INF/views/anteproyecto/mantenimiento/mntAnteproyectoCss.jsp" />
+		<put-attribute name="contenido" value="/WEB-INF/views/anteproyecto/mantenimiento/mntAnteproyectoContenido.jsp" />
+		<put-attribute name="js2" value="/WEB-INF/views/anteproyecto/mantenimiento/mntAnteproyectoJs.jsp" />
+	</definition>
+	<!-- [FIN] ANTEPROYECTO PROYECTO -->
+	
+	<!-- [INI] PLANIFICACION PROYECTO -->
+	<definition name="planificacion" extends="templateSistema">
+		<put-attribute name="css2" value="/WEB-INF/views/planificacion/busqueda/planificacionCss.jsp" />
+		<put-attribute name="contenido" value="/WEB-INF/views/planificacion/busqueda/planificacionContenido.jsp" />
+		<put-attribute name="js2" value="/WEB-INF/views/planificacion/busqueda/planificacionJs.jsp" />
+	</definition>
+	
+	<definition name="mntPlanificacion" extends="templateSistema">
+		<put-attribute name="css2" value="/WEB-INF/views/planificacion/mantenimiento/mntPlanificacionCss.jsp" />
+		<put-attribute name="contenido" value="/WEB-INF/views/planificacion/mantenimiento/mntPlanificacionContenido.jsp" />
+		<put-attribute name="js2" value="/WEB-INF/views/planificacion/mantenimiento/mntPlanificacionJs.jsp" />
+	</definition>
+	<!-- [FIN] PLANIFICACION PROYECTO -->
+	
+	<!-- [INI] EJECUCION PROYECTO -->
+	<definition name="ejecucion" extends="templateSistema">
+		<put-attribute name="css2" value="/WEB-INF/views/ejecucion/busqueda/ejecucionCss.jsp" />
+		<put-attribute name="contenido" value="/WEB-INF/views/ejecucion/busqueda/ejecucionContenido.jsp" />
+		<put-attribute name="js2" value="/WEB-INF/views/ejecucion/busqueda/ejecucionJs.jsp" />
+	</definition>
+	
+	<definition name="mntEjecucion" extends="templateSistema">
+		<put-attribute name="css2" value="/WEB-INF/views/ejecucion/mantenimiento/mntEjecucionCss.jsp" />
+		<put-attribute name="contenido" value="/WEB-INF/views/ejecucion/mantenimiento/mntEjecucionContenido.jsp" />
+		<put-attribute name="js2" value="/WEB-INF/views/ejecucion/mantenimiento/mntEjecucionJs.jsp" />
+	</definition>
+	<!-- [FIN] EJECUCION PROYECTO -->
+
+</tiles-definitions>

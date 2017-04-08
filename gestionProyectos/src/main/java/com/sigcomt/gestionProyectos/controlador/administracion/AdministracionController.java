@@ -130,4 +130,37 @@ public class AdministracionController
 		
 		return new ModelAndView("tipoCambio", "model", myModel);
 	}
+
+	@RequestMapping(value = "/empresa.htm")
+	public ModelAndView empresa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
+		HashMap<String, Object> myModel = new HashMap<String, Object>();
+		myModel.put("listaTipoProyecto", this.administracionService.listarTipoProyecto());
+		myModel.put("listaEstadoProyecto", this.administracionService.listarEstadoProyecto());
+		myModel.put("listaTipoRequisito", this.administracionService.listarTipoRequisitoProyecto());
+		
+		return new ModelAndView("empresa", "model", myModel);
+	}
+
+	@RequestMapping(value = "/recursos.htm")
+	public ModelAndView recursos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
+		HashMap<String, Object> myModel = new HashMap<String, Object>();
+		myModel.put("listaTipoProyecto", this.administracionService.listarTipoProyecto());
+		myModel.put("listaEstadoProyecto", this.administracionService.listarEstadoProyecto());
+		myModel.put("listaTipoRequisito", this.administracionService.listarTipoRequisitoProyecto());
+		
+		return new ModelAndView("recursos", "model", myModel);
+	}
+
+	@RequestMapping(value = "/organigrama.htm")
+	public ModelAndView organigrama(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
+		HashMap<String, Object> myModel = new HashMap<String, Object>();
+		myModel.put("listaTipoProyecto", this.administracionService.listarTipoProyecto());
+		myModel.put("listaEstadoProyecto", this.administracionService.listarEstadoProyecto());
+		myModel.put("listaTipoRequisito", this.administracionService.listarTipoRequisitoProyecto());
+		
+		return new ModelAndView("organigrama", "model", myModel);
+	}
 }
