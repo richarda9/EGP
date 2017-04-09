@@ -42,29 +42,7 @@
 		<!-- ########################  END MENU ######################  -->
 
 		<div class="main-content">
-			<div class="breadcrumbs" id="breadcrumbs">
-				<ul class="breadcrumb">
-					<li class="active">
-						<i class="icon-home home-icon"></i>
-						<a href="#">Inicio</a>
-
-						<span class="divider">
-							<i class="icon-angle-right arrow-icon"></i>
-						</span>
-					</li>
-					<li >Bienvenida</li>
-				</ul>
-
-				<!-- <div class="nav-search" id="nav-search">
-					<form class="form-search">
-						<span class="input-icon">
-							<input type="text" placeholder="Buscar ..." class="input-small nav-search-input" id="nav-search-input" autocomplete="off" />
-							<i class="icon-search nav-search-icon"></i>
-						</span>
-					</form>
-				</div> -->
-			</div>
-
+			<tiles:insertAttribute name="barraHorizontal"/>
 			<div class="page-content">
 				<!-- ##########################  CONTENIDO ######################  -->
 				<tiles:insertAttribute name="contenido"/>

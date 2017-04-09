@@ -125,7 +125,7 @@
 
 													<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
 														<li>
-															<a href="##eliminarTipoProyecto" class="abrir-eliminarTproyecto tooltip-error" 
+															<a href="#eliminarTipoProyecto" class="abrir-eliminarTproyecto tooltip-error" 
 																data-rel="tooltip" title="Eliminar" data-toggle="modal" data-id="${tipoProyecto.id}">
 																<span class="red">
 																	<i class="icon-trash bigger-120"></i>
