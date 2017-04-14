@@ -106,10 +106,13 @@
 									<div class="span12">								
 										<div class="span4">
 											<div class="control-group">
-												<label class="control-label" for="dscTipoProyecto">Tipo de Proyecto</label>
+												<label class="control-label" for="idTipoProyecto">Tipo de Proyecto</label>
 												<div class="controls">
-													<select id="dscTipoProyecto" name="dscTipoProyecto" >
+													<select id="idTipoProyecto" name="idTipoProyecto" >
 														<option value="">Seleccionar</option>
+														<c:forEach var="tipoProyecto" items="${model.listaTipoProyecto}" varStatus="contador">
+														   <option value="${tipoProyecto.id}">${tipoProyecto.descripcion}</option>
+														</c:forEach>
 													</select>	
 												</div>
 											</div>							    
@@ -179,9 +182,12 @@
 										<label class="control-label" for="idEmpresa">Empresa</label>
 					
 										<div class="controls">
-											<select id="idEmpresa" name="idEmpresa" title="Tipo de Proyecto">
+											<select id="empresa" name="empresa" title="empresa">
 												<option value="">Seleccionar</option>
-											</select>	
+												<c:forEach var="empresa" items="${model.listaEmpresa}" varStatus="contador">
+												   <option value="${empresa.idEmpresa}">${empresa.razonSocial}</option>
+												</c:forEach>
+											</select>
 										</div>
 									</div>
 								</form>

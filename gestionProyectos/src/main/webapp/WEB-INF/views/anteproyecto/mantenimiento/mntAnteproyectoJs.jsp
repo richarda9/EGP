@@ -20,7 +20,7 @@ $('#fechaContacto').datepicker().next().on('click', function(){
 // 	//
 // });
 
-$('#archObservacion').ace_file_input({
+/* $('#archObservacion').ace_file_input({
 					no_file:'No File ...',
 					btn_choose:'Choose',
 					btn_change:'Change',
@@ -31,5 +31,5 @@ $('#archObservacion').ace_file_input({
 					//blacklist:'exe|php'
 					//onchange:''
 					//
-				});
+				}); */
 </script>

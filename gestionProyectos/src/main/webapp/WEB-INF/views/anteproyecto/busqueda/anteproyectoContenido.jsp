@@ -10,7 +10,10 @@
 						<div class="controls">
 							<select id="empresa" name="empresa" title="empresa">
 								<option value="">Seleccionar</option>
-							</select>	
+								<c:forEach var="empresa" items="${model.listaEmpresa}" varStatus="contador">
+								   <option value="${empresa.idEmpresa}">${empresa.razonSocial}</option>
+								</c:forEach>
+							</select>
 						</div>
 					</div>
 				</div>
@@ -20,6 +23,9 @@
 						<div class="controls">
 							<select id="idTipoProyecto" name="idTipoProyecto" title="idTipoProyecto">
 								<option value="">Seleccionar</option>
+								<c:forEach var="tipoProyecto" items="${model.listaTipoProyecto}" varStatus="contador">
+								   <option value="${tipoProyecto.id}">${tipoProyecto.descripcion}</option>
+								</c:forEach>
 							</select>	
 						</div>
 					</div>
@@ -93,7 +99,7 @@
 							</button>
 						</div>
 						<div class="span2" style="float: left;">
-							<a class="btn btn-info" href="#mntLeccionAprendida" data-toggle="modal">
+							<a class="btn btn-info" href="../anteproyecto/mntAnteproyectoAgregar.htm" data-toggle="modal" title="Editar">
 								<i class="icon-file bigger-125"></i>
 								Agregar
 							</a>

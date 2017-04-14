@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sigcomt.gestionProyectos.dominio.administracion.Empresa;
 import com.sigcomt.gestionProyectos.dominio.administracion.EstadoProyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoProyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoRequisito;
@@ -32,6 +33,10 @@ public class AdministracionServiceImp implements AdministracionService
 
 	public List<TipoProyecto> listarTipoProyecto() {
 		return administracionDao.listarTipoProyecto();
+	}
+	
+	public List<TipoProyecto> listarTipoProyectoByEsado(int estado) {
+		return administracionDao.listarTipoProyectoByEsado(estado);
 	}
 	
 	public void eliminarTipoProyecto(Integer param) {
@@ -79,5 +84,11 @@ public class AdministracionServiceImp implements AdministracionService
 		administracionDao.eliminarTipoRequisitoProyecto(id);
 	}
 	//[FIN] TIPO REQUISITO
+
+//	INI - EMPRESA
+	public List<Empresa> listarEmpresaByEstado(int estado) {
+		return administracionDao.listarEmpresaByEstado(estado);
+	}
+//	FIN - EMPRESA
 
 }

@@ -13,6 +13,12 @@
  	   from "CREAR_PROYECTO"."TIPO_PROYECTO";
 	</select>
 	
+	<select id="listarTipoProyectoByEsado" parameterType="int" resultType="TipoProyecto">
+	   select  "ID_TIPO_PROYECTO" as id, "DESCRIPCION_TIPO_PROYECTO" as descripcion, "ESTADO" as estado
+ 	   from "CREAR_PROYECTO"."TIPO_PROYECTO"
+ 	   where "ESTADO" = #{estado};;
+	</select>
+	
 	<delete id="eliminarTipoProyecto" parameterType="int">
 	  delete from "CREAR_PROYECTO"."TIPO_PROYECTO" where "ID_TIPO_PROYECTO" = #{id};
 	</delete>
@@ -74,5 +80,27 @@
 		and "ESTADO" = #{estado};
 	</select>
 	<!-- [FIN] TIPO REQUISITO -->
+	
+	<!-- INI - EMPRESA -->
+	<select id="listarEmpresaByEstado" parameterType="int" resultType="Empresa">
+	   select  "ID_EMPRESA" as idEmpresa, 
+	   		   "RAZON_SOCIAL" as razonSocial, 
+	   		   "PAIS" as pais,
+	   		   "FECHA_REGISTRO" as fechaRegistro,
+	   		   "TELEFONO" as telefono,
+	   		   "ESTADO" as estado
+ 	   from "CREAR_PROYECTO"."EMPRESA"
+ 	   where "ESTADO" = #{estado};
+	</select>
+	<!-- FIN - EMPRESA -->
+	
+	<!-- INI - PAIS -->
+	<select id="listarPais" resultType="Pais">
+	   select  "ID_PAIS" as idPais, 
+	   		   "DESCRIPCION" as descripcion, 
+	   		   "ESTADO" as estado
+ 	   from "CREAR_PROYECTO"."PAIS";
+	</select>
+	<!-- FIN - PAIS -->
 	
 </mapper>

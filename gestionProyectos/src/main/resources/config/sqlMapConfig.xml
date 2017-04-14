@@ -9,6 +9,8 @@
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.TipoProyecto" alias="TipoProyecto"/>
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.EstadoProyecto" alias="EstadoProyecto"/>
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.TipoRequisito" alias="TipoRequisito"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.Empresa" alias="Empresa"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.Pais" alias="Pais"/>
 	</typeAliases>
 	
     <mappers>

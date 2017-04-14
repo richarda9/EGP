@@ -55,6 +55,14 @@ $(document).ready(function() {
 		break;
 	}
 	
+	case "mntAnteproyectoAgregar.htm": {
+		module = "#gestionProyectos";
+		item = "#idAnteproyecto";
+		document.getElementById("moduloSistema").innerHTML = " Gesti&oacute;n de Proyectos";
+		document.getElementById("itemSistema").innerHTML = "Anteproyectos";
+		break;
+	}
+	
 	case "planificacion.htm": {
 		module = "#gestionProyectos";
 		item = "#idPlanificacion";
