@@ -55,12 +55,14 @@ window.jQuery || document.write("<script src='../assets/js/jquery-1.10.2.min.js'
 <script src="../assets/js/date-time/bootstrap-datepicker.es.js"></script>
 
 <script type="text/javascript">
-	$(document).on("ready", function() {
-		$('#Agregar').modal({
-			show : true,
-			keyboard : false,
-		});
-	});
+$(document).on("ready", function() {
+	$('#Agregar').modal({
+		show : true,
+		keyboard : false,
+	});		
+	
+	regresar();
+});
 
 // 	$(function() {
 // 		//Para escribir solo letras
@@ -70,5 +72,124 @@ window.jQuery || document.write("<script src='../assets/js/jquery-1.10.2.min.js'
 // 		$('.numeros').validCampoFranz('0123456789');
 
 // 	});
+
+function regresar()
+{
+	var url2 = $(location).attr('pathname').split('/');
+
+	switch (url2[$(url2).size() - 1]) {
+	// INICIO
+	case "bienvenida.htm": {
+		//$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
+		$("#divBtnRegresar").hide();
+		break;
+	}
+	case "perfil.htm": {
+// 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
+		$("#divBtnRegresar").hide();
+		break;
+	}
+	case "editarperfil.htm": {
+		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/perfil.htm");
+		break;
+	}
+	case "configuracion.htm": {
+// 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
+		$("#divBtnRegresar").hide();
+		break;
+	}
+
+	// GESTION DE PROYECTOS
+	case "anteproyecto.htm": {
+// 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
+		$("#divBtnRegresar").hide();
+		break;
+	}
+		
+	case "mntAnteproyectoAgregar.htm": {
+		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/anteproyecto.htm");
+		break;
+	}
+	
+	case "mntAnteproyecto.htm": {
+		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/anteproyecto.htm");
+		break;
+	}
+	
+	case "planificacion.htm": {
+// 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
+		$("#divBtnRegresar").hide();
+		break;
+	}
+	
+	case "mntPlanificacion.htm": {
+		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/planificacion.htm");
+		break;
+	}
+	
+	case "ejecucion.htm": {
+// 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
+		$("#divBtnRegresar").hide();
+		break;
+	}
+	
+	case "mntEjecucion.htm": {
+		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/ejecucion.htm");
+		break;
+	}
+		
+	case "cierre.htm": {
+// 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
+		$("#divBtnRegresar").hide();
+		break;
+	}
+		
+	case "mntCierre.htm": {
+		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/cierre.htm");
+		break;
+	}
+		
+	//ADMINISTRACION DE PROYECTOS
+	case "empresa.htm": {
+// 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
+		$("#divBtnRegresar").hide();
+		break;
+	}
+	
+	case "recursos.htm": {
+// 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
+		$("#divBtnRegresar").hide();
+		break;
+	}
+	
+	case "organigrama.htm":{
+// 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
+		$("#divBtnRegresar").hide();
+		break;
+	}
+	
+	case "asociadoProyecto.htm": {
+// 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
+		$("#divBtnRegresar").hide();
+		break;
+	}
+	
+	case "asociadoEntregable.htm": {
+// 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
+		$("#divBtnRegresar").hide();
+		break;
+	}
+	
+	case "tipoCambio.htm": {
+// 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
+		$("#divBtnRegresar").hide();
+		break;
+	}
+	
+	default:
+		break;
+	}
+}
+
 </script>
 

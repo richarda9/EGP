@@ -2,9 +2,7 @@
 <div>
 	<div class="row-fluid">
 		<div class="span12">
-			<form class="">
-				<div class="row-fluid">
-					<div class="span3">
+			<form class="form-horizontal">
 						<div class="control-group">
 							<label class="control-label" for="proyecto">Proyecto</label>	
 							<div class="controls">
@@ -13,8 +11,6 @@
 								</select>	
 							</div>
 						</div>
-					</div>
-					<div class="span3">
 						<div class="control-group">
 							<label class="control-label" for="idcliente">Cliente</label>	
 							<div class="controls">
@@ -23,8 +19,6 @@
 								</select>	
 							</div>
 						</div>
-					</div>
-					<div class="span3">
 						<div class="control-group">
 							<label class="control-label" for="idTipoProyecto">Tipo de Proyecto</label>	
 							<div class="controls">
@@ -33,10 +27,6 @@
 								</select>	
 							</div>
 						</div>
-					</div>
-				</div>
-				<div class="row-fluid">
-				<div class="span3">
 					<div class="control-group">
 						<label class="control-label" for="dscResponsable">Responsable</label>
 	
@@ -45,9 +35,7 @@
 								name="dscResponsable" placeholder="Responsable" />
 						</div>
 					</div>
-				</div>
 				
-				<div class="span3">
 					<div class="control-group">
 						<label class="control-label" for="fechaInicio">Fecha Inicio</label>
 	
@@ -60,9 +48,6 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				
-				<div class="span3">
 					<div class="control-group">
 						<label class="control-label" for="fechafin">Fecha Fin</label>
 	
@@ -75,20 +60,17 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				</div>
 				<div class="row-fluid">
 					<div class="span12">
-						<div class="span6"></div>
-						<div class="span2" style="float: left;">
-							<button class="btn btn-info span12">
-								<i class="icon-search bigger-125"></i>
+						<div class="span2" >
+							<button class="btn btn-small btn-primary" style="float: right;">
+								<i class="icon-search"></i>
 								Buscar
 							</button>
 						</div>
-						<div class="span2" style="float: left;">
-							<button class="btn btn-info span12">
-								<i class=" icon-download-alt bigger-125"></i>
+						<div class="span2" >
+							<button class="btn btn-small btn-primary" style="float: left;">
+								<i class=" icon-download-alt"></i>
 								Exportar
 							</button>
 						</div>
@@ -99,7 +81,7 @@
 	</div>
 <!-- 	<div class="space-20"></div> -->
 	<div class="row-fluid">
-		<div class="table-header">&nbsp;</div>
+		<div class="table-header">Lista Proyectos en Ejecuci&oacute;n</div>
 		<table id="tablaEstadoProyecto"
 			class="table table-striped table-bordered table-hover">
 			<thead>

@@ -6,56 +6,48 @@
 				<ul class="nav nav-tabs" id="myTab3">
 					<li class="active">
 						<a data-toggle="tab" href="#asigResponsable">
-							<i class="pink icon-dashboard bigger-110"></i>
 							Asignaci&oacute;n de Responsables
 						</a>
 					</li>
 
 					<li>
 						<a data-toggle="tab" href="#segTareas">
-							<i class="blue icon-user bigger-110"></i>
 							Seguimiento de tareas
 						</a>
 					</li>
 
 					<li>
 						<a data-toggle="tab" href="#certiEntregable">
-							<i class="icon-rocket"></i>
 							Certificaci&oacute;n de Entregables
 						</a>
 					</li>
 
 					<li>
 						<a data-toggle="tab" href="#segEntregable">
-							<i class="icon-rocket"></i>
 							Seguimiento de Entregables
 						</a>
 					</li>
 
 					<li>
 						<a data-toggle="tab" href="#segAdquisiciones">
-							<i class="icon-rocket"></i>
 							Seguimiento de Adquisiciones
 						</a>
 					</li>
 
 					<li>
 						<a data-toggle="tab" href="#agenda">
-							<i class="icon-rocket"></i>
 							Agenda
 						</a>
 					</li>
 
 					<li>
 						<a data-toggle="tab" href="#crtlCambios">
-							<i class="icon-rocket"></i>
 							Control de Cambios
 						</a>
 					</li>
 
 					<li>
 						<a data-toggle="tab" href="#infAvance">
-							<i class="icon-rocket"></i>
 							Informe de Avance
 						</a>
 					</li>
@@ -64,87 +56,174 @@
 				<div class="tab-content">
 					<div id="asigResponsable" class="tab-pane in active">
 						<div class="row-fluid">
-							<div class="span12">
-								<div class="span9">Asignaci&oacute;n de Responsables</div>
+							<div class="page-header position-relative">
+								<h1>Asignaci&oacute;n de Responsables</h1>
 							</div>
 						</div>
 						<br>
 						<div class="row-fluid">
 							<div class="span12">
-								<div class="span6">
-									<fieldset>
-										<legend>Proveedor</legend>
-										<form id="idformProveedor" class="form-horizontal">
-											<div class="control-group">
-												<label class="control-label" for="rolasigproveedor">Roles por asignar:</label>
+								<fieldset>
+									<legend>Proveedor</legend>
+									<form id="idformProveedor" class="form-horizontal">
+										<div class="control-group">
+											<label class="control-label" for="rolasigproveedor">Roles por asignar:</label>
 
-												<div class="controls">
-													<div class="span12">
-														<select id="rolasigproveedor"></select>
-													</div> 
-												</div>
+											<div class="controls">
+												<div class="span12">
+													<select id="rolasigproveedor"></select>
+												</div> 
 											</div>
-											<div class="control-group">
-												<label class="control-label" for="recdispproveedor">Recursos disponibles:</label>
-
-												<div class="controls">
-													<div class="span12">
-														<select id="recdispproveedor"></select>
-													</div> 
-												</div>
-											</div>
-										</form>
-										<br>
-										<div class="row-fluid">
-											<table id="tablaRecProveedor" class="table table-striped table-bordered table-hover">
-												<thead>
-													<tr>
-														<th>Rol</th>
-														<th>Recurso</th>
-														<th>Opciones</th>
-													</tr>
-												</thead>
-											</table>
 										</div>
-									</fieldset>
-								</div>
-								<div class="span6">
-									<fieldset>
-										<legend>Cliente</legend>
-										<form id="idformProveedor" class="form-horizontal">
-											<div class="control-group">
-												<label class="control-label" for="rolasigcliente">Roles por asignar:</label>
+										<div class="control-group">
+											<label class="control-label" for="recdispproveedor">Recursos disponibles:</label>
 
-												<div class="controls">
-													<div class="span12">
-														<select id="rolasigcliente"></select>
-													</div> 
-												</div>
+											<div class="controls">
+												<div class="span12">
+													<select id="recdispproveedor"></select>
+												</div> 
 											</div>
-											<div class="control-group">
-												<label class="control-label" for="recdispcliente">Recursos disponibles:</label>
-
-												<div class="controls">
-													<div class="span12">
-														<input id="recdispcliente" />
-													</div> 
-												</div>
-											</div>
-										</form>
-										<br>
-										<div class="row-fluid">
-											<table id="tablaRecCliente" class="table table-striped table-bordered table-hover">
-												<thead>
-													<tr>
-														<th>Rol</th>
-														<th>Recurso</th>
-														<th>Opciones</th>
-													</tr>
-												</thead>
-											</table>
 										</div>
-									</fieldset>
-								</div>
+										<div class="row-fluid">
+											<div class="span12">
+												<div class="span5">
+													<button class="btn btn-small btn-primary" style="float: right;">
+														<i class="icon-plus"></i>
+														Asignar
+													</button>
+												</div>
+											</div>
+										</div>
+									</form>
+									<br>
+									<div class="row-fluid">
+										<div class="table-header">Lista Proveedores</div>
+										<table id="tablaRecProveedor" class="table table-striped table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>Rol</th>
+													<th>Recurso</th>
+													<th>Opciones</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>sssssssssssssssssss s s skjdsjfgsdif asbdhhsgfiogf asdauif</td>
+													<td> sdfksdfjk asjdb kjsdfjsdfsdhkf aasjdfhsdajfg asdfasj</td>
+													<td class="td-actions">
+														<div class="hidden-phone visible-desktop action-buttons">
+															<a class="abrir-eliminarTproyecto red" href="#modal-proveedor" data-toggle="modal" data-id="${tipoProyecto.id}">
+																<i class="icon-edit" data-rel="tooltip" title="Desasignar"> </i>
+															</a>
+														</div>
+			
+														<div class="hidden-desktop visible-phone">
+															<div class="inline position-relative">
+																<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+																	<i class="icon-caret-down icon-only bigger-120"></i>
+																</button>
+			
+																<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+																	<li>
+																		<a href="#modal-proveedor" class="abrir-eliminarTproyecto tooltip-error" 
+																			data-rel="tooltip" title="Desasignar" data-toggle="modal" data-id="${tipoProyecto.id}">
+																			<span class="red">
+																				<i class="icon-edit"></i>
+																			</span>
+																		</a>
+																	</li>
+																</ul>
+															</div>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</fieldset>
+							</div>
+						</div>
+						<div class="space-20"></div>
+						<div class="row-fluid">
+							<div class="span12">
+								<fieldset>
+									<legend>Cliente</legend>
+									<form id="idformProveedor" class="form-horizontal">
+										<div class="control-group">
+											<label class="control-label" for="rolasigcliente">Roles por asignar:</label>
+
+											<div class="controls">
+												<div class="span12">
+													<select id="rolasigcliente"></select>
+												</div> 
+											</div>
+										</div>
+										<div class="control-group">
+											<label class="control-label" for="recdispcliente">Recursos disponibles:</label>
+
+											<div class="controls">
+												<div class="span12">
+													<input id="recdispcliente" />
+												</div> 
+											</div>
+										</div>
+										<div class="row-fluid">
+											<div class="span12">
+												<div class="span5">
+													<button class="btn btn-small btn-primary" style="float: right;">
+														<i class="icon-plus"></i>
+														Asignar
+													</button>
+												</div>
+											</div>
+										</div>
+									</form>
+									<br>
+									<div class="row-fluid">
+										<div class="table-header">Lista Clientes</div>
+										<table id="tablaRecCliente" class="table table-striped table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>Rol</th>
+													<th>Recurso</th>
+													<th>Opciones</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>sssssssssssssssssss s s skjdsjfgsdif asbdhhsgfiogf asdauif</td>
+													<td> sdfksdfjk asjdb kjsdfjsdfsdhkf aasjdfhsdajfg asdfasj</td>
+													<td class="td-actions">
+														<div class="hidden-phone visible-desktop action-buttons">
+															<a class="abrir-eliminarTproyecto red" href="#modal-cliente" data-toggle="modal" data-id="${tipoProyecto.id}">
+																<i class="icon-edit" data-rel="tooltip" title="Desasignar"> </i>
+															</a>
+														</div>
+			
+														<div class="hidden-desktop visible-phone">
+															<div class="inline position-relative">
+																<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+																	<i class="icon-caret-down icon-only bigger-120"></i>
+																</button>
+			
+																<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+																	<li>
+																		<a href="#modal-cliente" class="abrir-eliminarTproyecto tooltip-error" 
+																			data-rel="tooltip" title="Desasignar" data-toggle="modal" data-id="${tipoProyecto.id}">
+																			<span class="red">
+																				<i class="icon-edit"></i>
+																			</span>
+																		</a>
+																	</li>
+																</ul>
+															</div>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</fieldset>
 							</div>
 						</div>
 					</div>
@@ -368,6 +447,90 @@
 			</div>
 		</div>
 	</div>
-<!-- 	<div class="space-20"></div> -->
-<!-- 	Jr. Leon Velarde -->
+	
+	<!-- [INI] MODAL PROVEEDOR -->
+	<form id="idformProveedorEditar" class="form-horizontal">
+		<div id="modal-proveedor" class="modal hide" tabindex="-1">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="blue bigger">Proveedor</h4>
+			</div>
+
+			<div class="modal-body overflow-visible">
+				<div class="control-group">
+					<label class="control-label" for="rolasigproveedorEditar">Roles por asignar:</label>
+
+					<div class="controls">
+						<div class="span12">
+							<select id="rolasigproveedorEditar"></select>
+						</div> 
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="recdispproveedorEditar">Recursos disponibles:</label>
+
+					<div class="controls">
+						<div class="span12">
+							<select id="recdispproveedorEditar"></select>
+						</div> 
+					</div>
+				</div>
+			</div>	
+			<div class="modal-footer">
+				<button class="btn btn-small" data-dismiss="modal">
+					<i class="icon-remove"></i>
+					Cancelar
+				</button>
+
+				<button class="btn btn-small btn-primary">
+					<i class="icon-save"></i>
+					Guardar
+				</button>
+			</div>
+		</div>
+	</form>
+	<!-- [FIN] MODAL PROVEEDOR -->
+	
+	<!-- [INI] MODAL CLIENTE -->
+	<form id="idformClienteEditar" class="form-horizontal">
+		<div id="modal-cliente" class="modal hide" tabindex="-1">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="blue bigger">Cliente</h4>
+			</div>
+
+			<div class="modal-body overflow-visible">
+				<div class="control-group">
+					<label class="control-label" for="rolasigclienteEditar">Roles por asignar:</label>
+	
+					<div class="controls">
+						<div class="span12">
+							<select id="rolasigclienteEditar"></select>
+						</div> 
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="recdispclienteEditar">Recursos disponibles:</label>
+	
+					<div class="controls">
+						<div class="span12">
+							<input id="recdispclienteEditar" />
+						</div> 
+					</div>
+				</div>
+			</div>	
+			<div class="modal-footer">
+				<button class="btn btn-small" data-dismiss="modal">
+					<i class="icon-remove"></i>
+					Cancelar
+				</button>
+
+				<button class="btn btn-small btn-primary">
+					<i class="icon-save"></i>
+					Guardar
+				</button>
+			</div>
+		</div>
+	</form>
+	<!-- [FIN] MODAL CLIENTE -->
 </div>	

@@ -16,6 +16,7 @@
 		</div>
 		<br>
 		<div class="row-fluid">
+			<div class="table-header">Lista de Empresas</div>
 			<table id="tablaEmpresaProyecto" class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
@@ -139,7 +140,7 @@
 									<div class="span9"></div>
 									<div class="span3">
 										<button class="btn btn-small btn-primary" style="float: right;">
-											<i class="icon-plus bigger-125"></i>
+											<i class="icon-plus"></i>
 											Agregar
 										</button>
 									</div>
@@ -191,7 +192,7 @@
 				</button>
 	
 				<button class="btn btn-small btn-primary">
-					<i class="icon-ok"></i>
+					<i class="icon-save"></i>
 					Guardar
 				</button>
 			</div>

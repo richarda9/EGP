@@ -30,11 +30,11 @@
 								Guardar
 							</a>
 						</div>
-						<div class="span1" style="float: left;">
+						<!--  <div class="span1" style="float: left;">
 							<a class="btn btn-small btn-info span12" href="#mntLeccionAprendida" data-toggle="modal">
 								<i class="icon-undo"></i>
 							</a>
-						</div>
+						</div>-->
 					</div>
 				</div>
 			</div>
