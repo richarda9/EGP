@@ -3,63 +3,63 @@
 	<div class="row-fluid">
 		<div class="span12">
 			<form class="form-horizontal">
-						<div class="control-group">
-							<label class="control-label" for="proyecto">Proyecto</label>	
-							<div class="controls">
-								<select id="proyecto" name="proyecto" title="proyecto">
-									<option value="">Seleccionar</option>
-								</select>	
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="idcliente">Cliente</label>	
-							<div class="controls">
-								<select id="idcliente" name="idcliente" title="cliente">
-									<option value="">Seleccionar</option>
-								</select>	
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="idTipoProyecto">Tipo de Proyecto</label>	
-							<div class="controls">
-								<select id="idTipoProyecto" name="idTipoProyecto" title="idTipoProyecto">
-									<option value="">Seleccionar</option>
-								</select>	
-							</div>
-						</div>
-					<div class="control-group">
-						<label class="control-label" for="dscResponsable">Responsable</label>
-	
-						<div class="controls">
-							<input type="text" id="dscResponsable" 
-								name="dscResponsable" placeholder="Responsable" />
-						</div>
+				<div class="control-group">
+					<label class="control-label" for="proyecto">Proyecto</label>	
+					<div class="controls">
+						<select id="proyecto" name="proyecto" title="proyecto">
+							<option value="">Seleccionar</option>
+						</select>	
 					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="idcliente">Cliente</label>	
+					<div class="controls">
+						<select id="idcliente" name="idcliente" title="cliente">
+							<option value="">Seleccionar</option>
+						</select>	
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="idTipoProyecto">Tipo de Proyecto</label>	
+					<div class="controls">
+						<select id="idTipoProyecto" name="idTipoProyecto" title="idTipoProyecto">
+							<option value="">Seleccionar</option>
+						</select>	
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="dscResponsable">Responsable</label>
+
+					<div class="controls">
+						<input type="text" id="dscResponsable" 
+							name="dscResponsable" placeholder="Responsable" />
+					</div>
+				</div>
 				
-					<div class="control-group">
-						<label class="control-label" for="fechaInicio">Fecha Inicio</label>
-	
-						<div class="controls">
-							<div class="row-fluid input-append">
-								<input id="fechaInicio" type="text" data-date-format="dd-mm-yyyy" />
-								<span class="add-on">
-									<i class="icon-calendar"></i>
-								</span>
-							</div>
+				<div class="control-group">
+					<label class="control-label" for="fechaInicio">Fecha Inicio</label>
+
+					<div class="controls">
+						<div class="row-fluid input-append">
+							<input id="fechaInicio" type="text" data-date-format="dd-mm-yyyy" />
+							<span class="add-on">
+								<i class="icon-calendar"></i>
+							</span>
 						</div>
 					</div>
-					<div class="control-group">
-						<label class="control-label" for="fechafin">Fecha Fin</label>
-	
-						<div class="controls">
-							<div class="row-fluid input-append">
-								<input id="fechafin" type="text" data-date-format="dd-mm-yyyy" />
-								<span class="add-on">
-									<i class="icon-calendar"></i>
-								</span>
-							</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="fechafin">Fecha Fin</label>
+
+					<div class="controls">
+						<div class="row-fluid input-append">
+							<input id="fechafin" type="text" data-date-format="dd-mm-yyyy" />
+							<span class="add-on">
+								<i class="icon-calendar"></i>
+							</span>
 						</div>
 					</div>
+				</div>
 				<div class="row-fluid">
 					<div class="span12">
 						<div class="span2" >
@@ -81,7 +81,7 @@
 	</div>
 <!-- 	<div class="space-20"></div> -->
 	<div class="row-fluid">
-		<div class="table-header">Lista Proyectos en Ejecuci&oacute;n</div>
+		<div class="table-header">Lista de Proyectos</div>
 		<table id="tablaEstadoProyecto"
 			class="table table-striped table-bordered table-hover">
 			<thead>

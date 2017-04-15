@@ -19,7 +19,7 @@
 							</button>
 						</div>
 						<div class="span3" style="float: left;">
-							<a class="btn btn-small btn-info span12" href="#mntLeccionAprendida" data-toggle="modal">
+							<a class="btn btn-small btn-info span12" href="#modalCancelarProyecto" data-toggle="modal">
 								<i class="icon-remove-sign"></i>
 								Cancelar
 							</a>
@@ -538,4 +538,6 @@
 			</div>
 		</div>
 	</div>
+	
+	<%@ include file="/WEB-INF/views/cancelar/cancelarContenido.jsp"%>
 </div>

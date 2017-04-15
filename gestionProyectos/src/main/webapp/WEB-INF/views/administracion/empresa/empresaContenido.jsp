@@ -77,13 +77,33 @@
 								</div>
 								<div class="row-fluid">
 									<div class="span3">Redes Sociales</div>
-									<div class="span4"><input type="text" class="span12" id="twitterEmpresa" /></div>
-									<div class="span5"><input type="text" class="span12" id="fecebookEmpresa" /></div>
+									<div class="span4">
+										<span class="span12 input-icon input-icon-left">
+											<input type="text" class="span12" id="twitterEmpresa" />
+											<i class="icon-twitter-sign"></i>
+										</span>
+									</div>
+									<div class="span5">
+										<span class="span12 input-icon input-icon-left">
+											<input type="text" class="span12" id="fecebookEmpresa" />
+											<i class="icon-facebook-sign"></i>
+										</span>
+									</div>
 								</div>
 								<div class="row-fluid">
 									<div class="span3"></div>
-									<div class="span4"><input type="text" class="span12" id="linkedinEmpresa" /></div>
-									<div class="span5"><input type="text" class="span12" id="gmailEmpresa" /></div>
+									<div class="span4">
+										<span class="span12 input-icon input-icon-left">
+											<input type="text" class="span12" id="linkedinEmpresa" />
+											<i class="icon-linkedin-sign"></i>
+										</span>
+									</div>
+									<div class="span5">
+										<span class="span12 input-icon input-icon-left">
+											<input type="text" class="span12" id="gmailEmpresa" />
+											<i class="icon-google-plus-sign"></i>
+										</span>
+									</div>
 								</div>
 								<div class="row-fluid">
 									<div class="span3">Tel&eacute;no</div>

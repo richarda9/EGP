@@ -1,4 +1,17 @@
 <script>
+
+$('#tablaCierreProyecto').DataTable({
+	"paging"    : true,
+	"autoWidth" : true,
+	"pageLength": 10,
+	"searching" : false,
+	"bInfo"     : false, 
+	//"bLengthChange": false,
+	"language"  : {
+		            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+		          }
+});	
+
 $('#fechaInicio').datepicker({
 	language: 'es',
 	format: 'dd/mm/yyyy'

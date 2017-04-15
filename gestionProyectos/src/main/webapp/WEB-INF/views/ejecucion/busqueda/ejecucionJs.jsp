@@ -1,3 +1,5 @@
+<script src="../assets/js/cancelarProyecto/cancelarProyecto.js"></script>
+
 <script>
 $(function() 
 {	
@@ -26,14 +28,6 @@ $(function()
 		format: 'dd/mm/yyyy'
 	});
 	$('#fechafin').datepicker().next().on('click', function(){ 
-		$(this).prev().focus();
-	});
-	
-	$('#fecCancelacion').datepicker({
-		language: 'es',
-		format: 'dd/mm/yyyy'
-	});
-	$('#fecCancelacion').datepicker().next().on('click', function(){ 
 		$(this).prev().focus();
 	});
 });

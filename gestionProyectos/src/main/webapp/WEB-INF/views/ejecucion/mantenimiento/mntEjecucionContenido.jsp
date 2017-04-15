@@ -494,12 +494,13 @@
 					<div id="segEntregable" class="tab-pane">
 						<div class="row-fluid">
 							<div class="row-fluid">
-								<div class="span12">
-									<div class="span12">Seguimiento de Entregables</div>
+								<div class="page-header position-relative">
+									<h1>Seguimiento de Entregables</h1>
 								</div>
 							</div>
 							<div class="space-20"></div>
 							<div class="row-fluid">
+								<div class="table-header">Lista de Entregables</div>
 								<table id="tablasegEntregables" class="table table-striped table-bordered table-hover">
 									<thead>
 										<tr>
@@ -514,6 +515,74 @@
 											<th>Opciones</th>
 										</tr>
 									</thead>
+									<tbody>
+										<tr>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td class="td-actions">
+												<!-- [INI] BOTON ENVIAR PARA APROBACION -->
+												<div class="hidden-phone visible-desktop action-buttons">
+													<a class="abrir-eliminarTproyecto blue tooltip-info" href="#modal-EnviarAprobacion" data-toggle="modal" data-id="${tipoProyecto.id}" 
+													   data-rel="tooltip" title="Enviar para Aprobaci&oacute;n">
+														<i class="icon-envelope bigger-130"></i>
+													</a>
+												</div>
+	
+												<div class="hidden-desktop visible-phone">
+													<div class="inline position-relative">
+														<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+															<i class="icon-caret-down icon-only bigger-120"></i>
+														</button>
+	
+														<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+															<li>
+																<a href="#modal-EnviarAprobacion" class="abrir-eliminarTproyecto tooltip-info" data-rel="tooltip" 
+																	title="Enviar para Aprobaci&oacute;n" data-toggle="modal" data-id="${tipoProyecto.id}">
+																	<span class="blue">
+																		<i class="icon-envelope bigger-120"></i>
+																	</span>
+																</a>
+															</li>
+														</ul>
+													</div>
+												</div>
+												<!-- [FIN] BOTON ENVIAR PARA APROBACION -->
+												<!-- [INI] BOTON EDITAR -->
+												<div class="hidden-phone visible-desktop action-buttons">
+													<a class="abrir-eliminarTproyecto blue tooltip-info" href="#modal-editarEntregable" data-toggle="modal" data-id="${tipoProyecto.id}" 
+													   data-rel="tooltip" title="Editar">
+														<i class="icon-edit bigger-130"></i>
+													</a>
+												</div>
+	
+												<div class="hidden-desktop visible-phone">
+													<div class="inline position-relative">
+														<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+															<i class="icon-caret-down icon-only bigger-120"></i>
+														</button>
+	
+														<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+															<li>
+																<a href="#modal-editarEntregable" class="abrir-eliminarTproyecto tooltip-info" data-rel="tooltip" 
+																	title="Editar" data-toggle="modal" data-id="${tipoProyecto.id}">
+																	<span class="blue">
+																		<i class="icon-edit bigger-120"></i>
+																	</span>
+																</a>
+															</li>
+														</ul>
+													</div>
+												</div>
+												<!-- [FIN] BOTON EDITAR -->
+											</td>
+										</tr>
+									</tbody>
 								</table>
 							</div>										
 						</div>
@@ -521,24 +590,29 @@
 
 					<div id="segAdquisiciones" class="tab-pane">
 						<div class="row-fluid">
+							<div class="row-fluid">
+								<div class="page-header position-relative">
+									<h1>Seguimiento de Adquisiciones</h1>
+								</div>
+							</div>
 							<div class="span12">
-								<div class="span9">Seguimiento de Adquisiciones</div>
+								<div class="span9"></div>
 								<div class="span3">
-									<button class="btn btn-info span12">
-										<i class="icon-plus bigger-125"></i>
-										Agregar 
-									</button>
+									<a href="#modal-Adquisiciones" role="button" class="btn btn-small btn-primary" data-toggle="modal">
+										<i class="icon-plus"></i>Agregar 
+									</a>
 								</div>
 							</div>
 						</div>
 						<div class="space-20"></div>
 						<div class="row-fluid">
+							<div class="table-header">Lista de Adquisiciones</div>
 							<table id="tablasegAdquisiciones" class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
 										<th>Id</th>
 										<th>Estado</th>
-										<th>Categor&iacute;</th>
+										<th>Categor&iacute;a</th>
 										<th>Descripci&oacute;n</th>
 										<th>Fecha de Compra</th>
 										<th>Responsable</th>
@@ -547,6 +621,74 @@
 										<th>Opciones</th>
 									</tr>
 								</thead>
+								<tbody>
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td class="td-actions">
+											<!-- [INI] BOTON EDITAR -->
+											<div class="hidden-phone visible-desktop action-buttons">
+												<a class="abrir-eliminarTproyecto blue tooltip-info" href="#modal-Adquisiciones" data-toggle="modal" data-id="${tipoProyecto.id}" 
+												   data-rel="tooltip" title="Editar">
+													<i class="icon-edit bigger-130"></i>
+												</a>
+											</div>
+
+											<div class="hidden-desktop visible-phone">
+												<div class="inline position-relative">
+													<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+														<i class="icon-caret-down icon-only bigger-120"></i>
+													</button>
+
+													<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+														<li>
+															<a href="#modal-Adquisiciones" class="abrir-eliminarTproyecto tooltip-info"  
+																data-rel="tooltip" title="Editar" data-toggle="modal" data-id="${tipoProyecto.id}">
+																<span class="blue">
+																	<i class="icon-edit bigger-120"></i>
+																</span>
+															</a>
+														</li>
+													</ul>
+												</div>
+											</div>
+											<!-- [FIN] BOTON EDITAR -->
+											<!-- [INI] BOTON ELIMINAR -->
+											<div class="hidden-phone visible-desktop action-buttons">
+												<a class="abrir-eliminarTproyecto red tooltip-error" href="#" data-toggle="modal" data-id="${tipoProyecto.id}" 
+												   data-rel="tooltip" title="Eliminar">
+													<i class="icon-trash bigger-130"></i>
+												</a>
+											</div>
+
+											<div class="hidden-desktop visible-phone">
+												<div class="inline position-relative">
+													<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+														<i class="icon-caret-down icon-only bigger-120"></i>
+													</button>
+
+													<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+														<li>
+															<a href="#" class="abrir-eliminarTproyecto tooltip-error"  
+																data-rel="tooltip" title="Eliminar" data-toggle="modal" data-id="${tipoProyecto.id}">
+																<span class="red">
+																	<i class="icon-trash bigger-120"></i>
+																</span>
+															</a>
+														</li>
+													</ul>
+												</div>
+											</div>
+											<!-- [FIN] BOTON ELIMINAR -->
+										</td>
+									</tr>
+								</tbody>
 							</table>
 						</div>
 					</div>
@@ -557,18 +699,23 @@
 
 					<div id="crtlCambios" class="tab-pane">
 						<div class="row-fluid">
+							<div class="row-fluid">
+								<div class="page-header position-relative">
+									<h1>Control de Cambios</h1>
+								</div>
+							</div>
 							<div class="span12">
-								<div class="span9">Control de Cambios</div>
+								<div class="span9"></div>
 								<div class="span3">
-									<button class="btn btn-info span12">
-										<i class="icon-plus bigger-125"></i>
-										Agregar
-									</button>
+									<a href="#modal-ctrolCambios" role="button" class="btn btn-small btn-primary" data-toggle="modal">
+										<i class="icon-plus"></i>Agregar 
+									</a>
 								</div>
 							</div>
 						</div>
 						<div class="space-20"></div>
 						<div class="row-fluid">
+							<div class="table-header">Lista de Control de Cambios</div>
 							<table id="tablaControlCambios" class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
@@ -582,24 +729,96 @@
 										<th>Opciones</th>
 									</tr>
 								</thead>
+								<tbody>
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td class="td-actions">
+											<!-- [INI] BOTON EDITAR -->
+											<div class="hidden-phone visible-desktop action-buttons">
+												<a class="abrir-eliminarTproyecto blue tooltip-info" href="#modal-ctrolCambios" data-toggle="modal" data-id="${tipoProyecto.id}" 
+												   data-rel="tooltip" title="Editar">
+													<i class="icon-edit bigger-130"></i>
+												</a>
+											</div>
+
+											<div class="hidden-desktop visible-phone">
+												<div class="inline position-relative">
+													<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+														<i class="icon-caret-down icon-only bigger-120"></i>
+													</button>
+
+													<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+														<li>
+															<a href="#modal-ctrolCambios" class="abrir-eliminarTproyecto tooltip-info"  
+																data-rel="tooltip" title="Editar" data-toggle="modal" data-id="${tipoProyecto.id}">
+																<span class="blue">
+																	<i class="icon-edit bigger-120"></i>
+																</span>
+															</a>
+														</li>
+													</ul>
+												</div>
+											</div>
+											<!-- [FIN] BOTON EDITAR -->
+											<!-- [INI] BOTON ELIMINAR -->
+											<div class="hidden-phone visible-desktop action-buttons">
+												<a class="abrir-eliminarTproyecto red tooltip-error" href="#" data-toggle="modal" data-id="${tipoProyecto.id}" 
+												   data-rel="tooltip" title="Eliminar">
+													<i class="icon-trash bigger-130"></i>
+												</a>
+											</div>
+
+											<div class="hidden-desktop visible-phone">
+												<div class="inline position-relative">
+													<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+														<i class="icon-caret-down icon-only bigger-120"></i>
+													</button>
+
+													<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+														<li>
+															<a href="#" class="abrir-eliminarTproyecto tooltip-error"  
+																data-rel="tooltip" title="Eliminar" data-toggle="modal" data-id="${tipoProyecto.id}">
+																<span class="red">
+																	<i class="icon-trash bigger-120"></i>
+																</span>
+															</a>
+														</li>
+													</ul>
+												</div>
+											</div>
+											<!-- [FIN] BOTON ELIMINAR -->
+										</td>
+									</tr>
+								</tbody>
 							</table>
 						</div>
 					</div>
 
 					<div id="infAvance" class="tab-pane">
 						<div class="row-fluid">
+							<div class="row-fluid">
+								<div class="page-header position-relative">
+									<h1>Informe de Avance</h1>
+								</div>
+							</div>
 							<div class="span12">
-								<div class="span9">Informe de Avance</div>
+								<div class="span9"></div>
 								<div class="span3">
-									<button class="btn btn-info span12">
-										<i class="icon-plus bigger-125"></i>
-										Agregar
-									</button>
+									<a href="#modal-infoAvance" role="button" class="btn btn-small btn-primary" data-toggle="modal">
+										<i class="icon-plus"></i>Agregar 
+									</a>
 								</div>
 							</div>
 						</div>
 						<div class="space-20"></div>
 						<div class="row-fluid">
+							<div class="table-header">Lista de Informe de Avance</div>
 							<table id="tablainfAvance" class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
@@ -610,6 +829,15 @@
 										<th>Opciones</th>
 									</tr>
 								</thead>
+								<tbody>
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
 							</table>
 						</div>
 					</div>
@@ -665,337 +893,14 @@
 		</div>
 	</form>
 	<!-- [FIN] MODAL CLIENTE -->
-	<!-- [INI] MODAL TAREA-->
-	<form id="registrarTarea">
-		<div id="modal-Tarea" class="modal hide" tabindex="-1">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="blue bigger">Registro de Tareas</h4>
-			</div>
-			<div class="modal-body overflow-visible" style="height: auto; overflow: auto;">
-				<div class="row-fluid">
-					<div class="span2">ID:</div>
-					<div class="span4"><input type="text" class="span6" id="idTarea" readonly="readonly"/></div>
-					<div class="span2">Estado:</div>
-					<div class="span4"><select class="span12" id="estadoTarea" ></select></div>
-				</div>
-				<div class="row-fluid">
-					<div class="span2">Descripci&oacute;n:</div>
-					<div class="span10"><textarea class="span12" id="descripcionTarea"></textarea></div>
-				</div>
-				<div class="row-fluid">
-					<div class="span2">Fecha de Inicio:</div>
-					<div class="span4">
-						<div class="row-fluid input-append">
-							<input class="date-picker span10" id="fecIniTarea" type="text" />
-							<span class="add-on">
-								<i class="icon-calendar"></i>
-							</span>
-						</div>
-					</div>
-					<div class="span2">Fecha de Fin:</div>
-					<div class="span4">
-						<div class="row-fluid input-append">
-							<input class="date-picker span10" id="fecFinTarea" type="text" />
-							<span class="add-on">
-								<i class="icon-calendar"></i>
-							</span>
-						</div>
-					</div>
-				</div>	
-				<div class="row-fluid">
-					<div class="span2">Horas:</div>
-					<div class="span4"><input type="text" class="span12" id="horasTarea"/></div>
-					<div class="span2">Recursos:</div>
-					<div class="span4">
-						<div class="row-fluid">
-							<div class="span10">
-								<input type="text" class="span12" id="recursoTarea" readonly="readonly"/>
-							</div>
-							<div class="span2">
-								<a href="#mostrarRecurso" class="blue tooltip-info" role="button" data-rel="tooltip" data-toggle="modal" title="Elegir Recurso" data-placement="left">
-									<i class="icon-search bigger-130"></i>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>	
-				<div class="row-fluid">
-					<div class="span2">Responsable:</div>
-					<div class="span4"><select class="span12" id="responsableTarea"></select></div>
-					<div class="span2">Complejidad:</div>
-					<div class="span4"><select class="span12" id="complejidadTarea"></select></div>
-				</div>
-				<div class="row-fluid">
-					<div class="span2">Justificaci&oacute;n:</div>
-					<div class="span10"><textarea class="span12" id="justificacionTarea"></textarea></div>
-				</div>	
-			</div>
-			<div class="modal-footer">
-				<button class="btn btn-small" data-dismiss="modal">
-					<i class="icon-remove"></i>
-					Cancelar
-				</button>
 	
-				<button class="btn btn-small btn-primary">
-					<i class="icon-save"></i>
-					Guardar
-				</button>
-			</div>
-		</div>
-	</form>
-	<!-- [FIN] MODAL TAREA -->
-	<!-- [INI] MODAL HACER/RESPONDER-->
-	<div id="modal-HacerResponder" class="modal hide" tabindex="-1"> 
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">&times;</button>
-			<h4 class="blue bigger">Tarea <small><i id="dscConsultaTarea"class="icon-double-angle-right"></i> overview &amp; stats</small></h4>
-		</div>
-		<div class="modal-body overflow-visible" style="height: auto; overflow: auto;">
-			<div class="row-fluid">
-					
-				<div class="span12">
-					<div class="widget-box ">
-						<div class="widget-header">
-							<h4 class="lighter smaller">
-								<i class="icon-comment blue"></i>
-								Consultas
-							</h4>
-						</div>
+	<%@ include file="/WEB-INF/views/ventanasEmergentes/ejecucion/registroTareas.jsp"%>
+	<%@ include file="/WEB-INF/views/ventanasEmergentes/ejecucion/consultasProyecto.jsp"%>
+	<%@ include file="/WEB-INF/views/ventanasEmergentes/ejecucion/asignarRecursos.jsp"%>
+	<%@ include file="/WEB-INF/views/ventanasEmergentes/ejecucion/envioCertificacion.jsp"%>
+	<%@ include file="/WEB-INF/views/ventanasEmergentes/ejecucion/envioAprobacion.jsp"%>
+	<%@ include file="/WEB-INF/views/ventanasEmergentes/ejecucion/registroSeguimientoEntregable.jsp"%>
+	<%@ include file="/WEB-INF/views/ventanasEmergentes/ejecucion/registroAdquisiciones.jsp"%>	
+	<%@ include file="/WEB-INF/views/ventanasEmergentes/ejecucion/registroControlCambio.jsp"%>
 
-						<div class="widget-body">
-							<div class="widget-main no-padding">
-								<div class="dialogs">
-									<div class="itemdiv dialogdiv">
-										<div class="user">
-											<img alt="Alexa's Avatar" src="../assets/avatars/avatar2.png" />
-										</div>
-
-										<div class="body">
-											<div class="time">
-												<i class="icon-time"></i>
-												<span class="green">4 sec</span>
-											</div>
-
-											<div class="name">
-												<a href="#">Alexa</a>
-											</div>
-											<div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis.</div>
-
-											<div class="tools">
-												<a href="#" class="btn btn-minier btn-info">
-													<i class="icon-only icon-share-alt"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-
-									<div class="itemdiv dialogdiv">
-										<div class="user">
-											<img alt="John's Avatar" src="../assets/avatars/avatar2.png" />
-										</div>
-
-										<div class="body">
-											<div class="time">
-												<i class="icon-time"></i>
-												<span class="blue">38 sec</span>
-											</div>
-
-											<div class="name">
-												<a href="#">John</a>
-											</div>
-											<div class="text">Raw denim you probably haven&#39;t heard of them jean shorts Austin.</div>
-
-											<div class="tools">
-												<a href="#" class="btn btn-minier btn-info">
-													<i class="icon-only icon-share-alt"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-
-									<div class="itemdiv dialogdiv">
-										<div class="user">
-											<img alt="Bob's Avatar" src="../assets/avatars/avatar2.png" />
-										</div>
-
-										<div class="body">
-											<div class="time">
-												<i class="icon-time"></i>
-												<span class="orange">2 min</span>
-											</div>
-
-											<div class="name">
-												<a href="#">Bob</a>
-												<span class="label label-info arrowed arrowed-in-right">admin</span>
-											</div>
-											<div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis.</div>
-
-											<div class="tools">
-												<a href="#" class="btn btn-minier btn-info">
-													<i class="icon-only icon-share-alt"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-
-									<div class="itemdiv dialogdiv">
-										<div class="user">
-											<img alt="Jim's Avatar" src="../assets/avatars/avatar2.png" />
-										</div>
-
-										<div class="body">
-											<div class="time">
-												<i class="icon-time"></i>
-												<span class="grey">3 min</span>
-											</div>
-
-											<div class="name">
-												<a href="#">Jim</a>
-											</div>
-											<div class="text">Raw denim you probably haven&#39;t heard of them jean shorts Austin.</div>
-
-											<div class="tools">
-												<a href="#" class="btn btn-minier btn-info">
-													<i class="icon-only icon-share-alt"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-
-									<div class="itemdiv dialogdiv">
-										<div class="user">
-											<img alt="Alexa's Avatar" src="../assets/avatars/avatar2.png" />
-										</div>
-
-										<div class="body">
-											<div class="time">
-												<i class="icon-time"></i>
-												<span class="green">4 min</span>
-											</div>
-
-											<div class="name">
-												<a href="#">Alexa</a>
-											</div>
-											<div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-
-											<div class="tools">
-												<a href="#" class="btn btn-minier btn-info">
-													<i class="icon-only icon-share-alt"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-								</div>	
-							
-								<form id="hacerResponderTarea">
-									<div class="form-actions input-append">
-										<input placeholder="Escribe tu mensaje aqu&iacute; ..." type="text" class="width-75" name="message" />
-										<button class="btn btn-small btn-info no-radius" onclick="return false;">
-											<i class="icon-share-alt"></i>
-											<span class="hidden-phone">Enviar</span>
-										</button>
-									</div>
-								</form>
-							
-							</div>
-						</div>
-					</div>
-				</div>					
-			</div>
-		</div>
-		<div class="modal-footer">
-			<button class="btn btn-small" data-dismiss="modal">
-				<i class="icon-remove"></i>
-				Salir
-			</button>
-		</div>
-	</div>
-	<!-- [FIN] MODAL HACER/RESPONDER -->
-	<!-- [INI] MODAL ASIGNAR RECURSO-->
-	<form id="registrarRecursoTarea">
-		<div id="mostrarRecurso" class="modal hide" tabindex="-1">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="blue bigger">Recursos por Asignar</h4>
-			</div>
-			<div class="modal-body overflow-visible" style="height: auto; overflow: auto;">
-				<div class="row-fluid">
-					<div class="span2">Roles:</div>
-					<div class="span10"><select class="span12" id="rolesAsignarTarea"></select></div>
-				</div>	
-				
-				<div class="row-fluid">
-					<select id="idrecursoAsignadoTarea" class="span12" multiple="multiple" size="10">
-						<option value="AL">Alabama</option>
-						<option value="AK">Alaska</option>
-					</select>
-				</div>			
-			</div>
-			<div class="modal-footer">
-				<button class="btn btn-small" data-dismiss="modal">
-					<i class="icon-undo"></i>
-					Salir
-				</button>
-	
-				<button id="asignarRecursoTarea" class="btn btn-small btn-primary" data-dismiss="modal">
-					<i class="icon-ok"></i>
-					Asignar
-				</button>
-			</div>
-		</div>
-	</form>
-	<!-- [FIN] MODAL ASIGNAR RECURSO -->
-	
-	<!-- [INI] MODAL ENVIAR A CERTIFICACION-->
-	<form id="registrarEnvioCertificacion">
-		<div id="modal-EnviarCertificacion" class="modal hide" tabindex="-1">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="blue bigger">Env&iacute;o para Certificaci&oacute;n</h4>
-			</div>
-			<div class="modal-body overflow-visible" style="height: auto; overflow: auto;">
-				<div class="row-fluid">
-					<div class="span3">
-						<button class="btn btn-app btn-primary no-radius">
-							<i class="icon-envelope bigger-230"></i>Enviar
-						</button>
-					</div>
-					<div class="span9">
-						<div class="row-fluid">
-							<div class="span2">Para:</div>
-							<div class="span10"><input type="text" class="span12" id="destinoCertificacion"/></div>
-						</div>
-						<div class="row-fluid">
-							<div class="span2">CC:</div>
-							<div class="span10"><input type="text" class="span12" id="ccdestinoCertificacion"/></div>
-						</div>
-						<div class="row-fluid">
-							<div class="span2">Asunto:</div>
-							<div class="span10"><input type="text" class="span12" id="asuntoDestinoCertificacion"/></div>
-						</div>
-						<div class="row-fluid">
-							<div class="span2">Entregable:</div>
-							<div class="span10"><input type="file" id="envioEntregableCertificacion" /></div>
-						</div>
-					</div>
-				</div>	
-				<div class="row-fluid">
-					<div class="span3">Observaciones:</div>
-					<div class="span9"><textarea rows="5" class="span12" id="observacionCertificacion"></textarea></div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button class="btn btn-small" data-dismiss="modal">
-					<i class="icon-undo"></i>
-					Salir
-				</button>	
-<!-- 				<button id="asignarRecursoTarea" class="btn btn-small btn-primary" data-dismiss="modal"> -->
-<!-- 					<i class="icon-ok"></i> -->
-<!-- 					Asignar -->
-<!-- 				</button> -->
-			</div>
-		</div>
-	</form>
-	<!-- [FIN] MODAL ENVIAR A CERTIFICACION -->
 </div>	

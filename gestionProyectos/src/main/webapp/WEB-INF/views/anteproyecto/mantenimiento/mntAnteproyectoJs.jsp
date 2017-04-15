@@ -1,3 +1,5 @@
+<script src="../assets/js/cancelarProyecto/cancelarProyecto.js"><
+
 <script>
 $('#fechaContacto').datepicker({
 	language: 'es',

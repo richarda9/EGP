@@ -2,83 +2,74 @@
 <div>
 	<div class="row-fluid">
 		<div class="span12">
-			<form class="">
+			<form class="form-horizontal">	
+				<div class="control-group">
+					<label class="control-label" for="cliente">Cliente</label>	
+					<div class="controls">
+						<select id="cliente" name="cliente" title="Cliente">
+							<option value="">Seleccionar</option>
+						</select>	
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="idTipoProyecto">Tipo de Proyecto</label>	
+					<div class="controls">
+						<select id="idTipoProyecto" name="idTipoProyecto" title="idTipoProyecto">
+							<option value="">Seleccionar</option>
+						</select>	
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="idEstado">Estado</label>
+	
+					<div class="controls">
+						<select id="idEstado" name="idEstado" title="idEstado">
+							<option value="">Seleccionar</option>
+						</select>	
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="fechaInicio">Fecha Inicio</label>
+	
+					<div class="controls">
+						<div class="row-fluid input-append">
+							<input id="fechaInicio" type="text" data-date-format="dd-mm-yyyy" />
+							<span class="add-on">
+								<i class="icon-calendar"></i>
+							</span>
+						</div>
+					</div>
+				</div>				
+				<div class="control-group">
+					<label class="control-label" for="fechafin">Fecha Fin</label>
+	
+					<div class="controls">
+						<div class="row-fluid input-append">
+							<input id="fechafin" type="text" data-date-format="dd-mm-yyyy" />
+							<span class="add-on">
+								<i class="icon-calendar"></i>
+							</span>
+						</div>
+					</div>
+				</div>				
 				<div class="row-fluid">
-				<div class="span3">
-					<div class="control-group">
-						<label class="control-label" for="cliente">Cliente</label>	
-						<div class="controls">
-							<select id="cliente" name="cliente" title="Cliente">
-								<option value="">Seleccionar</option>
-							</select>	
+					<div class="span12">
+						<div class="span2"></div>
+						<div class="span2">
+							<button class="btn btn-small btn-primary" type="submit">
+								<i class="icon-search"></i>
+								Buscar
+							</button>
 						</div>
-					</div>
-				</div>
-				<div class="span3">
-					<div class="control-group">
-						<label class="control-label" for="idTipoProyecto">Tipo de Proyecto</label>	
-						<div class="controls">
-							<select id="idTipoProyecto" name="idTipoProyecto" title="idTipoProyecto">
-								<option value="">Seleccionar</option>
-							</select>	
-						</div>
-					</div>
-				</div>
-				<div class="span3">
-					<div class="control-group">
-						<label class="control-label" for="idEstado">Estado</label>
-	
-						<div class="controls">
-							<select id="idEstado" name="idEstado" title="idEstado">
-								<option value="">Seleccionar</option>
-							</select>	
-						</div>
-					</div>
-				</div>
-				</div>
-				<div class="row-fluid">
-				<div class="span3">
-					<div class="control-group">
-						<label class="control-label" for="fechaInicio">Fecha Inicio</label>
-	
-						<div class="controls">
-							<div class="row-fluid input-append">
-								<input id="fechaInicio" type="text" data-date-format="dd-mm-yyyy" />
-								<span class="add-on">
-									<i class="icon-calendar"></i>
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="span3">
-					<div class="control-group">
-						<label class="control-label" for="fechafin">Fecha Fin</label>
-	
-						<div class="controls">
-							<div class="row-fluid input-append">
-								<input id="fechafin" type="text" data-date-format="dd-mm-yyyy" />
-								<span class="add-on">
-									<i class="icon-calendar"></i>
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				</div>
-				<div class="form-actions">
-					<button class="btn btn-info" type="submit">
-						<i class="icon-search bigger-110"></i>
-						Buscar
-					</button>
+						
+					</div>							
 				</div>
 			</form>
 		</div>
 	</div>
 	<div class="row-fluid">
-		<div class="table-header">&nbsp;</div>
-		<table id="tablaEstadoProyecto"
+		<div class="table-header">Lista de Proyectos</div>
+		<table id="tablaCierreProyecto"
 			class="table table-striped table-bordered table-hover">
 			<thead>
 				<tr>
@@ -115,11 +106,9 @@
 						<td></td>
 						<td class="td-actions">
 							<div class="hidden-phone visible-desktop action-buttons">
-								<a class="abrir-eliminarEproyecto red"
-									href="../cierre/mntCierre.htm?idcierre=1" data-toggle="modal"
-									data-id="${estadoProyecto.id}"> <i
-									class="icon-edit bigger-130" data-rel="tooltip"
-									title="Cancelar"> </i>
+								<a class="abrir-eliminarEproyecto blue tooltip-info" href="../cierre/mntCierre.htm?idcierre=1" data-toggle="modal"
+									data-id="${estadoProyecto.id}" data-rel="tooltip" title="Cerrar">
+										<i class="icon-remove-sign bigger-130"> </i>
 								</a>
 							</div>
 
@@ -133,10 +122,10 @@
 									<ul
 										class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
 										<li><a href="../cierre/mntCierre.htm?idcierre=1"
-											class="abrir-eliminarEproyecto tooltip-error"
-											data-rel="tooltip" title="Cancelar" data-toggle="modal"
-											data-id="${estadoProyecto.id}"> <span class="red">
-													<i class="icon-edit bigger-120"></i>
+											class="abrir-eliminarEproyecto tooltip-info"
+											data-rel="tooltip" title="Cerrar" data-toggle="modal"
+											data-id="${estadoProyecto.id}"> <span class="blue">
+													<i class="icon-remove-sign bigger-120"></i>
 											</span>
 										</a></li>
 									</ul>
@@ -148,4 +137,6 @@
 			</tbody>
 		</table>
 	</div>
+	
+	<%@ include file="/WEB-INF/views/cancelar/cancelarContenido.jsp"%>
 </div>
