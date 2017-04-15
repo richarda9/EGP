@@ -82,9 +82,12 @@
 										<div class="control-group">
 											<label class="control-label" for="dscAsocProyecto">Asociado a Proyecto</label>
 											<div class="controls">
-												<select id="dscAsocProyecto" name="dscAsocProyecto" >
+												<select id="idAsociadoProyecto" name="idAsociadoProyecto" >
 													<option value="">Seleccionar</option>
-												</select>	
+													<c:forEach var="asociadoProyecto" items="${model.listaAsociadoProyecto}" varStatus="contador">
+													   <option value="${asociadoProyecto.idProyecto}">${asociadoProyecto.nombreProyecto}</option>
+													</c:forEach>
+												</select>
 											</div>
 										</div>							    
 									</div>				
@@ -121,9 +124,12 @@
 											<div class="control-group">
 												<label class="control-label" for="dscEjecutivoCuenta">Ejecutivo de Cuenta</label>
 												<div class="controls">
-													<select id="dscEjecutivoCuenta" name="dscEjecutivoCuenta">
+													<select id="idEjecutivoCuenta" name="idEjecutivoCuenta">
 														<option value="">Seleccionar</option>
-													</select>	
+														<c:forEach var="ejecutivoCuenta" items="${model.listaEjecutivoCuenta}" varStatus="contador">
+														   <option value="${ejecutivoCuenta.idDetalle}">${ejecutivoCuenta.nombres}</option>
+														</c:forEach>
+													</select>
 												</div>
 											</div>							    
 										</div>											
@@ -131,9 +137,12 @@
 											<div class="control-group">
 												<label class="control-label" for="dscResponsable">Responsable</label>
 												<div class="controls">
-													<select id="dscResponsable" name="dscResponsable">
+													<select id="idResponsableProyecto" name="idResponsableProyecto">
 														<option value="">Seleccionar</option>
-													</select>	
+														<c:forEach var="responsableProyecto" items="${model.listaResponsableProyecto}" varStatus="contador">
+														   <option value="${responsableProyecto.idDetalle}">${responsableProyecto.nombres}</option>
+														</c:forEach>
+													</select>
 												</div>
 											</div>							    
 										</div>		
