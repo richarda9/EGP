@@ -28,6 +28,12 @@
 
 	<definition name="error403" template="/WEB-INF/error/error403.jsp"></definition>
 	<definition name="error404" template="/WEB-INF/error/error404.jsp"></definition>
+	
+	<definition name="errorGeneral" extends="templateSistema">
+		<put-attribute name="css2" value="/WEB-INF/views/errorCss.jsp" />
+		<put-attribute name="contenido" value="/WEB-INF/views/errorContenido.jsp" />
+		<put-attribute name="js2" value="/WEB-INF/views/errorJs.jsp" />
+	</definition>
 		
 </tiles-definitions>
 

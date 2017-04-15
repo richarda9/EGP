@@ -1,0 +1,21 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.sigcomt.gestionProyectos.repositorio.anteproyecto.PersonaDao">
+
+	<!-- INI - PERSONA -->
+	<select id="listarEjecutivoResponsableByEstadoByRol" parameterType= "map" resultType="map">
+		select secRolUser."id_detalle" as idDetalle, 
+				(per."NOMBRE_PERSONA"||' '||per."APELLIDO_PERSONA")as nombres 
+		from "CREAR_PROYECTO"."PERSONA" per
+		inner join "seguridad"."security_user" secUser
+		on secUser."ID_PERSONA" = per."ID_PERSONA"
+		inner join "seguridad"."security_rol_user" secRolUser
+		on secRolUser."id_user" = secUser."id_user"
+		inner join "seguridad"."security_rol" secRol
+		on secRol."id_rol" = secRolUser."id_rol"
+		where secRolUser."estado" = #{estado}
+		and secRol."id_rol" = #{idRol}
+	</select>
+	<!-- FIN - PERSONA -->
+	
+</mapper>

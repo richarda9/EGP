@@ -27,8 +27,7 @@
 		</bean>
 		
 		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-<!-- 			<property name="mapperLocations" -->
-<!-- 				value="classpath:com/sigcomt/gestionProyectos/repositorio/**/*.xml" /> -->
+ 			<!-- <property name="mapperLocations" value="classpath:mapper/**/*.xml" /> -->
 			<property name="configLocation" value="classpath:config/sqlMapConfig.xml"/>
 			<property name="dataSource" ref="dataSource" />
 			<property name="transactionFactory" ref="springManagedTransactionFactory" />

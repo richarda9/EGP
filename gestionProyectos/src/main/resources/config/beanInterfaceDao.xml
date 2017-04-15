@@ -18,5 +18,15 @@
 		<property name="mapperInterface" value="com.sigcomt.gestionProyectos.repositorio.administracion.PaisDao" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
+	
+	<bean id="proyectoDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.sigcomt.gestionProyectos.repositorio.anteproyecto.ProyectoDao" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="personaDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.sigcomt.gestionProyectos.repositorio.anteproyecto.PersonaDao" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
 
 </beans>

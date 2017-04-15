@@ -32,11 +32,14 @@
 				</div>
 				<div class="span3">
 					<div class="control-group">
-						<label class="control-label" for="dscEjecutivoCuenta">Ejecutivo de Cuenta</label>
-	
+						<label class="control-label" for="dscEjecutivoCuenta">Ejecutivo de Cuenta</label>	
 						<div class="controls">
-							<input type="text" id="dscEjecutivoCuenta" 
-								name="dscEjecutivoCuenta" placeholder="Ejecutivo de cuenta" />
+							<select id="idEjecutivoCuenta" name="idEjecutivoCuenta">
+								<option value="">Seleccionar</option>
+								<c:forEach var="ejecutivoCuenta" items="${model.listaEjecutivoCuenta}" varStatus="contador">
+								   <option value="${ejecutivoCuenta.idDetalle}">${ejecutivoCuenta.nombres}</option>
+								</c:forEach>
+							</select>
 						</div>
 					</div>
 				</div>
@@ -45,10 +48,13 @@
 				<div class="span3">
 					<div class="control-group">
 						<label class="control-label" for="dscResponsable">Responsable</label>
-	
 						<div class="controls">
-							<input type="text" id="dscResponsable" 
-								name="dscResponsable" placeholder="Responsable" />
+							<select id="idResponsableProyecto" name="idResponsableProyecto">
+								<option value="">Seleccionar</option>
+								<c:forEach var="responsableProyecto" items="${model.listaResponsableProyecto}" varStatus="contador">
+								   <option value="${responsableProyecto.idDetalle}">${responsableProyecto.nombres}</option>
+								</c:forEach>
+							</select>
 						</div>
 					</div>
 				</div>
