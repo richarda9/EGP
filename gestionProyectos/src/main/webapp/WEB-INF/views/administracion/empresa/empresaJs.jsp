@@ -2,24 +2,26 @@
 $(function() 
 {
 	$('#tablaEmpresaProyecto').DataTable({
-		"paging" : true,
-		"autoWidth": true,
-		"pageLength": 10,
-		"searching": false,
+		"paging"     : true,
+		"autoWidth"  : true,
+		"pageLength" : 10,
+		"searching"  : false,
+		"bInfo"      : false, 
 		//"bLengthChange": false,
-		"language": {
-	            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
-	        }
+		"language"   : {
+							"url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+				       }
 	});
 	$('#tablaContEmpresaProyecto').DataTable({
-		"paging" : true,
-		"autoWidth": true,
-		"pageLength": 10,
-		"searching": false,
+		"paging"     : true,
+		"autoWidth"  : true,
+		"pageLength" : 10,
+		"searching"  : false,
+		"bInfo"      : false, 
 		//"bLengthChange": false,
-		"language": {
-	            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
-	        }
+		"language"   : {
+							"url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+				       }
 	});
 	
 	$('#logoEmpresa').ace_file_input({ 

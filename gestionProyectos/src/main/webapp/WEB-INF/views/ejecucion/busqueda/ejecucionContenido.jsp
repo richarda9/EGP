@@ -102,34 +102,56 @@
 					<td></td>
 					<td></td>
 					<td class="td-actions">
-						<div class="hidden-phone visible-desktop action-buttons">
-							<a class="abrir-eliminarEproyecto red"
-								href="../ejecucion/mntEjecucion.htm?idEjecucion=1" data-toggle="modal"
-								data-id="${estadoProyecto.id}"> <i
-								class="icon-edit bigger-130" data-rel="tooltip"
-								title="Editar"> </i>
-							</a>
-						</div>
-	
-						<div class="hidden-desktop visible-phone">
-							<div class="inline position-relative">
-								<button class="btn btn-minier btn-yellow dropdown-toggle"
-									data-toggle="dropdown">
-									<i class="icon-caret-down icon-only bigger-120"></i>
-								</button>
-	
-								<ul
-									class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
-									<li><a href="../ejecucion/mntEjecucion.htm?idEjecucion=1"
-										class="abrir-eliminarEproyecto tooltip-error"
-										data-rel="tooltip" title="Editar" data-toggle="modal"
-										data-id="${estadoProyecto.id}"> <span class="red">
-												<i class="icon-edit bigger-120"></i>
-										</span>
-									</a></li>
-								</ul>
+						<!-- [INI] BOTON EDITAR -->
+							<div class="hidden-phone visible-desktop action-buttons">
+								<a class="abrir-eliminarEproyecto blue tooltip-info" href="../ejecucion/mntEjecucion.htm?idEjecucion=1" data-toggle="modal"
+									data-id="${estadoProyecto.id}" data-rel="tooltip" title="Editar"> 
+										<i class="icon-edit bigger-130"></i>
+								</a>
 							</div>
-						</div>
+
+							<div class="hidden-desktop visible-phone">
+								<div class="inline position-relative">
+									<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+										<i class="icon-caret-down icon-only bigger-120"></i>
+									</button>
+
+									<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+										<li>
+											<a href="../ejecucion/mntEjecucion.htm?idEjecucion=1" class="abrir-eliminarEproyecto tooltip-info"
+											   data-rel="tooltip" title="Editar" data-toggle="modal" data-id="${estadoProyecto.id}"> 
+												<span class="blue"><i class="icon-edit bigger-120"></i></span>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!-- [FIN] BOTON EDITAR -->
+							<!-- [INI] BOTON CANCELAR -->
+							<div class="hidden-phone visible-desktop action-buttons">
+								<a class="abrir-eliminarEproyecto red tooltip-error" href="#modalCancelarProyecto" data-toggle="modal"
+								   data-id="${estadoProyecto.id}" data-rel="tooltip" title="Cancelar"> 
+									<i class="icon-remove-sign bigger-130"></i>
+								</a>
+							</div>
+
+							<div class="hidden-desktop visible-phone">
+								<div class="inline position-relative">
+									<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+										<i class="icon-caret-down icon-only bigger-120"></i>
+									</button>
+
+									<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+										<li>
+											<a href="#modalCancelarProyecto" class="abrir-eliminarEproyecto tooltip-error" data-rel="tooltip" 
+												title="Cancelar" data-toggle="modal" data-id="${estadoProyecto.id}"> 
+											   		<span class="red"><i class="icon-remove-sign bigger-120"></i></span>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!-- [FIN] BOTON CANCELAR  -->
 					</td>
 				</tr>
 				<c:forEach var="estadoProyecto" items="${model.listaEstadoProyecto}" varStatus="contador">
@@ -140,50 +162,72 @@
 						<td><c:out value="${estadoProyecto.descripcion}"></c:out></td>
 						<c:choose>
 							<c:when test="${estadoProyecto.estado == 1}">
-								<td class="hidden-480"><span class="label label-info"><b>ACTIVO</b></span>
-								</td>
+								<td class="hidden-480"><span class="label label-info"><b>ACTIVO</b></span></td>
 							</c:when>
 							<c:otherwise>
-								<td class="hidden-480"><span
-									class="label label-danger"><b>INACTIVO</b></span></td>
+								<td class="hidden-480"><span class="label label-danger"><b>INACTIVO</b></span></td>
 							</c:otherwise>
 						</c:choose>
 						<td></td>
 						<td></td>
 						<td></td>
 						<td class="td-actions">
+							<!-- [INI] BOTON EDITAR -->
 							<div class="hidden-phone visible-desktop action-buttons">
-								<a class="abrir-eliminarEproyecto red"
-									href="../anteproyecto/mntAnteproyecto.htm?idAnteproyecto=1" data-toggle="modal"
-									data-id="${estadoProyecto.id}"> <i
-									class="icon-edit bigger-130" data-rel="tooltip"
-									title="Editar"> </i>
+								<a class="abrir-eliminarEproyecto blue tooltip-info" href="../ejecucion/mntEjecucion.htm?idEjecucion=1" data-toggle="modal"
+									data-id="${estadoProyecto.id}" data-rel="tooltip" title="Editar"> 
+										<i class="icon-edit bigger-130"></i>
 								</a>
 							</div>
 
 							<div class="hidden-desktop visible-phone">
 								<div class="inline position-relative">
-									<button class="btn btn-minier btn-yellow dropdown-toggle"
-										data-toggle="dropdown">
+									<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
 										<i class="icon-caret-down icon-only bigger-120"></i>
 									</button>
 
-									<ul
-										class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
-										<li><a href="../anteproyecto/mntAnteproyecto.htm?idAnteproyecto=1"
-											class="abrir-eliminarEproyecto tooltip-error"
-											data-rel="tooltip" title="Cancelar" data-toggle="modal"
-											data-id="${estadoProyecto.id}"> <span class="red">
-													<i class="icon-edit bigger-120"></i>
-											</span>
-										</a></li>
+									<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+										<li>
+											<a href="../ejecucion/mntEjecucion.htm?idEjecucion=1" class="abrir-eliminarEproyecto tooltip-info"
+											   data-rel="tooltip" title="Editar" data-toggle="modal" data-id="${estadoProyecto.id}"> 
+												<span class="blue"><i class="icon-edit bigger-120"></i></span>
+											</a>
+										</li>
 									</ul>
 								</div>
 							</div>
+							<!-- [FIN] BOTON EDITAR -->
+							<!-- [INI] BOTON CANCELAR -->
+							<div class="hidden-phone visible-desktop action-buttons">
+								<a class="abrir-eliminarEproyecto red tooltip-error" href="#modalCancelarProyecto" data-toggle="modal"
+								   data-id="${estadoProyecto.id}" data-rel="tooltip" title="Cancelar"> 
+									<i class="icon-remove-sign bigger-130"></i>
+								</a>
+							</div>
+
+							<div class="hidden-desktop visible-phone">
+								<div class="inline position-relative">
+									<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+										<i class="icon-caret-down icon-only bigger-120"></i>
+									</button>
+
+									<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+										<li>
+											<a href="#modalCancelarProyecto" class="abrir-eliminarEproyecto tooltip-error" data-rel="tooltip" 
+												title="Cancelar" data-toggle="modal" data-id="${estadoProyecto.id}"> 
+											   		<span class="red"><i class="icon-remove-sign bigger-120"></i></span>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!-- [FIN] BOTON CANCELAR  -->
 						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 	</div>
+	
+	<%@ include file="/WEB-INF/views/cancelar/cancelarContenido.jsp"%>
 </div>	

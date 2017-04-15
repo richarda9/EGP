@@ -110,58 +110,63 @@ $(function()
 	}).prev().addClass('wysiwyg-style2');
 	
 	$('#tablaReqProyecto').DataTable({
-		"paging" : true,
-		"autoWidth": true,
-		"pageLength": 10,
-		"searching": false,
+		"paging"     : true,
+		"autoWidth"  : true,
+		"pageLength" : 10,
+		"searching"  : false,
+		"bInfo"      : false, 
 		//"bLengthChange": false,
-		"language": {
-	            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
-	        }
+		"language"   : {
+							"url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+				       }
 	});
 	
 	$('#tablaExclProyecto').DataTable({
-		"paging" : true,
-		"autoWidth": true,
-		"pageLength": 10,
-		"searching": false,
+		"paging"     : true,
+		"autoWidth"  : true,
+		"pageLength" : 10,
+		"searching"  : false,
+		"bInfo"      : false, 
 		//"bLengthChange": false,
-		"language": {
-	            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
-	        }
+		"language"   : {
+							"url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+				       }
 	});
 	
 	$('#tablaSupuestoProyecto').DataTable({
-		"paging" : true,
-		"autoWidth": true,
-		"pageLength": 10,
-		"searching": false,
+		"paging"     : true,
+		"autoWidth"  : true,
+		"pageLength" : 10,
+		"searching"  : false,
+		"bInfo"      : false, 
 		//"bLengthChange": false,
-		"language": {
-	            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
-	        }
+		"language"   : {
+							"url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+				       }
 	});
 	
 	$('#tablaDependenciaProyecto').DataTable({
-		"paging" : true,
-		"autoWidth": true,
-		"pageLength": 10,
-		"searching": false,
+		"paging"     : true,
+		"autoWidth"  : true,
+		"pageLength" : 10,
+		"searching"  : false,
+		"bInfo"      : false, 
 		//"bLengthChange": false,
-		"language": {
-	            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
-	        }
+		"language"   : {
+							"url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+				       }
 	});
 	
 	$('#tablafactExitoProyecto').DataTable({
-		"paging" : true,
-		"autoWidth": true,
-		"pageLength": 10,
-		"searching": false,
+		"paging"     : true,
+		"autoWidth"  : true,
+		"pageLength" : 10,
+		"searching"  : false,
+		"bInfo"      : false, 
 		//"bLengthChange": false,
-		"language": {
-	            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
-	        }
+		"language"   : {
+							"url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+				       }
 	});
 	
 	$('#arbolProveedor').ace_tree({
@@ -187,47 +192,51 @@ $(function()
 	});
 	
 	$('#tablaEntregableProyecto').DataTable({
-		"paging" : true,
-		"autoWidth": true,
-		"pageLength": 10,
-		"searching": false,
+		"paging"     : true,
+		"autoWidth"  : true,
+		"pageLength" : 10,
+		"searching"  : false,
+		"bInfo"      : false, 
 		//"bLengthChange": false,
-		"language": {
-	            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
-	        }
+		"language"   : {
+							"url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+				       }
 	});
 	
 	$('#tablaRiesgosProyecto').DataTable({
-		"paging" : true,
-		"autoWidth": true,
-		"pageLength": 10,
-		"searching": false,
+		"paging"     : true,
+		"autoWidth"  : true,
+		"pageLength" : 10,
+		"searching"  : false,
+		"bInfo"      : false, 
 		//"bLengthChange": false,
-		"language": {
-	            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
-	        }
+		"language"   : {
+							"url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+				       }
 	});
 	
 	$('#tablaAdquisicionesProyecto').DataTable({
-		"paging" : true,
-		"autoWidth": true,
-		"pageLength": 10,
-		"searching": false,
+		"paging"     : true,
+		"autoWidth"  : true,
+		"pageLength" : 10,
+		"searching"  : false,
+		"bInfo"      : false, 
 		//"bLengthChange": false,
-		"language": {
-	            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
-	        }
+		"language"   : {
+							"url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+				       }
 	});
 	
 	$('#tablaCostosProyecto').DataTable({
-		"paging" : true,
-		"autoWidth": true,
-		"pageLength": 10,
-		"searching": false,
+		"paging"     : true,
+		"autoWidth"  : true,
+		"pageLength" : 10,
+		"searching"  : false,
+		"bInfo"      : false, 
 		//"bLengthChange": false,
-		"language": {
-	            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
-	        }
+		"language"   : {
+							"url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+				       }
 	});	
 	
 				

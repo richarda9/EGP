@@ -61,7 +61,10 @@ $(document).on("ready", function() {
 		keyboard : false,
 	});		
 	
+	$('[data-rel=tooltip]').tooltip();
 	regresar();
+	
+	$.fn.modal.Constructor.prototype.enforceFocus = function () {};
 });
 
 // 	$(function() {
