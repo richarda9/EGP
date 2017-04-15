@@ -14,7 +14,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sigcomt.gestionProyectos.common.enumerations.EstadoProyectoEnum;
+import com.sigcomt.gestionProyectos.common.enumerations.RolEnum;
 import com.sigcomt.gestionProyectos.servicio.administracion.AdministracionService;
+import com.sigcomt.gestionProyectos.servicio.anteproyecto.PersonaService;
+import com.sigcomt.gestionProyectos.servicio.anteproyecto.ProyectoService;
 
 @Controller
 @RequestMapping(value = "/anteproyecto")
@@ -27,31 +31,49 @@ public class AnteproyectoController
 	@Autowired
 	private AdministracionService administracionService;
 	
+	@Autowired
+	private ProyectoService proyectoService;
+	
+	@Autowired
+	private PersonaService personaService;
+	
 	@RequestMapping(value = "/anteproyecto.htm")
-	public ModelAndView anteproyecto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	public ModelAndView anteproyecto(HttpServletRequest request, HttpServletResponse response) 
 	{
 		HashMap<String, Object> myModel = new HashMap<String, Object>();
-//		String index = request.getParameter("idanteproyecto");
-		myModel.put("listaEmpresa", this.administracionService.listarEmpresaByEstado(ESTADO_ACTIVO));
-		myModel.put("listaTipoProyecto", this.administracionService.listarTipoProyectoByEsado(ESTADO_ACTIVO));
-//		myModel.put("listaEstadoProyecto", this.administracionService.listarEstadoProyecto());
-//		myModel.put("listaTipoRequisito", this.administracionService.listarTipoRequisitoProyecto());
+		
+		try {
+			myModel.put("listaEmpresa", this.administracionService.listarEmpresaByEstado(ESTADO_ACTIVO));
+			myModel.put("listaTipoProyecto", this.administracionService.listarTipoProyectoByEsado(ESTADO_ACTIVO));
+			myModel.put("listaEjecutivoCuenta", this.personaService.listarEjecutivoResponsableByEstadoByRol(ESTADO_ACTIVO, Long.parseLong(RolEnum.EJECUTIVO_CUENTA.getCodigo())));
+			myModel.put("listaResponsableProyecto", this.personaService.listarEjecutivoResponsableByEstadoByRol(ESTADO_ACTIVO, Long.parseLong(RolEnum.RESPONSABLE_PROYECTO.getCodigo())));		
+			
+		} catch (Exception e) {
+			myModel.put("mensajeError", e);
+			return new ModelAndView("errorGeneral", "model", myModel);
+		}		
 		
 		return new ModelAndView("anteproyecto", "model", myModel);
 	}
 	
 	@RequestMapping(value = "/mntAnteproyectoAgregar.htm")
-	public ModelAndView mntAnteproyectoAgregar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	public ModelAndView mntAnteproyectoAgregar(HttpServletRequest request, HttpServletResponse response)
 	{
 		HashMap<String, Object> myModel = new HashMap<String, Object>();
-//		String index = request.getParameter("idAnteproyecto");
-		myModel.put("modoEdicion", false);
-		myModel.put("listaEmpresa", this.administracionService.listarEmpresaByEstado(ESTADO_ACTIVO));
-		myModel.put("listaTipoProyecto", this.administracionService.listarTipoProyectoByEsado(ESTADO_ACTIVO));
-//		myModel.put("listaTipoProyecto", this.administracionService.listarTipoProyecto());
-//		myModel.put("listaEstadoProyecto", this.administracionService.listarEstadoProyecto());
-//		myModel.put("listaTipoRequisito", this.administracionService.listarTipoRequisitoProyecto());
 		
+		try {
+			myModel.put("modoEdicion", false);
+			myModel.put("listaEmpresa", this.administracionService.listarEmpresaByEstado(ESTADO_ACTIVO));
+			myModel.put("listaTipoProyecto", this.administracionService.listarTipoProyectoByEsado(ESTADO_ACTIVO));
+			myModel.put("listaAsociadoProyecto", this.proyectoService.listarProyectoByDetalleEstadoProyectoByEstado(ESTADO_ACTIVO, Long.parseLong(EstadoProyectoEnum.EN_PLANIFICACION.getCodigo())));
+			myModel.put("listaEjecutivoCuenta", this.personaService.listarEjecutivoResponsableByEstadoByRol(ESTADO_ACTIVO, Long.parseLong(RolEnum.EJECUTIVO_CUENTA.getCodigo())));
+			myModel.put("listaResponsableProyecto", this.personaService.listarEjecutivoResponsableByEstadoByRol(ESTADO_ACTIVO, Long.parseLong(RolEnum.RESPONSABLE_PROYECTO.getCodigo())));
+						
+		} catch (Exception e) {
+			myModel.put("mensajeError", e);
+			return new ModelAndView("errorGeneral", "model", myModel);
+		}
+
 		return new ModelAndView("mntAnteproyecto", "model", myModel);
 	}
 	

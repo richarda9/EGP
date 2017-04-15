@@ -1,0 +1,17 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.sigcomt.gestionProyectos.repositorio.anteproyecto.ProyectoDao">
+
+	<!-- INI - PROYECTO -->
+	<select id="listarProyectoByDetalleEstadoProyectoByEstado" parameterType= "map" resultType="Proyecto">
+		select py."ID_PROYECTO" as idProyecto,
+				py."NOMBRE_PROYECTO" as nombreProyecto 
+		from "CREAR_PROYECTO"."PROYECTO" py
+		inner join "CREAR_PROYECTO"."DETALLE_ESTADO_PROYECTO" detEstPy
+		on detEstPy."ID_PROYECTO" = py."ID_PROYECTO"
+		where py."ESTADO" = #{estado}
+		and detEstPy."ID_ESTADO_PROYECTO" = #{idEstadoProyecto};
+	</select>
+	<!-- FIN - PROYECTO -->
+	
+</mapper>

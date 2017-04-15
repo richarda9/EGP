@@ -11,10 +11,13 @@
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.TipoRequisito" alias="TipoRequisito"/>
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.Empresa" alias="Empresa"/>
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.Pais" alias="Pais"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.Proyecto" alias="Proyecto"/>
 	</typeAliases>
 	
     <mappers>
         <mapper resource="mapper/usuario/UsuarioMapper.xml" />        
         <mapper resource="mapper/administracion/administracionMapper.xml" />
+        <mapper resource="mapper/administracion/proyectoMapper.xml" />
+        <mapper resource="mapper/administracion/personaMapper.xml" />
     </mappers>
 </configuration>

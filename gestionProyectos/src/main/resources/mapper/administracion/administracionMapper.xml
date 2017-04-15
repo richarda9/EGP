@@ -101,6 +101,5 @@
 	   		   "ESTADO" as estado
  	   from "CREAR_PROYECTO"."PAIS";
 	</select>
-	<!-- FIN - PAIS -->
-	
+	<!-- FIN - PAIS -->	
 </mapper>
