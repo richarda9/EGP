@@ -11,7 +11,8 @@
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.TipoRequisito" alias="TipoRequisito"/>
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.Empresa" alias="Empresa"/>
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.Pais" alias="Pais"/>
-		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.Proyecto" alias="Proyecto"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.Proyecto" alias="Proyecto"/>		
+		<!-- <typeAlias type="com.sigcomt.gestionProyectos.model.anteproyecto.BuscarAnteproyectoModel" alias="BuscarAnteproyectoModel"/>	 -->
 	</typeAliases>
 	
     <mappers>
