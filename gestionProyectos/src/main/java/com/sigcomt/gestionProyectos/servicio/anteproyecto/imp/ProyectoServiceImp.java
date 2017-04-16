@@ -31,5 +31,10 @@ public class ProyectoServiceImp implements ProyectoService {
 			BuscarAnteproyectoModel buscarAnteproyectoModel) throws Exception {
 		return proyectoDao.buscarProyectoByDetalleEstadoProyectoByEstado(buscarAnteproyectoModel);
 	}
+	
+	public List<Proyecto> listarProyectoByEstado(int estado)
+	{
+		return proyectoDao.listarProyectoByEstado(estado);
+	}
 
 }
