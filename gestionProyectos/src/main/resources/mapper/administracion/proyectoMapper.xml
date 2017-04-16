@@ -10,8 +10,65 @@
 		inner join "CREAR_PROYECTO"."DETALLE_ESTADO_PROYECTO" detEstPy
 		on detEstPy."ID_PROYECTO" = py."ID_PROYECTO"
 		where py."ESTADO" = #{estado}
-		and detEstPy."ID_ESTADO_PROYECTO" = #{idEstadoProyecto};
+		and detEstPy."ID_ESTADO_PROYECTO" = #{idEstadoProyecto}
 	</select>
+	
+	<select id="buscarProyectoByDetalleEstadoProyectoByEstado"  resultType="Proyecto">
+		select py."ID_PROYECTO" as idProyecto,
+			py."NOMBRE_PROYECTO" as nombreProyecto,
+			py."NOMBRE_EMPRESA" as nombreEmpresa,	
+			tipoPy."DESCRIPCION_TIPO_PROYECTO" as descripcionTipoProyecto,
+			to_char(py."FECHA_CONTACTO", 'dd-mm-yyyy')as fechaContactoString,
+			(select per."NOMBRE_PERSONA"||' '||per."APELLIDO_PERSONA" 
+			from "CREAR_PROYECTO"."PERSONA" per
+			inner join "seguridad"."security_user" secUser
+			on secUser."ID_PERSONA" = per."ID_PERSONA"
+			inner join "seguridad"."security_rol_user" secRolUser
+			on secRolUser."id_user" = secUser."id_user"
+			where secRolUser."id_detalle" = py."ID_RESPONSABLE_PROYECTO") as nombreResponsable,
+			(select per."NOMBRE_PERSONA"||' '||per."APELLIDO_PERSONA" 
+			from "CREAR_PROYECTO"."PERSONA" per
+			inner join "seguridad"."security_user" secUser
+			on secUser."ID_PERSONA" = per."ID_PERSONA"
+			inner join "seguridad"."security_rol_user" secRolUser
+			on secRolUser."id_user" = secUser."id_user"
+			where secRolUser."id_detalle" = py."ID_EJECUTIVO_CUENTA") as nombreEjecutivo	
+		from "CREAR_PROYECTO"."PROYECTO" py
+		inner join "CREAR_PROYECTO"."DETALLE_ESTADO_PROYECTO" detEstPy
+		on detEstPy."ID_PROYECTO" = py."ID_PROYECTO"
+		inner join "CREAR_PROYECTO"."TIPO_PROYECTO" tipoPy
+		on tipoPy."ID_TIPO_PROYECTO" = py."ID_TIPO_PROYECTO"
+		where py."ESTADO" = #{estado}
+		and detEstPy."ID_ESTADO_PROYECTO" = #{idEstadoProyecto}
+		<if test="idEmpresa != null and idEmpresa != ''">
+			and py."ID_EMPRESA" = #{idEmpresa} 
+		</if>
+		<if test="fechaInicio != null and fechaInicio != ''">
+			and to_char(py."FECHA_CONTACTO", 'dd/mm/yyyy') >= #{fechaInicio} 
+		</if>
+		<if test="fechaFin != null and fechaFin != ''">
+			<![CDATA[
+			and to_char(py."FECHA_CONTACTO", 'dd/mm/yyyy') <= #{fechaFin}
+			]]>
+		</if>
+		<if test="idTipoProyecto != null and idTipoProyecto != ''">
+			and py."ID_TIPO_PROYECTO" = #{idTipoProyecto} 
+		</if>
+		<if test="idResponsableProyecto != null and idResponsableProyecto != ''">
+			and py."ID_RESPONSABLE_PROYECTO" = #{idResponsableProyecto} 
+		</if>
+		<if test="idEjecutivoCuenta != null and idEjecutivoCuenta != ''">
+			and py."ID_EJECUTIVO_CUENTA" = #{idEjecutivoCuenta} 
+		</if> 
+	</select>
+	
 	<!-- FIN - PROYECTO -->
+	
+	<select id="listarProyectoByEstado" parameterType="int" resultType="Proyecto">
+		SELECT "ID_PROYECTO" as idProyecto, 
+				"NOMBRE_PROYECTO" as nombreProyecto
+		  FROM "CREAR_PROYECTO"."PROYECTO" 
+		WHERE "ESTADO" = #{estado};
+	</select>
 	
 </mapper>
