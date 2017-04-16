@@ -4,19 +4,39 @@
 //[INI] CARGA DE TABLAS
 $(function() {
 		 $('#tablaTipoProyecto').DataTable({
-				"paging" : true,
-				"autoWidth": true,
-				 "language": {
-			            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
-			        }
+				"paging"     : true,
+				"autoWidth"  : true,
+				"pageLength" : 10,
+				"searching"  : false,
+				"bInfo"      : false, 
+				//"bLengthChange": false,
+				"language"   : {
+									"url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+						       }
 			});
 		 
 		 $('#tablaEstadoProyecto').DataTable({
-				"paging" : true,
-				"autoWidth": true,
-				 "language": {
-			            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
-			        }
+				"paging"     : true,
+				"autoWidth"  : true,
+				"pageLength" : 10,
+				"searching"  : false,
+				"bInfo"      : false, 
+				//"bLengthChange": false,
+				"language"   : {
+									"url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+						       }
+			});
+		 		 
+		 $('#tablaTipoRequisitoProyecto').DataTable({
+				"paging"     : true,
+				"autoWidth"  : true,
+				"pageLength" : 10,
+				"searching"  : false,
+				"bInfo"      : false, 
+				//"bLengthChange": false,
+				"language"   : {
+									"url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+						       }
 			});
 });	
 //[FIN] CARGA DE TABLAS
@@ -101,14 +121,14 @@ function listarTipoProyecto() {
 					activado = '<span class="label label-danger"><b>INACTIVO</b></span>';
 				}
 				var accion = '<td class="td-actions">'+'<div class="hidden-phone visible-desktop action-buttons">'+
-							 '<a class="abrir-eliminarTproyecto red" href="#eliminarTipoProyecto" data-toggle="modal" data-id="'+data[i].id+'">'+
-							 '<i class="icon-trash bigger-130" data-rel="tooltip" title="Eliminar"> </i></a></div>'+
+							 '<a class="abrir-eliminarTproyecto red tooltip-error" data-rel="tooltip" title="Eliminar" href="#eliminarTipoProyecto" data-toggle="modal" data-id="'+data[i].id+'">'+
+							 '<i class="icon-trash bigger-130"></i></a></div>'+
 							 '<div class="hidden-desktop visible-phone"><div class="inline position-relative">'+
 							 '<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">'+
 							 '<i class="icon-caret-down icon-only bigger-120"></i></button>'+
 							 '<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">'+
 							 '<li><a href="##eliminarTipoProyecto" class="abrir-eliminarTproyecto tooltip-error" data-rel="tooltip" '+
-							 'itle="Eliminar" data-toggle="modal" data-id="'+data[i].id+'">'+'<span class="red">'+
+							 'title="Eliminar" data-toggle="modal" data-id="'+data[i].id+'">'+'<span class="red">'+
 							 '<i class="icon-trash bigger-120"></i></span></a></li></ul></div></div></td>';
 
 				t.row.add([++i, descripcion, activado, accion ]).draw();
@@ -226,14 +246,14 @@ function listarEstadoProyecto() {
 					activado = '<span class="label label-danger"><b>INACTIVO</b></span>';
 				}
 				var accion = '<td class="td-actions">'+'<div class="hidden-phone visible-desktop action-buttons">'+
-							 '<a class="abrir-eliminarEproyecto red" href="#eliminarEstadoProyecto" data-toggle="modal" data-id="'+data[i].id+'">'+
-							 '<i class="icon-trash bigger-130" data-rel="tooltip" title="Eliminar"> </i></a></div>'+
+							 '<a class="abrir-eliminarEproyecto red tooltip-error" data-rel="tooltip" title="Eliminar" href="#eliminarEstadoProyecto" data-toggle="modal" data-id="'+data[i].id+'">'+
+							 '<i class="icon-trash bigger-130"></i></a></div>'+
 							 '<div class="hidden-desktop visible-phone"><div class="inline position-relative">'+
 							 '<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">'+
 							 '<i class="icon-caret-down icon-only bigger-120"></i></button>'+
 							 '<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">'+
 							 '<li><a href="##eliminarEstadoProyecto" class="abrir-eliminarEproyecto tooltip-error" data-rel="tooltip" '+
-							 'itle="Eliminar" data-toggle="modal" data-id="'+data[i].id+'">'+'<span class="red">'+
+							 'title="Eliminar" data-toggle="modal" data-id="'+data[i].id+'">'+'<span class="red">'+
 							 '<i class="icon-trash bigger-120"></i></span></a></li></ul></div></div></td>';
 
 				t.row.add([++i, descripcion, activado, accion ]).draw();
@@ -310,7 +330,7 @@ function registrarTipoRequisitoProyecto()
 				text: 'Se registro con éxito.',
 				sticky: false,
 				time: '1200',
-				class_name: 'gritter-info gritter-light'
+				class_name: 'gritter-info gritter-light' 
 			});
 			
 			listarTipoRequisitoProyecto();
@@ -333,7 +353,7 @@ function registrarTipoRequisitoProyecto()
 		});
 	});
 	
-	$("#descripcionEstadoProyecto").val('');	
+	$("#idReqProyecto").val('');	
 };
 
 //Listar tipo Requisito proyectos
@@ -341,11 +361,12 @@ function listarTipoRequisitoProyecto() {
 	var t = $("#tablaTipoRequisitoProyecto").DataTable();
 	t.clear().draw();
 	var dato = 1;
-	$.postJSON('${pageContext.request.contextPath}/administracion/listarTipoRequisitoProyecto.htm',dato,
+	$.postJSON('${pageContext.request.contextPath}/administracion/listar_tipoRequisitoProyecto.htm',dato,
 		function(data) {
 			console.log(data);
 			for (i in data) {
 				var descripcion = data[i].descripcion;
+				var dsc_tipoproyecto = data[i].dsc_tipoproyecto;
 				var activado = '';
 				if (data[i].estado == 1) {
 					activado = '<span class="label label-info"><b>ACTIVO</b></span>';
@@ -354,18 +375,49 @@ function listarTipoRequisitoProyecto() {
 				}
 							 
 				var accion = '<td class="td-actions">'+'<div class="hidden-phone visible-desktop action-buttons">'+
-							 '<a class="abrir-eliminarEproyecto red" href="#eliminarEstadoProyecto" data-toggle="modal" data-id="'+ data[i].id+'">'+
-							 '<i class="icon-trash bigger-130" data-rel="tooltip" title="Eliminar"></i></a></div>'+
+							 '<a class="abrir-eliminarTipReqproyecto red tooltip-error" data-rel="tooltip" title="Eliminar" href="#eliminarTipReqProyecto" data-toggle="modal" data-id="'+ data[i].id+'">'+
+							 '<i class="icon-trash bigger-130"></i></a></div>'+
 							 '<div class="hidden-desktop visible-phone"><div class="inline position-relative">'+
 							 '<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">'+
 							 '<i class="icon-caret-down icon-only bigger-120"></i></button>'+
 							 '<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">'+ 
-							 '<li><a href="#eliminarEstadoProyecto" class="abrir-eliminarEproyecto tooltip-error" data-rel="tooltip"'+
+							 '<li><a href="#eliminarTipReqProyecto" class="abrir-eliminarTipReqproyecto tooltip-error" data-rel="tooltip"'+
 							 ' title="Eliminar" data-toggle="modal" data-id="'+data[i].id+'"> <span class="red">'+
 							 '<i class="icon-trash bigger-120"></i></span></a></li></ul></div></div></td>';
-				t.row.add([++i, descripcion, activado, accion ]).draw();
+				t.row.add([++i, dsc_tipoproyecto, descripcion, activado, accion]).draw();
 			}
 		});
 };
-//[FIN] TIPO REQUISITO
+
+
+
+//Pasar parametro eliminar tipo requisito proyecto
+$(document).on("click", ".abrir-eliminarTipReqproyecto", function () {
+ var id = $(this).data('id');
+ $(".modal-body #idTipReqProyecto").val(id);
+});
+
+//Eliminar Tipo requisito Proyecto
+$("#formEliminarTipReqEstadoProyecto").submit(
+		function() {
+			var objeto = document.getElementById("idTipReqProyecto").value;
+			console.log(objeto);
+			$.postJSON('${pageContext.request.contextPath}/administracion/eliminar_tipoRequisitoProyecto.htm',objeto, function(data) {
+				$('#eliminarTipReqProyecto').modal('hide');
+				$.gritter.add({
+					title: 'Info!',
+					text: 'Se eliminó correctamente.',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-info gritter-light'
+				});
+								
+				listarTipoRequisitoProyecto();
+			}).fail(function() {
+				
+			});
+			
+		return false;
+});
+//#################################################### [FIN] TIPO REQUISITO #####################################################
 </script>

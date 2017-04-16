@@ -2,12 +2,15 @@
 <div>
 	<div class="row-fluid">
 		<div class="span12">
-			<form class="form-horizontal">
+			<form id="formBsqEjecucion" class="form-horizontal">
 				<div class="control-group">
 					<label class="control-label" for="proyecto">Proyecto</label>	
 					<div class="controls">
-						<select id="proyecto" name="proyecto" title="proyecto">
+						<select id="proyecto" name="idProyecto" title="proyecto">
 							<option value="">Seleccionar</option>
+							<c:forEach var="proyecto" items="${model.listaProyecto}" varStatus="contador">
+							   <option value="${proyecto.idProyecto}">${proyecto.nombreProyecto}</option>
+							</c:forEach>
 						</select>	
 					</div>
 				</div>
@@ -16,6 +19,9 @@
 					<div class="controls">
 						<select id="idcliente" name="idcliente" title="cliente">
 							<option value="">Seleccionar</option>
+							<c:forEach var="cliente" items="${model.listaCliente}" varStatus="contador">
+							   <option value="${cliente.idEmpresa}">${cliente.razonSocial}</option>
+							</c:forEach>
 						</select>	
 					</div>
 				</div>
@@ -24,15 +30,21 @@
 					<div class="controls">
 						<select id="idTipoProyecto" name="idTipoProyecto" title="idTipoProyecto">
 							<option value="">Seleccionar</option>
+							<c:forEach var="tipoProyecto" items="${model.listaTipoProyecto}" varStatus="contador">
+							   <option value="${tipoProyecto.id}">${tipoProyecto.descripcion}</option>
+							</c:forEach>
 						</select>	
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="dscResponsable">Responsable</label>
-
-					<div class="controls">
-						<input type="text" id="dscResponsable" 
-							name="dscResponsable" placeholder="Responsable" />
+					<div class="controls">					
+						<select id="idResponsableProyecto" name="idResponsableProyecto">
+							<option value="">Seleccionar</option>
+							<c:forEach var="responsableProyecto" items="${model.listaResponsableProyecto}" varStatus="contador">
+							   <option value="${responsableProyecto.idDetalle}">${responsableProyecto.nombres}</option>
+							</c:forEach>
+						</select>
 					</div>
 				</div>
 				
@@ -41,7 +53,7 @@
 
 					<div class="controls">
 						<div class="row-fluid input-append">
-							<input id="fechaInicio" type="text" data-date-format="dd-mm-yyyy" />
+							<input id="fechaInicio" name="fechaInicio" type="text" data-date-format="dd-mm-yyyy" />
 							<span class="add-on">
 								<i class="icon-calendar"></i>
 							</span>
@@ -53,7 +65,7 @@
 
 					<div class="controls">
 						<div class="row-fluid input-append">
-							<input id="fechafin" type="text" data-date-format="dd-mm-yyyy" />
+							<input id="fechafin" name="fechaFin" type="text" data-date-format="dd-mm-yyyy" />
 							<span class="add-on">
 								<i class="icon-calendar"></i>
 							</span>
@@ -63,7 +75,7 @@
 				<div class="row-fluid">
 					<div class="span12">
 						<div class="span2" >
-							<button class="btn btn-small btn-primary" style="float: right;">
+							<button type="submit" class="btn btn-small btn-primary" style="float: right;">
 								<i class="icon-search"></i>
 								Buscar
 							</button>

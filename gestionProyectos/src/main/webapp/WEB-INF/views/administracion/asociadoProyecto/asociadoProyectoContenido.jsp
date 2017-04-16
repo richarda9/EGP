@@ -69,12 +69,9 @@
 					</div>
 				</div>
 				<hr/>
-				<c:if test="${not empty model.listaTipoProyecto}">
 				<div class="row-fluid">
 					<div class="span12">
-						<div class="table-header center">
-							<b>LISTA TIPO DE PROYECTO</b> 
-						</div>
+						<div class="table-header">Lista Tipo de Proyecto</div>
 						<table id="tablaTipoProyecto" class="table table-striped table-bordered table-hover">
 							<thead>
 								<tr>
@@ -112,8 +109,9 @@
 										</c:choose>
 										<td class="td-actions">
 											<div class="hidden-phone visible-desktop action-buttons">
-												<a class="abrir-eliminarTproyecto red" href="#eliminarTipoProyecto" data-toggle="modal" data-id="${tipoProyecto.id}">
-													<i class="icon-trash bigger-130" data-rel="tooltip" title="Eliminar"> </i>
+												<a class="abrir-eliminarTproyecto red tooltip-error" href="#eliminarTipoProyecto" data-toggle="modal" 
+													data-id="${tipoProyecto.id}" data-rel="tooltip" title="Eliminar">
+													<i class="icon-trash bigger-130"> </i>
 												</a>
 											</div>
 
@@ -142,7 +140,6 @@
 						</table>
 					</div>
 				</div>
-				</c:if>
 				<!--/row-fluid-->
 				<div class="space-20"></div>
 			</div>
@@ -171,77 +168,72 @@
 					</div>
 				</div>
 				<hr />
-				<c:if test="${not empty model.listaEstadoProyecto}">
-					<div class="row-fluid">
-						<div class="span12">
-							<div class="table-header center">Lista Estado de Proyecto</div>
-							<table id="tablaEstadoProyecto"
-								class="table table-striped table-bordered table-hover">
-								<thead>
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="table-header center">Lista Estado de Proyecto</div>
+						<table id="tablaEstadoProyecto"
+							class="table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th class="center"><label>
+											<span class="lbl"></span>
+									</label></th>
+									<th>Descripci&oacute;n</th>
+									<th>Estado</th>
+									<th></th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<c:forEach var="estadoProyecto" items="${model.listaEstadoProyecto}" varStatus="contador">
 									<tr>
-										<th class="center"><label>
-												<span class="lbl"></span>
-										</label></th>
-										<th>Descripci&oacute;n</th>
-										<th>Estado</th>
-										<th></th>
+										<td class="center">												
+											<c:out value="${contador.count}"/>
+										</td>
+										<td><c:out value="${estadoProyecto.descripcion}"></c:out></td>
+										<c:choose>
+											<c:when test="${estadoProyecto.estado == 1}">
+												<td class="hidden-480"><span class="label label-info"><b>ACTIVO</b></span>
+												</td>
+											</c:when>
+											<c:otherwise>
+												<td class="hidden-480"><span
+													class="label label-danger"><b>INACTIVO</b></span></td>
+											</c:otherwise>
+										</c:choose>
+										<td class="td-actions">
+											<div class="hidden-phone visible-desktop action-buttons">
+												<a class="abrir-eliminarEproyecto red tooltip-error" href="#eliminarEstadoProyecto" data-toggle="modal" 
+													data-rel="tooltip" title="Eliminar"data-id="${estadoProyecto.id}"> 
+														<i class="icon-trash bigger-130"></i>
+												</a>
+											</div>
+
+											<div class="hidden-desktop visible-phone">
+												<div class="inline position-relative">
+													<button class="btn btn-minier btn-yellow dropdown-toggle"
+														data-toggle="dropdown">
+														<i class="icon-caret-down icon-only bigger-120"></i>
+													</button>
+
+													<ul
+														class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+														<li><a href="#eliminarEstadoProyecto" class="abrir-eliminarEproyecto tooltip-error"
+															data-rel="tooltip" title="Eliminar" data-toggle="modal"
+															data-id="${estadoProyecto.id}"> <span class="red">
+																	<i class="icon-trash bigger-120"></i>
+															</span>
+														</a></li>
+													</ul>
+												</div>
+											</div>
+										</td>
 									</tr>
-								</thead>
-
-								<tbody>
-									<c:forEach var="estadoProyecto" items="${model.listaEstadoProyecto}" varStatus="contador">
-										<tr>
-											<td class="center">												
-												<c:out value="${contador.count}"/>
-											</td>
-											<td><c:out value="${estadoProyecto.descripcion}"></c:out></td>
-											<c:choose>
-												<c:when test="${estadoProyecto.estado == 1}">
-													<td class="hidden-480"><span class="label label-info"><b>ACTIVO</b></span>
-													</td>
-												</c:when>
-												<c:otherwise>
-													<td class="hidden-480"><span
-														class="label label-danger"><b>INACTIVO</b></span></td>
-												</c:otherwise>
-											</c:choose>
-											<td class="td-actions">
-												<div class="hidden-phone visible-desktop action-buttons">
-													<a class="abrir-eliminarEproyecto red"
-														href="#eliminarEstadoProyecto" data-toggle="modal"
-														data-id="${estadoProyecto.id}"> <i
-														class="icon-trash bigger-130" data-rel="tooltip"
-														title="Eliminar"> </i>
-													</a>
-												</div>
-
-												<div class="hidden-desktop visible-phone">
-													<div class="inline position-relative">
-														<button class="btn btn-minier btn-yellow dropdown-toggle"
-															data-toggle="dropdown">
-															<i class="icon-caret-down icon-only bigger-120"></i>
-														</button>
-
-														<ul
-															class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
-															<li><a href="#eliminarEstadoProyecto"
-																class="abrir-eliminarEproyecto tooltip-error"
-																data-rel="tooltip" title="Eliminar" data-toggle="modal"
-																data-id="${estadoProyecto.id}"> <span class="red">
-																		<i class="icon-trash bigger-120"></i>
-																</span>
-															</a></li>
-														</ul>
-													</div>
-												</div>
-											</td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
+								</c:forEach>
+							</tbody>
+						</table>
 					</div>
-				</c:if>
+				</div>
 			</div>
 			<!-- [FIN] ESTADO DE PROYECTO -->
 
@@ -281,80 +273,75 @@
 					</div>
 				</div>
 				<hr/>	
-				<c:if test="${not empty model.listaTipoRequisito}">
-					<div class="row-fluid">
-						<div class="span12">
-							<div class="table-header center">Lista Tipo de Requisito de Proyecto</div>
-							<table id="tablaTipoRequisitoProyecto"
-								class="table table-striped table-bordered table-hover">
-								<thead>
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="table-header">Lista Tipo de Requisito de Proyecto</div>
+						<table id="tablaTipoRequisitoProyecto"
+							class="table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th class="center"><label>
+											<span class="lbl"></span>
+									</label></th>
+									<th>Tipo Proyecto</th>
+									<th>Descripci&oacute;n Tipo Requisito</th>
+									<th>Estado</th>
+									<th></th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<c:forEach var="tiporequisitoProyecto" items="${model.listaTipoRequisito}" varStatus="contador">
 									<tr>
-										<th class="center"><label>
-												<span class="lbl"></span>
-										</label></th>
-										<th>Tipo Proyecto</th>
-										<th>Descripci&oacute;n Tipo Requisito</th>
-										<th>Estado</th>
-										<th></th>
+										<td class="center">												
+											<c:out value="${contador.count}"/>
+										</td>
+										<td><c:out value="${tiporequisitoProyecto.dsc_tipoproyecto}"></c:out></td>
+										<td><c:out value="${tiporequisitoProyecto.descripcion}"></c:out></td>
+										<c:choose>
+											<c:when test="${tiporequisitoProyecto.estado == 1}">
+												<td class="hidden-480"><span class="label label-info"><b>ACTIVO</b></span>
+												</td>
+											</c:when>
+											<c:otherwise>
+												<td class="hidden-480"><span
+													class="label label-danger"><b>INACTIVO</b></span></td>
+											</c:otherwise>
+										</c:choose>
+										<td class="td-actions">
+											<div class="hidden-phone visible-desktop action-buttons">
+												<a class="abrir-eliminarTipReqproyecto red tooltip-error" href="#eliminarTipReqProyecto" data-toggle="modal" 
+													data-rel="tooltip" title="Eliminar" data-id="${tiporequisitoProyecto.id}"> <i
+													class="icon-trash bigger-130"></i>
+												</a>
+											</div>
+
+											<div class="hidden-desktop visible-phone">
+												<div class="inline position-relative">
+													<button class="btn btn-minier btn-yellow dropdown-toggle"
+														data-toggle="dropdown">
+														<i class="icon-caret-down icon-only bigger-120"></i>
+													</button>
+
+													<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+														<li>
+															<a href="#eliminarTipReqProyecto" class="abrir-eliminarTipReqproyecto tooltip-error"
+																data-rel="tooltip" title="Eliminar" data-toggle="modal" data-id="${tiporequisitoProyecto.id}"> 
+																<span class="red">
+																	<i class="icon-trash bigger-120"></i>
+																</span>
+															</a>
+														</li>
+													</ul>
+												</div>
+											</div>
+										</td>
 									</tr>
-								</thead>
-
-								<tbody>
-									<c:forEach var="tiporequisitoProyecto" items="${model.listaTipoRequisito}" varStatus="contador">
-										<tr>
-											<td class="center">												
-												<c:out value="${contador.count}"/>
-											</td>
-											<td><c:out value="${tiporequisitoProyecto.dsc_tipoproyecto}"></c:out></td>
-											<td><c:out value="${tiporequisitoProyecto.descripcion}"></c:out></td>
-											<c:choose>
-												<c:when test="${tiporequisitoProyecto.estado == 1}">
-													<td class="hidden-480"><span class="label label-info"><b>ACTIVO</b></span>
-													</td>
-												</c:when>
-												<c:otherwise>
-													<td class="hidden-480"><span
-														class="label label-danger"><b>INACTIVO</b></span></td>
-												</c:otherwise>
-											</c:choose>
-											<td class="td-actions">
-												<div class="hidden-phone visible-desktop action-buttons">
-													<a class="abrir-eliminarEproyecto red"
-														href="#eliminarEstadoProyecto" data-toggle="modal"
-														data-id="${tiporequisitoProyecto.id}"> <i
-														class="icon-trash bigger-130" data-rel="tooltip"
-														title="Eliminar"> </i>
-													</a>
-												</div>
-
-												<div class="hidden-desktop visible-phone">
-													<div class="inline position-relative">
-														<button class="btn btn-minier btn-yellow dropdown-toggle"
-															data-toggle="dropdown">
-															<i class="icon-caret-down icon-only bigger-120"></i>
-														</button>
-
-														<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
-															<li>
-																<a href="#eliminarEstadoProyecto"
-																	class="abrir-eliminarEproyecto tooltip-error"
-																	data-rel="tooltip" title="Eliminar" data-toggle="modal"
-																	data-id="${tiporequisitoProyecto.id}"> <span class="red">
-																			<i class="icon-trash bigger-120"></i>
-																	</span>
-																</a>
-															</li>
-														</ul>
-													</div>
-												</div>
-											</td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>					
-					</div>
-				</c:if>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>					
+				</div>
 			</div>
 			<!-- [FIN] TIPO DE REQUISITO -->
 
@@ -580,4 +567,31 @@
 		</div>
 	</form>
 	<!-- [FIN] ELIMINAR ESTADO PROYECTO -->
+
+	<!-- [INI] ELIMINAR TIPO REQUISITO PROYECTO -->
+	<form id="formEliminarTipReqEstadoProyecto">
+		<div id="eliminarTipReqProyecto" class="modal hide fade" tabindex="-1">
+			<div class="modal-header no-padding">
+				<div class="table-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+			</div>
+
+			<div class="modal-body padding">
+				<b style="text-align: center">¿SEGURO DE ELIMINAR? </b> <input
+					type="hidden" name="idTipReqProyecto" id="idTipReqProyecto" />
+			</div>
+
+			<div class="modal-footer">
+				<button class="btn btn-small btn-primary" type="submit">
+					<i class="icon-ok"></i> Confirmar
+				</button>
+				<button class="btn btn-small btn-light" data-dismiss="modal">
+					<i class="icon-remove"></i> Salir
+				</button>
+			</div>
+
+		</div>
+	</form>
+	<!-- [FIN] ELIMINAR TIPO REQUISITO PROYECTO -->
 </div>
