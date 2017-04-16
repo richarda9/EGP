@@ -15,6 +15,7 @@ public class Proyecto implements Serializable{
 	private Long idTipoProyecto;
 	private int estado;
 	private Date fechaContacto;
+	private String fechaContactoString;
 	private Long idResponsableProyecto;
 	private Long idEjecutivoCuenta;
 	private String codigoProyecto;
@@ -29,6 +30,11 @@ public class Proyecto implements Serializable{
 	private String comentariosCierreProyecto;
 	private Date fechaCancelacion;
 	private String justificacionCancelacion;
+	
+	private String descripcionTipoProyecto;
+	private String nombreResponsable;
+	private String nombreEjecutivo;
+		
 	public Long getIdProyecto() {
 		return idProyecto;
 	}
@@ -143,4 +149,29 @@ public class Proyecto implements Serializable{
 	public void setJustificacionCancelacion(String justificacionCancelacion) {
 		this.justificacionCancelacion = justificacionCancelacion;
 	}
+	public String getDescripcionTipoProyecto() {
+		return descripcionTipoProyecto;
+	}
+	public void setDescripcionTipoProyecto(String descripcionTipoProyecto) {
+		this.descripcionTipoProyecto = descripcionTipoProyecto;
+	}
+	public String getNombreResponsable() {
+		return nombreResponsable;
+	}
+	public void setNombreResponsable(String nombreResponsable) {
+		this.nombreResponsable = nombreResponsable;
+	}
+	public String getNombreEjecutivo() {
+		return nombreEjecutivo;
+	}
+	public void setNombreEjecutivo(String nombreEjecutivo) {
+		this.nombreEjecutivo = nombreEjecutivo;
+	}
+	public String getFechaContactoString() {
+		return fechaContactoString;
+	}
+	public void setFechaContactoString(String fechaContactoString) {
+		this.fechaContactoString = fechaContactoString;
+	}
+	
 }

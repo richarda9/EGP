@@ -2,13 +2,13 @@
 <div>
 	<div class="row-fluid">
 		<div class="span12">
-			<form class="">
+				<form  name="formBuscarAnteproyecto" id="formBuscarAnteproyecto" method="post">
 				<div class="row-fluid">
 				<div class="span3">
 					<div class="control-group">
 						<label class="control-label" for="empresa">Empresa</label>	
 						<div class="controls">
-							<select id="empresa" name="empresa" title="empresa">
+							<select id="idEmpresa" name="idEmpresa" title="empresa">
 								<option value="">Seleccionar</option>
 								<c:forEach var="empresa" items="${model.listaEmpresa}" varStatus="contador">
 								   <option value="${empresa.idEmpresa}">${empresa.razonSocial}</option>
@@ -37,7 +37,7 @@
 							<select id="idEjecutivoCuenta" name="idEjecutivoCuenta">
 								<option value="">Seleccionar</option>
 								<c:forEach var="ejecutivoCuenta" items="${model.listaEjecutivoCuenta}" varStatus="contador">
-								   <option value="${ejecutivoCuenta.idDetalle}">${ejecutivoCuenta.nombres}</option>
+								   <option value="${ejecutivoCuenta.iddetalle}">${ejecutivoCuenta.nombres}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -52,7 +52,7 @@
 							<select id="idResponsableProyecto" name="idResponsableProyecto">
 								<option value="">Seleccionar</option>
 								<c:forEach var="responsableProyecto" items="${model.listaResponsableProyecto}" varStatus="contador">
-								   <option value="${responsableProyecto.idDetalle}">${responsableProyecto.nombres}</option>
+								   <option value="${responsableProyecto.iddetalle}">${responsableProyecto.nombres}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -65,7 +65,7 @@
 	
 						<div class="controls">
 							<div class="row-fluid input-append">
-								<input id="fechaInicio" type="text" data-date-format="dd-mm-yyyy" />
+								<input id="fechaInicio" name="fechaInicio" type="text" data-date-format="dd-mm-yyyy" />
 								<span class="add-on">
 									<i class="icon-calendar"></i>
 								</span>
@@ -80,7 +80,7 @@
 	
 						<div class="controls">
 							<div class="row-fluid input-append">
-								<input id="fechafin" type="text" data-date-format="dd-mm-yyyy" />
+								<input id="fechafin" name="fechafin" type="text" data-date-format="dd-mm-yyyy" />
 								<span class="add-on">
 									<i class="icon-calendar"></i>
 								</span>
@@ -89,11 +89,12 @@
 					</div>
 				</div>
 				</div>
+				</form>				
 				<div class="row-fluid">
 					<div class="span12">
 						<div class="span6"></div>
 						<div class="span2" style="float: left;">
-							<button class="btn btn-info">
+							<button class="btn btn-info" onclick="buscarAnteproyecto()">
 								<i class="icon-search bigger-125"></i>
 								Buscar
 							</button>
@@ -111,14 +112,14 @@
 							</a>
 						</div>
 					</div>							
-				</div>
-			</form>
+				</div>	
+				</br>		
 		</div>
 	</div>
 <!-- 	<div class="space-20"></div> -->
 	<div class="row-fluid">
 		<div class="table-header">&nbsp;</div>
-		<table id="tablaEstadoProyecto"
+		<table id="tablaBuscarAnteproyecto"
 			class="table table-striped table-bordered table-hover">
 			<thead>
 				<tr>
@@ -132,7 +133,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
+				<%-- <tr>
 					<td></td>
 					<td></td>
 					<td></td>
@@ -169,8 +170,8 @@
 							</div>
 						</div>
 					</td>
-				</tr>
-				<c:forEach var="estadoProyecto" items="${model.listaEstadoProyecto}" varStatus="contador">
+				</tr> --%>
+				<%-- <c:forEach var="estadoProyecto" items="${model.listaEstadoProyecto}" varStatus="contador">
 					<tr>
 						<td class="center">												
 							<c:out value="${contador.count}"/>
@@ -220,7 +221,7 @@
 							</div>
 						</td>
 					</tr>
-				</c:forEach>
+				</c:forEach> --%>
 			</tbody>
 		</table>
 	</div>
