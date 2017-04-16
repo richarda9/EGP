@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
+import com.sigcomt.gestionProyectos.model.anteproyecto.BuscarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.repositorio.anteproyecto.ProyectoDao;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.ProyectoService;
 
@@ -24,6 +25,11 @@ public class ProyectoServiceImp implements ProyectoService {
 		params.put("idEstadoProyecto", idEstadoProyecto);
 		
 		return proyectoDao.listarProyectoByDetalleEstadoProyectoByEstado(params);
+	}
+
+	public List<Proyecto> buscarProyectoByDetalleEstadoProyectoByEstado(
+			BuscarAnteproyectoModel buscarAnteproyectoModel) throws Exception {
+		return proyectoDao.buscarProyectoByDetalleEstadoProyectoByEstado(buscarAnteproyectoModel);
 	}
 
 }
