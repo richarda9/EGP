@@ -11,6 +11,7 @@
 		on detEstPy."ID_PROYECTO" = py."ID_PROYECTO"
 		where py."ESTADO" = #{estado}
 		and detEstPy."ID_ESTADO_PROYECTO" = #{idEstadoProyecto}
+		and detEstPy."ESTADO" = #{estado}
 	</select>
 	
 	<select id="buscarProyectoByDetalleEstadoProyectoByEstado"  resultType="Proyecto">
@@ -40,6 +41,7 @@
 		on tipoPy."ID_TIPO_PROYECTO" = py."ID_TIPO_PROYECTO"
 		where py."ESTADO" = #{estado}
 		and detEstPy."ID_ESTADO_PROYECTO" = #{idEstadoProyecto}
+		and detEstPy."ESTADO" = #{estado}
 		<if test="idEmpresa != null and idEmpresa != ''">
 			and py."ID_EMPRESA" = #{idEmpresa} 
 		</if>
