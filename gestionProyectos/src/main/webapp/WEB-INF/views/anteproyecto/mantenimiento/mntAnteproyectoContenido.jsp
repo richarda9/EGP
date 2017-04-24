@@ -25,7 +25,7 @@
 							</a>
 						</div>
 						<div class="span2" style="float: left;">
-							<a class="btn btn-small btn-info span12" href="#mntLeccionAprendida" data-toggle="modal">
+							<a class="btn btn-small btn-info span12" data-toggle="modal" onclick = "guardarAnteproyecto()">
 								<i class="icon-save"></i>
 								Guardar
 							</a>
@@ -72,6 +72,7 @@
 						</a>
 					</li>
 				</ul>
+				<form name="formAgregarAnteproyecto" id="formAgregarAnteproyecto">
 				<div class="tab-content no-border padding-24">
 					<!-- [INI] GENERALIDADES -->
 					<div id="generalEmpresa" class="tab-pane in active">
@@ -181,7 +182,7 @@
 									</div>
 								</div>					
 							<!-- </form> -->
-							<hr/>
+							<!-- <hr/> -->
 							<div class="space-20"></div>
 						</div>
 						<!--/row-fluid-->
@@ -199,7 +200,7 @@
 										<label class="control-label" for="idEmpresa">Empresa</label>
 					
 										<div class="controls">
-											<select id="empresa" name="empresa" title="empresa">
+											<select id="empresa" name="empresa" title="empresa" onchange="listarInteresado(this)">
 												<option value="">Seleccionar</option>
 												<c:forEach var="empresa" items="${model.listaEmpresa}" varStatus="contador">
 												   <option value="${empresa.idEmpresa}">${empresa.razonSocial}</option>
@@ -219,7 +220,7 @@
 											<div class="control-group">
 												<div class="controls">
 													<select id="idContacto" class="span12" name="idContacto" title="Contacto" >
-														<option value="">Seleccionar Contacto</option>
+														<option value="" >Seleccionar</option>														
 													</select>	
 												</div>
 											</div>
@@ -232,10 +233,10 @@
 											</div>
 										</div>
 										<div class="span3">
-											<button class="btn btn-small btn-info span12">
+											<a class="btn btn-small btn-info span12" onclick="agregarInteresados()">
 												<i class="icon-plus-sign bigger-125"></i>
 												Agregar interesados
-											</button>
+											</a>
 										</div>	
 									</div>	
 								</div>															
@@ -243,8 +244,8 @@
 						
 						<div class="space-20"></div>
 						<div class="row-fluid">
-							<table id="tablaEstadoProyecto"
-								class="table table-striped table-bordered table-hover">
+							<table id="tablaInteresadoEmpresa"
+								class="table table-striped table-bordered table-hover" style = "width : 100%">
 								<thead>
 									<tr>
 										<th>Interesado</th>
@@ -254,7 +255,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
+									<%-- <tr>
 									<td></td>
 									<td></td>
 									<td></td>
@@ -368,7 +369,7 @@
 												</div>
 											</td>
 										</tr>
-									</c:forEach>
+									</c:forEach> --%>
 								</tbody>
 							</table>
 						</div>
@@ -396,17 +397,17 @@
 									</div>
 								</div>
 								<div class="span6">
-									<button class="btn btn-small btn-info span12">
+									<a class="btn btn-small btn-info span12" onclick="agregarObservacion()">
 										<i class="icon-plus-sign bigger-125"></i>
 											Agregar observaci&oacute;n
-									</button>
-								</div>	
+									</a>
+								</div>								
  							<div>			
 						</div>
 						<div class="space-20"></div>
 						<div class="row-fluid">
-							<table id="tablaEstadoProyecto"
-								class="table table-striped table-bordered table-hover">
+							<table id="tablaObservacion"
+								class="table table-striped table-bordered table-hover" style = "width : 100%">
 								<thead>
 									<tr>
 										<th>Observaci&oacute;n</th>
@@ -415,7 +416,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
+									<%-- <tr>
 									<td></td>
 									<td></td>
 									<td class="td-actions">
@@ -528,7 +529,7 @@
 												</div>
 											</td>
 										</tr>
-									</c:forEach>
+									</c:forEach> --%>
 								</tbody>
 							</table>
 						</div>
@@ -558,17 +559,17 @@
 									</div>
 								</div>
 								<div class="span6">
-									<button class="btn btn-small btn-info span12">
+									<a class="btn btn-small btn-info span12" onclick="agregarAnexos()">
 										<i class="icon-plus-sign bigger-125"></i>
 											Agregar anexo
-									</button>
-								</div>	
+									</a>
+								</div>								
  							<div>			
 						</div>
 						<div class="space-20"></div>
 						<div class="row-fluid">
-							<table id="tablaEstadoProyecto"
-								class="table table-striped table-bordered table-hover">
+							<table id="tablaAnexo"
+								class="table table-striped table-bordered table-hover" style = "width : 100%">
 								<thead>
 									<tr>
 										<th>Anexo</th>
@@ -577,7 +578,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
+									<%-- <tr>
 									<td></td>
 									<td></td>
 									<td class="td-actions">
@@ -690,17 +691,95 @@
 												</div>
 											</td>
 										</tr>
-									</c:forEach>
+									</c:forEach> --%>
 								</tbody>
 							</table>
 						</div>
 					</div>					
 				</div>
 			</div>
-			<!-- [FIN] ANEXOS -->
-			
+			<!-- [FIN] ANEXOS -->			
 		</div>
+		</form>
 	</div>
 	
 	<%@ include file="/WEB-INF/views/cancelar/cancelarContenido.jsp"%>
+</div>
+</div>
+
+	<!-- INI - MODAL ELIMINAR INTERESADO TABLA-->
+	<div id="modalEliminarInteresado" class="modal hide fade" tabindex="-1" data-attr-index="" >
+		<div class="modal-header no-padding">
+			<div class="table-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+		</div>
+
+		<div class="modal-body padding">
+			<b style="text-align: center">¿Est&aacute; seguro que desea eliminar interesado?</b> 
+			<!-- <input type="hidden" name="idTipoProyecto" id="idTipoProyecto" /> -->
+		</div>
+
+		<div class="modal-footer">
+			<a id ="confirmarEliminarInteresado" class="btn btn-small btn-primary">
+				<i class="icon-ok"></i> Confirmar
+			</a>
+			<a class="btn btn-small btn-light" data-dismiss="modal">
+				<i class="icon-remove"></i> Salir
+			</a>
+		</div>
+
+	</div>
+	<!-- FIN - MODAL ELIMINAR INTERESADO TABLA-->
+	
+	<!-- INI - MODAL ELIMINAR OBSERVACION TABLA-->
+	<div id="modalEliminarObservacion" class="modal hide fade" tabindex="-1" data-attr-index="">
+		<div class="modal-header no-padding">
+			<div class="table-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+		</div>
+
+		<div class="modal-body padding">
+			<b style="text-align: center">¿Est&aacute; seguro que desea eliminar observaci&oacute;n?</b> 
+			<!-- <input type="hidden" name="idTipoProyecto" id="idTipoProyecto" /> -->
+		</div>
+
+		<div class="modal-footer">
+			<a id ="confirmarEliminarObservacion" class="btn btn-small btn-primary">
+				<i class="icon-ok"></i> Confirmar
+			</a>
+			<a class="btn btn-small btn-light" data-dismiss="modal">
+				<i class="icon-remove"></i> Salir
+			</a>
+		</div>
+
+	</div>
+	<!-- FIN - MODAL ELIMINAR OBSERVACION TABLA-->
+	
+	<!-- INI - MODAL ELIMINAR ANEXO TABLA-->
+	<div id="modalEliminarAnexo" class="modal hide fade" tabindex="-1" data-attr-index="">
+		<div class="modal-header no-padding">
+			<div class="table-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+		</div>
+
+		<div class="modal-body padding">
+			<b style="text-align: center">¿Est&aacute; seguro que desea eliminar anexo?</b> 
+			<!-- <input type="hidden" name="idTipoProyecto" id="idTipoProyecto" /> -->
+		</div>
+
+		<div class="modal-footer">
+			<a id ="confirmarEliminarAnexo" class="btn btn-small btn-primary" type="submit">
+				<i class="icon-ok"></i> Confirmar
+			</a>
+			<a class="btn btn-small btn-light" data-dismiss="modal">
+				<i class="icon-remove"></i> Salir
+			</a>
+		</div>
+
+	</div>
+	<!-- FIN - MODAL ELIMINAR ANEXO TABLA-->
+
 </div>

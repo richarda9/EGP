@@ -16,6 +16,21 @@
 		where secRolUser."estado" = #{estado}
 		and secRol."id_rol" = #{idRol}
 	</select>
+	
+	<select id="listarInteresadoByEstadoByEmpresa" parameterType= "map" resultType="map">
+		SELECT DETEMP."ID_DETALLE_EMPRESA_PERSONA" as iddet, 
+			PER."NOMBRE_PERSONA"||' '|| PER."APELLIDO_PERSONA" as nombreinteresado,
+			ROL."NOMBRE_TIPO_ROL" as cargo
+		FROM "CREAR_PROYECTO"."DETALLE_EMPRESA_PERSONA" DETEMP 
+		INNER JOIN "CREAR_PROYECTO"."EMPRESA" EMP 
+		ON EMP."ID_EMPRESA" = DETEMP."ID_EMPRESA" 
+		INNER JOIN "CREAR_PROYECTO"."PERSONA" PER 
+		ON PER."ID_PERSONA" = DETEMP."ID_PERSONA" 
+		INNER JOIN "PLANIFICAR_PROYECTO"."TIPO_ROL" ROL
+		ON ROL."ID_TIPO_ROL" = PER."ID_TIPO_ROL"
+		WHERE DETEMP."ESTADO" = #{estado}
+		AND EMP."ID_EMPRESA" = #{idEmpresa}		
+	</select>	
 	<!-- FIN - PERSONA -->
 	
 </mapper>

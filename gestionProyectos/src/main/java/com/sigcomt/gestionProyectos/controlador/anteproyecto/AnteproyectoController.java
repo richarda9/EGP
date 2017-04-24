@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sigcomt.gestionProyectos.common.enumerations.EstadoProyectoEnum;
 import com.sigcomt.gestionProyectos.common.enumerations.RolEnum;
 import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
+import com.sigcomt.gestionProyectos.model.anteproyecto.AgregarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.BuscarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.servicio.administracion.AdministracionService;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.PersonaService;
@@ -115,6 +116,34 @@ public class AnteproyectoController
 		}
 		
 		return listaProyecto;
+	}
+	
+	@RequestMapping(value = "/agregarAnteproyecto.htm", method = RequestMethod.POST)
+	public @ResponseBody String agregarAnteproyecto(@RequestBody AgregarAnteproyectoModel agregarAnteproyectoModel) {
+		
+		String respuesta = "";
+		try {
+			respuesta = "123";
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return "123";
+	
+	}
+	
+	@RequestMapping(value = "/listarInteresado.htm", method = RequestMethod.POST)
+	public @ResponseBody List<Map> listarInteresadoByEstadoByEmpresa(@RequestBody BuscarAnteproyectoModel buscarAnteproyectoModel) {
+		
+		List<Map> listaInteresado = new ArrayList<Map>();
+		
+		try {
+			buscarAnteproyectoModel.setEstado(ESTADO_ACTIVO);
+			listaInteresado = personaService.listarInteresadoByEstadoByEmpresa(buscarAnteproyectoModel.getEstado(), buscarAnteproyectoModel.getIdEmpresa());
+		} catch (Exception e) {
+			
+		}
+		
+		return listaInteresado;
 	}
 
 }

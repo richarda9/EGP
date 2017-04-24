@@ -24,4 +24,12 @@ public class PersonaServiceImp implements PersonaService{
 		return personaDao.listarEjecutivoResponsableByEstadoByRol(params);
 	}
 
+	public List<Map> listarInteresadoByEstadoByEmpresa(int estado,
+			Long idEmpresa) throws Exception {
+		Map params = new HashMap<String, Object>();
+		params.put("estado", estado);
+		params.put("idEmpresa", idEmpresa);
+		return personaDao.listarInteresadoByEstadoByEmpresa(params);
+	}
+
 }
