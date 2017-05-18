@@ -11,6 +11,7 @@
 		on detEstPy."ID_PROYECTO" = py."ID_PROYECTO"
 		where py."ESTADO" = #{estado}
 		and detEstPy."ID_ESTADO_PROYECTO" = #{idEstadoProyecto}
+		and detEstPy."ESTADO" = #{estado}
 	</select>
 	
 	<select id="buscarProyectoByDetalleEstadoProyectoByEstado"  resultType="Proyecto">
@@ -40,6 +41,7 @@
 		on tipoPy."ID_TIPO_PROYECTO" = py."ID_TIPO_PROYECTO"
 		where py."ESTADO" = #{estado}
 		and detEstPy."ID_ESTADO_PROYECTO" = #{idEstadoProyecto}
+		and detEstPy."ESTADO" = #{estado}
 		<if test="idEmpresa != null and idEmpresa != ''">
 			and py."ID_EMPRESA" = #{idEmpresa} 
 		</if>
@@ -64,11 +66,61 @@
 	
 	<!-- FIN - PROYECTO -->
 	
+	<!-- [INI] EJECUCION -->
 	<select id="listarProyectoByEstado" parameterType="int" resultType="Proyecto">
 		SELECT "ID_PROYECTO" as idProyecto, 
 				"NOMBRE_PROYECTO" as nombreProyecto
 		  FROM "CREAR_PROYECTO"."PROYECTO" 
 		WHERE "ESTADO" = #{estado};
 	</select>
+	
+	<select id="listaProyectoByEstadoEjecucion" resultType="LstProyEjecucion">
+	   select p."ID_PROYECTO" as idProyecto, P."NOMBRE_PROYECTO" as dscProyecto , e."ID_EMPRESA" as idCliente, 
+	   		  e."RAZON_SOCIAL" as dscCliente, tp."ID_TIPO_PROYECTO" as idTipoProyecto, tp."DESCRIPCION_TIPO_PROYECTO" as dscTipoProyecto, 
+	   		  to_char(p."FECHA_CONTACTO", 'DD/MM/YYYY') as fechaInicio,
+	   		    p."ID_RESPONSABLE_PROYECTO" as idResponsable,
+			       (select per."NOMBRE_PERSONA" || per."APELLIDO_PERSONA" 
+			        from seguridad.security_rol_user sru,
+					      seguridad.security_user su,
+					      "CREAR_PROYECTO"."PERSONA" per
+			        where sru.id_user = su.id_user
+			        and   su."ID_PERSONA" = per."ID_PERSONA"
+			        and   sru.id_detalle = p."ID_RESPONSABLE_PROYECTO") as dscResponsable
+			from "CREAR_PROYECTO"."DETALLE_ESTADO_PROYECTO" dp,
+			     "CREAR_PROYECTO"."PROYECTO" p,
+			     "CREAR_PROYECTO"."DETALLE_INTERESADO" di,
+			     "CREAR_PROYECTO"."DETALLE_EMPRESA_PERSONA" dep,
+			     "CREAR_PROYECTO"."TIPO_PROYECTO" tp,
+			     "CREAR_PROYECTO"."EMPRESA" e
+			where dp."ID_PROYECTO" = p."ID_PROYECTO"
+			and   p."ID_TIPO_PROYECTO" = tp."ID_TIPO_PROYECTO"
+			and   p."ID_PROYECTO" = di."ID_PROYECTO"
+			and   di."ID_DETALLE_EMPRESA_PERSONA" = dep."ID_DETALLE_EMPRESA_PERSONA"
+			and   dep."ID_EMPRESA" = e."ID_EMPRESA"
+ 		    and   p."ESTADO" = 1
+		<if test="idProyecto != null and idProyecto != ''">
+			and p."ID_PROYECTO" = #{idProyecto} 
+		</if>
+		<if test="idCliente != null and idCliente != ''">
+			and e."ID_EMPRESA" = #{idCliente}
+		</if>
+		<if test="idTipoProyecto != null and idTipoProyecto != ''">
+			and tp."ID_TIPO_PROYECTO" = #{idTipoProyecto} 
+		</if>
+<!-- 		<if test="idResponsableProyecto != null and idResponsableProyecto != ''"> -->
+<!-- 			and py."ID_TIPO_PROYECTO" = #{idResponsableProyecto}  -->
+<!-- 		</if> -->
+
+		<if test="estado != null and estado != ''">
+			and dp."ID_ESTADO_PROYECTO" = #{estado} 
+		</if>
+		<if test="fechaInicio != null and fechaInicio != ''">
+			and to_char(p."FECHA_CONTACTO", 'dd/mm/yyyy') = #{fechaInicio} 
+		</if>
+		<if test="fechaFin != null and fechaFin != ''">
+			and to_char(p."FECHA_CONTACTO", 'dd/mm/yyyy') = #{fechaFin} 
+		</if>
+	</select>
+	<!-- [FIN] EJECUCION -->
 	
 </mapper>
