@@ -18,12 +18,15 @@ $(document).ready(function() {
 	});
 
 	$('#tablaBuscarAnteproyecto').dataTable({
-		"paging" : false,
-		"order" : [ [ 0, "asc" ] ],
-		"oLanguage": {
-	        "sProcessing": "cargando"
-	        
-	    },	
+		"paging"     : true,
+		"autoWidth"  : true,
+		"pageLength" : 10,
+		"searching"  : false,
+		"bInfo"      : false, 
+		//"bLengthChange": false,
+		"language"   : {
+							"url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+				       }
 	});	
 });
 

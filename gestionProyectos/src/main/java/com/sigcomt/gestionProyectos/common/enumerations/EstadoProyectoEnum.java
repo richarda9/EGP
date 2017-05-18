@@ -2,10 +2,10 @@ package com.sigcomt.gestionProyectos.common.enumerations;
 
 public enum EstadoProyectoEnum {
 	
-	EN_ANTEPROYECTO ("12", "EN_ANTEPROYECTO"),
-	EN_PLANIFICACION ("13", "EN_PLANIFICACION"),
-	EN_EJECUCION ("14", "EN_EJECUCION"),
-	EN_CIERRE ("15", "EN_CIERRE");
+	EN_ANTEPROYECTO ("1", "EN_ANTEPROYECTO"),
+	EN_PLANIFICACION ("2", "EN_PLANIFICACION"),
+	EN_EJECUCION ("3", "EN_EJECUCION"),
+	EN_CIERRE ("4", "EN_CIERRE");
 	
 	private String codigo;
 	private String descripcion;
