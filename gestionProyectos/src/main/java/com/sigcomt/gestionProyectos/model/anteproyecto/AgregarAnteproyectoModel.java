@@ -19,6 +19,8 @@ public class AgregarAnteproyectoModel implements Serializable{
 	private String alcanceInicialProyecto;
 	private String objetivo;
 	private List<InteresadoAnteproyectoModel>listaInteresados;
+	private List<ObservacionesAnteproyectoModel>listaObservaciones;
+	private List<AnexosAnteproyectoModel>listaAnexos;
 	
 	public Long getIdAsociadoProyecto() {
 		return idAsociadoProyecto;
@@ -74,5 +76,18 @@ public class AgregarAnteproyectoModel implements Serializable{
 	public void setListaInteresados(
 			List<InteresadoAnteproyectoModel> listaInteresados) {
 		this.listaInteresados = listaInteresados;
+	}
+	public List<ObservacionesAnteproyectoModel> getListaObservaciones() {
+		return listaObservaciones;
+	}
+	public void setListaObservaciones(
+			List<ObservacionesAnteproyectoModel> listaObservaciones) {
+		this.listaObservaciones = listaObservaciones;
+	}
+	public List<AnexosAnteproyectoModel> getListaAnexos() {
+		return listaAnexos;
+	}
+	public void setListaAnexos(List<AnexosAnteproyectoModel> listaAnexos) {
+		this.listaAnexos = listaAnexos;
 	}
 }

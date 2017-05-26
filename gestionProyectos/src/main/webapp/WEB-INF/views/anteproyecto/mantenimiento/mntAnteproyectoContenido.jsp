@@ -98,7 +98,7 @@
 											<label class="control-label" for="fechaContacto">Fecha de Contacto</label>
 											<div class="controls">
 												<div class="row-fluid input-append">
-												<input id="fechaContacto" type="text" data-date-format="dd-mm-yyyy" />
+												<input id="fechaContacto" name="fechaContacto" type="text" data-date-format="dd-mm-yyyy" />
 												<span class="add-on">
 													<i class="icon-calendar"></i>
 												</span>
@@ -140,7 +140,7 @@
 											<div class="control-group">
 												<label class="control-label" for="dscResponsable">Responsable</label>
 												<div class="controls">
-													<select id="idResponsableProyecto" name="idResponsableProyecto">
+													<select id="idResponsableProyecto" name="idResponsable">
 														<option value="">Seleccionar</option>
 														<c:forEach var="responsableProyecto" items="${model.listaResponsableProyecto}" varStatus="contador">
 														   <option value="${responsableProyecto.iddetalle}">${responsableProyecto.nombres}</option>
@@ -156,7 +156,7 @@
 										<div class="control-group">
 											<label class="control-label" for="dscEjecutivoCuenta">Titulo o nombre del Proyecto</label>
 											<div class="controls">
-												<textarea id="dscEjecutivoCuenta" rows="5" class="span10"></textarea>
+												<textarea id="tituloProyecto" name="tituloProyecto" rows="5" class="span10"></textarea>
 											</div>
 										</div>
 									</div>	
@@ -166,7 +166,7 @@
 										<div class="control-group">
 											<label class="control-label" for="dscAlcanceInicial">Alcance Inicial</label>
 											<div class="controls">
-												<textarea id="dscAlcanceInicial" rows="5" class="span10"></textarea>
+												<textarea id="alcanceInicialProyecto" name="alcanceInicialProyecto" rows="5" class="span10"></textarea>
 											</div>
 										</div>
 									</div>
@@ -176,7 +176,7 @@
 										<div class="control-group">
 											<label class="control-label" for="dscObjetivo">Objetivo</label>
 											<div class="controls">
-												<textarea id="dscObjetivo" rows="5" class="span10"></textarea>
+												<textarea id="objetivo" name="objetivo" rows="5" class="span10"></textarea>
 											</div>
 										</div>
 									</div>
@@ -200,7 +200,7 @@
 										<label class="control-label" for="idEmpresa">Empresa</label>
 					
 										<div class="controls">
-											<select id="empresa" name="empresa" title="empresa" onchange="listarInteresado(this)">
+											<select id="empresa" title="empresa" onchange="listarInteresado(this)">
 												<option value="">Seleccionar</option>
 												<c:forEach var="empresa" items="${model.listaEmpresa}" varStatus="contador">
 												   <option value="${empresa.idEmpresa}">${empresa.razonSocial}</option>
@@ -219,7 +219,7 @@
 										<div class="span4">
 											<div class="control-group">
 												<div class="controls">
-													<select id="idContacto" class="span12" name="idContacto" title="Contacto" >
+													<select id="idContacto" class="span12" title="Contacto" >
 														<option value="" >Seleccionar</option>														
 													</select>	
 												</div>
@@ -228,7 +228,7 @@
 										<div class="span5">
 											<div class="control-group">
 												<div class="controls">
-													<input type="text" id="idInteres" class="span12" name="idInteres" placeholder="Interes"/>
+													<input type="text" id="idInteres" class="span12" placeholder="Interes"/>
 												</div>
 											</div>
 										</div>
@@ -382,7 +382,7 @@
 							<div class="span12">								
 								<div class="control-group">
 									<div class="controls">
-										<textarea rows="5" id="dscObservacion" class="span12" name="dscObservacion" placeholder="Ingresar observacion"></textarea>
+										<textarea rows="5" id="dscObservacion" class="span12" placeholder="Ingresar observacion"></textarea>
 									</div>
 								</div>
 							</div>
@@ -544,7 +544,7 @@
 							<div class="span12">								
 								<div class="control-group">
 									<div class="controls">
-										<textarea rows="5" id="dscAnexo" class="span12" name="dscAnexo" placeholder="Ingresar anexo"></textarea>
+										<textarea rows="5" id="dscAnexo" class="span12" placeholder="Ingresar anexo"></textarea>
 									</div>
 								</div>
 							</div>

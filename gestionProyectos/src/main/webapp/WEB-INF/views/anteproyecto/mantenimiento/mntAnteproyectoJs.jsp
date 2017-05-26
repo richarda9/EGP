@@ -171,6 +171,8 @@ function listarInteresado(empresa){
 	
 function agregarInteresados(){	
 	if($('#idContacto').val()!= null && $('#idContacto').val()!= "" && $('#idInteres').val()!= null && $('#idInteres').val()!= ""){
+		$('#idContacto').parent().parent().removeClass('error');
+		$('#idInteres').parent().parent().removeClass('error');
 		var t = $('#tablaInteresadoEmpresa').DataTable();
 		var interesados = {};
 		interesados.idInteresado = $('#idContacto').val();	
@@ -180,7 +182,16 @@ function agregarInteresados(){
 		dataSetInteresados.push(interesados);
 		t.ajax.reload();
 	}else{
-		
+		if($('#idContacto').val()== null || $('#idContacto').val()== ""){
+			$('#idContacto').parent().parent().addClass('error');
+		}else{
+			$('#idContacto').parent().parent().removeClass('error');
+		}
+		if($('#idInteres').val()== null || $('#idInteres').val()== ""){
+			$('#idInteres').parent().parent().addClass('error');
+		}else{
+			$('#idInteres').parent().parent().removeClass('error');
+		}
 	}
 }
 
@@ -197,14 +208,26 @@ function deleteInteresado(){
 /* INI - TAB OBSERVACION */
 function agregarObservacion(){
 	if($('#dscObservacion').val()!= null && $('#dscObservacion').val()!= "" && $('#archObservacion').val()!= null && $('#archObservacion').val()!= ""){
+		$('#dscObservacion').parent().parent().removeClass('error');
+		$('#archObservacion').parent().parent().parent().removeClass('error');
 		var t = $('#tablaObservacion').DataTable();
 		var observaciones = {};
 		observaciones.observacion = $('#dscObservacion').val();
 		observaciones.archivo = document.getElementById('archObservacion').files[0].name;
+		observaciones.rutaArchivo = document.getElementById('archObservacion').value;
 		dataSetObservacion.push(observaciones);	
 		t.ajax.reload();
 	}else{
-		
+		if($('#dscObservacion').val()== null || $('#dscObservacion').val()== ""){
+			$('#dscObservacion').parent().parent().addClass('error');
+		}else{
+			$('#dscObservacion').parent().parent().removeClass('error');
+		}
+		if($('#archObservacion').val()== null || $('#archObservacion').val()== ""){
+			$('#archObservacion').parent().parent().parent().addClass('error');
+		}else{
+			$('#archObservacion').parent().parent().parent().removeClass('error');
+		}
 	}	 
 }
 
@@ -221,14 +244,34 @@ function deleteObservacion(){
 /* INI - TAB ANEXO */
 function agregarAnexos(){
 	if($('#dscAnexo').val()!= null && $('#dscAnexo').val()!= "" && $('#archAnexo').val()!= null && $('#archAnexo').val()!= ""){
+		$('#dscAnexo').parent().parent().removeClass('error');
+		$('#archAnexo').parent().parent().parent().removeClass('error');
 		var t = $('#tablaAnexo').DataTable();
 		var anexos = {};
 		anexos.anexo = $('#dscAnexo').val();
 		anexos.archivo = document.getElementById('archAnexo').files[0].name;
+		anexos.rutaArchivo = document.getElementById('archAnexo').value;
 		dataSetAnexos.push(anexos);	
 		t.ajax.reload();
-	}else{
-		
+	}else{		
+		if($('#dscAnexo').val()== null || $('#dscAnexo').val()== ""){
+			$('#dscAnexo').parent().parent().addClass('error');
+		}else{
+			$('#dscAnexo').parent().parent().removeClass('error');
+		}
+		if($('#archAnexo').val()== null || $('#archAnexo').val()== ""){
+			$('#archAnexo').parent().parent().parent().addClass('error');
+		}else{
+			$('#archAnexo').parent().parent().parent().removeClass('error');
+		}
+				
+		/* $.gritter.add({
+			title: 'Advertencia!',
+			text: 'Existe un registro con los mismos datos.',
+			sticky: false,
+			time: '1200',
+			class_name: 'gritter-warning gritter-light'
+		}); */
 	}	
 }
 
@@ -246,11 +289,20 @@ function guardarAnteproyecto(){
 	
 	var form=$('#formAgregarAnteproyecto').serializeObject();
 	var agregarAnteproyectoModel = {};
-	agregarAnteproyectoModel.listaInteresados = dataSetInteresados;
-	agregarAnteproyectoModel.tituloProyecto = "qwwe";
-	agregarAnteproyectoModel.idAsociadoProyecto = "22";
+	form.listaInteresados = dataSetInteresados;
+	form.listaObservaciones = dataSetObservacion;
+	form.listaAnexos = dataSetAnexos;
 	
-	$.postJSON('${pageContext.request.contextPath}/anteproyecto/agregarAnteproyecto.htm',agregarAnteproyectoModel, function(data) { 
+	/* agregarAnteproyectoModel.idAsociadoProyecto = "qwwe";
+	agregarAnteproyectoModel.fechaContacto = "22";
+	agregarAnteproyectoModel.idTipoProyecto = "22";
+	agregarAnteproyectoModel.idEjecutivoCuenta = "22";
+	agregarAnteproyectoModel.idResponsable = "22";
+	agregarAnteproyectoModel.tituloProyecto = "22";
+	agregarAnteproyectoModel.alcanceInicialProyecto = "22";
+	agregarAnteproyectoModel.objetivo = "22"; */
+	
+	$.postJSON('${pageContext.request.contextPath}/anteproyecto/agregarAnteproyecto.htm',form, function(data) { 
 		
 		alert(data);
 		
