@@ -13,6 +13,9 @@
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.Pais" alias="Pais"/>
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.Proyecto" alias="Proyecto"/>		
 		<!-- <typeAlias type="com.sigcomt.gestionProyectos.model.anteproyecto.BuscarAnteproyectoModel" alias="BuscarAnteproyectoModel"/>	 -->
+		<typeAlias type="com.sigcomt.gestionProyectos.model.ejecucion.LstProyectoEjecucionModel" alias="LstProyEjecucion"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.Rol" alias="Rol"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.model.cierre.LstProyectoCierreModel" alias="LstProyCierre"/>
 	</typeAliases>
 	
     <mappers>
@@ -20,5 +23,6 @@
         <mapper resource="mapper/administracion/administracionMapper.xml" />
         <mapper resource="mapper/administracion/proyectoMapper.xml" />
         <mapper resource="mapper/administracion/personaMapper.xml" />
+        <mapper resource="mapper/ejecucion/ejecucionMapper.xml" />
     </mappers>
 </configuration>

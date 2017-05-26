@@ -2,12 +2,15 @@
 <div>
 	<div class="row-fluid">
 		<div class="span12">
-			<form class="form-horizontal">	
+			<form id="formBsqCierre" class="form-horizontal">	
 				<div class="control-group">
 					<label class="control-label" for="cliente">Cliente</label>	
 					<div class="controls">
-						<select id="cliente" name="cliente" title="Cliente">
+						<select id="cliente" name="idCliente">
 							<option value="">Seleccionar</option>
+							<c:forEach var="cliente" items="${model.listaCliente}" varStatus="contador">
+							   <option value="${cliente.idEmpresa}">${cliente.razonSocial}</option>
+							</c:forEach>
 						</select>	
 					</div>
 				</div>
@@ -16,6 +19,9 @@
 					<div class="controls">
 						<select id="idTipoProyecto" name="idTipoProyecto" title="idTipoProyecto">
 							<option value="">Seleccionar</option>
+							<c:forEach var="tipoProyecto" items="${model.listaTipoProyecto}" varStatus="contador">
+							   <option value="${tipoProyecto.id}">${tipoProyecto.descripcion}</option>
+							</c:forEach>
 						</select>	
 					</div>
 				</div>
@@ -23,8 +29,11 @@
 					<label class="control-label" for="idEstado">Estado</label>
 	
 					<div class="controls">
-						<select id="idEstado" name="idEstado" title="idEstado">
+						<select id="idEstado" name="estado" title="">
 							<option value="">Seleccionar</option>
+							<c:forEach var="estadoProyecto" items="${model.listaEstadoProyecto}" varStatus="contador">
+							   <option value="${estadoProyecto.id}">${estadoProyecto.descripcion}</option>
+							</c:forEach>
 						</select>	
 					</div>
 				</div>
@@ -33,7 +42,7 @@
 	
 					<div class="controls">
 						<div class="row-fluid input-append">
-							<input id="fechaInicio" type="text" data-date-format="dd-mm-yyyy" />
+							<input id="fechaInicio" name="fechaInicio" type="text" data-date-format="dd-mm-yyyy" />
 							<span class="add-on">
 								<i class="icon-calendar"></i>
 							</span>
@@ -45,7 +54,7 @@
 	
 					<div class="controls">
 						<div class="row-fluid input-append">
-							<input id="fechafin" type="text" data-date-format="dd-mm-yyyy" />
+							<input id="fechafin" name="fechaFin" type="text" data-date-format="dd-mm-yyyy" />
 							<span class="add-on">
 								<i class="icon-calendar"></i>
 							</span>
@@ -60,8 +69,7 @@
 								<i class="icon-search"></i>
 								Buscar
 							</button>
-						</div>
-						
+						</div>						
 					</div>							
 				</div>
 			</form>
@@ -84,57 +92,57 @@
 					<th></th>
 				</tr>
 			</thead>
-			<tbody>
-				<c:forEach var="estadoProyecto" items="${model.listaEstadoProyecto}" varStatus="contador">
-					<tr>
-						<td class="center">												
-							<c:out value="${contador.count}"/>
-						</td>
-						<td><c:out value="${estadoProyecto.descripcion}"></c:out></td>
-						<c:choose>
-							<c:when test="${estadoProyecto.estado == 1}">
-								<td class="hidden-480"><span class="label label-info"><b>ACTIVO</b></span>
-								</td>
-							</c:when>
-							<c:otherwise>
-								<td class="hidden-480"><span
-									class="label label-danger"><b>INACTIVO</b></span></td>
-							</c:otherwise>
-						</c:choose>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="td-actions">
-							<div class="hidden-phone visible-desktop action-buttons">
-								<a class="abrir-eliminarEproyecto blue tooltip-info" href="../cierre/mntCierre.htm?idcierre=1" data-toggle="modal"
-									data-id="${estadoProyecto.id}" data-rel="tooltip" title="Cerrar">
-										<i class="icon-remove-sign bigger-130"> </i>
-								</a>
-							</div>
+<!-- 			<tbody> -->
+<%-- 				<c:forEach var="estadoProyecto" items="${model.listaEstadoProyecto}" varStatus="contador"> --%>
+<!-- 					<tr> -->
+<!-- 						<td class="center">												 -->
+<%-- 							<c:out value="${contador.count}"/> --%>
+<!-- 						</td> -->
+<%-- 						<td><c:out value="${estadoProyecto.descripcion}"></c:out></td> --%>
+<%-- 						<c:choose> --%>
+<%-- 							<c:when test="${estadoProyecto.estado == 1}"> --%>
+<!-- 								<td class="hidden-480"><span class="label label-info"><b>ACTIVO</b></span> -->
+<!-- 								</td> -->
+<%-- 							</c:when> --%>
+<%-- 							<c:otherwise> --%>
+<!-- 								<td class="hidden-480"><span -->
+<!-- 									class="label label-danger"><b>INACTIVO</b></span></td> -->
+<%-- 							</c:otherwise> --%>
+<%-- 						</c:choose> --%>
+<!-- 						<td></td> -->
+<!-- 						<td></td> -->
+<!-- 						<td></td> -->
+<!-- 						<td class="td-actions"> -->
+<!-- 							<div class="hidden-phone visible-desktop action-buttons"> -->
+<!-- 								<a class="abrir-eliminarEproyecto blue tooltip-info" href="../cierre/mntCierre.htm?idcierre=1" data-toggle="modal" -->
+<%-- 									data-id="${estadoProyecto.id}" data-rel="tooltip" title="Cerrar"> --%>
+<!-- 										<i class="icon-remove-sign bigger-130"> </i> -->
+<!-- 								</a> -->
+<!-- 							</div> -->
 
-							<div class="hidden-desktop visible-phone">
-								<div class="inline position-relative">
-									<button class="btn btn-minier btn-yellow dropdown-toggle"
-										data-toggle="dropdown">
-										<i class="icon-caret-down icon-only bigger-120"></i>
-									</button>
+<!-- 							<div class="hidden-desktop visible-phone"> -->
+<!-- 								<div class="inline position-relative"> -->
+<!-- 									<button class="btn btn-minier btn-yellow dropdown-toggle" -->
+<!-- 										data-toggle="dropdown"> -->
+<!-- 										<i class="icon-caret-down icon-only bigger-120"></i> -->
+<!-- 									</button> -->
 
-									<ul
-										class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
-										<li><a href="../cierre/mntCierre.htm?idcierre=1"
-											class="abrir-eliminarEproyecto tooltip-info"
-											data-rel="tooltip" title="Cerrar" data-toggle="modal"
-											data-id="${estadoProyecto.id}"> <span class="blue">
-													<i class="icon-remove-sign bigger-120"></i>
-											</span>
-										</a></li>
-									</ul>
-								</div>
-							</div>
-						</td>
-					</tr>
-				</c:forEach>
-			</tbody>
+<!-- 									<ul -->
+<!-- 										class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close"> -->
+<!-- 										<li><a href="../cierre/mntCierre.htm?idcierre=1" -->
+<!-- 											class="abrir-eliminarEproyecto tooltip-info" -->
+<!-- 											data-rel="tooltip" title="Cerrar" data-toggle="modal" -->
+<%-- 											data-id="${estadoProyecto.id}"> <span class="blue"> --%>
+<!-- 													<i class="icon-remove-sign bigger-120"></i> -->
+<!-- 											</span> -->
+<!-- 										</a></li> -->
+<!-- 									</ul> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</td> -->
+<!-- 					</tr> -->
+<%-- 				</c:forEach> --%>
+<!-- 			</tbody> -->
 		</table>
 	</div>
 	

@@ -71,7 +71,12 @@
 
 											<div class="controls">
 												<div class="span12">
-													<select id="rolasigproveedor"></select>
+													<select id="rolasigproveedor" onchange="mostrarRecursoAsignar(this)">
+														<option value="">Seleccionar</option>
+														<c:forEach var="listaProveedor" items="${model.listaRolProveedor}" varStatus="contador">
+														   <option value="${listaProveedor.id}">${listaProveedor.nombre}</option>
+														</c:forEach>
+													</select>
 												</div> 
 											</div>
 										</div>
@@ -155,7 +160,12 @@
 
 											<div class="controls">
 												<div class="span12">
-													<select id="rolasigcliente"></select>
+													<select id="rolasigcliente" onchange="mostrarRecursoAsignar(this)">
+														<option value="">Seleccionar</option>
+														<c:forEach var="listaCliente" items="${model.listaRolCliente}" varStatus="contador">
+														   <option value="${listaCliente.id}">${listaCliente.nombre}</option>
+														</c:forEach>
+													</select>
 												</div> 
 											</div>
 										</div>

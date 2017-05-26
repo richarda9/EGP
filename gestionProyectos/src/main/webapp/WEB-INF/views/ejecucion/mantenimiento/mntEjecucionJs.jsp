@@ -113,4 +113,22 @@ $(function()
 	});	
 });
 
+function mostrarRecursoAsignar(obj)
+{
+	var tipo = "";
+	
+	if(obj.id == 'rolasigcliente'){
+		tipo = obj.value;	
+	}else{
+		tipo = obj.value;		
+	}
+	
+	$.postJSON('${pageContext.request.contextPath}/ejecucion/listar_Recursos.htm', tipo, function(data) {
+		 $.each(data, function (key, value) {
+             $("#" + obj.id).append("<option value=" + value.id + ">" + value.nombre + "</option>");
+         });
+	});
+	
+}
+
 </script>

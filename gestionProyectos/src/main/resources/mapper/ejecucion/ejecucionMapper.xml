@@ -1,0 +1,10 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.sigcomt.gestionProyectos.repositorio.ejecucion.EjecucionDao">
+	<select id="listarTipoRol" parameterType="int" resultType="Rol">
+	  SELECT "ID_TIPO_ROL" as id, "DESCRIPCION_ROL" as descripcion, 
+	     "ESTADO" as estado, "NOMBRE_TIPOROL" as nombre
+	  FROM "PLANIFICAR_PROYECTO"."TIPO_ROL" 
+	  WHERE "TIPO_ROL" = #{tipoRol};
+	</select>
+</mapper>

@@ -80,13 +80,13 @@
 									<div class="span4">
 										<span class="span12 input-icon input-icon-left">
 											<input type="text" class="span12" id="twitterEmpresa" />
-											<i class="icon-twitter-sign"></i>
+											<i class="icon-twitter-sign blue"></i>
 										</span>
 									</div>
 									<div class="span5">
 										<span class="span12 input-icon input-icon-left">
 											<input type="text" class="span12" id="fecebookEmpresa" />
-											<i class="icon-facebook-sign"></i>
+											<i class="icon-facebook-sign blue"></i>
 										</span>
 									</div>
 								</div>
@@ -95,13 +95,13 @@
 									<div class="span4">
 										<span class="span12 input-icon input-icon-left">
 											<input type="text" class="span12" id="linkedinEmpresa" />
-											<i class="icon-linkedin-sign"></i>
+											<i class="icon-linkedin-sign blue"></i>
 										</span>
 									</div>
 									<div class="span5">
 										<span class="span12 input-icon input-icon-left">
 											<input type="text" class="span12" id="gmailEmpresa" />
-											<i class="icon-google-plus-sign"></i>
+											<i class="icon-google-plus-sign blue"></i>
 										</span>
 									</div>
 								</div>

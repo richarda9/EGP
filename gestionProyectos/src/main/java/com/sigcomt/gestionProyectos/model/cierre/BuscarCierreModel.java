@@ -1,29 +1,19 @@
-package com.sigcomt.gestionProyectos.dominio.administracion;
+package com.sigcomt.gestionProyectos.model.cierre;
 
 import java.io.Serializable;
 
-public class BusquedaProyecto implements Serializable
+public class BuscarCierreModel implements Serializable
 {
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Long idProyecto;
 	private Long idCliente;
 	private Long idTipoProyecto;
-	private Long idResponsableProyecto;
+	private int estado;
 	private String fechaInicio;
 	private String fechaFin;
-	
-	public Long getIdProyecto() {
-		return idProyecto;
-	}
-	
-	public void setIdProyecto(Long idProyecto) {
-		this.idProyecto = idProyecto;
-	}
 	
 	public Long getIdCliente() {
 		return idCliente;
@@ -41,12 +31,12 @@ public class BusquedaProyecto implements Serializable
 		this.idTipoProyecto = idTipoProyecto;
 	}
 	
-	public Long getIdResponsableProyecto() {
-		return idResponsableProyecto;
+	public int getEstado() {
+		return estado;
 	}
 	
-	public void setIdResponsableProyecto(Long idResponsableProyecto) {
-		this.idResponsableProyecto = idResponsableProyecto;
+	public void setEstado(int estado) {
+		this.estado = estado;
 	}
 	
 	public String getFechaInicio() {
@@ -63,6 +53,13 @@ public class BusquedaProyecto implements Serializable
 	
 	public void setFechaFin(String fechaFin) {
 		this.fechaFin = fechaFin;
-	}	
+	}
 
+	@Override
+	public String toString() {
+		return "BuscarCierreModel [idCliente=" + idCliente
+				+ ", idTipoProyecto=" + idTipoProyecto + ", estado=" + estado
+				+ ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin
+				+ "]";
+	}
 }

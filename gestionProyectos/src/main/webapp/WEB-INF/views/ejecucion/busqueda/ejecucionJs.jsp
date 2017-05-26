@@ -3,7 +3,7 @@
 <script>
 $(function() 
 {	
-	$('#tablaEstadoProyecto').DataTable({
+	$('#tablaProyectoEjecucion').DataTable({
 		"paging"    : true,
 		"autoWidth" : true,
 		"pageLength": 10,
@@ -34,34 +34,83 @@ $(function()
 	//[INI] BUSQUEDA
 	$("#formBsqEjecucion").submit(function() 
 	{
-		var objeto = $("#registrarEstadoProyecto").serializeObject();
-		objeto.estado = 1;
+		var objeto = $("#formBsqEjecucion").serializeObject();
+			objeto.estado = 14;
 		console.log(objeto);
-		$.postJSON('${pageContext.request.contextPath}/administracion/registrar_estadoProyecto.htm', objeto, function(data) {
-			if(data == 0){
-				$.gritter.add({
-					title: 'Info!',
-					text: 'Se listo correctamente.',
-					sticky: false,
-					time: '1200',
-					class_name: 'gritter-info gritter-light'
-				});
-				
-				listarEstadoProyecto();
+		
+// 		var bsqProyectoEjecucion = {};
+// 		bsqProyectoEjecucion.idProyecto = objeto.idProyecto;
+// 		bsqProyectoEjecucion.idCliente = objeto.idcliente;
+// 		bsqProyectoEjecucion.idTipoProyecto = objeto.idTipoProyecto;
+// 		bsqProyectoEjecucion.idResponsableProyecto = objeto.idResponsableProyecto;
+// 		bsqProyectoEjecucion.fechaInicio = objeto.fechaInicio;
+// 		bsqProyectoEjecucion.fechaFin = objeto.fechaFin;
+// 		bsqProyectoEjecucion.estado = objeto.estado;
+// 		console.log(bsqProyectoEjecucion);
+		$.postJSON('${pageContext.request.contextPath}/ejecucion/listar_proyectoEjecucion.htm', objeto /*bsqProyectoEjecucion*/, function(data) {
+			console.log("data: " + data); 
+
+			var t = $("#tablaProyectoEjecucion").DataTable();
+			t.clear().draw();
+
+			for (i in data) {
+				var accion = '<!-- [INI] BOTON EDITAR -->'+
+								'<div class="hidden-phone visible-desktop action-buttons">'+
+									'<a class="abrir-eliminarEproyecto blue tooltip-info" href="../ejecucion/mntEjecucion.htm?idEjecucion='+data[i].idProyecto+'" data-toggle="modal"'+
+										'data-id="${estadoProyecto.id}" data-rel="tooltip" title="Editar">'+ 
+											'<i class="icon-edit bigger-130"></i>'+
+									'</a></div>'+
+								'<div class="hidden-desktop visible-phone">'+
+									'<div class="inline position-relative">'+
+										'<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">'+
+											'<i class="icon-caret-down icon-only bigger-120"></i>'+
+										'</button>'+
+										'<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">'+
+											'<li>'+
+												'<a href="../ejecucion/mntEjecucion.htm?idEjecucion='+data[i].idProyecto+'" class="abrir-eliminarEproyecto tooltip-info"'+
+												   'data-rel="tooltip" title="Editar" data-toggle="modal" data-id="${estadoProyecto.id}">'+ 
+													'<span class="blue"><i class="icon-edit bigger-120"></i></span>'+
+												'</a>'+
+											'</li>'+
+										'</ul>'+
+									'</div>'+
+								'</div>'+
+								'<!-- [FIN] BOTON EDITAR --><!-- [INI] BOTON CANCELAR -->'+
+								'<div class="hidden-phone visible-desktop action-buttons">'+
+									'<a class="abrir-eliminarEproyecto red tooltip-error" href="#modalCancelarProyecto" data-toggle="modal"'+
+									   'data-id="'+data[i].idProyecto+'" data-rel="tooltip" title="Cancelar">'+
+										'<i class="icon-remove-sign bigger-130"></i>'+
+									'</a>'+
+								'</div>'+
+	
+								'<div class="hidden-desktop visible-phone">'+
+									'<div class="inline position-relative">'+
+										'<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">'+
+											'<i class="icon-caret-down icon-only bigger-120"></i>'+
+										'</button>'+
+	
+										'<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">'+
+											'<li>'+
+												'<a href="#modalCancelarProyecto" class="abrir-eliminarEproyecto tooltip-error" data-rel="tooltip"'+ 
+													'title="Cancelar" data-toggle="modal" data-id="'+data[i].idProyecto+'">'+
+												   		'<span class="red"><i class="icon-remove-sign bigger-120"></i></span>'+
+												'</a>'+
+											'</li>'+
+										'</ul>'+
+									'</div>'+
+								'</div>'+
+								'<!-- [FIN] BOTON CANCELAR  -->';	
+
+			    t.row.add([data[i].dscProyecto, data[i].dscCliente, data[i].dscTipoProyecto, data[i].fechaInicio, data[i].dscResponsable, accion ]).draw();	
+
 			}
-		}).fail(function() {
-			$.gritter.add({
-				title: 'Error!',
-				text: 'Ocurrio un error al tratar de listar los proyectos',
-				sticky: false,
-				time: '1200',
-				class_name: 'gritter-error'
-			});
+		
+			
 		});
 		
 		return false;		
 	});
-	//[INI] BUSQUEDA
+	//[INI] BUSQUEDA 
 	
 });
 </script>

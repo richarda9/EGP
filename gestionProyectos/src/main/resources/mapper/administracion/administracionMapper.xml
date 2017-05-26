@@ -16,7 +16,7 @@
 	<select id="listarTipoProyectoByEsado" parameterType="int" resultType="TipoProyecto">
 	   select  "ID_TIPO_PROYECTO" as id, "DESCRIPCION_TIPO_PROYECTO" as descripcion, "ESTADO" as estado
  	   from "CREAR_PROYECTO"."TIPO_PROYECTO"
- 	   where "ESTADO" = #{estado};;
+ 	   where "ESTADO" = #{estado};
 	</select>
 	
 	<delete id="eliminarTipoProyecto" parameterType="int">

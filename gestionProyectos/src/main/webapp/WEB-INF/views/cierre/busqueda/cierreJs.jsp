@@ -27,4 +27,78 @@ $('#fechafin').datepicker({
 $('#fechafin').datepicker().next().on('click', function(){ 
 	$(this).prev().focus();
 });
+
+
+
+//[INI] BUSQUEDA
+$("#formBsqCierre").submit(function() 
+{
+	var objeto = $("#formBsqCierre").serializeObject();
+		//objeto.estado = 15;
+	console.log(objeto);
+	
+	$.postJSON('${pageContext.request.contextPath}/cierre/listar_proyectoCierre.htm', objeto, function(data) { 
+		console.log("data: " + data); 
+
+		var t = $("#tablaCierreProyecto").DataTable();
+		t.clear().draw();
+
+		for (i in data) {
+			var accion = '<!-- [INI] BOTON EDITAR -->'+
+						 '<div class="hidden-phone visible-desktop action-buttons">'+
+								'<a class="abrir-eliminarEproyecto blue tooltip-info" href="../cierre/mntEjecucion.htm?idEjecucion='+data[i].idProyecto+'" data-toggle="modal"'+
+									'data-id="${estadoProyecto.id}" data-rel="tooltip" title="Editar">'+ 
+										'<i class="icon-edit bigger-130"></i>'+
+								'</a></div>'+
+							'<div class="hidden-desktop visible-phone">'+
+								'<div class="inline position-relative">'+
+									'<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">'+
+										'<i class="icon-caret-down icon-only bigger-120"></i>'+
+									'</button>'+
+									'<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">'+
+										'<li>'+
+											'<a href="../cierre/mntCierre.htm?idcierre?idCierre='+data[i].idProyecto+'" class="abrir-eliminarEproyecto tooltip-info"'+
+											   'data-rel="tooltip" title="Editar" data-toggle="modal" data-id="${estadoProyecto.id}">'+ 
+												'<span class="blue"><i class="icon-edit bigger-120"></i></span>'+
+											'</a>'+
+										'</li>'+
+									'</ul>'+
+								'</div>'+
+							'</div>'+
+							'<!-- [FIN] BOTON EDITAR --><!-- [INI] BOTON CANCELAR -->'+
+							'<div class="hidden-phone visible-desktop action-buttons">'+
+								'<a class="abrir-eliminarEproyecto red tooltip-error" href="#modalCancelarProyecto" data-toggle="modal"'+
+								   'data-id="'+data[i].idProyecto+'" data-rel="tooltip" title="Cancelar">'+
+									'<i class="icon-remove-sign bigger-130"></i>'+
+								'</a>'+
+							'</div>'+
+
+							'<div class="hidden-desktop visible-phone">'+
+								'<div class="inline position-relative">'+
+									'<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">'+
+										'<i class="icon-caret-down icon-only bigger-120"></i>'+
+									'</button>'+
+
+									'<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">'+
+										'<li>'+
+											'<a href="#modalCancelarProyecto" class="abrir-eliminarEproyecto tooltip-error" data-rel="tooltip"'+ 
+												'title="Cancelar" data-toggle="modal" data-id="'+data[i].idProyecto+'">'+
+											   		'<span class="red"><i class="icon-remove-sign bigger-120"></i></span>'+
+											'</a>'+
+										'</li>'+
+									'</ul>'+
+								'</div>'+
+							'</div>'+
+							'<!-- [FIN] BOTON CANCELAR  -->';	
+
+		    t.row.add([data[i].dscProyecto, data[i].dscCliente, data[i].dscTipoProyecto, data[i].fechaInicio, data[i].dscResponsable, accion ]).draw();	
+
+		}
+	
+		
+	});
+	
+	return false;		
+});
+//[INI] BUSQUEDA
 </script>
