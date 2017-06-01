@@ -13,8 +13,6 @@
 <script>
 $(function() 
 {		
-	
-	
 	$('#tablaRecProveedor').DataTable({
 		"paging"     : true,
 		"autoWidth"  : true,

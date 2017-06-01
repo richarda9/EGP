@@ -13,7 +13,7 @@ public class Proyecto implements Serializable{
 	private Long idProyecto;
 	private String nombreProyecto;
 	private Long idTipoProyecto;
-	private int estado;
+	private Integer estado;
 	private Date fechaContacto;
 	private String fechaContactoString;
 	private Long idResponsableProyecto;
@@ -53,10 +53,10 @@ public class Proyecto implements Serializable{
 	public void setIdTipoProyecto(Long idTipoProyecto) {
 		this.idTipoProyecto = idTipoProyecto;
 	}
-	public int getEstado() {
+	public Integer getEstado() {
 		return estado;
 	}
-	public void setEstado(int estado) {
+	public void setEstado(Integer estado) {
 		this.estado = estado;
 	}
 	public Date getFechaContacto() {

@@ -3,6 +3,7 @@ package com.sigcomt.gestionProyectos.repositorio.anteproyecto;
 import java.util.List;
 import java.util.Map;
 
+import com.sigcomt.gestionProyectos.dominio.administracion.DetalleProyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
 import com.sigcomt.gestionProyectos.model.anteproyecto.BuscarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.cierre.BuscarCierreModel;
@@ -17,4 +18,8 @@ public interface ProyectoDao {
 	public List<Proyecto> buscarProyectoByDetalleEstadoProyectoByEstado(BuscarAnteproyectoModel buscarAnteproyectoModel) ;
 	public List<LstProyectoEjecucionModel> listaProyectoByEstadoEjecucion(BuscarEjecucionModel bqsProyecto);
 	public List<LstProyectoCierreModel> listaProyectoByEstadoCierre(BuscarCierreModel bqsProyecto);
+	
+	public void actualizarProyecto(Proyecto proyecto);
+	public void registrarDetallleProyecto(DetalleProyecto detalle);
+	public void actualizarDetalleProyecto(DetalleProyecto detalle);
 }

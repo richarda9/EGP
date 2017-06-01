@@ -159,7 +159,13 @@ $("#formEliminarTipoProyecto").submit(
 								
 				listarTipoProyecto();
 			}).fail(function() {
-				
+				$.gritter.add({
+					title: 'Error!',
+					text: 'Ocurrio un error al tratar de eliminar el registro',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-error'
+				});				
 			});
 			
 		return false;
@@ -284,7 +290,13 @@ $("#formEliminarEstadoProyecto").submit(
 								
 				listarEstadoProyecto();
 			}).fail(function() {
-				
+				$.gritter.add({
+					title: 'Error!',
+					text: 'Ocurrio un error al tratar de eliminar el registro',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-error'
+				});				
 			});
 			
 		return false;
@@ -414,7 +426,13 @@ $("#formEliminarTipReqEstadoProyecto").submit(
 								
 				listarTipoRequisitoProyecto();
 			}).fail(function() {
-				
+				$.gritter.add({
+					title: 'Error!',
+					text: 'Ocurrio un error al tratar de eliminar el registro',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-error'
+				});				
 			});
 			
 		return false;

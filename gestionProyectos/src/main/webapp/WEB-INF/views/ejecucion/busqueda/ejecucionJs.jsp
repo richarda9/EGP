@@ -105,7 +105,7 @@ $(function()
 
 			}
 		
-			
+			$('[data-rel=tooltip]').tooltip();
 		});
 		
 		return false;		

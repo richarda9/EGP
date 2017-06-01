@@ -16,6 +16,13 @@
 		<typeAlias type="com.sigcomt.gestionProyectos.model.ejecucion.LstProyectoEjecucionModel" alias="LstProyEjecucion"/>
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.Rol" alias="Rol"/>
 		<typeAlias type="com.sigcomt.gestionProyectos.model.cierre.LstProyectoCierreModel" alias="LstProyCierre"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.Entregable" alias="entregable"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.model.cierre.MntLeccionAprendidaModel" alias="MntleccionAprendida"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.model.cierre.LstLeccionAprendidaModel" alias="LstLeccionAprendida"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.Sponsor" alias="sponsor"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.model.cierre.MntActaCierreModel" alias="mntActaCierre"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.model.cierre.LstActaCierreModel" alias="LstActaCierre"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.DetalleProyecto" alias="DetalleProyecto"/>
 	</typeAliases>
 	
     <mappers>
@@ -24,5 +31,6 @@
         <mapper resource="mapper/administracion/proyectoMapper.xml" />
         <mapper resource="mapper/administracion/personaMapper.xml" />
         <mapper resource="mapper/ejecucion/ejecucionMapper.xml" />
+        <mapper resource="mapper/cierre/cierreMapper.xml" />
     </mappers>
 </configuration>

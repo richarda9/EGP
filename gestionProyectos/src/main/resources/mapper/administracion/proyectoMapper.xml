@@ -158,7 +158,7 @@
 			and tp."ID_TIPO_PROYECTO" = #{idTipoProyecto} 
 		</if>
 		<if test="estado != null and estado != ''">
-			and dp."ID_ESTADO_PROYECTO" IN #{estado} 
+			and dp."ID_ESTADO_PROYECTO" = #{estado} 
 		</if>
 		<if test="fechaInicio != null and fechaInicio != ''">
 			and to_char(p."FECHA_CONTACTO", 'dd/mm/yyyy') = #{fechaInicio} 
@@ -167,5 +167,42 @@
 			and to_char(p."FECHA_CONTACTO", 'dd/mm/yyyy') = #{fechaFin} 
 		</if>
 	</select>
+	
+	<update id="actualizarProyecto" parameterType="Proyecto" >
+		UPDATE "CREAR_PROYECTO"."PROYECTO"
+		   SET "NOMBRE_PROYECTO" = COALESCE(#{nombreProyecto}, "NOMBRE_PROYECTO"), 
+		       "ID_TIPO_PROYECTO" = COALESCE(#{idTipoProyecto}, "ID_TIPO_PROYECTO"), 
+		       "ESTADO" = COALESCE(#{estado}, "ESTADO"), 
+		       "FECHA_CONTACTO" = COALESCE(#{fechaContacto}, "FECHA_CONTACTO"), 
+		       "ID_RESPONSABLE_PROYECTO" = COALESCE(#{idResponsableProyecto}, "ID_RESPONSABLE_PROYECTO"),  
+		       "ID_EJECUTIVO_CUENTA" = COALESCE(#{idEjecutivoCuenta}, "ID_EJECUTIVO_CUENTA"), 
+		       "CODIGO_PROYECTO" = COALESCE(#{codigoProyecto}, "CODIGO_PROYECTO"), 
+		       "ID_PROYECTO_ASOCIADO" = COALESCE(#{idProyectoAsociado}, "ID_PROYECTO_ASOCIADO"), 
+		       "ALCANCE_INICIAL" = COALESCE(#{alcanceInicial}, "ALCANCE_INICIAL"), 
+		       "OBJETIVO_INICIAL" = COALESCE(#{ObjetivoInicial}, "OBJETIVO_INICIAL"), 
+		       "ID_EMPRESA" = COALESCE(#{idEmpresa}, "ID_EMPRESA"), 
+		       "NOMBRE_EMPRESA" = COALESCE(#{nombreEmpresa}, "NOMBRE_EMPRESA"), 
+		       "DESCRIPCION_PRODUCTO_PROYECTO" = COALESCE(#{descripcionProductoProyecto}, "DESCRIPCION_PRODUCTO_PROYECTO"), 
+		       "ALCANCE_PROYECTO" = COALESCE(#{alcanceProyecto}, "ALCANCE_PROYECTO"), 
+		       "FECHA_CIERRE_PROYECTO" = COALESCE(#{fechaCierreProyecto}, "FECHA_CIERRE_PROYECTO"), 
+		       "COMENTARIOS_CIERRE_PROYECTO" = COALESCE(#{comentariosCierreProyecto}, "COMENTARIOS_CIERRE_PROYECTO"), 
+		       "FECHA_CANCELACION" = COALESCE(#{fechaCancelacion}, "FECHA_CANCELACION"), 
+		       "JUSTIFICACION_CANCELACION" = COALESCE(#{justificacionCancelacion}, "JUSTIFICACION_CANCELACION")
+		 WHERE "ID_PROYECTO" = #{idProyecto};
+	</update>
+	<insert id="registrarDetallleProyecto" parameterType="DetalleProyecto">
+	   INSERT INTO "CREAR_PROYECTO"."DETALLE_ESTADO_PROYECTO"(
+            "ID_DETALLE_ESTADO_PROYECTO", "ID_ESTADO_PROYECTO", "ID_PROYECTO", 
+            "FECHA_CREACION", "FECHA_APROBACION", "ESTADO")
+	    VALUES (nextval('"CREAR_PROYECTO".sq_detalle_estado_proyecto'), #{idEstado}, #{idProyecto}, 
+	            CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1);
+	</insert>
+	
+	<update id="actualizarDetalleProyecto" parameterType="DetalleProyecto">
+		UPDATE "CREAR_PROYECTO"."DETALLE_ESTADO_PROYECTO"
+		   SET "ESTADO" = #{estado}
+		 WHERE "ID_PROYECTO" =  #{idProyecto};
+	</update>
 	<!-- [FIN] CIERRE -->
+	
 </mapper>

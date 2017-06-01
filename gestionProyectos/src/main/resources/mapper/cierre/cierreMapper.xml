@@ -1,0 +1,101 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.sigcomt.gestionProyectos.repositorio.cierre.CierreDao">
+	
+	<!-- ################################ [INI] LECCION APRENDIDA ################################ -->
+	<select id="listaEntregable" parameterType="int" resultType="entregable">
+	   SELECT e."ID_ENTREGABLE" as identregable, e."NOMBRE_ENTREGABLE" as nombre
+		FROM "PLANIFICAR_PROYECTO"."DETALLE_ENTREGABLE_PRODUCTO" dep,
+		     "PLANIFICAR_PROYECTO"."ENTREGABLE" e,
+		     "CREAR_PROYECTO"."PROYECTO" p
+		WHERE p."ID_PROYECTO" = dep."ID_PROYECTO"
+		AND   dep."ID_ENTREGABLE" = e."ID_ENTREGABLE"
+		and   p."ID_PROYECTO" = #{idproyecto};
+	</select>
+	
+	<select id="mntLeccionAprendida" parameterType="MntleccionAprendida" resultType="int">
+		select "PLANIFICAR_PROYECTO".mntLeccionAprendida(#{idLeccionAprendida}, #{idEntregableAfectado}, #{dscproblema}, #{dsccausa},
+														#{dsccorrelativa}, #{dscobtenido}, #{dscaprendida}, #{idProyecto});
+	</select>
+	
+	<select id="listarLeccionesAprendidas" parameterType="MntleccionAprendida" resultType="LstLeccionAprendida">
+		SELECT la."ID_LECCION_APRENDIDA" idLeccionAprendida, 
+			   la."ID_ENTREGABLE" idEntregableAfectado,
+		       (select e."NOMBRE_ENTREGABLE" from "PLANIFICAR_PROYECTO"."ENTREGABLE" e 
+		        where e."ID_ENTREGABLE" = la."ID_ENTREGABLE") nombreEntregable, 
+		       la."DESCRIPCION_PROBLEMA" dscproblema, 
+		       la."CAUSA" dsccausa, 
+		       la."ACCION_CORRELATIVO" dsccorrelativa, 
+		       la."RESULTADO_OBTENIDO" dscobtenido, 
+		       la."LECCION_APREDIDA" dscaprendida, 
+		       la."ID_PROYECTO" idProyecto, 
+		       la."COD_LECCION_APRENDIDA" codLeccionAprendida
+		 FROM "PLANIFICAR_PROYECTO"."LECCION_APRENDIDA" la
+		<where>                                    
+			<if test="idLeccionAprendida != null and idLeccionAprendida != ''">           
+				la."ID_LECCION_APRENDIDA" = #{idLeccionAprendida}                             
+	    	</if>                                            
+			<if test="idEntregableAfectado != null and idEntregableAfectado != ''">         
+				AND	la."ID_ENTREGABLE" = #{idEntregableAfectado}                          
+	    	</if>                                               
+			<if test="idProyecto != null and idProyecto != ''">         
+				AND	la."ID_PROYECTO" = #{idProyecto}                          
+	    	</if>                                          
+		</where>  
+	</select>
+	<delete id="eliminarLeccionesAprendidas" parameterType="MntleccionAprendida">
+		DELETE FROM "PLANIFICAR_PROYECTO"."LECCION_APRENDIDA" la
+ 		WHERE la."ID_LECCION_APRENDIDA" = #{idLeccionAprendida};
+	</delete>
+	<!-- ################################ [FIN] LECCION APRENDIDA ################################ -->
+	<!-- ################################ [INI] ACTA DE CIERRE ################################### -->
+	<select id="listaSponsor" parameterType="sponsor" resultType="sponsor">
+		SELECT "ID_SPONSOR" id, "DESCRIPCION"
+		FROM "PLANIFICAR_PROYECTO"."SPONSOR" s
+		WHERE s."ESTADO" = #{estado};
+	</select>
+	
+	<select id="mntActaCierre" parameterType="mntActaCierre" resultType="int">
+		SELECT "PLANIFICAR_PROYECTO".mntActaCierre(#{idActaCierre}::bigint, #{idSponsor}::bigint, #{idProyecto}::bigint, #{declAceptacion}, 
+												   #{observacion}, #{vistaPrevia}, #{firmas}, #{tipoLeccionEntregbale}::smallint, 
+												   #{tipoLeccionAdquisiciones}::smallint, #{tipoLeccionLecAprendida}::smallint, #{tipoLeccionEncuesta}::smallint, 
+												   #{envioCorreo}::smallint);
+	</select>
+	<select id="listarActaCierre" parameterType="mntActaCierre" resultType="LstActaCierre">
+		SELECT ac."ID_ACTA_CIERRE" idActaCierre, 
+		       ac."ID_SPONSOR" idSponsor, 
+		       (SELECT "DESCRIPCION"
+  				FROM "PLANIFICAR_PROYECTO"."SPONSOR" s WHERE s."ID_SPONSOR" = ac."ID_SPONSOR") dscSponsor,
+		       ac."ID_PROYECTO" idProyecto, 
+		       ac."DECLARACION_ACEPTACION" declAceptacion, 
+		       ac."OBSERVACIONES" observacion, 
+		       ac."COMENTARIO" vistaPrevia, 
+		       ac."FIRMAS" firmas, 
+		       ac."INCLUIR_ENTREGABLE" tipoLeccionEntregbale, 
+		       ac."VERSION" versionActa, 
+		       to_char(ac."FECHA_ELABORACION", 'DD/MM/YYYY') fechaElaboracion, 
+		       ac."RESPONSABLE" idResponsable, 
+		       (SELECT p."NOMBRE_PERSONA" ||' '|| p."APELLIDO_PERSONA"
+				FROM seguridad.security_rol_user sru,
+				     seguridad.security_user su,
+				     "CREAR_PROYECTO"."PERSONA" p
+				WHERE p."ID_PERSONA" = su."ID_PERSONA"
+				AND   su.id_user = sru.id_user
+				AND   sru.id_detalle = ac."RESPONSABLE") responsable,
+		       ac."INCLUIR_ADQUISICIONES" tipoLeccionAdquisiciones, 
+		       ac."INCLUIR_LECCIONESAPRENDIDAS" tipoLeccionLecAprendida, 
+		       ac."INCLUIR_ENCUESTA" tipoLeccionEncuesta, 
+		       ac."ENVIO_CORREO" envioCorreo
+		FROM "PLANIFICAR_PROYECTO"."ACTA_CIERRE" ac
+		<where>                                    
+			<if test="idProyecto != null and idProyecto != ''">  
+				ac."ID_PROYECTO" = #{idProyecto}
+			</if>
+			<if test="idActaCierre != null and idActaCierre != ''">  
+				AND   ac."ID_ACTA_CIERRE" = #{idActaCierre}
+			</if>
+		</where>
+	</select>
+	<!-- ################################ [INI] ACTA DE CIERRE ################################### -->
+
+</mapper>

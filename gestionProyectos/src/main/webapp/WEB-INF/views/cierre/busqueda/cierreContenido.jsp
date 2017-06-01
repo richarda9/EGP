@@ -81,9 +81,6 @@
 			class="table table-striped table-bordered table-hover">
 			<thead>
 				<tr>
-					<th class="center"><label>
-							<span class="lbl"></span>
-					</label></th>
 					<th>Proyecto</th>
 					<th>Cliente</th>
 					<th>Tipo de Proyecto</th>
@@ -92,57 +89,6 @@
 					<th></th>
 				</tr>
 			</thead>
-<!-- 			<tbody> -->
-<%-- 				<c:forEach var="estadoProyecto" items="${model.listaEstadoProyecto}" varStatus="contador"> --%>
-<!-- 					<tr> -->
-<!-- 						<td class="center">												 -->
-<%-- 							<c:out value="${contador.count}"/> --%>
-<!-- 						</td> -->
-<%-- 						<td><c:out value="${estadoProyecto.descripcion}"></c:out></td> --%>
-<%-- 						<c:choose> --%>
-<%-- 							<c:when test="${estadoProyecto.estado == 1}"> --%>
-<!-- 								<td class="hidden-480"><span class="label label-info"><b>ACTIVO</b></span> -->
-<!-- 								</td> -->
-<%-- 							</c:when> --%>
-<%-- 							<c:otherwise> --%>
-<!-- 								<td class="hidden-480"><span -->
-<!-- 									class="label label-danger"><b>INACTIVO</b></span></td> -->
-<%-- 							</c:otherwise> --%>
-<%-- 						</c:choose> --%>
-<!-- 						<td></td> -->
-<!-- 						<td></td> -->
-<!-- 						<td></td> -->
-<!-- 						<td class="td-actions"> -->
-<!-- 							<div class="hidden-phone visible-desktop action-buttons"> -->
-<!-- 								<a class="abrir-eliminarEproyecto blue tooltip-info" href="../cierre/mntCierre.htm?idcierre=1" data-toggle="modal" -->
-<%-- 									data-id="${estadoProyecto.id}" data-rel="tooltip" title="Cerrar"> --%>
-<!-- 										<i class="icon-remove-sign bigger-130"> </i> -->
-<!-- 								</a> -->
-<!-- 							</div> -->
-
-<!-- 							<div class="hidden-desktop visible-phone"> -->
-<!-- 								<div class="inline position-relative"> -->
-<!-- 									<button class="btn btn-minier btn-yellow dropdown-toggle" -->
-<!-- 										data-toggle="dropdown"> -->
-<!-- 										<i class="icon-caret-down icon-only bigger-120"></i> -->
-<!-- 									</button> -->
-
-<!-- 									<ul -->
-<!-- 										class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close"> -->
-<!-- 										<li><a href="../cierre/mntCierre.htm?idcierre=1" -->
-<!-- 											class="abrir-eliminarEproyecto tooltip-info" -->
-<!-- 											data-rel="tooltip" title="Cerrar" data-toggle="modal" -->
-<%-- 											data-id="${estadoProyecto.id}"> <span class="blue"> --%>
-<!-- 													<i class="icon-remove-sign bigger-120"></i> -->
-<!-- 											</span> -->
-<!-- 										</a></li> -->
-<!-- 									</ul> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</td> -->
-<!-- 					</tr> -->
-<%-- 				</c:forEach> --%>
-<!-- 			</tbody> -->
 		</table>
 	</div>
 	

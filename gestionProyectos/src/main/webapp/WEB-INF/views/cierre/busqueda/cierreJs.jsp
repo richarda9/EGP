@@ -44,58 +44,39 @@ $("#formBsqCierre").submit(function()
 		t.clear().draw();
 
 		for (i in data) {
-			var accion = '<!-- [INI] BOTON EDITAR -->'+
-						 '<div class="hidden-phone visible-desktop action-buttons">'+
-								'<a class="abrir-eliminarEproyecto blue tooltip-info" href="../cierre/mntEjecucion.htm?idEjecucion='+data[i].idProyecto+'" data-toggle="modal"'+
-									'data-id="${estadoProyecto.id}" data-rel="tooltip" title="Editar">'+ 
-										'<i class="icon-edit bigger-130"></i>'+
+			var accion =  '';
+
+			if(data[i].estado.toUpperCase() != 'CERRADO'){
+
+				accion = '<!-- [INI] BOTON EDITAR -->'+
+						 '<div class="hidden-phone visible-desktop action-buttons">'+ 
+						 		'<a class="abrir-eliminarEproyecto blue tooltip-info" href="../cierre/mntCierre.htm?idcierre='+data[i].idProyecto+'" data-toggle="modal"' +
+									'data-id="${estadoProyecto.id}" data-rel="tooltip" title="Cerrar">'+ 
+										'<i class="icon-remove-sign bigger-130"> </i>'+
 								'</a></div>'+
-							'<div class="hidden-desktop visible-phone">'+
-								'<div class="inline position-relative">'+
-									'<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">'+
+							'<div class="hidden-desktop visible-phone">'+ 
+								'<div class="inline position-relative">'+ 
+									'<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">'+ 
 										'<i class="icon-caret-down icon-only bigger-120"></i>'+
 									'</button>'+
 									'<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">'+
 										'<li>'+
-											'<a href="../cierre/mntCierre.htm?idcierre?idCierre='+data[i].idProyecto+'" class="abrir-eliminarEproyecto tooltip-info"'+
-											   'data-rel="tooltip" title="Editar" data-toggle="modal" data-id="${estadoProyecto.id}">'+ 
-												'<span class="blue"><i class="icon-edit bigger-120"></i></span>'+
+											'<a href="../cierre/mntCierre.htm?idcierre='+data[i].idProyecto+'" class="abrir-eliminarEproyecto tooltip-info"' +
+											   'data-rel="tooltip" title="Cerrar" data-toggle="modal" data-id="${estadoProyecto.id}"> '+ 
+												'<span class="blue"><i class="icon-remove-sign bigger-120"></i></span>'+
 											'</a>'+
 										'</li>'+
 									'</ul>'+
 								'</div>'+
 							'</div>'+
-							'<!-- [FIN] BOTON EDITAR --><!-- [INI] BOTON CANCELAR -->'+
-							'<div class="hidden-phone visible-desktop action-buttons">'+
-								'<a class="abrir-eliminarEproyecto red tooltip-error" href="#modalCancelarProyecto" data-toggle="modal"'+
-								   'data-id="'+data[i].idProyecto+'" data-rel="tooltip" title="Cancelar">'+
-									'<i class="icon-remove-sign bigger-130"></i>'+
-								'</a>'+
-							'</div>'+
+							'<!-- [FIN] BOTON EDITAR -->';	
+			}
 
-							'<div class="hidden-desktop visible-phone">'+
-								'<div class="inline position-relative">'+
-									'<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">'+
-										'<i class="icon-caret-down icon-only bigger-120"></i>'+
-									'</button>'+
-
-									'<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">'+
-										'<li>'+
-											'<a href="#modalCancelarProyecto" class="abrir-eliminarEproyecto tooltip-error" data-rel="tooltip"'+ 
-												'title="Cancelar" data-toggle="modal" data-id="'+data[i].idProyecto+'">'+
-											   		'<span class="red"><i class="icon-remove-sign bigger-120"></i></span>'+
-											'</a>'+
-										'</li>'+
-									'</ul>'+
-								'</div>'+
-							'</div>'+
-							'<!-- [FIN] BOTON CANCELAR  -->';	
-
-		    t.row.add([data[i].dscProyecto, data[i].dscCliente, data[i].dscTipoProyecto, data[i].fechaInicio, data[i].dscResponsable, accion ]).draw();	
+		    t.row.add([data[i].dscProyecto, data[i].dscCliente, data[i].dscTipoProyecto, data[i].fechaInicio, data[i].estado, accion ]).draw();	
 
 		}
 	
-		
+		$('[data-rel=tooltip]').tooltip();
 	});
 	
 	return false;		
