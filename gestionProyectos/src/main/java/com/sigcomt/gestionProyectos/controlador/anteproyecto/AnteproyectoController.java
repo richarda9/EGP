@@ -14,7 +14,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +26,7 @@ import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
 import com.sigcomt.gestionProyectos.model.anteproyecto.AgregarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.BuscarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.servicio.administracion.AdministracionService;
+import com.sigcomt.gestionProyectos.servicio.anteproyecto.AnteproyectoService;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.PersonaService;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.ProyectoService;
 
@@ -46,6 +46,9 @@ public class AnteproyectoController
 	
 	@Autowired
 	private PersonaService personaService;
+	
+	@Autowired
+	AnteproyectoService anteproyectoService;
 		
 	@RequestMapping(value = "/anteproyecto.htm")
 	public ModelAndView anteproyecto(HttpServletRequest request, HttpServletResponse response) 
@@ -119,16 +122,20 @@ public class AnteproyectoController
 	}
 	
 	@RequestMapping(value = "/agregarAnteproyecto.htm", method = RequestMethod.POST)
-	public @ResponseBody String agregarAnteproyecto(@RequestBody AgregarAnteproyectoModel agregarAnteproyectoModel) {
+	public @ResponseBody AgregarAnteproyectoModel agregarAnteproyecto(@RequestBody AgregarAnteproyectoModel agregarAnteproyectoModel) {
 		
-		String respuesta = "";
+		logger.info("INI - AnteproyectoController.agregarAnteproyecto");
 		try {
-			respuesta = "123";
+			agregarAnteproyectoModel.setIdEstadoProyecto(Long.parseLong(EstadoProyectoEnum.EN_ANTEPROYECTO.getCodigo()));
+			String codigoPy = anteproyectoService.grabarAnteproyecto(agregarAnteproyectoModel);
+			agregarAnteproyectoModel.setCodigoPy(codigoPy);
 		} catch (Exception e) {
-			// TODO: handle exception
+			logger.error("ERROR - AnteproyectoController.agregarAnteproyecto", e);
+			agregarAnteproyectoModel.setCodigoPy("ERROR");
 		}
-		return "123";
-	
+		
+		logger.info("FIN - AnteproyectoController.agregarAnteproyecto");
+		return agregarAnteproyectoModel;	
 	}
 	
 	@RequestMapping(value = "/listarInteresado.htm", method = RequestMethod.POST)

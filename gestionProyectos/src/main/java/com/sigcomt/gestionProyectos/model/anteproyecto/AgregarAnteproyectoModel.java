@@ -22,6 +22,12 @@ public class AgregarAnteproyectoModel implements Serializable{
 	private List<ObservacionesAnteproyectoModel>listaObservaciones;
 	private List<AnexosAnteproyectoModel>listaAnexos;
 	
+	private Long idEstadoProyecto;
+	private Long idProyecto;
+	private int estado;	
+	private String codigoPy;
+	private Long tipoArchivo;//1:observacion, 2:anexo
+	
 	public Long getIdAsociadoProyecto() {
 		return idAsociadoProyecto;
 	}
@@ -90,4 +96,34 @@ public class AgregarAnteproyectoModel implements Serializable{
 	public void setListaAnexos(List<AnexosAnteproyectoModel> listaAnexos) {
 		this.listaAnexos = listaAnexos;
 	}
+	public Long getIdEstadoProyecto() {
+		return idEstadoProyecto;
+	}
+	public void setIdEstadoProyecto(Long idEstadoProyecto) {
+		this.idEstadoProyecto = idEstadoProyecto;
+	}
+	public Long getIdProyecto() {
+		return idProyecto;
+	}
+	public void setIdProyecto(Long idProyecto) {
+		this.idProyecto = idProyecto;
+	}
+	public int getEstado() {
+		return estado;
+	}
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
+	public String getCodigoPy() {
+		return codigoPy;
+	}
+	public void setCodigoPy(String codigoPy) {
+		this.codigoPy = codigoPy;
+	}
+	public Long getTipoArchivo() {
+		return tipoArchivo;
+	}
+	public void setTipoArchivo(Long tipoArchivo) {
+		this.tipoArchivo = tipoArchivo;
+	}		
 }

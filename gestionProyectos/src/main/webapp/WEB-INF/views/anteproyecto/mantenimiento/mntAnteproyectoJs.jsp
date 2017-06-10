@@ -288,23 +288,31 @@ function deleteAnexo(){
 function guardarAnteproyecto(){
 	
 	var form=$('#formAgregarAnteproyecto').serializeObject();
-	var agregarAnteproyectoModel = {};
 	form.listaInteresados = dataSetInteresados;
 	form.listaObservaciones = dataSetObservacion;
 	form.listaAnexos = dataSetAnexos;
 	
-	/* agregarAnteproyectoModel.idAsociadoProyecto = "qwwe";
-	agregarAnteproyectoModel.fechaContacto = "22";
-	agregarAnteproyectoModel.idTipoProyecto = "22";
-	agregarAnteproyectoModel.idEjecutivoCuenta = "22";
-	agregarAnteproyectoModel.idResponsable = "22";
-	agregarAnteproyectoModel.tituloProyecto = "22";
-	agregarAnteproyectoModel.alcanceInicialProyecto = "22";
-	agregarAnteproyectoModel.objetivo = "22"; */
-	
-	$.postJSON('${pageContext.request.contextPath}/anteproyecto/agregarAnteproyecto.htm',form, function(data) { 
-		
-		alert(data);
+	$.postJSON('${pageContext.request.contextPath}/anteproyecto/agregarAnteproyecto.htm',form, function(data) {
+		/* console.log("qwqw");
+		alert(data); */
+		if(data.codigoPy == 'ERROR'){
+			$.gritter.add({
+				title: 'Error!',
+				text: 'Ocurrio un error al guardar el proyecto',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-error'
+			});
+		}else{
+			$("#idCodigoPy").val(data.codigoPy);
+			$.gritter.add({
+				title: 'Info!',
+				text: 'Se guardó correctamente el proyecto.',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-info gritter-light'
+			});
+		}
 		
 	});
 }

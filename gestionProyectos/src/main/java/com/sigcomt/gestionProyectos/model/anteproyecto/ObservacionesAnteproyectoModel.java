@@ -11,6 +11,8 @@ public class ObservacionesAnteproyectoModel implements Serializable{
 	private String observacion;
 	private String archivo;
 	private String rutaArchivo;
+	private Long idProyecto;
+	private Long idTipoArchivo;
 	
 	public String getObservacion() {
 		return observacion;
@@ -30,4 +32,16 @@ public class ObservacionesAnteproyectoModel implements Serializable{
 	public void setRutaArchivo(String rutaArchivo) {
 		this.rutaArchivo = rutaArchivo;
 	}
+	public Long getIdProyecto() {
+		return idProyecto;
+	}
+	public void setIdProyecto(Long idProyecto) {
+		this.idProyecto = idProyecto;
+	}
+	public Long getIdTipoArchivo() {
+		return idTipoArchivo;
+	}
+	public void setIdTipoArchivo(Long idTipoArchivo) {
+		this.idTipoArchivo = idTipoArchivo;
+	}	
 }

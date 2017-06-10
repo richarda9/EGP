@@ -13,6 +13,7 @@ public class InteresadoAnteproyectoModel implements Serializable{
 	private String interes;
 	private String nombreInteresado;
 	private String cargo;
+	private Long idProyecto;
 	
 	public Long getIdInteresado() {
 		return idInteresado;
@@ -37,5 +38,11 @@ public class InteresadoAnteproyectoModel implements Serializable{
 	}
 	public void setCargo(String cargo) {
 		this.cargo = cargo;
+	}
+	public Long getIdProyecto() {
+		return idProyecto;
+	}
+	public void setIdProyecto(Long idProyecto) {
+		this.idProyecto = idProyecto;
 	}
 }
