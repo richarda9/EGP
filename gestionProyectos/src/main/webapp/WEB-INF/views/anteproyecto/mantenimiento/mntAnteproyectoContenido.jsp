@@ -25,7 +25,7 @@
 							</a>
 						</div>
 						<div class="span2" style="float: left;">
-							<a class="btn btn-small btn-info span12" data-toggle="modal" onclick = "guardarAnteproyecto()">
+							<a class="btn btn-small btn-info span12" onclick = "guardarAnteproyecto()">
 								<i class="icon-save"></i>
 								Guardar
 							</a>
@@ -73,6 +73,7 @@
 					</li>
 				</ul>
 				<form name="formAgregarAnteproyecto" id="formAgregarAnteproyecto">
+				<input id="idCodigoPy" type="hidden" name="codigoPy"></input>
 				<div class="tab-content no-border padding-24">
 					<!-- [INI] GENERALIDADES -->
 					<div id="generalEmpresa" class="tab-pane in active">

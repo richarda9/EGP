@@ -64,6 +64,159 @@
 		</if> 
 	</select>
 	
+	<insert id="grabarProyectoByEstado" parameterType="Proyecto">
+        <selectKey keyProperty="idProyecto" resultType="Long" order="BEFORE">
+            select NEXTVAL('"CREAR_PROYECTO"."SQ_PROYECTO"')
+        </selectKey>
+        insert into "CREAR_PROYECTO"."PROYECTO" 
+        ("ID_PROYECTO",
+        "ID_PROYECTO_ASOCIADO",
+        "FECHA_CONTACTO",
+        "ID_TIPO_PROYECTO",
+        "ID_EJECUTIVO_CUENTA",
+        "ID_RESPONSABLE_PROYECTO",
+        "NOMBRE_PROYECTO",
+        "ALCANCE_INICIAL",
+        "OBJETIVO_INICIAL",
+        "ESTADO")
+        values
+        (#{idProyecto}, 
+        #{idProyectoAsociado},
+        #{fechaContacto}, 
+        #{idTipoProyecto},
+        #{idEjecutivoCuenta},
+        #{idResponsableProyecto},
+        #{nombreProyecto},
+        #{alcanceInicial},
+        #{ObjetivoInicial},
+        #{estado})  
+        <!-- <selectKey keyProperty="codigoProyecto" resultType="String" order="AFTER">
+            select "CODIGO_PROYECTO"
+        </selectKey> -->
+    </insert>
+    
+    <insert id="grabarDetalleEstadoProyectoByEstado" parameterType="DetalleEstadoProyecto">
+        insert into "CREAR_PROYECTO"."DETALLE_ESTADO_PROYECTO" 
+        ("ID_DETALLE_ESTADO_PROYECTO", 
+        "ID_ESTADO_PROYECTO",
+        "ID_PROYECTO",
+        "FECHA_CREACION",
+        "ESTADO")
+        values
+        (nextval('"CREAR_PROYECTO"."SQ_DETALLE_ESTADO_PROYECTO"'),  
+        #{idEstadoProyecto},
+        #{idProyecto},
+        #{fechaCreacion},
+        #{estado});
+    </insert>
+    
+    <insert id="actualizarDetalleEstadoProyecto" parameterType="DetalleEstadoProyecto">
+        update "CREAR_PROYECTO"."DETALLE_ESTADO_PROYECTO" 
+        set "FECHA_CREACION" = #{fechaCreacion}
+        where "ID_DETALLE_ESTADO_PROYECTO" = #{idDetalleEstadoProyecto};
+    </insert>
+    
+    <select id="buscarByIdPyByEstPyByEst" parameterType = "AgregarAnteproyectoModel" resultType="DetalleEstadoProyecto">
+       select detEstPy."ID_DETALLE_ESTADO_PROYECTO" as idDetalleEstadoProyecto
+       from "CREAR_PROYECTO"."DETALLE_ESTADO_PROYECTO" detEstPy
+       where detEstPy."ESTADO" = #{estado}
+            and detEstPy."ID_ESTADO_PROYECTO" = #{idEstadoProyecto}
+            and detEstPy."ID_PROYECTO" = #{idProyecto}        
+    </select>
+    
+    <select id="buscarPyByCodPy" parameterType = "java.lang.String" resultType="Proyecto">
+       select py."ID_PROYECTO" as idProyecto
+       from "CREAR_PROYECTO"."PROYECTO" py
+       where py."CODIGO_PROYECTO" = #{codigoPy}   
+    </select>
+    
+    <select id="buscarPyByIdPy" parameterType = "java.lang.Long" resultType="Proyecto">
+       select py."CODIGO_PROYECTO" as codigoProyecto
+       from "CREAR_PROYECTO"."PROYECTO" py
+       where py."ID_PROYECTO" = #{idPy}   
+    </select>
+    
+    <insert id="actualizarProyectoByEstado" parameterType="Proyecto">     
+        update "CREAR_PROYECTO"."PROYECTO" 
+        set "ID_PROYECTO_ASOCIADO" = #{idProyectoAsociado},
+        "FECHA_CONTACTO" = #{fechaContacto}, 
+        "ID_TIPO_PROYECTO" = #{idTipoProyecto},
+        "ID_EJECUTIVO_CUENTA" = #{idEjecutivoCuenta},
+        "ID_RESPONSABLE_PROYECTO" = #{idResponsableProyecto},
+        "NOMBRE_PROYECTO" = #{nombreProyecto},
+        "ALCANCE_INICIAL" = #{alcanceInicial},
+        "OBJETIVO_INICIAL" = #{ObjetivoInicial},
+        "ESTADO" = #{estado}
+        where "ID_PROYECTO" = #{idProyecto}
+            
+    </insert>
+    
+    <delete id="eliminarDetalleInteresado" parameterType="AgregarAnteproyectoModel">
+      delete from "CREAR_PROYECTO"."DETALLE_INTERESADO" 
+      where "ID_PROYECTO" = #{idProyecto};
+    </delete>
+    
+    <insert id="insertarListaDetalleInteresado" parameterType="java.util.List">        
+        <foreach collection="interesados" item="element" index="index" separator="">
+            INSERT INTO "CREAR_PROYECTO"."DETALLE_INTERESADO" (
+            "ID_DETALLE_INTERESADO",
+            "ID_DETALLE_EMPRESA_PERSONA",
+            "ID_PROYECTO",
+            "INTERES_CONTACTO",
+            "ESTADO")
+            VALUES
+            (nextval('"CREAR_PROYECTO"."SQ_DETALLE_INTERESADO"'),  
+            #{element.idInteresado},
+            #{element.idProyecto},
+            #{element.interes},
+            1);
+       </foreach>
+    </insert>
+    
+    <delete id="eliminarDetalleArchivoByTipoArchivoByIdPy" parameterType="AgregarAnteproyectoModel">
+      delete from "CREAR_PROYECTO"."DETALLE_ARCHIVO" 
+      where "ID_PROYECTO" = #{idProyecto}
+      and "ID_TIPO_ARCHIVO" = #{tipoArchivo};
+    </delete>  
+    
+    <insert id="insertarListaDetalleObservaciones" parameterType="java.util.List">        
+        <foreach collection="observaciones" item="element" index="index" separator="">
+            INSERT INTO "CREAR_PROYECTO"."DETALLE_ARCHIVO" (
+            "ID_DETALLE_ARCHIVO",
+            "NOMBRE_ARCHIVO",
+            "ID_PROYECTO",
+            "ID_TIPO_ARCHIVO",
+            "OBSERVACION",
+            "ESTADO")
+            VALUES
+            (nextval('"CREAR_PROYECTO"."SQ_DETALLE_ARCHIVO"'),  
+            #{element.archivo},
+            #{element.idProyecto},
+            #{element.idTipoArchivo},
+            #{element.observacion},
+            1);
+       </foreach>
+    </insert>  
+    
+    <insert id="insertarListaDetalleAnexo" parameterType="java.util.List">        
+        <foreach collection="anexos" item="element" index="index" separator="">
+            INSERT INTO "CREAR_PROYECTO"."DETALLE_ARCHIVO" (
+            "ID_DETALLE_ARCHIVO",
+            "NOMBRE_ARCHIVO",
+            "ID_PROYECTO",
+            "ID_TIPO_ARCHIVO",
+            "OBSERVACION",
+            "ESTADO")
+            VALUES
+            (nextval('"CREAR_PROYECTO"."SQ_DETALLE_ARCHIVO"'),  
+            #{element.archivo},
+            #{element.idProyecto},
+            #{element.idTipoArchivo},
+            #{element.anexo},
+            1);
+       </foreach>
+    </insert>
+	
 	<!-- FIN - PROYECTO -->
 	
 	<!-- [INI] EJECUCION -->
