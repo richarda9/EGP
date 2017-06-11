@@ -23,6 +23,10 @@
 		<typeAlias type="com.sigcomt.gestionProyectos.model.cierre.MntActaCierreModel" alias="mntActaCierre"/>
 		<typeAlias type="com.sigcomt.gestionProyectos.model.cierre.LstActaCierreModel" alias="LstActaCierre"/>
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.DetalleProyecto" alias="DetalleProyecto"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.DetalleEstadoProyecto" alias="DetalleEstadoProyecto"/>
+        <typeAlias type="com.sigcomt.gestionProyectos.model.anteproyecto.AgregarAnteproyectoModel" alias="AgregarAnteproyectoModel"/>
+        <typeAlias type="com.sigcomt.gestionProyectos.model.anteproyecto.InteresadoAnteproyectoModel" alias="InteresadoAnteproyectoModel"/>
+ 
 	</typeAliases>
 	
     <mappers>
