@@ -26,7 +26,19 @@
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.DetalleEstadoProyecto" alias="DetalleEstadoProyecto"/>
         <typeAlias type="com.sigcomt.gestionProyectos.model.anteproyecto.AgregarAnteproyectoModel" alias="AgregarAnteproyectoModel"/>
         <typeAlias type="com.sigcomt.gestionProyectos.model.anteproyecto.InteresadoAnteproyectoModel" alias="InteresadoAnteproyectoModel"/>
- 
+        <typeAlias type="com.sigcomt.gestionProyectos.dominio.ejecucion.EstadoTarea" alias="estadoTarea"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.ejecucion.Complejidad" alias="complejidadEntregable"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.model.ejecucion.MntTareaModel" alias="tareaModel"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.model.ejecucion.MntCtrolCambiosModel" alias="ctrolCambiosModel"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.model.ejecucion.LstCtrolCambiosModel" alias="lstCtrolCambiosModel"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.Persona" alias="persona"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleRolProyecto" alias="detalleRolProyecto"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.model.ejecucion.MntAsignarResponsableModel" alias="mntAsignarResponsableModel"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAsignacionResponsable" alias="detalleAsignacionResponsable"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.model.ejecucion.LstAsignarResponsableModel" alias="lstAsignarResponsableModel"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.DetalleEmpresaPersona" alias="detalleEmpresaPersona"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.model.ejecucion.LstDetalleCronogramaModel" alias="lstDetalleCronogramaModel"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleCronograma" alias="detalleCronograma"/>
 	</typeAliases>
 	
     <mappers>

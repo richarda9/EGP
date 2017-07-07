@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="../assets/css/font-awesome-ie7.min.css" />
 <![endif]-->
 
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
+<!-- <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" /> -->
 <link rel="stylesheet" href="<c:url value="/assets/css/chosen.css"/>" />
 <link rel="stylesheet" href="<c:url value="/assets/css/ace.min.css"/>" />
 <link rel="stylesheet" href="<c:url value="/assets/css/ace-responsive.min.css"/>" />

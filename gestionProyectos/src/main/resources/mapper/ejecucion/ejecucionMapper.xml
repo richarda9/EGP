@@ -1,10 +1,234 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.sigcomt.gestionProyectos.repositorio.ejecucion.EjecucionDao">
-	<select id="listarTipoRol" parameterType="int" resultType="Rol">
-	  SELECT "ID_TIPO_ROL" as id, "DESCRIPCION_ROL" as descripcion, 
-	     "ESTADO" as estado, "NOMBRE_TIPOROL" as nombre
-	  FROM "PLANIFICAR_PROYECTO"."TIPO_ROL" 
-	  WHERE "TIPO_ROL" = #{tipoRol};
+	<select id="listarTipoRol" parameterType="hashmap" resultType="Rol">
+	  SELECT tr."ID_TIPO_ROL" as id, tr."DESCRIPCION_ROL" as descripcion, 
+		       tr."ESTADO" as estado, tr."NOMBRE_TIPOROL" as nombre
+		FROM "PLANIFICAR_PROYECTO"."TIPO_ROL" tr,
+		     "PLANIFICAR_PROYECTO"."DETALLE_ROL_PROYECTO" drp
+		WHERE tr."ID_TIPO_ROL" = drp."ID_TIPO_ROL"
+		AND   drp."ID_PROYECTO" = #{idproyecto}::bigint
+		AND   tr."TIPO_ROL" = #{tipoRol}::smallint;
 	</select>
+	
+	<select id="listarEstadoTarea" parameterType="int" resultType="estadoTarea">
+		SELECT "ID_ESTADO_TAREA" id, "DESCRIPCION_ESTADO_TAREA" descripcion, "ESTADO" estado
+		  FROM "PLANIFICAR_PROYECTO"."ESTADO_TAREA" 
+		WHERE "ESTADO" = #{estado};		
+	</select>
+	
+	<select id="listarComplejidad" parameterType="int" resultType="complejidadEntregable">
+		SELECT "ID_COMPLEJIDAD" id, "DESCRIPCION" descripcion, "ESTADO" estado
+		  FROM "PLANIFICAR_PROYECTO"."COMPLEJIDAD"
+		WHERE "ESTADO" = #{estado};
+	</select>
+	
+	<select id="mntCtrolCambios" parameterType="ctrolCambiosModel" resultType="int">
+		select "PLANIFICAR_PROYECTO".mntCtrolCambios(#{idCtrolCambios}::bigint, #{descripcionCtrolCambios}, to_date(#{fecSolCtrolCambios}, 'DD/MM/YYYY'), 
+													 #{complejidadCtrolCambios}::bigint, #{horasCtrolCambios}::smallint, #{comentariosCtrolCambios}, 
+													 #{idproyecto}::bigint, #{solicitanteCtrolCambios}::bigint);
+	</select>
+	
+	<update id="eliminarCtrolCambios" parameterType="ctrolCambiosModel">
+		UPDATE "PLANIFICAR_PROYECTO"."CONTROL_CAMBIOS"
+		   SET  "ESTADO"= #{estado}
+		 WHERE "ID_CONTROL_CAMBIOS" = #{idCtrolCambios};
+	</update>
+	
+	<select id="listarCtrolCambios" parameterType="ctrolCambiosModel" resultType="lstCtrolCambiosModel">
+		SELECT cc."ID_CONTROL_CAMBIOS" idCtrolCambios, 
+		       cc."DESCRIPCION_SOLICITUD" descripcionCtrolCambios, 
+		       to_char(cc."FECHA_SOLICITUD", 'DD/MM/YYYY') fecSolCtrolCambios, 
+		       cc."ID_COMPLEJIDAD" idComplejidad,
+		       (SELECT c."DESCRIPCION" FROM "PLANIFICAR_PROYECTO"."COMPLEJIDAD" c
+			WHERE c."ID_COMPLEJIDAD" = cc."ID_COMPLEJIDAD") dscComplejidad, 
+		       cc."HORAS_ESTIMADAS" horasEstimadas, 
+		       cc."COMENTARIOS" comentarios, 
+		       cc."ID_PROYECTO" idproyecto, 
+		       cc."SOLICITANTE" idsolicitante,
+		       cc."SOLICITANTE" dscSolicitante, 
+		       cc."COD_CONTROL_CAMBIOS" codctrolcambios
+		FROM "PLANIFICAR_PROYECTO"."CONTROL_CAMBIOS" cc
+		<where>                                    
+			<if test="idCtrolCambios != null and idCtrolCambios != ''">    
+			 	cc."ID_CONTROL_CAMBIOS" = #{idCtrolCambios}
+			</if>			                                           
+			<if test="estado != null and estado != ''">      
+				AND   cc."ESTADO" = #{estado};
+			</if>
+		</where>
+	</select>
+	
+	<select id="listaRecursos" parameterType="hashmap" resultType="persona">
+		SELECT p."ID_PERSONA" id, 
+		       p."NOMBRE_PERSONA"|| ' ' ||p."APELLIDO_PERSONA" nombreCompleto
+		FROM "CREAR_PROYECTO"."PERSONA" p,
+		     "PLANIFICAR_PROYECTO"."TIPO_ROL" tr
+		WHERE p."ID_TIPO_ROL" = tr."ID_TIPO_ROL"
+		AND   tr."ID_TIPO_ROL" = #{iderol}::bigint
+		AND p."ID_PERSONA" NOT IN (SELECT dar."ID_PERSONA" 
+				           FROM "CREAR_PROYECTO"."PROYECTO" p,
+					         "CREAR_PROYECTO"."DETALLE_ESTADO_PROYECTO" dest,
+						"PLANIFICAR_PROYECTO"."DETALLE_ROL_PROYECTO" drp,
+						"PLANIFICAR_PROYECTO"."DETALLE_ASIGNACION_RESPONSABLE" dar
+					   WHERE p."ID_PROYECTO" = drp."ID_PROYECTO"
+					   AND   drp."ID_DETALLE_ROL_PROYECTO" = dar."ID_DETALLE_ROL_PROYECTO"
+					   AND   p."ID_PROYECTO" = dest."ID_PROYECTO"
+					   AND   dest."ID_ESTADO_PROYECTO" = #{estadoProyecto}::bigint
+					   AND   dest."ESTADO" = 1
+					   AND   dar."ESTADO" = 1)
+	</select>
+	
+	<select id="obtCantidadRecursobyRol" parameterType="mntAsignarResponsableModel" resultType="detalleRolProyecto">
+		SELECT drp."ID_DETALLE_ROL_PROYECTO" id, 
+		       drp."ID_PROYECTO" idproyecto, 
+		       drp."ID_TIPO_ROL" idtiporol,
+		       drp."DESCRIPCION" descripcion, 
+		       drp."CANTIDAD" cantidad, 
+		       drp."ESTADO" estado
+		FROM "PLANIFICAR_PROYECTO"."DETALLE_ROL_PROYECTO" drp
+		WHERE drp."ID_PROYECTO" = #{idproyecto}
+		AND   drp."ID_TIPO_ROL" = #{idrol}
+	</select>
+	
+	<select id="obtCantidadActualRecursobyRol" parameterType="detalleRolProyecto" resultType="int">
+		SELECT count(1)
+		FROM "PLANIFICAR_PROYECTO"."DETALLE_ASIGNACION_RESPONSABLE" dar
+		WHERE dar."ID_DETALLE_ROL_PROYECTO" = #{id}  
+		AND   dar."ESTADO" = 1
+	</select>
+	
+	<insert id="mntAsignarRecursos" parameterType="detalleAsignacionResponsable">
+		INSERT INTO "PLANIFICAR_PROYECTO"."DETALLE_ASIGNACION_RESPONSABLE"(
+            "ID_DETALLE_ASIGNACION_RESPONSABLE", "ID_DETALLE_ROL_PROYECTO", 
+            "ESTADO", "ID_PERSONA", "ID_DETALLE_EMPRESA")
+	    VALUES (nextval('"PLANIFICAR_PROYECTO".sq_detalle_asignacion_responsable'), #{iddetrolproyecto}, 
+	            #{estado}, #{idpersona}, #{iddetempresa});
+	</insert>
+	
+	<select id="listarAsignacionRecurso" parameterType="mntAsignarResponsableModel" resultType="lstAsignarResponsableModel">
+		<if test="tiporol == 1">
+			SELECT dar."ID_DETALLE_ASIGNACION_RESPONSABLE" id,
+			       tr."NOMBRE_TIPOROL" dsctiporol,
+			       p."NOMBRE_PERSONA"||' '||p."APELLIDO_PERSONA" nomcompletopersona
+			FROM "PLANIFICAR_PROYECTO"."TIPO_ROL" tr, 
+			     "PLANIFICAR_PROYECTO"."DETALLE_ROL_PROYECTO" drp,
+			     "PLANIFICAR_PROYECTO"."DETALLE_ASIGNACION_RESPONSABLE" dar,
+			     "CREAR_PROYECTO"."PERSONA" p
+			WHERE tr."ID_TIPO_ROL" = drp."ID_TIPO_ROL"
+			AND   drp."ID_DETALLE_ROL_PROYECTO" = dar."ID_DETALLE_ROL_PROYECTO"
+			AND   dar."ID_PERSONA" = p."ID_PERSONA"
+			AND   drp."ID_PROYECTO" = #{idproyecto}
+			AND   tr."TIPO_ROL" = #{tiporol}
+			AND   dar."ESTADO" = #{estado}
+		</if>
+		<if test="tiporol == 2">
+			SELECT dar."ID_DETALLE_ASIGNACION_RESPONSABLE" id,
+			       tr."NOMBRE_TIPOROL" dsctiporol,
+			       p."NOMBRE_PERSONA"||' '||p."APELLIDO_PERSONA" nomcompletopersona
+			FROM "PLANIFICAR_PROYECTO"."TIPO_ROL" tr, 
+			     "PLANIFICAR_PROYECTO"."DETALLE_ROL_PROYECTO" drp,
+			     "PLANIFICAR_PROYECTO"."DETALLE_ASIGNACION_RESPONSABLE" dar,
+			     "CREAR_PROYECTO"."DETALLE_EMPRESA_PERSONA" dep,
+			     "CREAR_PROYECTO"."PERSONA" p
+			WHERE tr."ID_TIPO_ROL" = drp."ID_TIPO_ROL"
+			AND   drp."ID_DETALLE_ROL_PROYECTO" = dar."ID_DETALLE_ROL_PROYECTO"
+			AND   dar."ID_DETALLE_EMPRESA" = dep."ID_DETALLE_EMPRESA_PERSONA"
+			AND   dep."ID_PERSONA" = p."ID_PERSONA"
+			AND   drp."ID_PROYECTO" = #{idproyecto}
+			AND   tr."TIPO_ROL" = #{tiporol}
+			AND   dar."ESTADO" = #{estado}
+		</if>
+	</select>
+	
+	<update id="eliminarAsignacionRecursos" parameterType="mntAsignarResponsableModel">
+		UPDATE "PLANIFICAR_PROYECTO"."DETALLE_ASIGNACION_RESPONSABLE"
+		 SET "ESTADO" = #{estado}
+		WHERE "ID_DETALLE_ASIGNACION_RESPONSABLE" = #{id}  
+	</update>
+	
+	<select id="obtDetalleEmpresaPersonabyPersona" parameterType="mntAsignarResponsableModel" resultType="detalleEmpresaPersona">
+		SELECT dep."ID_DETALLE_EMPRESA_PERSONA" id, 
+		       dep."ID_EMPRESA" idEmpresa, 
+		       dep."ID_PERSONA" idPersona, 
+		       dep."ESTADO" estado, 
+		       dep."AREA" area
+		FROM "CREAR_PROYECTO"."DETALLE_EMPRESA_PERSONA" dep
+		WHERE dep."ID_PERSONA" = #{idrecurso};
+	</select>
+	
+	<select id="listaRecursosProyecto" resultType="persona" parameterType="hashmap">
+		SELECT p."ID_PERSONA" id,
+			   '['||substr(p."NOMBRE_PERSONA",1,1)||substr(split_part(p."APELLIDO_PERSONA",' ',1),1,1)||
+			    substr(split_part(p."APELLIDO_PERSONA",' ',2),1,1)||'-'||p."ID_PERSONA"||']' codpersona,
+		       p."NOMBRE_PERSONA"||' '||p."APELLIDO_PERSONA" nombreCompleto
+		FROM "PLANIFICAR_PROYECTO"."TIPO_ROL" tr,
+		     "PLANIFICAR_PROYECTO"."DETALLE_ROL_PROYECTO" drp,
+		     "PLANIFICAR_PROYECTO"."DETALLE_ASIGNACION_RESPONSABLE" dar,
+		     "CREAR_PROYECTO"."PERSONA" p
+		WHERE tr."ID_TIPO_ROL" = drp."ID_TIPO_ROL"
+		AND   drp."ID_DETALLE_ROL_PROYECTO" = dar."ID_DETALLE_ROL_PROYECTO"
+		AND   dar."ID_PERSONA" = p."ID_PERSONA"
+		AND   drp."ID_PROYECTO" = COALESCE(#{idproyecto},'0')::bigint
+		AND   tr."ID_TIPO_ROL" = COALESCE(#{tipo},'0')::bigint
+		AND   tr."TIPO_ROL" = COALESCE(#{tiporol},'0')::smallint
+		AND   dar."ESTADO" = COALESCE(#{estado},'0')::smallint
+	</select>
+	<!-- [INI] TAREAS -->
+	<select id="obtListaTareaProyectobyProyecto" parameterType="long" resultType="lstDetalleCronogramaModel">
+		SELECT "ID_DETALLE_CRONOGRAMA" id, 
+	       "NOMBRE" descripcion, 
+	       "DURACION" horas, 
+	       to_char("FECHA_INICIO", 'DD/MM/YYYY') fechaInicio, 
+	       to_char("FECHA_FIN", 'DD/MM/YYYY') fechaFin, 
+	       "PRECEDE" precede, 
+	       "RECURSOS" dscRecursos, 
+	       "ESTADO" estadoTarea, 
+	       "ID_COMPLEJIDAD" idComplejidad, 
+	       (SELECT c."DESCRIPCION" FROM "PLANIFICAR_PROYECTO"."COMPLEJIDAD" c 
+	        WHERE c."ID_COMPLEJIDAD" = dc."ID_COMPLEJIDAD") dscComplejidad,
+	       "ID_ESTADO_TAREA" idEstado, 
+	       (SELECT et."DESCRIPCION_ESTADO_TAREA" FROM "PLANIFICAR_PROYECTO"."ESTADO_TAREA" et
+	        WHERE et."ID_ESTADO_TAREA" = dc."ID_ESTADO_TAREA") dscEstado,
+	       "JUSTIFICACION" justificacion, 
+	       "ID_CONTROL_CAMBIOS" idCtrolCambios, 
+	       "ID_PERSONA", 
+	       "COD_DETALLE_CRONOGRAMA" codigo
+	    FROM "PLANIFICAR_PROYECTO"."DETALLE_CRONOGRAMA" dc
+	    WHERE dc."ID_PROYECTO" = #{idProyecto}
+	    AND   dc."ESTADO" = 1
+	    ORDER BY dc."ID_DETALLE_CRONOGRAMA";
+	</select>
+	
+	<select id="agregarTareaProyecto" parameterType="detalleCronograma" resultType="int">
+		select "PLANIFICAR_PROYECTO".mntdetallecronograma(#{id}::bigint, #{nombre}, #{duracion}::smallint, to_date(#{fechaInicio}, 'DD/MM/YYYY'), to_date(#{fechaFin}, 'DD/MM/YYYY'), 
+														  #{precede}::smallint, #{recursos}, #{idproyecto}::bigint, #{estado}::smallint, #{idcomplejidad}::bigint, 
+														  #{idestado}::bigint, #{justificacion}, #{idcontrolcambios}::bigint, #{idpersona}::bigint, #{coddetallecronograma}::bigint);
+	</select>
+	
+	<update id="eliminarTareasProyecto" parameterType="lstDetalleCronogramaModel">
+		UPDATE "PLANIFICAR_PROYECTO"."DETALLE_CRONOGRAMA"
+		  SET "ESTADO" = #{estadoTarea}
+		WHERE "ID_DETALLE_CRONOGRAMA" = #{id};
+	</update>
+	
+	<update id="actualizaTareaProyecto" parameterType="detalleCronograma">
+		UPDATE "PLANIFICAR_PROYECTO"."DETALLE_CRONOGRAMA"
+		   SET "NOMBRE" = #{nombre}, 
+		       "DURACION" = #{duracion}, 
+		       "FECHA_INICIO" = to_date(#{fechaInicio}, 'DD/MM/YYYY'), 
+		       "FECHA_FIN" = to_date(#{fechaFin}, 'DD/MM/YYYY'), 
+		       "PRECEDE" = #{precede}, 
+		       "RECURSOS" = #{recursos}, 
+		       "ID_PROYECTO" = #{idproyecto}, 
+		       "ESTADO" = #{estado}, 
+		       "ID_COMPLEJIDAD" = #{idcomplejidad}, 
+		       "ID_ESTADO_TAREA" = #{idestado}, 
+		       "JUSTIFICACION" = #{justificacion}, 
+		       "ID_CONTROL_CAMBIOS" = #{idcontrolcambios}, 
+		       "ID_PERSONA" = #{idpersona}, 
+		       "COD_DETALLE_CRONOGRAMA" = #{coddetallecronograma}
+		 WHERE "ID_DETALLE_CRONOGRAMA" = #{id};
+	</update>
+	<!-- [FIN] TAREAS -->
 </mapper>

@@ -1,5 +1,5 @@
 <!-- [INI] MODAL ENVIAR A CERTIFICACION-->
-<form id="registrarEnvioCertificacion">
+<form id="registrarEnvioCertificacion" enctype="multipart/form-data" method="post" action="mnt_EnvioCertificacion.htm">
 	<div id="modal-EnviarCertificacion" class="modal hide" tabindex="-1">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -8,32 +8,32 @@
 		<div class="modal-body overflow-visible" style="height: auto; overflow: auto;">
 			<div class="row-fluid">
 				<div class="span3">
-					<button class="btn btn-app btn-primary no-radius">
+					<button class="btn btn-app btn-primary no-radius" type="submit">
 						<i class="icon-envelope bigger-230"></i>Enviar
 					</button>
 				</div>
 				<div class="span9">
-					<div class="row-fluid">
-						<div class="span2">Para:</div>
-						<div class="span10"><input type="text" class="span12" id="destinoCertificacion"/></div>
+					<div class="control-group row-fluid">
+						<div class="control-label span2">Para:</div>
+						<div class="span10"><input type="text" class="span12" id="destinoCertificacion" name="destinoCertificacion"/></div>
 					</div>
-					<div class="row-fluid">
-						<div class="span2">CC:</div>
-						<div class="span10"><input type="text" class="span12" id="ccdestinoCertificacion"/></div>
+					<div class="control-group row-fluid">
+						<div class="control-label span2">CC:</div>
+						<div class="span10"><input type="text" class="span12" id="ccdestinoCertificacion" name="ccdestinoCertificacion"/></div>
 					</div>
-					<div class="row-fluid">
-						<div class="span2">Asunto:</div>
-						<div class="span10"><input type="text" class="span12" id="asuntoDestinoCertificacion"/></div>
+					<div class="control-group row-fluid">
+						<div class="control-label span2">Asunto:</div>
+						<div class="span10"><input type="text" class="span12" id="asuntoDestinoCertificacion" name="asuntoDestinoCertificacion"/></div>
 					</div>
-					<div class="row-fluid">
-						<div class="span2">Entregable:</div>
-						<div class="span10"><input type="file" id="envioEntregableCertificacion" /></div>
+					<div class="control-group row-fluid">
+						<div class="control-label span2">Entregable:</div>
+						<div class="span10"><input type="file" id="envioEntregableCertificacion"/></div>
 					</div>
 				</div>
 			</div>	
-			<div class="row-fluid">
-				<div class="span3">Observaciones:</div>
-				<div class="span9"><textarea rows="5" class="span12" id="observacionCertificacion"></textarea></div>
+			<div class="control-group row-fluid">
+				<div class="control-label span3">Observaciones:</div>
+				<div class="span9"><textarea rows="5" class="span12" id="observacionCertificacion" name="observacionCertificacion"></textarea></div>
 			</div>
 		</div>
 		<div class="modal-footer">

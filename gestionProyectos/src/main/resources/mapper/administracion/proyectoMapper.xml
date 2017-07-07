@@ -343,6 +343,7 @@
 		       "JUSTIFICACION_CANCELACION" = COALESCE(#{justificacionCancelacion}, "JUSTIFICACION_CANCELACION")
 		 WHERE "ID_PROYECTO" = #{idProyecto};
 	</update>
+	
 	<insert id="registrarDetallleProyecto" parameterType="DetalleProyecto">
 	   INSERT INTO "CREAR_PROYECTO"."DETALLE_ESTADO_PROYECTO"(
             "ID_DETALLE_ESTADO_PROYECTO", "ID_ESTADO_PROYECTO", "ID_PROYECTO", 

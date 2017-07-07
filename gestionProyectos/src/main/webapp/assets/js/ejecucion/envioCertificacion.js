@@ -21,4 +21,70 @@ $('document').ready(function(){
 		//ev.preventDefault();
 		//file_input.ace_file_input('reset_input');
 	});	
+	
+	
+	$('#registrarEnvioCertificacion').validate({
+		errorClass: 'help-block',
+		rules: {
+			destinoCertificacion: {
+				required: true
+			},
+			ccdestinoCertificacion: {
+				required: false,
+				maxlength 	: 100
+			},
+			asuntoDestinoCertificacion: {
+				required: true
+			},
+			observacionCertificacion: {
+				required: true
+			}
+		},
+
+		highlight: function (e) {
+			$(e).closest('.control-group').removeClass('info').addClass('error');
+		},
+
+		success: function (e) {
+			$(e).closest('.control-group').removeClass('error');
+			$(e).remove();
+		},
+		
+		submitHandler: function (form) {
+			envioCertificacion();
+			//true;
+		}
+	});
+	
+	function envioCertificacion(){
+		
+		var objetoCtrol = $('#registrarEnvioCertificacion').serializeObject();
+		 var oMyForm = new FormData();
+         oMyForm.append("file", $('#envioEntregableCertificacion').data('ace_input_files')[0]);
+         oMyForm.append("objeto",JSON.stringify(objetoCtrol));
+         //objetoCtrol.fichero = $('#envioEntregableCertificacion').data('ace_input_files')[0];//oMyForm;
+         
+         console.log(oMyForm);
+		
+		jQuery.ajax({
+	        'type': 'POST',
+	        'url': 'mnt_EnvioCertificacion.htm',
+	        //'contentType': 'application/json; charset=utf-8',
+	        //'enctype': 'multipart/form-data',
+	        'data': oMyForm, //{dato  : objetoCtrol}, //, file: oMyForm}, //JSON.stringify(data),
+	        //'dataType': 'json',
+	        'processData': false, 
+            'contentType':false,
+            
+//            'contentType': 'application/json; charset=utf-8',
+//            'data': JSON.stringify(objetoCtrol),
+//            'dataType': 'json',
+            
+	        'success': function(data) {
+				if(data){
+					console.log('paso');
+				}
+	        }
+	    });
+	}
 });

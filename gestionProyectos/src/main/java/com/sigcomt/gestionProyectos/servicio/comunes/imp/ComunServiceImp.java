@@ -4,6 +4,7 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 
 import javax.activation.DataHandler;
+import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.BodyPart;
 import javax.mail.Message;
@@ -16,11 +17,13 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import org.springframework.stereotype.Service;
+
 import com.sigcomt.gestionProyectos.common.Constantes;
 import com.sigcomt.gestionProyectos.model.comunes.EnvioCorreo;
 import com.sigcomt.gestionProyectos.servicio.comunes.ComunService;
 
-
+@Service
 public class ComunServiceImp implements ComunService
 {
 	private static final ResourceBundle smtp = ResourceBundle.getBundle("smtp");
@@ -47,19 +50,20 @@ public class ComunServiceImp implements ComunService
 		Session session = Session.getDefaultInstance(props);
 
 		// Para obtener un log de salida más extenso
-		session.setDebug(true);
+		session.setDebug(true); 
 				
 		 // Se compone la parte del texto
         BodyPart texto = new MimeBodyPart();
         texto.setText(correo.getMensaje());
+        //+ );
         
         BodyPart adjunto = new MimeBodyPart();
         
         // Se compone el adjunto con la imagen
         if(correo.getNombreArchivo() != null && correo.getNombreArchivo().length() > 0
         	&& correo.getRutaArchivo() != null && correo.getRutaArchivo().length() > 0){        	
-        	adjunto.setDataHandler(new DataHandler(new FileDataSource(correo.getNombreArchivo())));
-        	adjunto.setFileName(correo.getRutaArchivo());
+        	adjunto.setDataHandler(new DataHandler(new FileDataSource(correo.getRutaArchivo())));
+        	adjunto.setFileName(correo.getNombreArchivo());
         }
         
         // Una MultiParte para agrupar texto e imagen.
@@ -68,12 +72,24 @@ public class ComunServiceImp implements ComunService
         if(correo.getNombreArchivo() != null && correo.getNombreArchivo().length() > 0
             	&& correo.getRutaArchivo() != null && correo.getRutaArchivo().length() > 0)
         	multiParte.addBodyPart(adjunto);
+        
+        //Agregamos firma
+        BodyPart messageBodyPart = new MimeBodyPart();
+        messageBodyPart.setContent(Constantes.FIRMA_SIGCOMT, "text/html");
+        multiParte.addBodyPart(messageBodyPart);
+        
+        try {
+			addCID("logofirma", correo.getRutaLogo(), multiParte);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
         // Se compone el correo, dando to, from, subject y el contenido.
         MimeMessage message = new MimeMessage(session);
         message.setFrom(new InternetAddress(smtp.getString(Constantes.USUARIO_CORREO)));
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(correo.getCorreoDestino()));
-        message.addRecipient(Message.RecipientType.CC, new InternetAddress(correo.getCorreoCopia()));
+        if(correo.getCorreoCopia() != null && correo.getCorreoCopia().length() > 0)
+        	message.addRecipient(Message.RecipientType.CC, new InternetAddress(correo.getCorreoCopia()));
         message.setSubject(correo.getAsunto());
         message.setContent(multiParte);
 		
@@ -84,4 +100,13 @@ public class ComunServiceImp implements ComunService
 		t.sendMessage(message,message.getAllRecipients());
 		t.close();
 	}
+	
+	public void addCID(String cidname,String pathname, MimeMultipart multiParte) throws Exception
+    {
+        DataSource fds = new FileDataSource(pathname);
+        BodyPart messageBodyPart = new MimeBodyPart();
+        messageBodyPart.setDataHandler(new DataHandler(fds));
+        messageBodyPart.setHeader("Content-ID","<"+cidname+">");
+        multiParte.addBodyPart(messageBodyPart);
+    }
 }

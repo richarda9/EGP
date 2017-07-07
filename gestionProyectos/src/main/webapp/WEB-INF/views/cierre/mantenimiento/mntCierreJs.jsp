@@ -168,7 +168,7 @@ function listarLeccionAprendida() {
 				t.row.add([data[i].codLeccionAprendida, data[i].nombreEntregable, data[i].dscproblema, data[i].dsccausa, 
 						data[i].dsccorrelativa, data[i].dscobtenido, data[i].dscaprendida, accion ]).draw();
 			}
-		});
+	});
 };
 
 //Editar Lecciones Aprendidas

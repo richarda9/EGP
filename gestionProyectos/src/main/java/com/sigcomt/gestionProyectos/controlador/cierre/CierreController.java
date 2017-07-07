@@ -133,7 +133,6 @@ public class CierreController
 	}
 	//--------------------------------- [FIN] LECCIONES APRENDIDAS ---------------------------------
 	//--------------------------------- [INI] ACTA DE CIERRE ---------------------------------------
-	//--------------------------------- [INI] ACTA DE CIERRE ---------------------------------------
 	@RequestMapping(value = "/mantenimiento_actaCierre.htm", method = RequestMethod.POST)
 	public @ResponseBody int mntActaCierre(@RequestBody MntActaCierreModel dato) 
 	{
