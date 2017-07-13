@@ -20,11 +20,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.sigcomt.gestionProyectos.common.enumerations.EstadoProyectoEnum;
 import com.sigcomt.gestionProyectos.common.enumerations.RolEnum;
 import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
 import com.sigcomt.gestionProyectos.model.anteproyecto.AgregarAnteproyectoModel;
+import com.sigcomt.gestionProyectos.model.anteproyecto.AnexosAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.BuscarAnteproyectoModel;
+import com.sigcomt.gestionProyectos.model.anteproyecto.InteresadoAnteproyectoModel;
+import com.sigcomt.gestionProyectos.model.anteproyecto.ObservacionesAnteproyectoModel;
 import com.sigcomt.gestionProyectos.servicio.administracion.AdministracionService;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.AnteproyectoService;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.PersonaService;
@@ -95,7 +99,7 @@ public class AnteproyectoController
 	{
 		HashMap<String, Object> myModel = new HashMap<String, Object>();
 //		String index = request.getParameter("idAnteproyecto");
-		myModel.put("modoEdicion", true);
+		myModel.put("modoEdicion", false);
 		myModel.put("listaEmpresa", this.administracionService.listarEmpresaByEstado(ESTADO_ACTIVO));
 		myModel.put("listaTipoProyecto", this.administracionService.listarTipoProyectoByEsado(ESTADO_ACTIVO));
 //		myModel.put("listaTipoProyecto", this.administracionService.listarTipoProyecto());
@@ -105,6 +109,45 @@ public class AnteproyectoController
 		return new ModelAndView("mntAnteproyecto", "model", myModel);
 	}
 		
+	@RequestMapping(value = "/mntAnteproyectoEdit.htm")
+	public ModelAndView mntAnteproyectoEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
+		HashMap<String, Object> myModel = new HashMap<String, Object>();
+		try {
+			String idAnteproyecto = request.getParameter("idAnteproyecto");
+			myModel.put("modoEdicion", true);
+			myModel.put("listaEmpresa", this.administracionService.listarEmpresaByEstado(ESTADO_ACTIVO));
+			myModel.put("listaTipoProyecto", this.administracionService.listarTipoProyectoByEsado(ESTADO_ACTIVO));
+//			myModel.put("listaEstadoProyecto", this.administracionService.listarEstadoProyecto());
+//			myModel.put("listaTipoRequisito", this.administracionService.listarTipoRequisitoProyecto());
+			
+			myModel.put("listaAsociadoProyecto", this.proyectoService.listarProyectoByDetalleEstadoProyectoByEstado(ESTADO_ACTIVO, Long.parseLong(EstadoProyectoEnum.EN_EJECUCION.getCodigo())));
+			myModel.put("listaEjecutivoCuenta", this.personaService.listarEjecutivoResponsableByEstadoByRol(ESTADO_ACTIVO, Long.parseLong(RolEnum.EJECUTIVO_CUENTA.getCodigo())));
+			myModel.put("listaResponsableProyecto", this.personaService.listarEjecutivoResponsableByEstadoByRol(ESTADO_ACTIVO, Long.parseLong(RolEnum.RESPONSABLE_PROYECTO.getCodigo())));
+			
+//			HACER LA LOGICA PARA BUSCAR EL PY
+			List<InteresadoAnteproyectoModel> listaInteresado = new ArrayList<InteresadoAnteproyectoModel>();
+			listaInteresado = this.proyectoService.listarInteresadosByIdProyecto(Long.parseLong(idAnteproyecto));
+			List<ObservacionesAnteproyectoModel> listaObservaciones =  new ArrayList<ObservacionesAnteproyectoModel>();
+			listaObservaciones = this.proyectoService.listarObservacionesByIdProyecto(Long.parseLong(idAnteproyecto), new Long(1));
+			List<AnexosAnteproyectoModel> listaAnexo = new ArrayList<AnexosAnteproyectoModel>();
+			listaAnexo = this.proyectoService.listarAnexosByIdProyecto(Long.parseLong(idAnteproyecto), new Long(2));
+			Gson gSon= new Gson(); 
+			String listaInteresadoString = gSon.toJson(listaInteresado);
+			String listaObservacionesString = gSon.toJson(listaObservaciones);
+			String listaAnexoString = gSon.toJson(listaAnexo);
+			myModel.put("listaInteresado", listaInteresadoString);
+			myModel.put("listaObservaciones", listaObservacionesString);
+			myModel.put("listaAnexo", listaAnexoString);
+			myModel.put("datosPy", this.anteproyectoService.buscarProyectoById(Long.parseLong(idAnteproyecto)));
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return new ModelAndView("mntAnteproyecto", "model", myModel);
+	}
+	
 	@RequestMapping(value = "/buscarAnteproyecto.htm", method = RequestMethod.POST)
 	public @ResponseBody List<Proyecto> buscarAnteproyecto(@RequestBody BuscarAnteproyectoModel buscarAnteproyectoModel) {
 		
@@ -135,6 +178,23 @@ public class AnteproyectoController
 		}
 		
 		logger.info("FIN - AnteproyectoController.agregarAnteproyecto");
+		return agregarAnteproyectoModel;	
+	}
+	
+	@RequestMapping(value = "/planificarAnteproyecto.htm", method = RequestMethod.POST)
+	public @ResponseBody AgregarAnteproyectoModel planificarAnteproyecto(@RequestBody AgregarAnteproyectoModel agregarAnteproyectoModel) {
+		
+		logger.info("INI - AnteproyectoController.planificarAnteproyecto");
+		try {
+			agregarAnteproyectoModel.setIdEstadoProyecto(Long.parseLong(EstadoProyectoEnum.EN_PLANIFICACION.getCodigo()));
+			String codigoPy = anteproyectoService.planificarAnteproyecto(agregarAnteproyectoModel);
+			agregarAnteproyectoModel.setCodigoPy(codigoPy);
+		} catch (Exception e) {
+			logger.error("ERROR - AnteproyectoController.planificarAnteproyecto", e);
+			agregarAnteproyectoModel.setCodigoPy("ERROR");
+		}
+		
+		logger.info("FIN - AnteproyectoController.planificarAnteproyecto");
 		return agregarAnteproyectoModel;	
 	}
 	

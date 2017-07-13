@@ -39,6 +39,11 @@
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.DetalleEmpresaPersona" alias="detalleEmpresaPersona"/>
 		<typeAlias type="com.sigcomt.gestionProyectos.model.ejecucion.LstDetalleCronogramaModel" alias="lstDetalleCronogramaModel"/>
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleCronograma" alias="detalleCronograma"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.model.anteproyecto.InteresadoAnteproyectoModel" alias="InteresadoAnteproyectoModel"/>
+        <typeAlias type="com.sigcomt.gestionProyectos.model.anteproyecto.ObservacionesAnteproyectoModel" alias="ObservacionesAnteproyectoModel"/>
+        <typeAlias type="com.sigcomt.gestionProyectos.model.anteproyecto.AnexosAnteproyectoModel" alias="AnexosAnteproyectoModel"/>
+        <typeAlias type="com.sigcomt.gestionProyectos.model.anteproyecto.DetProyectoUserRolModel" alias="DetProyectoUserRolModel"/>
+ 
 	</typeAliases>
 	
     <mappers>

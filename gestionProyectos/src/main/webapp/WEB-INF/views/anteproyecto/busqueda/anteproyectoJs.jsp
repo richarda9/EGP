@@ -56,7 +56,7 @@ function buscarAnteproyecto(){
 				var fechaContacto = data[i].fechaContactoString;
 				var nombreResponsable = data[i].nombreResponsable;
 				var nombreEjecutivo = data[i].nombreEjecutivo;
-				var opciones = '<a href="../anteproyecto/mntAnteproyecto.htm?idAnteproyecto='+data[i].idProyecto+'" class="abrir-eliminarEproyecto tooltip-error" data-rel="tooltip" title="Editar" data-toggle="modal"> <span class="red"> <i class="icon-edit bigger-120"></i> </span> </a>';
+				var opciones = '<a href="../anteproyecto/mntAnteproyectoEdit.htm?idAnteproyecto='+data[i].idProyecto+'" class="abrir-eliminarEproyecto tooltip-error" data-rel="tooltip" title="Editar" data-toggle="modal"> <span class="red"> <i class="icon-edit bigger-120"></i> </span> </a>';
 						       
 						       /* <div class="hidden-desktop visible-phone">
 								<div class="inline position-relative">

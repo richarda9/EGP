@@ -13,59 +13,40 @@ public class SecurityUser  implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Long id_user;
-	
+	private Long idRolUser;	
+	private String rol;
 	private String username;
-	
 	private String password;
-
-	/**
-	 * @return the id_user
-	 */
-	public Long getId_user() {
-		return id_user;
+	private String nombres;
+	
+	public Long getIdRolUser() {
+		return idRolUser;
 	}
-
-	/**
-	 * @param id_user the id_user to set
-	 */
-	public void setId_user(Long id_user) {
-		this.id_user = id_user;
+	public void setIdRolUser(Long idRolUser) {
+		this.idRolUser = idRolUser;
 	}
-
-	/**
-	 * @return the username
-	 */
+	public String getRol() {
+		return rol;
+	}
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
 	public String getUsername() {
 		return username;
 	}
-
-	/**
-	 * @param username the username to set
-	 */
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
-	/**
-	 * @return the password
-	 */
 	public String getPassword() {
 		return password;
 	}
-
-	/**
-	 * @param password the password to set
-	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	@Override
-	public String toString() {
-		return "SecurityUser [id_user=" + id_user + ", username=" + username
-				+ ", password=" + password + "]";
+	public String getNombres() {
+		return nombres;
 	}
-	
-	
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}	
 }

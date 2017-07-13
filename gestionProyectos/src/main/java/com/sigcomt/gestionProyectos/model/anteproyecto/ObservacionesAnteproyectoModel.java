@@ -1,6 +1,7 @@
 package com.sigcomt.gestionProyectos.model.anteproyecto;
 
 import java.io.Serializable;
+import java.util.Map;
 
 public class ObservacionesAnteproyectoModel implements Serializable{
 
@@ -10,6 +11,7 @@ public class ObservacionesAnteproyectoModel implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String observacion;
 	private String archivo;
+	private Map<String, Object> archivosContenido;
 	private String rutaArchivo;
 	private Long idProyecto;
 	private Long idTipoArchivo;
@@ -43,5 +45,11 @@ public class ObservacionesAnteproyectoModel implements Serializable{
 	}
 	public void setIdTipoArchivo(Long idTipoArchivo) {
 		this.idTipoArchivo = idTipoArchivo;
+	}
+	public Map<String, Object> getArchivosContenido() {
+		return archivosContenido;
+	}
+	public void setArchivosContenido(Map<String, Object> archivosContenido) {
+		this.archivosContenido = archivosContenido;
 	}	
 }

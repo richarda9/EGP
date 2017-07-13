@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
+import com.sigcomt.gestionProyectos.model.anteproyecto.AnexosAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.BuscarAnteproyectoModel;
+import com.sigcomt.gestionProyectos.model.anteproyecto.InteresadoAnteproyectoModel;
+import com.sigcomt.gestionProyectos.model.anteproyecto.ObservacionesAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.cierre.BuscarCierreModel;
 import com.sigcomt.gestionProyectos.model.cierre.LstProyectoCierreModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.BuscarEjecucionModel;
@@ -50,6 +53,30 @@ public class ProyectoServiceImp implements ProyectoService {
 	public List<LstProyectoCierreModel> listaProyectoByEstadoCierre(BuscarCierreModel bqsProyecto) 
 	{
 		return proyectoDao.listaProyectoByEstadoCierre(bqsProyecto);
+	}
+
+	public List<InteresadoAnteproyectoModel> listarInteresadosByIdProyecto(
+			Long idProyecto) {
+		
+		return proyectoDao.listarInteresadosByIdProyecto(idProyecto);
+	}
+
+	public List<ObservacionesAnteproyectoModel> listarObservacionesByIdProyecto(
+			Long idProyecto, Long idTipoArch) {
+		Map params = new HashMap<String, Object>();
+		params.put("idPy", idProyecto);
+		params.put("idTipoArch", idTipoArch);
+		
+		return proyectoDao.listarObservacionesByIdProyecto(params);
+	}
+
+	public List<AnexosAnteproyectoModel> listarAnexosByIdProyecto(
+			Long idProyecto, Long idTipoArch) {
+		Map params = new HashMap<String, Object>();
+		params.put("idPy", idProyecto);
+		params.put("idTipoArch", idTipoArch);
+		
+		return proyectoDao.listarAnexosByIdProyecto(params);
 	}
 
 }

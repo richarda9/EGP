@@ -5,7 +5,8 @@
 	<!-- INI - PERSONA -->
 	<select id="listarEjecutivoResponsableByEstadoByRol" parameterType= "map" resultType="map">
 		select secRolUser."id_detalle" as iddetalle, 
-				(per."NOMBRE_PERSONA"||' '||per."APELLIDO_PERSONA")as nombres 
+				(per."NOMBRE_PERSONA"||' '||per."APELLIDO_PERSONA")as nombres,
+				per."EMAIL" as correo
 		from "CREAR_PROYECTO"."PERSONA" per
 		inner join "seguridad"."security_user" secUser
 		on secUser."ID_PERSONA" = per."ID_PERSONA"

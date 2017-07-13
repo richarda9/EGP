@@ -15,14 +15,34 @@ import org.springframework.security.core.userdetails.User;
 
 @SuppressWarnings("serial")
 public class CustomerUser extends User {
+	
+	private Long idRolUser;
+	private String nombres;
 
 	public CustomerUser(String username, String password, boolean enabled,
 			boolean accountNonExpired, boolean credentialsNonExpired,
 			boolean accountNonLocked,
-			Collection<? extends GrantedAuthority> authorities) {
+			Collection<? extends GrantedAuthority> authorities, Long idRolUser, String nombres) {
 		super(username, password, enabled, accountNonExpired, credentialsNonExpired,
 				accountNonLocked, authorities);
-		// TODO Auto-generated constructor stub
+		
+		this.idRolUser = idRolUser;
+		this.nombres = nombres;
 	}
 
+	public Long getIdRolUser() {
+		return idRolUser;
+	}
+
+	public void setIdRolUser(Long idRolUser) {
+		this.idRolUser = idRolUser;
+	}
+
+	public String getNombres() {
+		return nombres;
+	}
+
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
 }
