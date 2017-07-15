@@ -99,6 +99,7 @@ public class EjecucionController
 		myModel.put("listaProveedores", this.ejecucionService.listarAsignacionRecurso(bsqResponsable));
 		bsqResponsable.setTiporol(Constantes.TIPO_ROL_CLIENTE);
 		myModel.put("listaCliente", this.ejecucionService.listarAsignacionRecurso(bsqResponsable));
+		//listarEntregableCertificacion()
 				
 		ObjectMapper mapper = new ObjectMapper();
 		myModel.put("listaTareas", mapper.writeValueAsString(ejecucionService.obtListaTareaProyectobyProyecto(new Long(idProyecto))));
@@ -214,10 +215,7 @@ public class EjecucionController
 			String ruta = "";
 			
 			ruta = request.getSession().getServletContext().getRealPath("/")+System.getProperty("file.separator");
-		
-//			byte[] data = multipartFile.getBytes();
-//			System.out.println("tamanio: " + data.length);
-//			
+				
 			String[] aux1 = (String[])request.getParameterMap().get("objeto");
 			System.out.println(aux1[0]);  
 			

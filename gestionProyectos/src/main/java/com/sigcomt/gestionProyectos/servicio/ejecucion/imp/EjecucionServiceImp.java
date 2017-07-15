@@ -1,11 +1,13 @@
 package com.sigcomt.gestionProyectos.servicio.ejecucion.imp;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -119,11 +121,12 @@ public class EjecucionServiceImp implements EjecucionService
 		}
 		return ejecucionDao.listaRecursosProyecto(objeto);
 	}
-
+	
 	public List<LstDetalleCronogramaModel> obtListaTareaProyectobyProyecto(Long idProyecto){
 		return ejecucionDao.obtListaTareaProyectobyProyecto(idProyecto);
 	}
 	
+	@Transactional
 	public void mntTareasProyecto(MntTareaCtrolCambioModel dato) 
 	{
 		List<LstDetalleCronogramaModel> lista = dato.getLista();
@@ -213,9 +216,12 @@ public class EjecucionServiceImp implements EjecucionService
 	        correo.setRutaLogo(rutaLogo);
 	        
 	        comunService.envioCorreo(correo);
+	        
+	        File fichero = new File(rutaArch);
+	        fichero.delete();
 			
 		}catch(Exception e){
-			
+			System.out.println(e.getMessage());
 		}
 	}
 }

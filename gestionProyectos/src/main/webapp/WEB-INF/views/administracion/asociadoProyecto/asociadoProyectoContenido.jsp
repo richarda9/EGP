@@ -72,7 +72,7 @@
 				<div class="row-fluid">
 					<div class="span12">
 						<div class="table-header">Lista Tipo de Proyecto</div>
-						<table id="tablaTipoProyecto" class="table table-striped table-bordered table-hover">
+						<table id="tablaTipoProyecto" class="table table-striped table-bordered table-hover"  style="width: 100%;">
 							<thead>
 								<tr>
 									<th class="center">
@@ -85,58 +85,6 @@
 									<th></th>
 								</tr>
 							</thead>
-
-							<tbody>
-								<c:forEach var="tipoProyecto" items="${model.listaTipoProyecto}" varStatus="contador">
-									<tr>
-										<td class="center">
-											<label>
-												<c:out value="${contador.count}"/>
-											</label>
-											</td>
-										<td><c:out value="${tipoProyecto.descripcion}"></c:out></td>
-										<c:choose>
-											<c:when test="${tipoProyecto.estado == 1}">
-												<td class="hidden-480"> 
-													<span class="label label-info"><b>ACTIVO</b></span>
-													</td>
-											</c:when>
-											<c:otherwise>
-												<td class="hidden-480"> 
-													<span class="label label-danger"><b>INACTIVO</b></span>
-													</td>
-											</c:otherwise>
-										</c:choose>
-										<td class="td-actions">
-											<div class="hidden-phone visible-desktop action-buttons">
-												<a class="abrir-eliminarTproyecto red tooltip-error" href="#eliminarTipoProyecto" data-toggle="modal" 
-													data-id="${tipoProyecto.id}" data-rel="tooltip" title="Eliminar">
-													<i class="icon-trash bigger-130"> </i>
-												</a>
-											</div>
-
-											<div class="hidden-desktop visible-phone">
-												<div class="inline position-relative">
-													<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
-														<i class="icon-caret-down icon-only bigger-120"></i>
-													</button>
-
-													<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
-														<li>
-															<a href="#eliminarTipoProyecto" class="abrir-eliminarTproyecto tooltip-error" 
-																data-rel="tooltip" title="Eliminar" data-toggle="modal" data-id="${tipoProyecto.id}">
-																<span class="red">
-																	<i class="icon-trash bigger-120"></i>
-																</span>
-															</a>
-														</li>
-													</ul>
-												</div>
-											</div>
-										</td>
-									</tr>
-								</c:forEach>
-							</tbody>
 						</table>
 					</div>
 				</div>
@@ -171,8 +119,7 @@
 				<div class="row-fluid">
 					<div class="span12">
 						<div class="table-header center">Lista Estado de Proyecto</div>
-						<table id="tablaEstadoProyecto"
-							class="table table-striped table-bordered table-hover">
+						<table id="tablaEstadoProyecto" class="table table-striped table-bordered table-hover"  style="width: 100%;">
 							<thead>
 								<tr>
 									<th class="center"><label>
@@ -183,54 +130,6 @@
 									<th></th>
 								</tr>
 							</thead>
-
-							<tbody>
-								<c:forEach var="estadoProyecto" items="${model.listaEstadoProyecto}" varStatus="contador">
-									<tr>
-										<td class="center">												
-											<c:out value="${contador.count}"/>
-										</td>
-										<td><c:out value="${estadoProyecto.descripcion}"></c:out></td>
-										<c:choose>
-											<c:when test="${estadoProyecto.estado == 1}">
-												<td class="hidden-480"><span class="label label-info"><b>ACTIVO</b></span>
-												</td>
-											</c:when>
-											<c:otherwise>
-												<td class="hidden-480"><span
-													class="label label-danger"><b>INACTIVO</b></span></td>
-											</c:otherwise>
-										</c:choose>
-										<td class="td-actions">
-											<div class="hidden-phone visible-desktop action-buttons">
-												<a class="abrir-eliminarEproyecto red tooltip-error" href="#eliminarEstadoProyecto" data-toggle="modal" 
-													data-rel="tooltip" title="Eliminar"data-id="${estadoProyecto.id}"> 
-														<i class="icon-trash bigger-130"></i>
-												</a>
-											</div>
-
-											<div class="hidden-desktop visible-phone">
-												<div class="inline position-relative">
-													<button class="btn btn-minier btn-yellow dropdown-toggle"
-														data-toggle="dropdown">
-														<i class="icon-caret-down icon-only bigger-120"></i>
-													</button>
-
-													<ul
-														class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
-														<li><a href="#eliminarEstadoProyecto" class="abrir-eliminarEproyecto tooltip-error"
-															data-rel="tooltip" title="Eliminar" data-toggle="modal"
-															data-id="${estadoProyecto.id}"> <span class="red">
-																	<i class="icon-trash bigger-120"></i>
-															</span>
-														</a></li>
-													</ul>
-												</div>
-											</div>
-										</td>
-									</tr>
-								</c:forEach>
-							</tbody>
 						</table>
 					</div>
 				</div>
@@ -249,9 +148,6 @@
 											<div class="span12">
 												<select id="idTipoProyectoReq" name="idTipoProyecto" class="span12" title="Tipo de Proyecto">
 													<option value="">Seleccionar</option>
-													<c:forEach var="tipoProyecto" items="${model.listaTipoProyecto}" varStatus="contador">
-													   <option value="${tipoProyecto.id}">${tipoProyecto.descripcion}</option>
-													</c:forEach>
 												</select>	
 											</div>
 										</div>
@@ -276,7 +172,7 @@
 				<div class="row-fluid">
 					<div class="span12">
 						<div class="table-header">Lista Tipo de Requisito de Proyecto</div>
-						<table id="tablaTipoRequisitoProyecto"
+						<table id="tablaTipoRequisitoProyecto"  style="width: 100%;"
 							class="table table-striped table-bordered table-hover">
 							<thead>
 								<tr>
@@ -289,56 +185,6 @@
 									<th></th>
 								</tr>
 							</thead>
-
-							<tbody>
-								<c:forEach var="tiporequisitoProyecto" items="${model.listaTipoRequisito}" varStatus="contador">
-									<tr>
-										<td class="center">												
-											<c:out value="${contador.count}"/>
-										</td>
-										<td><c:out value="${tiporequisitoProyecto.dsc_tipoproyecto}"></c:out></td>
-										<td><c:out value="${tiporequisitoProyecto.descripcion}"></c:out></td>
-										<c:choose>
-											<c:when test="${tiporequisitoProyecto.estado == 1}">
-												<td class="hidden-480"><span class="label label-info"><b>ACTIVO</b></span>
-												</td>
-											</c:when>
-											<c:otherwise>
-												<td class="hidden-480"><span
-													class="label label-danger"><b>INACTIVO</b></span></td>
-											</c:otherwise>
-										</c:choose>
-										<td class="td-actions">
-											<div class="hidden-phone visible-desktop action-buttons">
-												<a class="abrir-eliminarTipReqproyecto red tooltip-error" href="#eliminarTipReqProyecto" data-toggle="modal" 
-													data-rel="tooltip" title="Eliminar" data-id="${tiporequisitoProyecto.id}"> <i
-													class="icon-trash bigger-130"></i>
-												</a>
-											</div>
-
-											<div class="hidden-desktop visible-phone">
-												<div class="inline position-relative">
-													<button class="btn btn-minier btn-yellow dropdown-toggle"
-														data-toggle="dropdown">
-														<i class="icon-caret-down icon-only bigger-120"></i>
-													</button>
-
-													<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
-														<li>
-															<a href="#eliminarTipReqProyecto" class="abrir-eliminarTipReqproyecto tooltip-error"
-																data-rel="tooltip" title="Eliminar" data-toggle="modal" data-id="${tiporequisitoProyecto.id}"> 
-																<span class="red">
-																	<i class="icon-trash bigger-120"></i>
-																</span>
-															</a>
-														</li>
-													</ul>
-												</div>
-											</div>
-										</td>
-									</tr>
-								</c:forEach>
-							</tbody>
 						</table>
 					</div>					
 				</div>
@@ -349,37 +195,53 @@
 			<div id="tipoSupuesto" class="tab-pane">
 				<div class="row-fluid">
 					<div class="span9 center">
-						<form class="form-horizontal">
+						<form class="form-horizontal" id="registrarTipoSupuesto">
 								<div class="row-fluid">
-									<select id="idTipoProyectoSup" class="span6" title="Tipo de Proyecto">
-										<option value="" />Seleccione tipo de proyecto...
-										<option value="AL" />Alabama
-										<option value="AK" />Alaska
-									</select>								
-									<br/><br/>
-									<input type="text" class="span6" id="idTipoSupuesto" placeholder="Tipo de Supuesto" />
-									<br/><br/>
-									<label class="span4"></label>									
-								    <button id="idguardarProyecto" class="btn btn-small btn-primary">
+									<div class="control-group">
+										<label class="control-label" for="idTipoProyectoSup">Tipo de Proyecto:</label>
+										<div class="controls">
+											<div class="span12">
+												<select id="idTipoProyectoSup" name="idTipoProyecto" class="span12" title="Tipo de Proyecto">
+													<option value="">Seleccionar</option>
+												</select>	
+											</div>
+										</div>
+									</div>
+									
+									<div class="control-group">
+										<label class="control-label" for="idTipoSupuesto">Descripcion:</label>
+										<div class="controls">
+											<div class="span12">
+												<input type="text" class="span12" id="idTipoSupuesto" name="descripcion" placeholder="Tipo de Supuesto" />
+											</div>
+										</div>
+									</div>								
+								    <button type="submit" class="btn btn-small btn-primary">
 								    	<i class="icon-save bigger-125"></i> Agregar
 								    </button>		
-								</div>
-								<div class="row-fluid">
-								</div>
-								<br/>
-								<div class="row-fluid">
-								</div>
-								
-								<hr/>
-								
-								<div class="row-fluid">
-									<select id="idselectTipoSupuesto" class="span6" multiple="multiple" size="10">
-										<option value="AL" />Alabama
-										<option value="AK" />Alaska
-									</select>
-								</div>
-						</form>
-					</div>
+								</div>							
+						</form>															
+					</div>				
+				</div>
+				<hr/>	
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="table-header">Lista Tipo de Supuesto de Proyecto</div>
+						<table id="tablaTipoSupuestoProyecto"  style="width: 100%;"
+							class="table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th class="center"><label>
+											<span class="lbl"></span>
+									</label></th>
+									<th>Tipo Proyecto</th>
+									<th>Descripci&oacute;n Tipo Supuesto</th>
+									<th>Estado</th>
+									<th></th>
+								</tr>
+							</thead>
+						</table>
+					</div>					
 				</div>
 			</div>
 			<!-- [FIN] TIPO DE SUPUESTO -->
@@ -388,40 +250,53 @@
 			<div id="tipoDependencia" class="tab-pane">
 				<div class="row-fluid">
 					<div class="span9 center">
-						<form class="form-horizontal">
+						<form class="form-horizontal" id="registrarTipoDependencia">
 								<div class="row-fluid">
-									<select id="idTipoProyectoSup" class="span6" title="Tipo de Proyecto">
-										<option value="" />Seleccione tipo de proyecto...
-										<option value="AL" />Alabama
-										<option value="AK" />Alaska
-										<option value="AZ" />Arizona
-										<option value="AR" />Arkansas
-									</select>								
-									<br/><br/>
-									<input type="text" class="span6" id="idTipoDependencia" placeholder="Tipo de Dependencia" />
-									<br/><br/>
-									<label class="span4"></label>									
-								    <button id="idguardarProyecto" class="btn btn-small btn-primary">
+									<div class="control-group">
+										<label class="control-label" for="idTipoProyectoDep">Tipo de Proyecto:</label>
+										<div class="controls">
+											<div class="span12">
+												<select id="idTipoProyectoDep" name="idTipoProyecto" class="span12" title="Tipo de Proyecto">
+													<option value="">Seleccionar</option>
+												</select>	
+											</div>
+										</div>
+									</div>
+									
+									<div class="control-group">
+										<label class="control-label" for="idTipoDependencia">Descripcion:</label>
+										<div class="controls">
+											<div class="span12">
+												<input type="text" class="span12" id="idTipoDependencia" name="descripcion" placeholder="Tipo de Dependencia" />
+											</div>
+										</div>
+									</div>								
+								    <button type="submit" class="btn btn-small btn-primary">
 								    	<i class="icon-save bigger-125"></i> Agregar
 								    </button>		
-								</div>
-								<div class="row-fluid">
-								</div>
-								<br/>
-								<div class="row-fluid">
-								</div>
-								
-								<hr/>
-								
-								<div class="row-fluid">
-									<select id="idselectTipoSupuesto" class="span6" multiple="multiple" size="10">
-										<option value="AL" />Alabama
-										<option value="AK" />Alaska
-										<option value="AZ" />Arizona
-									</select>
-								</div>
-						</form>
+								</div>							
+						</form>															
 					</div>
+				</div>
+				<hr/>	
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="table-header">Lista Tipo de Dependencia de Proyecto</div>
+						<table id="tablaTipoDependenciaProyecto"  style="width: 100%;"
+							class="table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th class="center"><label>
+											<span class="lbl"></span>
+									</label></th>
+									<th>Tipo Proyecto</th>
+									<th>Descripci&oacute;n Tipo Dependencia</th>
+									<th>Estado</th>
+									<th></th>
+								</tr>
+							</thead>
+						</table>
+					</div>					
 				</div>
 			</div>
 			<!-- [FIN] TIPO DE DEPENDENCIA -->
@@ -430,25 +305,42 @@
 			<div id="adquisiciones" class="tab-pane">
 				<div class="row-fluid">
 					<div class="span9 center">
-						<form class="form-horizontal">
+						<form class="form-horizontal" id="registrarCategoriaAdquisicion">
 								<div class="row-fluid">
-									<input type="text" class="span6" id="idCategoriaAdquisiciones" placeholder="Categoria de Adquisiciones" />
-								    <br/><br/>
-								    <label class="span4"></label>
-								    <button id="idguardarProyecto" class="btn btn-small btn-primary">
+								<div class="control-group">
+									<label class="control-label" for="descripcionCatAdquisicion">Categor&iacute;a:</label>
+									<div class="controls">
+										<div class="span12">
+											<input type="text" class="span12" id="descripcionCatAdquisicion" 
+													name="descripcion" placeholder="Categoria de Adquisiciones" />
+										</div>
+									</div>
+								</div>
+								    <button class="btn btn-small btn-primary" type="submit">
 								    	<i class="icon-save bigger-125"></i> Agregar
 								    </button>								    
-								</div>
-								
-								<hr/>
-								
-								<div class="row-fluid">
-									<select id="idselectCategoriaAdquisiciones" class="span6" multiple="multiple" size="10">
-										<option value="AL" />Alabama
-										<option value="AK" />Alaska
-									</select>
-								</div>
+								</div>								
 						</form>
+					</div>
+				</div>
+				<hr/>
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="table-header">Lista Categor&iacute;a Adquisiciones</div>
+						<table id="tablaCategoriaAdquisiciones" class="table table-striped table-bordered table-hover"  style="width: 100%;">
+							<thead>
+								<tr>
+									<th class="center">
+										<label>
+											<span class="lbl"></span>
+										</label>
+									</th>
+									<th>Descripci&oacute;n</th>
+									<th>Estado</th>
+									<th></th>
+								</tr>
+							</thead>
+						</table>
 					</div>
 				</div>
 			</div>
@@ -458,25 +350,42 @@
 			<div id="costoOperativo" class="tab-pane">
 				<div class="row-fluid">
 					<div class="span9 center">
-						<form class="form-horizontal">
+						<form class="form-horizontal" id="registrarCostoOperativo">
 								<div class="row-fluid">
-									<input type="text" class="span6" id="idCostosOperativos" placeholder="Tipo de Costos Operativos" />
-								    <br/><br/>
-								    <label class="span4"></label>
-								    <button id="idguardarProyecto" class="btn btn-small btn-primary">
+								<div class="control-group">
+									<label class="control-label" for="idCostosOperativos">Costo Operativo:</label>
+									<div class="controls">
+										<div class="span12">
+											<input type="text" class="span12" id="idCostosOperativos" 
+													name="descripcion" placeholder="Tipo de Costos Operativos" />
+										</div>
+									</div>
+								</div>
+								    <button class="btn btn-small btn-primary" type="submit">
 								    	<i class="icon-save bigger-125"></i> Agregar
 								    </button>								    
-								</div>
-								
-								<hr/>
-								
-								<div class="row-fluid">
-									<select id="idselectCategoriaAdquisiciones" class="span6" multiple="multiple" size="10">
-										<option value="AL" />Alabama
-										<option value="AK" />Alaska
-									</select>
-								</div>
+								</div>								
 						</form>
+					</div>
+				</div>
+				<hr/>
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="table-header">Lista Costos Operativos</div>
+						<table id="tablaCostoOpertivo" class="table table-striped table-bordered table-hover"  style="width: 100%;">
+							<thead>
+								<tr>
+									<th class="center">
+										<label>
+											<span class="lbl"></span>
+										</label>
+									</th>
+									<th>Descripci&oacute;n</th>
+									<th>Estado</th>
+									<th></th>
+								</tr>
+							</thead>
+						</table>
 					</div>
 				</div>
 			</div>
@@ -486,112 +395,47 @@
 			<div id="formasPago" class="tab-pane">
 				<div class="row-fluid">
 					<div class="span9 center">
-						<form class="form-horizontal">
+						<form class="form-horizontal" id="registrarFormaPago">
 								<div class="row-fluid">
-									<input type="text" class="span6" id="idCostosOperativos" placeholder="Formas de Pago" />
-								    <br/><br/>
-								    <label class="span4"></label>
-								    <button id="idguardarProyecto" class="btn btn-small btn-primary">
+								<div class="control-group">
+									<label class="control-label" for="idFormaPago">Forma de Pago:</label>
+									<div class="controls">
+										<div class="span12">
+											<input type="text" class="span12" id="idFormaPago" 
+													name="descripcion" placeholder="Forma de Pago" />
+										</div>
+									</div>
+								</div>
+								    <button class="btn btn-small btn-primary" type="submit">
 								    	<i class="icon-save bigger-125"></i> Agregar
 								    </button>								    
-								</div>
-								
-								<hr/>
-								
-								<div class="row-fluid">
-									<select id="idselectCategoriaAdquisiciones" class="span6" multiple="multiple" size="10">
-										<option value="AL" />Alabama
-										<option value="AK" />Alaska
-										<option value="AZ" />Arizona
-									</select>
-								</div>
+								</div>								
 						</form>
 					</div>
+					<hr/>
+					<div class="row-fluid">
+						<div class="span12">
+							<div class="table-header">Lista Formas de Pago</div>
+							<table id="tablaFormaPago" class="table table-striped table-bordered table-hover"  style="width: 100%;">
+								<thead>
+									<tr>
+										<th class="center">
+											<label>
+												<span class="lbl"></span>
+											</label>
+										</th>
+										<th>Descripci&oacute;n</th>
+										<th>Estado</th>
+										<th></th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>									
 				</div>
 			</div>
 			<!-- [FIN] FORMAS DE PAGO -->
 		</div>
 	</div>
 </div>
-
-	<!-- [INI] ELIMINAR TIPO PROYECTO -->
-	<form id="formEliminarTipoProyecto">
-		<div id="eliminarTipoProyecto" class="modal hide fade" tabindex="-1">
-			<div class="modal-header no-padding">
-				<div class="table-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-			</div>
-
-			<div class="modal-body padding">
-				<b style="text-align: center">¿SEGURO DE ELIMINAR? </b> <input
-					type="hidden" name="idTipoProyecto" id="idTipoProyecto" />
-			</div>
-
-			<div class="modal-footer">
-				<button class="btn btn-small btn-primary" type="submit">
-					<i class="icon-ok"></i> Confirmar
-				</button>
-				<button class="btn btn-small btn-light" data-dismiss="modal">
-					<i class="icon-remove"></i> Salir
-				</button>
-			</div>
-
-		</div>
-	</form>
-	<!-- [FIN] ELIMINAR TIPO PROYECTO -->
-
-	<!-- [INI] ELIMINAR ESTADO PROYECTO -->
-	<form id="formEliminarEstadoProyecto">
-		<div id="eliminarEstadoProyecto" class="modal hide fade" tabindex="-1">
-			<div class="modal-header no-padding">
-				<div class="table-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-			</div>
-
-			<div class="modal-body padding">
-				<b style="text-align: center">¿SEGURO DE ELIMINAR? </b> <input
-					type="hidden" name="idEstadoProyecto" id="idEstadoProyecto" />
-			</div>
-
-			<div class="modal-footer">
-				<button class="btn btn-small btn-primary" type="submit">
-					<i class="icon-ok"></i> Confirmar
-				</button>
-				<button class="btn btn-small btn-light" data-dismiss="modal">
-					<i class="icon-remove"></i> Salir
-				</button>
-			</div>
-
-		</div>
-	</form>
-	<!-- [FIN] ELIMINAR ESTADO PROYECTO -->
-
-	<!-- [INI] ELIMINAR TIPO REQUISITO PROYECTO -->
-	<form id="formEliminarTipReqEstadoProyecto">
-		<div id="eliminarTipReqProyecto" class="modal hide fade" tabindex="-1">
-			<div class="modal-header no-padding">
-				<div class="table-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-			</div>
-
-			<div class="modal-body padding">
-				<b style="text-align: center">¿SEGURO DE ELIMINAR? </b> <input
-					type="hidden" name="idTipReqProyecto" id="idTipReqProyecto" />
-			</div>
-
-			<div class="modal-footer">
-				<button class="btn btn-small btn-primary" type="submit">
-					<i class="icon-ok"></i> Confirmar
-				</button>
-				<button class="btn btn-small btn-light" data-dismiss="modal">
-					<i class="icon-remove"></i> Salir
-				</button>
-			</div>
-
-		</div>
-	</form>
-	<!-- [FIN] ELIMINAR TIPO REQUISITO PROYECTO -->
 </div>

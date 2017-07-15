@@ -57,15 +57,15 @@
 	<!-- [INI] TIPO REQUISITO -->
 	<insert id="registrarTipoRequisitoProyecto" parameterType="TipoRequisito">
 		insert into "PLANIFICAR_PROYECTO"."TIPO_REQUISITO"
-		values(nextval('"CREAR_PROYECTO".sq_estado_proyecto'), #{descripcion}, #{estado}, #{idTipoProyecto});
+		values(nextval('"PLANIFICAR_PROYECTO".sq_tipo_requisito'), #{descripcion}, #{estado}, #{idTipoProyecto});
 	</insert>
 	
-	<select id="listarTipoRequisitoProyecto" resultType="hashmap">
+	<select id="listarTipoRequisitoProyecto" resultType="tipoReqProyectoModel">
 	   select  tr."ID_TIPO_REQUISITO" as id, tr."DESCRIPCION_TIPO_REQUISITO" as descripcion, 
 			   tr."ESTADO" as estado, "ID_TIPO_PROYECTO" as idTipoProyecto,
 			   (select "DESCRIPCION_TIPO_PROYECTO"
 				from "CREAR_PROYECTO"."TIPO_PROYECTO"
-				where "ID_TIPO_PROYECTO" = tr."ID_TIPO_PROYECTO") dsc_tipoproyecto
+				where "ID_TIPO_PROYECTO" = tr."ID_TIPO_PROYECTO") dscTipoProyecto
 	   from "PLANIFICAR_PROYECTO"."TIPO_REQUISITO" tr;
 	</select>
 	
@@ -81,18 +81,262 @@
 	</select>
 	<!-- [FIN] TIPO REQUISITO -->
 	
-	<!-- INI - EMPRESA -->
+	<!-- [INI] TIPO SUPUESTO -->
+	<insert id="registrarTipoSupuestoProyecto" parameterType="tipoSupuesto">
+		INSERT INTO "PLANIFICAR_PROYECTO"."TIPO_SUPUESTO"("ID_TIPO_SUPUESTO", "ID_TIPO_PROYECTO", "DESCRIPCION", "ESTADO")
+    	VALUES (nextval('"PLANIFICAR_PROYECTO".sq_tipo_supuesto'), #{idTipoProyecto}, #{descripcion}, #{estado});
+	</insert>
+	
+	<select id="listarTipoSupuestoProyecto" resultType="tipoSupProyectoModel">
+	   SELECT ts."ID_TIPO_SUPUESTO" id, 
+	       ts."ID_TIPO_PROYECTO" idTipoProyecto, 
+	       ts."DESCRIPCION" descripcion, 
+	       ts."ESTADO" estado,
+	       (SELECT "DESCRIPCION_TIPO_PROYECTO"
+			FROM "CREAR_PROYECTO"."TIPO_PROYECTO"
+			WHERE "ID_TIPO_PROYECTO" = ts."ID_TIPO_PROYECTO") dscTipoProyecto
+	  FROM "PLANIFICAR_PROYECTO"."TIPO_SUPUESTO" ts;
+	</select>
+	
+	<delete id="eliminarTipoSupuestoProyecto" parameterType="int">
+	  DELETE FROM "PLANIFICAR_PROYECTO"."TIPO_SUPUESTO" WHERE "ID_TIPO_SUPUESTO" = #{id};
+	</delete>
+	
+	<select id="buscarTipoSupuestoProyecto" resultType="int" parameterType="tipoSupuesto">
+		select  count(*)
+		from "PLANIFICAR_PROYECTO"."TIPO_SUPUESTO" ts
+		where ts."DESCRIPCION" = #{descripcion}
+		and   ts."ESTADO" = #{estado};
+	</select>
+	<!-- [FIN] TIPO SUPUESTO -->
+	
+	<!-- [INI] TIPO DEPENDENCIA -->
+	<insert id="registrarTipoDependenciaProyecto" parameterType="tipoDependencia">
+		INSERT INTO "PLANIFICAR_PROYECTO"."TIPO_DEPENDENCIA"("ID_TIPO_DEPENDENCIA", "ID_TIPO_PROYECTO", "DESCRIPCION_TIPO_DEPENDENCIA", "ESTADO")
+   		VALUES (nextval('"PLANIFICAR_PROYECTO".sq_tipo_dependencia'), #{idTipoProyecto}, #{descripcion}, #{estado});
+	</insert>
+	
+	<select id="listarTipoDependenciaProyecto" resultType="tipoDepProyectoModel">
+	   SELECT td."ID_TIPO_DEPENDENCIA" id, 
+	       td."ID_TIPO_PROYECTO" idTipoProyecto, 
+	       td."DESCRIPCION_TIPO_DEPENDENCIA" descripcion, 
+	       td."ESTADO" estado,
+	       (SELECT "DESCRIPCION_TIPO_PROYECTO"
+			FROM "CREAR_PROYECTO"."TIPO_PROYECTO"
+			WHERE "ID_TIPO_PROYECTO" = td."ID_TIPO_PROYECTO") dscTipoProyecto
+	  FROM "PLANIFICAR_PROYECTO"."TIPO_DEPENDENCIA" td;
+	</select>
+	
+	<delete id="eliminarTipoDependenciaProyecto" parameterType="int">
+	  DELETE FROM "PLANIFICAR_PROYECTO"."TIPO_DEPENDENCIA" WHERE "ID_TIPO_DEPENDENCIA" = #{id};
+	</delete>
+	
+	<select id="buscarTipoDependenciaProyecto" resultType="int" parameterType="tipoDependencia">
+		select  count(*)
+		from "PLANIFICAR_PROYECTO"."TIPO_DEPENDENCIA" td
+		where td."DESCRIPCION_TIPO_DEPENDENCIA" = #{descripcion}
+		and   td."ESTADO" = #{estado};
+	</select>
+	<!-- [FIN] TIPO DEPENDENCIA -->
+	<!-- [INI] CATEGORIA ADQUISICIONES -->
+	<insert id="registrarCategAdquisicion" parameterType="categoriaAdquisicion">
+		INSERT INTO "PLANIFICAR_PROYECTO"."CATEGORIA_ADQUISICION"("ID_CATEGORIA_ADQUISICION", "DESCRIPCION", "ESTADO")
+   		VALUES (nextval('"PLANIFICAR_PROYECTO".sq_categoria_adquisicion'), #{descripcion}, #{estado});
+	</insert>
+	
+	<select id="listarCategAdquisicion" resultType="categoriaAdquisicion">
+	   SELECT ca."ID_CATEGORIA_ADQUISICION" id, 
+	          ca."DESCRIPCION" descripcion, 
+	          ca."ESTADO" estado
+	   FROM "PLANIFICAR_PROYECTO"."CATEGORIA_ADQUISICION" ca;
+	</select>
+	
+	<delete id="eliminarCategAdquisicion" parameterType="int">
+	  DELETE FROM "PLANIFICAR_PROYECTO"."CATEGORIA_ADQUISICION" WHERE "ID_CATEGORIA_ADQUISICION" = #{id};
+	</delete>
+	
+	<select id="buscarCategAdquisicion" resultType="int" parameterType="categoriaAdquisicion">
+		SELECT COUNT(*)
+	   FROM "PLANIFICAR_PROYECTO"."CATEGORIA_ADQUISICION" ca
+	   WHERE ca."DESCRIPCION" = #{descripcion}
+	   AND   ca."ESTADO" = #{estado};
+	</select>
+	<!-- [FIN] CATEGORIA ADQUISICIONES -->
+	<!-- [INI] COSTO OPERATIVO -->
+	<insert id="registrarCostoOperativo" parameterType="tipoCostoOperativo">
+		INSERT INTO "PLANIFICAR_PROYECTO"."TIPO_COSTO_OPERATIVO"("ID_TIPO_COSTO_OPERATIVO", "DESCRIPCION", "ESTADO")
+    	VALUES (nextval('"PLANIFICAR_PROYECTO".sq_tipo_costo_operativo'), #{descripcion}, #{estado});
+	</insert>
+	
+	<select id="listarCostoOperativo" resultType="tipoCostoOperativo">
+		SELECT co."ID_TIPO_COSTO_OPERATIVO" id, 
+		       co."DESCRIPCION" descripcion, 
+		       co."ESTADO" estado
+		  FROM "PLANIFICAR_PROYECTO"."TIPO_COSTO_OPERATIVO" co;
+	</select>
+	
+	<delete id="eliminarCostoOperativo" parameterType="int">
+		DELETE FROM "PLANIFICAR_PROYECTO"."TIPO_COSTO_OPERATIVO" WHERE "ID_TIPO_COSTO_OPERATIVO" = #{id};
+	</delete>
+	
+	<select id="buscarCostoOperativo" resultType="int" parameterType="tipoCostoOperativo">
+	   SELECT COUNT(*)
+	   FROM "PLANIFICAR_PROYECTO"."TIPO_COSTO_OPERATIVO" co
+	   WHERE co."DESCRIPCION" = #{descripcion}
+	   AND   co."ESTADO" = #{estado};
+	</select>
+	<!-- [FIN] COSTO OPERATIVO -->
+	<!-- [INI] FORMA PAGO -->
+	<insert id="registrarFormaPago" parameterType="tipoFormaPago">
+		INSERT INTO "PLANIFICAR_PROYECTO"."TIPO_FORMA_PAGO"("ID_TIPO_FORMA_PAGO", "DESCRIPCION", "ESTADO")
+    	VALUES (nextval('"PLANIFICAR_PROYECTO".sq_tipo_forma_pago'), #{descripcion}, #{estado});
+	</insert>
+	
+	<select id="listarFormaPago" resultType="tipoFormaPago">
+		SELECT fp."ID_TIPO_FORMA_PAGO" id, 
+		       fp."DESCRIPCION" descripcion, 
+		       fp."ESTADO" estado
+		FROM "PLANIFICAR_PROYECTO"."TIPO_FORMA_PAGO" fp;
+	</select>
+	
+	<delete id="eliminarFormaPago" parameterType="int">
+		DELETE FROM "PLANIFICAR_PROYECTO"."TIPO_FORMA_PAGO" WHERE "ID_TIPO_FORMA_PAGO" = #{id};
+	</delete>
+	
+	<select id="buscarFormaPago" resultType="int" parameterType="tipoFormaPago">		
+		SELECT COUNT(*) 
+		FROM "PLANIFICAR_PROYECTO"."TIPO_FORMA_PAGO" fp
+		WHERE fp."DESCRIPCION" = #{descripcion}
+		AND   fp."ESTADO" = #{estado};
+	</select>
+	<!-- [FIN] FORMA PAGO -->
+	
+	<!-- [INI] EMPRESA -->
 	<select id="listarEmpresaByEstado" parameterType="int" resultType="Empresa">
 	   select  "ID_EMPRESA" as idEmpresa, 
 	   		   "RAZON_SOCIAL" as razonSocial, 
-	   		   "PAIS" as pais,
-	   		   "FECHA_REGISTRO" as fechaRegistro,
+	   		   "PAIS" as dscpais,
+	   		   to_char("FECHA_REGISTRO", 'DD/MM/YYYY') as fechaRegistro,
 	   		   "TELEFONO" as telefono,
 	   		   "ESTADO" as estado
  	   from "CREAR_PROYECTO"."EMPRESA"
  	   where "ESTADO" = #{estado};
 	</select>
-	<!-- FIN - EMPRESA -->
+	
+	<select id="listarTipoRolbyEstado" parameterType="int" resultType="tipoRol">
+		SELECT tr."ID_TIPO_ROL" id, 
+	       tr."DESCRIPCION_ROL" descripcion, 
+	       tr."ESTADO" estado, 
+	       tr."TIPO_ROL" tipoRol, 
+	       tr."NOMBRE_TIPOROL" nombreRol
+		FROM "PLANIFICAR_PROYECTO"."TIPO_ROL" tr
+		WHERE tr."TIPO_ROL" = 2
+		AND   tr."ESTADO" = #{estado};
+	</select>
+	
+	<insert id="registrarEmpresa" parameterType="Empresa">
+	 <selectKey keyProperty="idEmpresa" resultType="Long" order="BEFORE">
+          SELECT nextval('"CREAR_PROYECTO".sq_empresa')
+     </selectKey>
+		INSERT INTO "CREAR_PROYECTO"."EMPRESA"("ID_EMPRESA", "RAZON_SOCIAL", "ESTADO", "PAIS", "FECHA_REGISTRO", 
+				       "TELEFONO", "RUC", "PAGINA_WEB", "RED_SOCIAL_FACEBOOK", "ANEXO", 
+				       "CORREO", "COMO_CONTACTO", "LOGO", "FORMATO", "ID_PAIS", 
+				       "RED_SOCIAL_GMAIL", "RED_SOCIAL_TWITTER", "RED_SOCIAL_LINKEDIN", "DIRECCION")
+    VALUES (#{idEmpresa}, #{razonSocial}, #{estado}, 
+	    (SELECT p."DESCRIPCION" FROM "CREAR_PROYECTO"."PAIS" p WHERE p."ID_PAIS" = #{idpais}), CURRENT_TIMESTAMP, 
+            #{telefono}, #{ruc}, #{paginaWeb}, #{redSocialFacebook}, #{anexo}, 
+            #{correo}, #{comoContacto}, #{logo}, #{formato}, #{idpais}, 
+            #{redSocialGmail}, #{redSocialTwitter}, #{redSocialLinkedin}, #{direccion});
+	</insert>
+	
+	<insert id="registrarDetEmpresaPersona" parameterType="detalleEmpresaPersona">
+		INSERT INTO "CREAR_PROYECTO"."DETALLE_EMPRESA_PERSONA"("ID_DETALLE_EMPRESA_PERSONA", "ID_EMPRESA", "ID_PERSONA", 
+							       "ESTADO", "AREA")
+	    VALUES (nextval('"CREAR_PROYECTO".sq_detalle_empresa_persona'), #{idEmpresa}, #{idPersona}, #{estado}, #{area});
+	</insert>
+	
+	<select id="listarEmpresaById" parameterType="long" resultType="Empresa">
+	  SELECT e."ID_EMPRESA" idEmpresa, 
+	       e."RAZON_SOCIAL" razonSocial, 
+	       e."ESTADO" estado, 
+	       e."PAIS" dscpais,
+	        to_char(e."FECHA_REGISTRO", 'DD/MM/YYYY') as fechaRegistro, 
+	       e."TELEFONO" telefono, 
+	       e."RUC" ruc, 
+	       e."PAGINA_WEB" paginaWeb, 
+	       e."RED_SOCIAL_FACEBOOK" redSocialFacebook, 
+	       e."ANEXO" anexo, 
+	       e."CORREO" correo, 
+	       e."COMO_CONTACTO" comoContacto, 
+	       e."ID_PAIS" idpais, 
+	       e."RED_SOCIAL_GMAIL" redSocialGmail, 
+	       e."RED_SOCIAL_TWITTER" redSocialTwitter, 
+	       e."RED_SOCIAL_LINKEDIN" redSocialLinkedin, 
+	       e."DIRECCION" direccion
+		FROM "CREAR_PROYECTO"."EMPRESA" e
+		WHERE e."ID_EMPRESA" = #{idEmpresa};
+	</select>
+	
+	<select id="listarContactoEmpresaByEmpresa" parameterType="long" resultType="contactoEmpresaModel">
+	SELECT dep."ID_DETALLE_EMPRESA_PERSONA" idDetEmpPersona, 
+		       dep."ID_EMPRESA", 
+		       dep."ID_PERSONA" idPersona,
+		       (SELECT p."TELEFONO" FROM "CREAR_PROYECTO"."PERSONA" p 
+		        WHERE p."ID_PERSONA" =  dep."ID_PERSONA") telefono, 
+		       (SELECT p."EMAIL" FROM "CREAR_PROYECTO"."PERSONA" p 
+		        WHERE p."ID_PERSONA" =  dep."ID_PERSONA") correo,
+		       (SELECT p."NOMBRE_PERSONA" FROM "CREAR_PROYECTO"."PERSONA" p 
+		        WHERE p."ID_PERSONA" =  dep."ID_PERSONA") nombre, 
+		       (SELECT p."APELLIDO_PERSONA" FROM "CREAR_PROYECTO"."PERSONA" p 
+		        WHERE p."ID_PERSONA" =  dep."ID_PERSONA") apellido,
+		       (SELECT p."ANEXO" FROM "CREAR_PROYECTO"."PERSONA" p 
+		        WHERE p."ID_PERSONA" =  dep."ID_PERSONA") anexo,
+		       (SELECT p."NOMBRE_PERSONA" || ' '|| p."APELLIDO_PERSONA" FROM "CREAR_PROYECTO"."PERSONA" p 
+		        WHERE p."ID_PERSONA" =  dep."ID_PERSONA") contacto,
+		      -- "ESTADO", 
+		       dep."AREA" dscarea
+		FROM "CREAR_PROYECTO"."DETALLE_EMPRESA_PERSONA" dep
+		WHERE "ID_EMPRESA" = #{idEmpresa};
+	</select>	
+	
+	<update id="eliminarEmpresa" parameterType="long">
+		UPDATE "CREAR_PROYECTO"."EMPRESA"
+		   SET "ESTADO" = 0 
+		 WHERE "ID_EMPRESA"= #{idempresa};
+	</update>
+	
+	<update id="editarEmpresa" parameterType="Empresa">
+		UPDATE "CREAR_PROYECTO"."EMPRESA"
+		   SET "RAZON_SOCIAL" = COALESCE(#{razonSocial}, "RAZON_SOCIAL"), 
+		       "ESTADO" = COALESCE(#{estado}, "ESTADO"), 
+		       "PAIS" = COALESCE(#{dscpais}, "PAIS"), 
+		       "FECHA_REGISTRO" = COALESCE(to_date(#{fechaRegistro}, 'DD/MM/YYYY'), "FECHA_REGISTRO"), 
+		       "TELEFONO" = COALESCE(#{telefono}, "TELEFONO"), 
+		       "RUC" = COALESCE(#{ruc}, "RUC"), 
+		       "PAGINA_WEB" = COALESCE(#{paginaWeb}, "PAGINA_WEB"), 
+		       "RED_SOCIAL_FACEBOOK" = COALESCE(#{redSocialFacebook}, "RED_SOCIAL_FACEBOOK"), 
+		       "ANEXO" = COALESCE(#{anexo}, "ANEXO"), 
+		       "CORREO" = COALESCE(#{correo}, "CORREO"), 
+		       "COMO_CONTACTO" = COALESCE(#{comoContacto}, "COMO_CONTACTO"), 
+		       "LOGO" = COALESCE(#{logo}, "LOGO"), 
+		       "FORMATO" = COALESCE(#{formato}, "FORMATO"), 
+		       "ID_PAIS" = COALESCE(#{idpais}, "ID_PAIS"), 
+		       "RED_SOCIAL_GMAIL" = COALESCE(#{redSocialGmail}, "RED_SOCIAL_GMAIL"), 
+		       "RED_SOCIAL_TWITTER" = COALESCE(#{redSocialTwitter}, "RED_SOCIAL_TWITTER"), 
+		       "RED_SOCIAL_LINKEDIN" = COALESCE(#{redSocialLinkedin}, "RED_SOCIAL_LINKEDIN"), 
+		       "DIRECCION" = COALESCE(#{direccion}, "DIRECCION")
+		 WHERE "ID_EMPRESA" = #{idEmpresa};
+	</update>
+	
+	<update id="editarDetEmpresaPersona" parameterType="detalleEmpresaPersona">
+		UPDATE "CREAR_PROYECTO"."DETALLE_EMPRESA_PERSONA"
+		   SET "ID_EMPRESA" = COALESCE(#{idEmpresa}, "ID_EMPRESA"), 
+		       "ID_PERSONA" = COALESCE(#{idPersona}, "ID_PERSONA"), 
+		       "ESTADO" = COALESCE(#{estado}, "ESTADO"), 
+		       "AREA" = COALESCE(#{area}, "AREA")
+		 WHERE "ID_DETALLE_EMPRESA_PERSONA" = #{id};
+	</update>
+	<!-- [FIN] EMPRESA -->
 	
 	<!-- INI - PAIS -->
 	<select id="listarPais" resultType="Pais">
@@ -102,4 +346,40 @@
  	   from "CREAR_PROYECTO"."PAIS";
 	</select>
 	<!-- FIN - PAIS -->	
+	<!-- [INI] ENTREGABLE -->
+	<insert id="registrarComplejidadEntregable" parameterType="complejidadEntregable">
+		INSERT INTO "PLANIFICAR_PROYECTO"."COMPLEJIDAD"("ID_COMPLEJIDAD", "DESCRIPCION", "ESTADO")
+    	VALUES (nextval('"CREAR_PROYECTO".sq_empresa'), #{descripcion}, #{estado});
+	</insert>
+	
+	<select id="listarComplejidadEntregable" parameterType="int" resultType="complejidadEntregable">
+		SELECT c."ID_COMPLEJIDAD" id, 
+		       c."DESCRIPCION" descripcion, 
+		       c."ESTADO" estado
+		FROM "PLANIFICAR_PROYECTO"."COMPLEJIDAD" c
+		WHERE c."ESTADO" = #{estado};
+	</select>
+	
+	<delete id="eliminarComplejidadEntregable" parameterType="int">
+	   DELETE FROM "PLANIFICAR_PROYECTO"."COMPLEJIDAD" WHERE "ID_COMPLEJIDAD" = #{id};
+	</delete>
+	
+	<insert id="registrarEstadoEntregable" parameterType="estadoEntregable">
+		INSERT INTO "PLANIFICAR_PROYECTO"."ESTADO_ENTREGABLE"("ID_ESTADO_ENTREGABLE", "DESCRIPCION", "ESTADO")
+    	VALUES (nextval('"PLANIFICAR_PROYECTO".sq_estado_entregable'), #{descripcion}, #{estado});
+	</insert>
+	
+	<select id="listarEstadoEntregable" parameterType="int" resultType="estadoEntregable">
+		SELECT ee."ID_ESTADO_ENTREGABLE" id, 
+		       ee."DESCRIPCION" descripcion, 
+		       ee."ESTADO" estado
+		FROM "PLANIFICAR_PROYECTO"."ESTADO_ENTREGABLE" ee
+		WHERE ee."ESTADO" = #{estado};
+	</select>
+	
+	<delete id="eliminarEstadoEntregable" parameterType="int">
+		DELETE FROM "PLANIFICAR_PROYECTO"."ESTADO_ENTREGABLE" ee
+ 		WHERE ee."ID_ESTADO_ENTREGABLE" = #{id};
+	</delete>
+	<!-- [FIN] ENTREGABLE -->
 </mapper>

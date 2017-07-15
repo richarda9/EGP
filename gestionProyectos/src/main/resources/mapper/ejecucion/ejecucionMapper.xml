@@ -76,7 +76,14 @@
 					   AND   p."ID_PROYECTO" = dest."ID_PROYECTO"
 					   AND   dest."ID_ESTADO_PROYECTO" = #{estadoProyecto}::bigint
 					   AND   dest."ESTADO" = 1
-					   AND   dar."ESTADO" = 1)
+					   AND   dar."ESTADO" = 1
+					   <if test="iderol == 2">
+					   AND   dar."ID_PERSONA"  IS NOT NULL
+					   </if>
+					   <if test="iderol == 1">
+					   AND dar."ID_DETALLE_EMPRESA" IS NOT NULL
+					   </if>
+					   )
 	</select>
 	
 	<select id="obtCantidadRecursobyRol" parameterType="mntAsignarResponsableModel" resultType="detalleRolProyecto">

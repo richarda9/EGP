@@ -47,6 +47,7 @@
 				<!-- ##########################  CONTENIDO ######################  -->
 				<tiles:insertAttribute name="contenido"/>
 				<!-- ########################  END CONTENIDO ######################  -->
+				<%@ include file="/WEB-INF/templateSistema/avisos_modal.jsp"%>
 			</div>
 
 		</div><!--/.main-content-->

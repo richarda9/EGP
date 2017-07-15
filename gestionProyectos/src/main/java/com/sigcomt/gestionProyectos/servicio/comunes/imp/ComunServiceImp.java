@@ -55,7 +55,6 @@ public class ComunServiceImp implements ComunService
 		 // Se compone la parte del texto
         BodyPart texto = new MimeBodyPart();
         texto.setText(correo.getMensaje());
-        //+ );
         
         BodyPart adjunto = new MimeBodyPart();
         

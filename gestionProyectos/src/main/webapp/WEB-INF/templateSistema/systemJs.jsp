@@ -194,5 +194,13 @@ function regresar()
 	}
 }
 
+function loadModalCargando(){
+	$("#content-cargando").modal('show');
+}
+
+function closeModalCargando(){
+	$("#content-cargando").modal('hide');
+}
+
 </script>
 

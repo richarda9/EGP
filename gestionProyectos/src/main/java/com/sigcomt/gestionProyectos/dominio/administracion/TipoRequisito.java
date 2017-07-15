@@ -4,16 +4,12 @@ import java.io.Serializable;
 
 public class TipoRequisito implements Serializable
 {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
 	private Long idTipoProyecto;
 	private String descripcion;
-	private int estado;
+	private Integer estado;
 	
 	public Long getId() {
 		return id;
@@ -39,11 +35,17 @@ public class TipoRequisito implements Serializable
 		this.descripcion = descripcion;
 	}
 	
-	public int getEstado() {
+	public Integer getEstado() {
 		return estado;
 	}
 	
-	public void setEstado(int estado) {
+	public void setEstado(Integer estado) {
 		this.estado = estado;
+	}
+
+	@Override
+	public String toString() {
+		return "TipoRequisito [id=" + id + ", idTipoProyecto=" + idTipoProyecto
+				+ ", descripcion=" + descripcion + ", estado=" + estado + "]";
 	}
 }

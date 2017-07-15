@@ -11,7 +11,7 @@ public class TipoProyecto implements Serializable
 	
 	private Long id;
 	private String descripcion;
-	private int estado;
+	private Integer estado;
 	
 	public String getDescripcion() {
 		return descripcion;
@@ -21,11 +21,11 @@ public class TipoProyecto implements Serializable
 		this.descripcion = descripcion;
 	}
 	
-	public int getEstado() {
+	public Integer getEstado() {
 		return estado;
 	}
 	
-	public void setEstado(int estado) {
+	public void setEstado(Integer estado) {
 		this.estado = estado;
 	}
 
@@ -35,5 +35,11 @@ public class TipoProyecto implements Serializable
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "TipoProyecto [id=" + id + ", descripcion=" + descripcion
+				+ ", estado=" + estado + "]";
 	}
 }

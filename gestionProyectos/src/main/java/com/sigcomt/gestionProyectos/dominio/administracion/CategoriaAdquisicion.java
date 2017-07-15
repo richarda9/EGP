@@ -2,7 +2,7 @@ package com.sigcomt.gestionProyectos.dominio.administracion;
 
 import java.io.Serializable;
 
-public class EstadoEntregable implements Serializable
+public class CategoriaAdquisicion implements Serializable 
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -22,7 +22,6 @@ public class EstadoEntregable implements Serializable
 		return descripcion;
 	}
 	
-	
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
@@ -37,7 +36,7 @@ public class EstadoEntregable implements Serializable
 	
 	@Override
 	public String toString() {
-		return "EstadoEntregable [id=" + id + ", descripcion=" + descripcion
-				+ ", estado=" + estado + "]";
+		return "CategoriaAdquisicion [id=" + id + ", descripcion="
+				+ descripcion + ", estado=" + estado + "]";
 	}
 }

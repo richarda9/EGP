@@ -34,6 +34,7 @@ $(function()
 	//[INI] BUSQUEDA
 	$("#formBsqEjecucion").submit(function() 
 	{
+		loadModalCargando();
 		var objeto = $("#formBsqEjecucion").serializeObject();
 			objeto.estado = 14;
 		console.log(objeto);
@@ -56,7 +57,7 @@ $(function()
 			for (i in data) {
 				var accion = '<!-- [INI] BOTON EDITAR -->'+
 								'<div class="hidden-phone visible-desktop action-buttons">'+
-									'<a class="abrir-eliminarEproyecto blue tooltip-info" href="../ejecucion/mntEjecucion.htm?idEjecucion='+data[i].idProyecto+'" data-toggle="modal"'+
+									'<a class="blue tooltip-info" href="../ejecucion/mntEjecucion.htm?idEjecucion='+data[i].idProyecto+'" data-toggle="modal"'+
 										'data-id="${estadoProyecto.id}" data-rel="tooltip" title="Editar">'+ 
 											'<i class="icon-edit bigger-130"></i>'+
 									'</a></div>'+
@@ -77,7 +78,7 @@ $(function()
 								'</div>'+
 								'<!-- [FIN] BOTON EDITAR --><!-- [INI] BOTON CANCELAR -->'+
 								'<div class="hidden-phone visible-desktop action-buttons">'+
-									'<a class="abrir-eliminarEproyecto red tooltip-error" href="#modalCancelarProyecto" data-toggle="modal"'+
+									'<a class="red tooltip-error" href="#modalCancelarProyecto" data-toggle="modal"'+
 									   'data-id="'+data[i].idProyecto+'" data-rel="tooltip" title="Cancelar">'+
 										'<i class="icon-remove-sign bigger-130"></i>'+
 									'</a>'+
@@ -91,7 +92,7 @@ $(function()
 	
 										'<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">'+
 											'<li>'+
-												'<a href="#modalCancelarProyecto" class="abrir-eliminarEproyecto tooltip-error" data-rel="tooltip"'+ 
+												'<a href="#modalCancelarProyecto" class="tooltip-error" data-rel="tooltip"'+ 
 													'title="Cancelar" data-toggle="modal" data-id="'+data[i].idProyecto+'">'+
 												   		'<span class="red"><i class="icon-remove-sign bigger-120"></i></span>'+
 												'</a>'+
@@ -106,6 +107,8 @@ $(function()
 			}
 		
 			$('[data-rel=tooltip]').tooltip();
+			
+			closeModalCargando();
 		});
 		
 		return false;		

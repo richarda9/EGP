@@ -225,6 +225,7 @@ $('#idformProveedor').validate({
 
 function mantenimientoAsignarRecurso(idform)
 {
+	loadModalCargando();
 	var form = $(idform);
 	var objeto = form.serializeObject();
 
@@ -232,6 +233,10 @@ function mantenimientoAsignarRecurso(idform)
 		function(data) {
 			if(data == 0){
 
+				listarAsignacionRecurso(idform);
+				
+				closeModalCargando();
+				
 				$.gritter.add({
 					title: 'Info!',
 					text: 'Se realizo la operaci&oacute;n con &eacute;xito.',
@@ -240,9 +245,8 @@ function mantenimientoAsignarRecurso(idform)
 					class_name: 'gritter-info gritter-light'
 				});
 
-				listarAsignacionRecurso(idform);
-
 			}else if(data == 1){
+				closeModalCargando();
 				$.gritter.add({
 					title: 'Advertencia!',
 					text: 'Supero el l&iacute;mite de recursos para este rol.',
@@ -251,6 +255,7 @@ function mantenimientoAsignarRecurso(idform)
 					class_name: 'gritter-warning gritter-light'
 				});
 			}else{
+				closeModalCargando();
 				$.gritter.add({
 					title: 'Error!',
 					text: 'Ocurrio un error al tratar de realizar la operaci&oacute;n solicitada',
@@ -262,6 +267,7 @@ function mantenimientoAsignarRecurso(idform)
 			$("#recdispproveedor").empty();
 		}
 	).fail(function() {
+		closeModalCargando();
 		$.gritter.add({
 			title: 'Error!',
 			text: 'Ocurrio un error al tratar de realizar la operaci&oacute;n solicitada',
@@ -275,6 +281,7 @@ function mantenimientoAsignarRecurso(idform)
 //Listar Asignacion Responsable 
 function listarAsignacionRecurso(idform) 
 {
+	loadModalCargando();
 	var form = $(idform);
 	var objeto = form.serializeObject();
 
@@ -314,6 +321,8 @@ function listarAsignacionRecurso(idform)
 
 				t.row.add([data[i].dsctiporol, data[i].nomcompletopersona, accion ]).draw();
 			}
+			
+			closeModalCargando();
 		});
 	}else{
 		var t = $("#tablaRecCliente").DataTable();
@@ -351,6 +360,8 @@ function listarAsignacionRecurso(idform)
 
 				t.row.add([data[i].dsctiporol, data[i].nomcompletopersona, accion ]).draw();
 			}
+			
+			closeModalCargando();
 		});
 	}
 };
@@ -363,10 +374,16 @@ function desasignarProveedor(id){
 $("#idformProveedorEditar").submit(
 		function() {
 	var objeto = $("#idformProveedorEditar").serializeObject();
+	
+	loadModalCargando();
 
 	$.postJSON('${pageContext.request.contextPath}/ejecucion/eliminar_AsignacionRecursos.htm',objeto,
 		function(data) {
 		if(data == 1){
+			$('#modal-proveedor').modal('hide');
+			listarAsignacionRecurso('#idformProveedor');
+			closeModalCargando();
+			
 			$.gritter.add({
 				title: 'Info!',
 				text: 'Se elimino el registro seleccionado con &eacute;xito.',
@@ -374,11 +391,9 @@ $("#idformProveedorEditar").submit(
 				time: '1200',
 				class_name: 'gritter-info gritter-light'
 			});
-
-			$('#modal-proveedor').modal('hide');
-			listarAsignacionRecurso('#idformProveedor');
 			
 		}else if(data == 0){
+			closeModalCargando();
 			$.gritter.add({
 				title: 'Error!',
 				text: 'Ocurrio un error al tratar de realizar la operaci&oacute;n solicitada',
@@ -388,6 +403,7 @@ $("#idformProveedorEditar").submit(
 			});
 		}
 	}).fail(function() {
+		closeModalCargando();
 		$.gritter.add({
 			title: 'Error!',
 			text: 'Ocurrio un error al tratar de realizar la operaci&oacute;n solicitada',
