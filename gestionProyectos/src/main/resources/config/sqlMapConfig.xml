@@ -39,6 +39,23 @@
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.DetalleEmpresaPersona" alias="detalleEmpresaPersona"/>
 		<typeAlias type="com.sigcomt.gestionProyectos.model.ejecucion.LstDetalleCronogramaModel" alias="lstDetalleCronogramaModel"/>
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleCronograma" alias="detalleCronograma"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.TipoRol" alias="tipoRol"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.model.administracion.ContactoEmpresaModel" alias="contactoEmpresaModel"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.EstadoEntregable" alias="estadoEntregable"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel" alias="tipoReqProyectoModel"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.TipoSupuesto" alias="tipoSupuesto"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel" alias="tipoSupProyectoModel"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.TipoDependencia" alias="tipoDependencia"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel" alias="tipoDepProyectoModel"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.CategoriaAdquisicion" alias="categoriaAdquisicion"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.TipoCostoOperativo" alias="tipoCostoOperativo"/>
+		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago" alias="tipoFormaPago"/>
+		
+		<typeAlias type="com.sigcomt.gestionProyectos.model.anteproyecto.InteresadoAnteproyectoModel" alias="InteresadoAnteproyectoModel"/>
+        <typeAlias type="com.sigcomt.gestionProyectos.model.anteproyecto.ObservacionesAnteproyectoModel" alias="ObservacionesAnteproyectoModel"/>
+        <typeAlias type="com.sigcomt.gestionProyectos.model.anteproyecto.AnexosAnteproyectoModel" alias="AnexosAnteproyectoModel"/>
+        <typeAlias type="com.sigcomt.gestionProyectos.model.anteproyecto.DetProyectoUserRolModel" alias="DetProyectoUserRolModel"/>
+ 
 	</typeAliases>
 	
     <mappers>

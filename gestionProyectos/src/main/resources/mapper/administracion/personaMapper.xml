@@ -5,7 +5,8 @@
 	<!-- INI - PERSONA -->
 	<select id="listarEjecutivoResponsableByEstadoByRol" parameterType= "map" resultType="map">
 		select secRolUser."id_detalle" as iddetalle, 
-				(per."NOMBRE_PERSONA"||' '||per."APELLIDO_PERSONA")as nombres 
+				(per."NOMBRE_PERSONA"||' '||per."APELLIDO_PERSONA")as nombres,
+				per."EMAIL" as correo
 		from "CREAR_PROYECTO"."PERSONA" per
 		inner join "seguridad"."security_user" secUser
 		on secUser."ID_PERSONA" = per."ID_PERSONA"
@@ -31,6 +32,30 @@
 		WHERE DETEMP."ESTADO" = #{estado}
 		AND EMP."ID_EMPRESA" = #{idEmpresa}		
 	</select>	
+	
+	<insert id="registrarPersona" parameterType="persona">
+	 <selectKey keyProperty="id" resultType="Long" order="BEFORE">
+         SELECT nextval('"CREAR_PROYECTO".sq_persona')
+     </selectKey>
+	  INSERT INTO "CREAR_PROYECTO"."PERSONA"("ID_PERSONA", "NOMBRE_PERSONA", "APELLIDO_PERSONA", "TIPO_DOCUMENTO", "NUMERO_DCOUMENTO", 
+				       "ESTADO", "TELEFONO", "ANEXO", "EMAIL", "ID_TIPO_ROL")
+      VALUES (#{id}, #{nombres}, #{apellidos}, #{tipdocumento}, #{nrodocumento}, 
+	    	  #{estado}, #{telefono}, #{anexo}, #{correo}, #{idTipoRol});
+	</insert>
+	
+	<update id="editarPersona" parameterType="persona">
+		UPDATE "CREAR_PROYECTO"."PERSONA"
+		   SET "NOMBRE_PERSONA" = COALESCE(#{nombres}, "NOMBRE_PERSONA"),  
+		       "APELLIDO_PERSONA" = COALESCE(#{apellidos}, "APELLIDO_PERSONA"), 
+		       "TIPO_DOCUMENTO" = COALESCE(#{tipdocumento}, "TIPO_DOCUMENTO"), 
+		       "NUMERO_DCOUMENTO" = COALESCE(#{nrodocumento}, "NUMERO_DCOUMENTO"),
+		       "ESTADO" = COALESCE(#{estado}, "ESTADO"), 
+		       "TELEFONO" = COALESCE(#{telefono}, "TELEFONO"),
+		       "ANEXO" = COALESCE(#{anexo}, "ANEXO"),
+		       "EMAIL" = COALESCE(#{correo}, "EMAIL"),
+		       "ID_TIPO_ROL" = COALESCE(#{idTipoRol}, "ID_TIPO_ROL")
+		WHERE  "ID_PERSONA"= #{id}; 
+	</update>
 	<!-- FIN - PERSONA -->
 	
 </mapper>
