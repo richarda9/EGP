@@ -2,15 +2,24 @@
 <div>
 	<div class="row-fluid">
 		<div class="span12">
-			<div class="span5"></div>
+			<div class="span5">
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="span12 " style="float: left;">
+							<b><h4 id="idHeaderCodigoPy" class="smaller lighter blue">${model.datosPy.codigoPy} - ${model.datosPy.tituloProyecto}</h4></b>
+						</div>
+					</div>
+				</div>
+			
+			</div>
 			<div class="span7">
 				<div class="row-fluid">
 					<div class="span12">
 						<div class="span3" style="float: left;">
-							<button class="btn btn-small btn-info span12">
-								<i class="icon-share-alt"></i>
+							<a class="btn btn-small btn-info span12" onclick = "planificarAnteproyecto()">
+								<i class="icon-save"></i>
 								Planificar
-							</button>
+							</a>
 						</div>
 						<div class="span3" style="float: left;">
 							<button class="btn btn-small btn-info span12">
@@ -72,8 +81,8 @@
 						</a>
 					</li>
 				</ul>
-				<form name="formAgregarAnteproyecto" id="formAgregarAnteproyecto">
-				<input id="idCodigoPy" type="hidden" name="codigoPy"></input>
+				<form name="formAgregarAnteproyecto" id="formAgregarAnteproyecto" enctype="multipart/form-data">
+				<input id="idCodigoPy" type="hidden" name="codigoPy" value = "${model.datosPy.codigoPy}"></input>
 				<div class="tab-content no-border padding-24">
 					<!-- [INI] GENERALIDADES -->
 					<div id="generalEmpresa" class="tab-pane in active">
@@ -85,10 +94,10 @@
 										<div class="control-group">
 											<label class="control-label" for="dscAsocProyecto">Asociado a Proyecto</label>
 											<div class="controls">
-												<select id="idAsociadoProyecto" name="idAsociadoProyecto" >
+												<select id="idAsociadoProyecto" name="idAsociadoProyecto">
 													<option value="">Seleccionar</option>
 													<c:forEach var="asociadoProyecto" items="${model.listaAsociadoProyecto}" varStatus="contador">
-													   <option value="${asociadoProyecto.idProyecto}">${asociadoProyecto.nombreProyecto}</option>
+													   <option value="${asociadoProyecto.idProyecto}" ${(model.modoEdicion) and (model.datosPy.idAsociadoProyecto eq asociadoProyecto.idProyecto)?'selected':''}>${asociadoProyecto.nombreProyecto}</option>
 													</c:forEach>
 												</select>
 											</div>
@@ -99,7 +108,7 @@
 											<label class="control-label" for="fechaContacto">Fecha de Contacto</label>
 											<div class="controls">
 												<div class="row-fluid input-append">
-												<input id="fechaContacto" name="fechaContacto" type="text" data-date-format="dd-mm-yyyy" />
+												<input id="fechaContacto" name="fechaContacto" type="text" value = "${model.datosPy.fechaContacto}"/>
 												<span class="add-on">
 													<i class="icon-calendar"></i>
 												</span>
@@ -115,10 +124,10 @@
 											<div class="control-group">
 												<label class="control-label" for="idTipoProyecto">Tipo de Proyecto</label>
 												<div class="controls">
-													<select id="idTipoProyecto" name="idTipoProyecto" >
+													<select id="idTipoProyecto" name="idTipoProyecto">
 														<option value="">Seleccionar</option>
-														<c:forEach var="tipoProyecto" items="${model.listaTipoProyecto}" varStatus="contador">
-														   <option value="${tipoProyecto.id}">${tipoProyecto.descripcion}</option>
+														<c:forEach var="tipoProyecto" items="${model.listaTipoProyecto}" varStatus="contador" >
+														   <option value="${tipoProyecto.id}" ${model.modoEdicion and (model.datosPy.idTipoProyecto eq tipoProyecto.id)?'selected':''}>${tipoProyecto.descripcion}</option>
 														</c:forEach>
 													</select>	
 												</div>
@@ -131,7 +140,7 @@
 													<select id="idEjecutivoCuenta" name="idEjecutivoCuenta">
 														<option value="">Seleccionar</option>
 														<c:forEach var="ejecutivoCuenta" items="${model.listaEjecutivoCuenta}" varStatus="contador">
-														   <option value="${ejecutivoCuenta.iddetalle}">${ejecutivoCuenta.nombres}</option>
+														   <option value="${ejecutivoCuenta.iddetalle}" ${model.modoEdicion and (model.datosPy.idEjecutivoCuenta eq ejecutivoCuenta.iddetalle)?'selected':''}>${ejecutivoCuenta.nombres}</option>
 														</c:forEach>
 													</select>
 												</div>
@@ -144,7 +153,7 @@
 													<select id="idResponsableProyecto" name="idResponsable">
 														<option value="">Seleccionar</option>
 														<c:forEach var="responsableProyecto" items="${model.listaResponsableProyecto}" varStatus="contador">
-														   <option value="${responsableProyecto.iddetalle}">${responsableProyecto.nombres}</option>
+														   <option value="${responsableProyecto.iddetalle}" ${model.modoEdicion and (model.datosPy.idResponsable eq responsableProyecto.iddetalle)?'selected':''} data-correo = "${responsableProyecto.correo}" data-nombre ="${responsableProyecto.nombres}">${responsableProyecto.nombres}</option>
 														</c:forEach>
 													</select>
 												</div>
@@ -157,7 +166,7 @@
 										<div class="control-group">
 											<label class="control-label" for="dscEjecutivoCuenta">Titulo o nombre del Proyecto</label>
 											<div class="controls">
-												<textarea id="tituloProyecto" name="tituloProyecto" rows="5" class="span10"></textarea>
+												<textarea id="tituloProyecto" name="tituloProyecto" rows="5" class="span10">${model.datosPy.tituloProyecto}</textarea>
 											</div>
 										</div>
 									</div>	
@@ -167,7 +176,7 @@
 										<div class="control-group">
 											<label class="control-label" for="dscAlcanceInicial">Alcance Inicial</label>
 											<div class="controls">
-												<textarea id="alcanceInicialProyecto" name="alcanceInicialProyecto" rows="5" class="span10"></textarea>
+												<textarea id="alcanceInicialProyecto" name="alcanceInicialProyecto" rows="5" class="span10">${model.datosPy.alcanceInicialProyecto}</textarea>
 											</div>
 										</div>
 									</div>
@@ -177,7 +186,7 @@
 										<div class="control-group">
 											<label class="control-label" for="dscObjetivo">Objetivo</label>
 											<div class="controls">
-												<textarea id="objetivo" name="objetivo" rows="5" class="span10"></textarea>
+												<textarea id="objetivo" name="objetivo" rows="5" class="span10">${model.datosPy.objetivo}</textarea>
 											</div>
 										</div>
 									</div>
@@ -784,3 +793,11 @@
 	<!-- FIN - MODAL ELIMINAR ANEXO TABLA-->
 
 </div>
+
+<script type="text/javascript">
+	var datosGrillas={};
+	datosGrillas = {"modoEdicion":"${model.modoEdicion}",
+			"listaInteresado":'${model.listaInteresado}',
+			"listaObservaciones":'${model.listaObservaciones}',
+			"listaAnexo":'${model.listaAnexo}'};
+</script>

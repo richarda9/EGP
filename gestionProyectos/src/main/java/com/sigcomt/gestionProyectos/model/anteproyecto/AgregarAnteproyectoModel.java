@@ -15,6 +15,8 @@ public class AgregarAnteproyectoModel implements Serializable{
 	private Long idTipoProyecto;
 	private Long idEjecutivoCuenta;
 	private Long idResponsable;
+	private String correoResponsable;
+	private String nombreResponsable;
 	private String tituloProyecto;
 	private String alcanceInicialProyecto;
 	private String objetivo;
@@ -125,5 +127,17 @@ public class AgregarAnteproyectoModel implements Serializable{
 	}
 	public void setTipoArchivo(Long tipoArchivo) {
 		this.tipoArchivo = tipoArchivo;
-	}		
+	}
+	public String getCorreoResponsable() {
+		return correoResponsable;
+	}
+	public void setCorreoResponsable(String correoResponsable) {
+		this.correoResponsable = correoResponsable;
+	}
+	public String getNombreResponsable() {
+		return nombreResponsable;
+	}
+	public void setNombreResponsable(String nombreResponsable) {
+		this.nombreResponsable = nombreResponsable;
+	}				
 }

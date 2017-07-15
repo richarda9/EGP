@@ -2,7 +2,7 @@
 <div>
 	<div class="row-fluid">
 		<div class="span12">
-			<form class="">
+			<form  name="formBuscarPlanificacion" id="formBuscarPlanificacion" method="post">
 				<div class="row-fluid">
 					<div class="span3">
 						<div class="control-group">
@@ -10,16 +10,22 @@
 							<div class="controls">
 								<select id="proyecto" name="proyecto" title="proyecto">
 									<option value="">Seleccionar</option>
+									<c:forEach var="proyecto" items="${model.listaProyecto}" varStatus="contador">
+									   <option value="${proyecto.idProyecto}">${proyecto.nombreProyecto}</option>
+									</c:forEach>
 								</select>	
 							</div>
 						</div>
 					</div>
 					<div class="span3">
 						<div class="control-group">
-							<label class="control-label" for="idcliente">Cliente</label>	
+							<label class="control-label" for="idcliente">Empresa</label>	
 							<div class="controls">
-								<select id="idcliente" name="idcliente" title="cliente">
+								<select id="idEmpresa" name="idcliente" title="cliente">
 									<option value="">Seleccionar</option>
+									<c:forEach var="empresa" items="${model.listaEmpresa}" varStatus="contador">
+								   		<option value="${empresa.idEmpresa}">${empresa.razonSocial}</option>
+									</c:forEach>
 								</select>	
 							</div>
 						</div>
@@ -30,6 +36,9 @@
 							<div class="controls">
 								<select id="idTipoProyecto" name="idTipoProyecto" title="idTipoProyecto">
 									<option value="">Seleccionar</option>
+									<c:forEach var="tipoProyecto" items="${model.listaTipoProyecto}" varStatus="contador">
+									   <option value="${tipoProyecto.id}">${tipoProyecto.descripcion}</option>
+									</c:forEach>
 								</select>	
 							</div>
 						</div>
@@ -38,11 +47,14 @@
 				<div class="row-fluid">
 				<div class="span3">
 					<div class="control-group">
-						<label class="control-label" for="dscResponsable">Responsable</label>
-	
+						<label class="control-label" for="dscResponsable">Responsable</label>	
 						<div class="controls">
-							<input type="text" id="dscResponsable" 
-								name="dscResponsable" placeholder="Responsable" />
+							<select id="idResponsableProyecto" name="idResponsableProyecto">
+								<option value="">Seleccionar</option>
+								<c:forEach var="responsableProyecto" items="${model.listaResponsableProyecto}" varStatus="contador">
+								   <option value="${responsableProyecto.iddetalle}">${responsableProyecto.nombres}</option>
+								</c:forEach>
+							</select>
 						</div>
 					</div>
 				</div>
@@ -77,11 +89,12 @@
 					</div>
 				</div>
 				</div>
+				</form>
 				<div class="row-fluid">
 					<div class="span12">
 						<div class="span6"></div>
 						<div class="span2" style="float: left;">
-							<button class="btn btn-info span12">
+							<button class="btn btn-info span12" onclick="buscarAnteproyecto()">
 								<i class="icon-search bigger-125"></i>
 								Buscar
 							</button>
@@ -93,19 +106,19 @@
 							</button>
 						</div>
 					</div>							
-				</div>
-			</form>
+				</div>	
+				</br>		
 		</div>
 	</div>
 <!-- 	<div class="space-20"></div> -->
 	<div class="row-fluid">
 		<div class="table-header">&nbsp;</div>
-		<table id="tablaEstadoProyecto"
+		<table id="tablaBuscarPlanificacion"
 			class="table table-striped table-bordered table-hover">
 			<thead>
 				<tr>
 					<th>Proyecto</th>
-					<th>Cliente</th>
+					<th>Empresa</th>
 					<th>Tipo de Proyecto</th>
 					<th>Fecha de Inicio</th>
 					<th>Responsable</th>
@@ -113,7 +126,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
+				<%-- <tr>
 					<td></td>
 					<td></td>
 					<td></td>
@@ -149,8 +162,8 @@
 							</div>
 						</div>
 					</td>
-				</tr>
-				<c:forEach var="estadoProyecto" items="${model.listaEstadoProyecto}" varStatus="contador">
+				</tr> --%>
+				<%-- <c:forEach var="estadoProyecto" items="${model.listaEstadoProyecto}" varStatus="contador">
 					<tr>
 						<td class="center">												
 							<c:out value="${contador.count}"/>
@@ -200,7 +213,7 @@
 							</div>
 						</td>
 					</tr>
-				</c:forEach>
+				</c:forEach> --%>
 			</tbody>
 		</table>
 	</div>

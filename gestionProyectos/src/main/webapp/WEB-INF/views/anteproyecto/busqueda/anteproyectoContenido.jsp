@@ -94,19 +94,19 @@
 					<div class="span12">
 						<div class="span6"></div>
 						<div class="span2" style="float: left;">
-							<button class="btn btn-info" onclick="buscarAnteproyecto()">
+							<button class="btn btn-info span12" onclick="buscarAnteproyecto()">
 								<i class="icon-search bigger-125"></i>
 								Buscar
 							</button>
 						</div>
 						<div class="span2" style="float: left;">
-							<button class="btn btn-info">
+							<button class="btn btn-info span12">
 								<i class=" icon-download-alt bigger-125"></i>
 								Exportar
 							</button>
 						</div>
 						<div class="span2" style="float: left;">
-							<a class="btn btn-info" href="../anteproyecto/mntAnteproyectoAgregar.htm" data-toggle="modal" title="Editar">
+							<a class="btn btn-info span12" href="../anteproyecto/mntAnteproyectoAgregar.htm" data-toggle="modal" title="Editar">
 								<i class="icon-file bigger-125"></i>
 								Agregar
 							</a>

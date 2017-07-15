@@ -5,7 +5,45 @@ var dataSetInteresados = [];
 var dataSetObservacion = [];
 var dataSetAnexos = [];
 
+var tablaInteresado;
+
 $(document).ready(function() {/* INI - READY */
+		
+	$('#formAgregarAnteproyecto').validate({
+		errorClass: 'help-block',
+		rules: {
+			fechaContacto: {
+				required: true
+			},
+			idTipoProyecto: {
+				required: true
+			},
+			idEjecutivoCuenta: {
+				required: true
+			},
+			idResponsable: {
+				required: true
+			},
+			tituloProyecto: {
+				required: true
+			},
+			alcanceInicialProyecto: {
+				required: true
+			},
+			objetivo: {
+				required: true
+			}
+		},
+		
+		highlight: function (e) {
+			$(e).closest('.control-group').removeClass('info').addClass('error');
+		},
+
+		success: function (e) {
+			$(e).closest('.control-group').removeClass('error');
+			$(e).remove();
+		}
+	});
 		
 	$('#fechaContacto').datepicker({
 		language: 'es',
@@ -31,7 +69,7 @@ $(document).ready(function() {/* INI - READY */
 	
 	/* INI - TAB EMPRESA  */
 	var opcionesInteresado = '<a id="deleteInteresado" class="red tooltip-error" data-rel="tooltip" title="Eliminar"><i class="icon-trash bigger-130"> </i></a>';	
-	$('#tablaInteresadoEmpresa').dataTable({
+	tablaInteresado = $('#tablaInteresadoEmpresa').DataTable({
 		"ajax"		 : function (data, callback, settings) {
 			callback ( { data: dataSetInteresados } );
 		   },
@@ -72,7 +110,7 @@ $(document).ready(function() {/* INI - READY */
 	
 	/* INI - TAB OBSERVACION */
 	var opcionesObservacion = '<a id="deleteObservacion" class="red tooltip-error" data-rel="tooltip" title="Eliminar"><i class="icon-trash bigger-130"> </i></a>';
-	$('#tablaObservacion').dataTable({
+	$('#tablaObservacion').DataTable({
 		"ajax"		 : function (data, callback, settings) {
 			callback ( { data: dataSetObservacion } );
 		   },
@@ -112,7 +150,7 @@ $(document).ready(function() {/* INI - READY */
 	
 	/* INI - TAB ANEXO */
 	var opcionesAnexo = '<a id="deleteAnexo" class="red tooltip-error" data-rel="tooltip" title="Eliminar"><i class="icon-trash bigger-130"> </i></a>';	
-	$('#tablaAnexo').dataTable({
+	$('#tablaAnexo').DataTable({
 		"ajax"		 : function (data, callback, settings) {
 			callback ( { data: dataSetAnexos } );
 		   },
@@ -150,6 +188,7 @@ $(document).ready(function() {/* INI - READY */
 	});	
 	/* FIN - TAB ANEXO */
 		
+	mostrarGrillas(datosGrillas.modoEdicion);
 });/* FIN - READY */
 
 
@@ -214,8 +253,24 @@ function agregarObservacion(){
 		var observaciones = {};
 		observaciones.observacion = $('#dscObservacion').val();
 		observaciones.archivo = document.getElementById('archObservacion').files[0].name;
+		var archivos = $('#archObservacion').data('ace_input_files'); //document.getElementById('archObservacion').files[0];
+		var oMyForm = new FormData();
+		oMyForm.append("file", archivos[0]);
+		observaciones.archivosContenido =  oMyForm;
 		observaciones.rutaArchivo = document.getElementById('archObservacion').value;
 		dataSetObservacion.push(observaciones);	
+		/* var reader = new FileReader();
+		
+		reader.onload = function(e) { 
+		      var contents = e.target.result;
+	        alert( "Got the file.n" 
+	              +"name: " + document.getElementById('archObservacion').files[0].name + "n"
+	              +"type: " + document.getElementById('archObservacion').files[0].type + "n"
+	              +"size: " + document.getElementById('archObservacion').files[0].size + " bytesn"
+	        );  
+	      };
+		
+		reader.readAsText(document.getElementById('archObservacion').files[0]); */
 		t.ajax.reload();
 	}else{
 		if($('#dscObservacion').val()== null || $('#dscObservacion').val()== ""){
@@ -287,39 +342,116 @@ function deleteAnexo(){
 
 function guardarAnteproyecto(){
 	
-	var form=$('#formAgregarAnteproyecto').serializeObject();
-	form.listaInteresados = dataSetInteresados;
-	form.listaObservaciones = dataSetObservacion;
-	form.listaAnexos = dataSetAnexos;
+	var form = $( "#formAgregarAnteproyecto" );
+/* 	form.validate(); */
 	
-	$.postJSON('${pageContext.request.contextPath}/anteproyecto/agregarAnteproyecto.htm',form, function(data) {
-		/* console.log("qwqw");
-		alert(data); */
-		if(data.codigoPy == 'ERROR'){
+	if(form.valid()){
+		var form=$('#formAgregarAnteproyecto').serializeObject();		
+		form.listaInteresados = dataSetInteresados;
+		form.listaObservaciones = dataSetObservacion;
+		form.listaAnexos = dataSetAnexos;
+		
+		$.postJSON('${pageContext.request.contextPath}/anteproyecto/agregarAnteproyecto.htm',form, function(data) {
+			/* console.log("qwqw");
+			alert(data); */
+			if(data.codigoPy == 'ERROR'){
+				$.gritter.add({
+					title: 'Error!',
+					text: 'Ocurrio un error al guardar el proyecto',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-error'
+				});
+			}else{
+				$("#idHeaderCodigoPy").html(data.codigoPy+' - '+data.tituloProyecto);
+				$("#idCodigoPy").val(data.codigoPy);
+				$.gritter.add({
+					title: 'Info!',
+					text: 'Se guardó correctamente el proyecto.',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-info gritter-light'
+				});
+			}
+			
+		});
+	}
+}
+
+function planificarAnteproyecto(){
+	$("body").fadeIn();
+	var form = $( "#formAgregarAnteproyecto" );
+/* 	form.validate(); */
+	
+	if(form.valid() && dataSetInteresados!= null && dataSetInteresados.length >0){
+		var form=$('#formAgregarAnteproyecto').serializeObject();
+		form.correoResponsable = $("#idResponsableProyecto option:selected").attr("data-correo");
+		form.nombreResponsable = $("#idResponsableProyecto option:selected").attr("data-nombre");
+		form.listaInteresados = dataSetInteresados;
+		form.listaObservaciones = dataSetObservacion;
+		form.listaAnexos = dataSetAnexos;		
+		$.postJSON('${pageContext.request.contextPath}/anteproyecto/planificarAnteproyecto.htm',form, function(data) {
+			/* console.log("qwqw");
+			alert(data); */
+			if(data.codigoPy == 'ERROR'){
+				$("body").fadeOut();
+				$.gritter.add({
+					title: 'Error!',
+					text: 'Ocurrio un error al planificar el proyecto',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-error'
+				});
+			}else{
+				$("body").fadeOut();
+				$("#idCodigoPy").val(data.codigoPy);
+				/* AL SER CORRECTO DEBE REDIRECCIONAR A LA PANTALLA DE BUSQUEDA DE ANTEPROYECTO */
+				$.gritter.add({
+					title: 'Info!',
+					text: 'Se guardó correctamente el proyecto.',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-info gritter-light'
+				});
+				
+				window.location = '${pageContext.request.contextPath}/anteproyecto/anteproyecto.htm';
+			}
+			
+		});
+	}else{
+		$("body").fadeOut();
+		if(dataSetInteresados == null || dataSetInteresados.length == 0){
 			$.gritter.add({
 				title: 'Error!',
-				text: 'Ocurrio un error al guardar el proyecto',
+				text: 'Ingrese al menos un interesado',
 				sticky: false,
 				time: '1200',
 				class_name: 'gritter-error'
 			});
-		}else{
-			$("#idCodigoPy").val(data.codigoPy);
-			$.gritter.add({
-				title: 'Info!',
-				text: 'Se guardó correctamente el proyecto.',
-				sticky: false,
-				time: '1200',
-				class_name: 'gritter-info gritter-light'
-			});
-		}
-		
-	});
+		}		
+	}
 }
 
 function cleanCbm(idCombo){
 	$(idCombo+" option").remove();
 	var selectOption = '<option value="">Seleccionar</option>';
 	$(idCombo).append(selectOption);
+}
+
+function mostrarGrillas(modoEdicion){
+	
+	if(modoEdicion){
+		/* var t = $('#tablaInteresadoEmpresa').DataTable(); */
+		if(datosGrillas.listaInteresado){
+			dataSetInteresados=JSON.parse(datosGrillas.listaInteresado);
+		}	
+		if(datosGrillas.listaObservaciones){
+			dataSetObservacion=JSON.parse(datosGrillas.listaObservaciones);
+		}
+		if(datosGrillas.listaAnexo){
+			dataSetAnexos=JSON.parse(datosGrillas.listaAnexo);
+		}
+		/* tablaInteresado.ajax.reload(); */		
+	}	
 }
 </script>

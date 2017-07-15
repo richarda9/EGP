@@ -11,6 +11,7 @@ import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
 import com.sigcomt.gestionProyectos.model.anteproyecto.AgregarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.AnexosAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.BuscarAnteproyectoModel;
+import com.sigcomt.gestionProyectos.model.anteproyecto.DetProyectoUserRolModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.InteresadoAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.ObservacionesAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.cierre.BuscarCierreModel;
@@ -42,4 +43,14 @@ public interface ProyectoDao {
     public void eliminarDetalleArchivoByTipoArchivoByIdPy(AgregarAnteproyectoModel agregarAnteproyectoModel);
     public void insertarListaDetalleObservaciones(@Param("observaciones") List<ObservacionesAnteproyectoModel> observacionesAnteproyectoModel);
     public void insertarListaDetalleAnexo(@Param("anexos") List<AnexosAnteproyectoModel> anexosAnteproyectoModel);
+    public AgregarAnteproyectoModel buscarProyectoById(Long idPy);
+    
+    public List<InteresadoAnteproyectoModel> listarInteresadosByIdProyecto(Long idPy);
+    public List<ObservacionesAnteproyectoModel> listarObservacionesByIdProyecto(Map<String, Object> params);
+    public List<AnexosAnteproyectoModel> listarAnexosByIdProyecto(Map<String, Object> params);
+    
+    public DetProyectoUserRolModel listarDetPyUserRolByPyByUserRol(DetProyectoUserRolModel detProyectoUserRolModel);
+    public void grabarDetPyUserRol(DetProyectoUserRolModel detProyectoUserRolModel);
+    
+    
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.jfree.data.DomainOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,11 +38,11 @@ public class CustomUserDetailsServiceImp  implements UserDetailsService{
 		List<SecurityUser> domainUser = (List<SecurityUser>) userDAO.getUser(username);
 		
 		Collection<GrantedAuthority> listaPrueba = new ArrayList<GrantedAuthority>();
-		listaPrueba.add(new SimpleGrantedAuthority("ROL_ADMIN"));
+		listaPrueba.add(new SimpleGrantedAuthority(domainUser.get(0).getRol()));
 		if(listaPrueba.size() > 0) System.out.println("entro: " + listaPrueba.toString());
 		else System.out.println("NO ENTROOOOOOOOOOOOOOOOO");
 			
-		return new CustomerUser(domainUser.get(0).getUsername(), domainUser.get(0).getPassword(), true, true, true, true, listaPrueba);
+		return new CustomerUser(domainUser.get(0).getUsername(), domainUser.get(0).getPassword(), true, true, true, true, listaPrueba, domainUser.get(0).getIdRolUser(), domainUser.get(0).getNombres());
 	}
 
 }

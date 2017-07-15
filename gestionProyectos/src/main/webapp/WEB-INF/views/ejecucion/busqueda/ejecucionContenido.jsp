@@ -15,7 +15,7 @@
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="idcliente">Cliente</label>	
+					<label class="control-label" for="idcliente">Empresa</label>	
 					<div class="controls">
 						<select id="idcliente" name="idCliente" title="cliente">
 							<option value="">Seleccionar</option>
@@ -101,7 +101,7 @@
 <!-- 					<th>Id Proyecto</th> -->
 					<th>Proyecto</th>
 <!-- 					<th>Id Cliente</th> -->
-					<th>Cliente</th>
+					<th>Empresa</th>
 <!-- 					<th>Id Tipo de Proyecto</th> -->
 					<th>Tipo de Proyecto</th>
 					<th>Fecha de Inicio</th>

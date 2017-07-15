@@ -112,12 +112,14 @@
     
     <insert id="actualizarDetalleEstadoProyecto" parameterType="DetalleEstadoProyecto">
         update "CREAR_PROYECTO"."DETALLE_ESTADO_PROYECTO" 
-        set "FECHA_CREACION" = #{fechaCreacion}
+        set "FECHA_CREACION" = #{fechaCreacion},
+        	"ESTADO" = #{estado}
         where "ID_DETALLE_ESTADO_PROYECTO" = #{idDetalleEstadoProyecto};
     </insert>
     
     <select id="buscarByIdPyByEstPyByEst" parameterType = "AgregarAnteproyectoModel" resultType="DetalleEstadoProyecto">
-       select detEstPy."ID_DETALLE_ESTADO_PROYECTO" as idDetalleEstadoProyecto
+       select detEstPy."ID_DETALLE_ESTADO_PROYECTO" as idDetalleEstadoProyecto,
+       		  detEstPy."ESTADO" as estado
        from "CREAR_PROYECTO"."DETALLE_ESTADO_PROYECTO" detEstPy
        where detEstPy."ESTADO" = #{estado}
             and detEstPy."ID_ESTADO_PROYECTO" = #{idEstadoProyecto}
@@ -217,6 +219,81 @@
        </foreach>
     </insert>
 	
+	<!-- DATOS DEL PROYECTO PARA EDITAR -->
+	<select id="buscarProyectoById"  parameterType="java.lang.Long" resultType="AgregarAnteproyectoModel">
+		select py."ID_PROYECTO" as idProyecto,
+			py."CODIGO_PROYECTO" as codigoPy,
+			py."ID_PROYECTO_ASOCIADO" as idProyectoAsociado,
+			TO_CHAR(py."FECHA_CONTACTO", 'dd/MM/yyyy') as fechaContacto,
+			py."ID_TIPO_PROYECTO" as idTipoProyecto,
+			py."ID_EJECUTIVO_CUENTA" as idEjecutivoCuenta,
+			py."ID_RESPONSABLE_PROYECTO" as idResponsable,
+			py."NOMBRE_PROYECTO" as tituloProyecto,
+			py."ALCANCE_INICIAL" as alcanceInicialProyecto,
+			py."OBJETIVO_INICIAL" as objetivo
+		from "CREAR_PROYECTO"."PROYECTO" py	
+		where py."ID_PROYECTO" = #{idPy}		
+	</select>
+	
+	<!-- LISTAR INTERESADO PARA EDITAR -->
+	<select id="listarInteresadosByIdProyecto"  parameterType="java.lang.Long" resultType="InteresadoAnteproyectoModel">
+		SELECT DETEMPPER."ID_DETALLE_EMPRESA_PERSONA" idInteresado,
+			DETINT."INTERES_CONTACTO" interes,
+			PER."NOMBRE_PERSONA"||' '||PER."APELLIDO_PERSONA" nombreInteresado,
+			ROL."NOMBRE_TIPO_ROL" cargo
+		FROM "CREAR_PROYECTO"."DETALLE_INTERESADO" DETINT 
+		INNER JOIN "CREAR_PROYECTO"."DETALLE_EMPRESA_PERSONA" DETEMPPER
+		ON DETEMPPER."ID_DETALLE_EMPRESA_PERSONA" = DETINT."ID_DETALLE_EMPRESA_PERSONA"
+		INNER JOIN "CREAR_PROYECTO"."PERSONA" PER
+		ON PER."ID_PERSONA" = DETEMPPER."ID_PERSONA"
+		INNER JOIN "PLANIFICAR_PROYECTO"."TIPO_ROL" ROL
+		ON ROL."ID_TIPO_ROL" = PER."ID_TIPO_ROL"
+		WHERE DETINT."ID_PROYECTO" = #{idPy}	
+	</select>
+	
+	<!-- LISTAR ARCHIVOS OBSERVACIONES PARA EDITAR -->
+	<select id="listarObservacionesByIdProyecto"  parameterType="map" resultType="ObservacionesAnteproyectoModel">
+		SELECT DETARC."OBSERVACION" observacion, 
+			DETARC."NOMBRE_ARCHIVO" archivo
+		FROM "CREAR_PROYECTO"."DETALLE_ARCHIVO" DETARC
+		WHERE DETARC."ID_PROYECTO" = #{idPy}
+		AND DETARC."ID_TIPO_ARCHIVO" = #{idTipoArch}	
+	</select>
+	
+	<!-- LISTAR ARCHIVOS ANEXOS PARA EDITAR -->
+	<select id="listarAnexosByIdProyecto"  parameterType="map" resultType="AnexosAnteproyectoModel">
+		SELECT DETARC."OBSERVACION" anexo, 
+			DETARC."NOMBRE_ARCHIVO" archivo
+		FROM "CREAR_PROYECTO"."DETALLE_ARCHIVO" DETARC
+		WHERE DETARC."ID_PROYECTO" = #{idPy}
+		AND DETARC."ID_TIPO_ARCHIVO" = #{idTipoArch}	
+	</select>		
+	
+	<!-- BUSCAR DETALLE PROYECTO USER ROL -->
+	<select id="listarDetPyUserRolByPyByUserRol"  parameterType="DetProyectoUserRolModel" resultType="DetProyectoUserRolModel">
+		SELECT DETPYUSER."id_detalle_proyecto_user" idDetProyectoUser
+		FROM "CREAR_PROYECTO"."DETALLE_PROYECTO_USER_ROL" DETPYUSER
+		WHERE DETPYUSER."ID_PROYECTO" = #{idProyecto}
+		AND DETPYUSER."ID_USER_ROL" = #{idUserRol}	
+	</select>	
+	
+	<!-- INSERTAR TABLA DETALLE PROYECTO USER ROL -->
+	<insert id="grabarDetPyUserRol" parameterType="DetProyectoUserRolModel">
+        <selectKey keyProperty="idDetProyectoUser" resultType="Long" order="BEFORE">
+            select NEXTVAL('"CREAR_PROYECTO"."SQ_DETALLE_PROYECTO_USER_ROL"')
+        </selectKey>
+        insert into "CREAR_PROYECTO"."DETALLE_PROYECTO_USER_ROL" 
+        ("id_detalle_proyecto_user",
+        "ID_PROYECTO",
+        "ID_USER_ROL",        
+        "ESTADO")
+        values
+        (#{idDetProyectoUser},
+        #{idProyecto}, 
+        #{idUserRol},        
+        #{estado})  
+    </insert>
+    				
 	<!-- FIN - PROYECTO -->
 	
 	<!-- [INI] EJECUCION -->
@@ -343,7 +420,6 @@
 		       "JUSTIFICACION_CANCELACION" = COALESCE(#{justificacionCancelacion}, "JUSTIFICACION_CANCELACION")
 		 WHERE "ID_PROYECTO" = #{idProyecto};
 	</update>
-	
 	<insert id="registrarDetallleProyecto" parameterType="DetalleProyecto">
 	   INSERT INTO "CREAR_PROYECTO"."DETALLE_ESTADO_PROYECTO"(
             "ID_DETALLE_ESTADO_PROYECTO", "ID_ESTADO_PROYECTO", "ID_PROYECTO", 
