@@ -1,7 +1,9 @@
 package com.sigcomt.gestionProyectos.controlador.planificacion;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,11 +13,17 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sigcomt.gestionProyectos.common.Constantes;
+import com.sigcomt.gestionProyectos.common.enumerations.EstadoProyectoEnum;
 import com.sigcomt.gestionProyectos.common.enumerations.RolEnum;
+import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
+import com.sigcomt.gestionProyectos.model.anteproyecto.BuscarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.servicio.administracion.AdministracionService;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.PersonaService;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.ProyectoService;
@@ -66,6 +74,22 @@ public class PlanificacionController
 //		myModel.put("listaTipoRequisito", this.administracionService.listarTipoRequisitoProyecto());
 		
 		return new ModelAndView("mntPlanificacion", "model", myModel);
+	}
+	
+	@RequestMapping(value = "/buscarPlanificacion.htm", method = RequestMethod.POST)
+	public @ResponseBody List<Proyecto> buscarAnteproyecto(@RequestBody BuscarAnteproyectoModel buscarAnteproyectoModel) {
+		
+		List<Proyecto> listaProyecto = new ArrayList<Proyecto>();
+		
+		try {
+			buscarAnteproyectoModel.setEstado(ESTADO_ACTIVO);
+			buscarAnteproyectoModel.setIdEstadoProyecto(Long.parseLong(EstadoProyectoEnum.EN_PLANIFICACION.getCodigo()));
+			listaProyecto = proyectoService.buscarProyectoByDetalleEstadoProyectoByEstado(buscarAnteproyectoModel);
+		} catch (Exception e) {
+			
+		}
+		
+		return listaProyecto;
 	}
 
 }

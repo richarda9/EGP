@@ -18,6 +18,9 @@ public class BuscarAnteproyectoModel implements Serializable {
 	private Long idTipoProyecto;
 	private Long idResponsableProyecto;
 	private Long idEjecutivoCuenta;
+	
+	private Long idProyecto;
+	
 	public int getEstado() {
 		return estado;
 	}
@@ -65,5 +68,11 @@ public class BuscarAnteproyectoModel implements Serializable {
 	}
 	public void setIdEjecutivoCuenta(Long idEjecutivoCuenta) {
 		this.idEjecutivoCuenta = idEjecutivoCuenta;
+	}
+	public Long getIdProyecto() {
+		return idProyecto;
+	}
+	public void setIdProyecto(Long idProyecto) {
+		this.idProyecto = idProyecto;
 	}
 }

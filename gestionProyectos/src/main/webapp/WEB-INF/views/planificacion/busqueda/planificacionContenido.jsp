@@ -8,7 +8,7 @@
 						<div class="control-group">
 							<label class="control-label" for="proyecto">Proyecto</label>	
 							<div class="controls">
-								<select id="proyecto" name="proyecto" title="proyecto">
+								<select id="idProyecto" name="idProyecto" title="proyecto">
 									<option value="">Seleccionar</option>
 									<c:forEach var="proyecto" items="${model.listaProyecto}" varStatus="contador">
 									   <option value="${proyecto.idProyecto}">${proyecto.nombreProyecto}</option>
@@ -21,7 +21,7 @@
 						<div class="control-group">
 							<label class="control-label" for="idcliente">Empresa</label>	
 							<div class="controls">
-								<select id="idEmpresa" name="idcliente" title="cliente">
+								<select id="idEmpresa" name="idEmpresa" title="cliente">
 									<option value="">Seleccionar</option>
 									<c:forEach var="empresa" items="${model.listaEmpresa}" varStatus="contador">
 								   		<option value="${empresa.idEmpresa}">${empresa.razonSocial}</option>
@@ -94,7 +94,7 @@
 					<div class="span12">
 						<div class="span6"></div>
 						<div class="span2" style="float: left;">
-							<button class="btn btn-info span12" onclick="buscarAnteproyecto()">
+							<button class="btn btn-info span12" onclick="buscarPlanificacion()">
 								<i class="icon-search bigger-125"></i>
 								Buscar
 							</button>

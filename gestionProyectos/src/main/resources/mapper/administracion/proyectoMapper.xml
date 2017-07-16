@@ -62,6 +62,9 @@
 		<if test="idEjecutivoCuenta != null and idEjecutivoCuenta != ''">
 			and py."ID_EJECUTIVO_CUENTA" = #{idEjecutivoCuenta} 
 		</if> 
+		<if test="idProyecto != null and idProyecto != ''">
+			and py."ID_PROYECTO" = #{idProyecto} 
+		</if> 
 	</select>
 	
 	<insert id="grabarProyectoByEstado" parameterType="Proyecto">

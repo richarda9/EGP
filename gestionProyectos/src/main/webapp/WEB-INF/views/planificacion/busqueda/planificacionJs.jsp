@@ -36,16 +36,16 @@ function buscarPlanificacion(){
 	var t = $('#tablaBuscarPlanificacion').DataTable();
 	t.clear().draw();
 		
-	var form=$('#tablaBuscarPlanificacion').serializeObject();
+	var form=$('#formBuscarPlanificacion').serializeObject();
 	var buscarAnteproyectoModel = {};
+	buscarAnteproyectoModel.idProyecto = form.idProyecto;
 	buscarAnteproyectoModel.idEmpresa = form.idEmpresa;
 	buscarAnteproyectoModel.idTipoProyecto = form.idTipoProyecto;
-	buscarAnteproyectoModel.idEjecutivoCuenta = form.idEjecutivoCuenta;
 	buscarAnteproyectoModel.idResponsableProyecto = form.idResponsableProyecto;
 	buscarAnteproyectoModel.fechaInicio = form.fechaInicio;
 	buscarAnteproyectoModel.fechaFin = form.fechaFin;
 	
-	$.postJSON('${pageContext.request.contextPath}/anteproyecto/buscarAnteproyecto.htm',buscarAnteproyectoModel, function(data) { 
+	$.postJSON('${pageContext.request.contextPath}/planificacion/buscarPlanificacion.htm',buscarAnteproyectoModel, function(data) { 
 			console.log(data);
 			/* var t = $('#tablaBuscarAnteproyecto').DataTable(); */
 			for(i in data)
@@ -55,8 +55,7 @@ function buscarPlanificacion(){
 				var descripcionTipoProyecto =data[i].descripcionTipoProyecto;				
 				var fechaContacto = data[i].fechaContactoString;
 				var nombreResponsable = data[i].nombreResponsable;
-				var nombreEjecutivo = data[i].nombreEjecutivo;
-				var opciones = '<a href="../anteproyecto/mntAnteproyectoEdit.htm?idAnteproyecto='+data[i].idProyecto+'" class="abrir-eliminarEproyecto tooltip-error" data-rel="tooltip" title="Editar" data-toggle="modal"> <span class="red"> <i class="icon-edit bigger-120"></i> </span> </a>';
+				var opciones = '<a href="../planificacion/mntPlanificacion.htm?idPlanificacion='+data[i].idProyecto+'" class="abrir-eliminarEproyecto tooltip-error" data-rel="tooltip" title="Editar" data-toggle="modal"> <span class="red"> <i class="icon-edit bigger-120"></i> </span> </a>';
 						       
 						       /* <div class="hidden-desktop visible-phone">
 								<div class="inline position-relative">
@@ -85,7 +84,6 @@ function buscarPlanificacion(){
 					descripcionTipoProyecto,
 					fechaContacto,
 					nombreResponsable,
-					nombreEjecutivo,
 					opciones				   
 				]).draw();
 
