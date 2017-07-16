@@ -54,7 +54,8 @@
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.CategoriaAdquisicion" alias="categoriaAdquisicion"/>
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.TipoCostoOperativo" alias="tipoCostoOperativo"/>
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago" alias="tipoFormaPago"/>
- 
+ 		<typeAlias type="com.sigcomt.gestionProyectos.model.administracion.RecursosModel" alias="recursosModel"/>
+ 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.TipoDocumento" alias="tipoDocumento"/>
 	</typeAliases>
 	
     <mappers>

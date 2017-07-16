@@ -36,6 +36,7 @@ import com.sigcomt.gestionProyectos.dominio.administracion.TipoRequisito;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoSupuesto;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.Complejidad;
 import com.sigcomt.gestionProyectos.model.administracion.MntEmpresaModel;
+import com.sigcomt.gestionProyectos.model.administracion.RecursosModel;
 import com.sigcomt.gestionProyectos.servicio.administracion.AdministracionService;
 import com.sigcomt.gestionProyectos.servicio.administracion.PaisService;
 
@@ -121,11 +122,49 @@ public class AdministracionController
 	public ModelAndView recursos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		HashMap<String, Object> myModel = new HashMap<String, Object>();
-		myModel.put("listaTipoProyecto", this.administracionService.listarTipoProyecto());
-		myModel.put("listaEstadoProyecto", this.administracionService.listarEstadoProyecto());
-		myModel.put("listaTipoRequisito", this.administracionService.listarTipoRequisitoProyecto());
+		ObjectMapper mapper = new ObjectMapper();
+		RecursosModel recursos = new RecursosModel();
+		
+		recursos.setTipoRol(Constantes.TIPO_ROL_PROVEEDOR);
+		
+		myModel.put("listaTipoDocumento", this.administracionService.listarTipoDocumento());
+		myModel.put("listaTipoCargo", this.administracionService.listarTipoRol(Constantes.TIPO_ROL_PROVEEDOR));
+		myModel.put("listaRecursos", mapper.writeValueAsString(this.administracionService.listarRecursos(recursos)));
 		
 		return new ModelAndView("recursos", "model", myModel);
+	}
+	
+	@RequestMapping(value = "/mnto_Recurso.htm", method = RequestMethod.POST)
+	public @ResponseBody int mntoRecurso(@RequestBody RecursosModel dato) 
+	{
+		int ind = administracionService.mntoRecurso(dato); 
+		return ind;
+	}	
+	
+	@RequestMapping(value = "/listar_Recurso.htm", method = RequestMethod.POST)
+	public @ResponseBody String listarRecursos(@RequestBody int dato) throws JsonGenerationException, JsonMappingException, IOException 
+	{	
+		RecursosModel recursos = new RecursosModel();
+		recursos.setTipoRol(Constantes.TIPO_ROL_PROVEEDOR);
+		
+		return new ObjectMapper().writeValueAsString(administracionService.listarRecursos(recursos));
+	}
+	
+	@RequestMapping(value = "/obtener_Recurso.htm", method = RequestMethod.POST)
+	public @ResponseBody String obtenerRecurso(@RequestBody int dato) throws JsonGenerationException, JsonMappingException, IOException 
+	{	
+		RecursosModel recursos = new RecursosModel();
+		recursos.setTipoRol(Constantes.TIPO_ROL_PROVEEDOR);
+		recursos.setId(new Long(dato));
+		
+		return new ObjectMapper().writeValueAsString(administracionService.listarRecursos(recursos));
+	}
+	
+	@RequestMapping(value = "/eliminar_Recurso.htm", method = RequestMethod.POST)
+	public @ResponseBody int eliminarRecursos(@RequestBody Integer dato) 
+	{
+		administracionService.eliminarRecursos(dato); 
+		return 0;
 	}
 	//----------------------------------------------------------- [FIN] RECURSOS -----------------------------------------------------------	
 	//----------------------------------------------------------- [INI] ORGANIGRAMA -----------------------------------------------------------

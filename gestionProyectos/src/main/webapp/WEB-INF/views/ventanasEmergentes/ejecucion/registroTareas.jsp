@@ -144,26 +144,3 @@
 	</div>
 </form>
 <!-- [FIN] MODAL TAREA -->
-<!-- [INI] ELIMINAR TAREA -->
-<!-- <div id="eliminarTareaProyecto" class="modal hide fade" tabindex="-1"> -->
-<!-- 	<div class="modal-header no-padding"> -->
-<!-- 		<div class="table-header"> -->
-<!-- 			<button type="button" class="close" data-dismiss="modal">&times;</button> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
-
-<!-- 	<div class="modal-body padding"> -->
-<!-- 		<b style="text-align: center">¿SEGURO DE ELIMINAR? </b> -->
-<!-- 	</div> -->
-
-<!-- 	<div class="modal-footer"> -->
-<!-- 		<button id="btnEliminarTarea" class="btn btn-small btn-primary" type="submit"> -->
-<!-- 			<i class="icon-ok"></i> Confirmar -->
-<!-- 		</button> -->
-<!-- 		<button class="btn btn-small btn-light" data-dismiss="modal"> -->
-<!-- 			<i class="icon-remove"></i> Salir -->
-<!-- 		</button> -->
-<!-- 	</div> -->
-
-<!-- </div> -->
-<!-- [FIN] ELIMINAR TAREA -->

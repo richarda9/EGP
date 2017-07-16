@@ -10,6 +10,7 @@ import com.sigcomt.gestionProyectos.dominio.administracion.EstadoEntregable;
 import com.sigcomt.gestionProyectos.dominio.administracion.EstadoProyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoCostoOperativo;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoDependencia;
+import com.sigcomt.gestionProyectos.dominio.administracion.TipoDocumento;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoProyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoRequisito;
@@ -18,6 +19,7 @@ import com.sigcomt.gestionProyectos.dominio.administracion.TipoSupuesto;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.Complejidad;
 import com.sigcomt.gestionProyectos.model.administracion.ContactoEmpresaModel;
 import com.sigcomt.gestionProyectos.model.administracion.MntEmpresaModel;
+import com.sigcomt.gestionProyectos.model.administracion.RecursosModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
@@ -74,7 +76,6 @@ public interface AdministracionService
 	public void eliminarFormaPago(Integer id);
 	//[FIN] FORMA PAGO
 	
-	
 //	INI - EMPRESA
 	public List<Empresa> listarEmpresaByEstado(int estado);
 	public List<TipoRol> listarTipoRolbyEstado(int estado);
@@ -83,6 +84,13 @@ public interface AdministracionService
 	public List<ContactoEmpresaModel> listarContactoEmpresaByEmpresa(Long idempresa);
 	public int eliminarEmpresa(Long idempresa);
 //	FIN - EMPRESA
+	
+//	INI - RECURSOS
+	public List<RecursosModel> listarRecursos(RecursosModel recurso);
+	public int mntoRecurso(RecursosModel dato);
+	public void eliminarRecursos(Integer id);
+//	FIN - RECURSOS
+	
 //  INI - ENTREGABLE
 	public int registrarComplejidadEntregable(Complejidad dato);
 	public List<Complejidad> listarComplejidadEntregable(int dato);
@@ -92,5 +100,8 @@ public interface AdministracionService
 	public List<EstadoEntregable> listarEstadoEntregable(int dato);
 	public void eliminarEstadoEntregable(Integer id);
 //  FIN - ENTREGABLE
+	
+	public List<TipoDocumento> listarTipoDocumento();
+	public List<TipoRol> listarTipoRol(int tipo);
 
 }

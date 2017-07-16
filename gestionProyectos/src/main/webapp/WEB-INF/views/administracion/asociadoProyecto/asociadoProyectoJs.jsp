@@ -532,7 +532,9 @@ var tabla8 = $('#tablaFormaPago').DataTable({
 		    } );
 		 }).draw();
 
-		mostrarTipoProyecto();
+		 $('[data-rel=tooltip]').tooltip();
+
+		 mostrarTipoProyecto();
 });	
 //[FIN] CARGA DE TABLAS
 

@@ -11,13 +11,19 @@ public class Persona implements Serializable
 	private String nombres;
 	private String apellidos;
 	private String nombreCompleto;
-	private String tipdocumento;
+	private Long idTipoDocumento;
 	private String nrodocumento;
 	private Integer estado;
 	private String telefono;
 	private String anexo;
 	private String correo;
 	private Long idTipoRol;
+	private String direccion;
+	private String rsfacebook;
+	private String rstwitter;
+	private String rslinkedin;
+	private String rsgmail;
+	private String perfilProfesional;
 	
 	public Long getId() {
 		return id;
@@ -49,14 +55,6 @@ public class Persona implements Serializable
 	
 	public void setNombreCompleto(String nombreCompleto) {
 		this.nombreCompleto = nombreCompleto;
-	}
-	
-	public String getTipdocumento() {
-		return tipdocumento;
-	}
-	
-	public void setTipdocumento(String tipdocumento) {
-		this.tipdocumento = tipdocumento;
 	}
 	
 	public String getNrodocumento() {
@@ -107,21 +105,81 @@ public class Persona implements Serializable
 		this.idTipoRol = idTipoRol;
 	}
 
-	@Override
-	public String toString() {
-		return "Persona [id=" + id + ", nombres=" + nombres + ", apellidos="
-				+ apellidos + ", nombreCompleto=" + nombreCompleto
-				+ ", tipdocumento=" + tipdocumento + ", nrodocumento="
-				+ nrodocumento + ", estado=" + estado + ", telefono="
-				+ telefono + ", anexo=" + anexo + ", correo=" + correo
-				+ ", idTipoRol=" + idTipoRol + "]";
-	}
-
 	public String getCodpersona() {
 		return codpersona;
 	}
 
 	public void setCodpersona(String codpersona) {
 		this.codpersona = codpersona;
+	}
+
+	public Long getIdTipoDocumento() {
+		return idTipoDocumento;
+	}
+
+	public void setIdTipoDocumento(Long idTipoDocumento) {
+		this.idTipoDocumento = idTipoDocumento;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public String getRsfacebook() {
+		return rsfacebook;
+	}
+
+	public void setRsfacebook(String rsfacebook) {
+		this.rsfacebook = rsfacebook;
+	}
+
+	public String getRstwitter() {
+		return rstwitter;
+	}
+
+	public void setRstwitter(String rstwitter) {
+		this.rstwitter = rstwitter;
+	}
+
+	public String getRslinkedin() {
+		return rslinkedin;
+	}
+
+	public void setRslinkedin(String rslinkedin) {
+		this.rslinkedin = rslinkedin;
+	}
+
+	public String getRsgmail() {
+		return rsgmail;
+	}
+
+	public void setRsgmail(String rsgmail) {
+		this.rsgmail = rsgmail;
+	}
+
+	public String getPerfilProfesional() {
+		return perfilProfesional;
+	}
+
+	public void setPerfilProfesional(String perfilProfesional) {
+		this.perfilProfesional = perfilProfesional;
+	}
+
+	@Override
+	public String toString() {
+		return "Persona [id=" + id + ", codpersona=" + codpersona
+				+ ", nombres=" + nombres + ", apellidos=" + apellidos
+				+ ", nombreCompleto=" + nombreCompleto + ", idTipoDocumento="
+				+ idTipoDocumento + ", nrodocumento=" + nrodocumento
+				+ ", estado=" + estado + ", telefono=" + telefono + ", anexo="
+				+ anexo + ", correo=" + correo + ", idTipoRol=" + idTipoRol
+				+ ", direccion=" + direccion + ", rsfacebook=" + rsfacebook
+				+ ", rstwitter=" + rstwitter + ", rslinkedin=" + rslinkedin
+				+ ", rsgmail=" + rsgmail + ", perfilProfesional="
+				+ perfilProfesional + "]";
 	}
 }

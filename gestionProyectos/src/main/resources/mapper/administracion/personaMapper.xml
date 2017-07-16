@@ -37,25 +37,45 @@
 	 <selectKey keyProperty="id" resultType="Long" order="BEFORE">
          SELECT nextval('"CREAR_PROYECTO".sq_persona')
      </selectKey>
-	  INSERT INTO "CREAR_PROYECTO"."PERSONA"("ID_PERSONA", "NOMBRE_PERSONA", "APELLIDO_PERSONA", "TIPO_DOCUMENTO", "NUMERO_DCOUMENTO", 
-				       "ESTADO", "TELEFONO", "ANEXO", "EMAIL", "ID_TIPO_ROL")
-      VALUES (#{id}, #{nombres}, #{apellidos}, #{tipdocumento}, #{nrodocumento}, 
-	    	  #{estado}, #{telefono}, #{anexo}, #{correo}, #{idTipoRol});
+	    INSERT INTO "CREAR_PROYECTO"."PERSONA"("ID_PERSONA", "NOMBRE_PERSONA", "APELLIDO_PERSONA", "ESTADO", 
+				       "TELEFONO", "ANEXO", "EMAIL", "ID_TIPO_ROL", 
+				       "NUMERO_DOCUMENTO", "ID_TIPO_DOCUMENTO", "DIRECCION", "RED_SOCIAL_FACEBOOK", 
+				       "RED_SOCIAL_GMAIL", "RED_SOCIAL_TWITTER", "RED_SOCIAL_LINKEDIN", "PERFIL_PROFESIONAL")
+	    VALUES (#{id}, #{nombres}, #{apellidos}, #{estado}, #{telefono}, 
+			    #{anexo}, #{correo}, #{idTipoRol}, #{nrodocumento}, #{idTipoDocumento},  
+			    #{direccion}, #{rsfacebook}, #{rsgmail}, #{rstwitter}, #{rslinkedin}, #{perfilProfesional});
 	</insert>
 	
 	<update id="editarPersona" parameterType="persona">
 		UPDATE "CREAR_PROYECTO"."PERSONA"
-		   SET "NOMBRE_PERSONA" = COALESCE(#{nombres}, "NOMBRE_PERSONA"),  
+		   SET "NOMBRE_PERSONA" = COALESCE(#{nombres}, "NOMBRE_PERSONA"),	 
 		       "APELLIDO_PERSONA" = COALESCE(#{apellidos}, "APELLIDO_PERSONA"), 
-		       "TIPO_DOCUMENTO" = COALESCE(#{tipdocumento}, "TIPO_DOCUMENTO"), 
-		       "NUMERO_DCOUMENTO" = COALESCE(#{nrodocumento}, "NUMERO_DCOUMENTO"),
 		       "ESTADO" = COALESCE(#{estado}, "ESTADO"), 
-		       "TELEFONO" = COALESCE(#{telefono}, "TELEFONO"),
-		       "ANEXO" = COALESCE(#{anexo}, "ANEXO"),
-		       "EMAIL" = COALESCE(#{correo}, "EMAIL"),
-		       "ID_TIPO_ROL" = COALESCE(#{idTipoRol}, "ID_TIPO_ROL")
-		WHERE  "ID_PERSONA"= #{id}; 
+		       "TELEFONO" = COALESCE(#{telefono}, "TELEFONO"), 
+		       "ANEXO" = COALESCE(#{anexo}, "ANEXO"), 
+		       "EMAIL" = COALESCE(#{correo}, "EMAIL"), 
+		       "ID_TIPO_ROL" = COALESCE(#{idTipoRol}, "ID_TIPO_ROL"), 
+		       "NUMERO_DOCUMENTO" = COALESCE(#{nrodocumento}, "NUMERO_DOCUMENTO"), 
+		       "ID_TIPO_DOCUMENTO" = COALESCE(#{idTipoDocumento}, "ID_TIPO_DOCUMENTO"), 
+		       "DIRECCION" = COALESCE(#{direccion}, "DIRECCION"), 
+		       "RED_SOCIAL_FACEBOOK" = COALESCE(#{rsfacebook}, "RED_SOCIAL_FACEBOOK"), 
+		       "RED_SOCIAL_GMAIL" = COALESCE(#{rsgmail}, "RED_SOCIAL_GMAIL"), 
+		       "RED_SOCIAL_TWITTER" = COALESCE(#{rstwitter}, "RED_SOCIAL_TWITTER"), 
+		       "RED_SOCIAL_LINKEDIN" = COALESCE(#{rslinkedin}, "RED_SOCIAL_LINKEDIN"), 
+		       "PERFIL_PROFESIONAL" = COALESCE(#{perfilProfesional}, "PERFIL_PROFESIONAL")
+		 WHERE "ID_PERSONA" = #{id};
 	</update>
+	
+	<select id="buscarPersonabyTipobyNroDocumento" parameterType="persona" resultType="int">
+		 SELECT COUNT(1)
+		FROM "CREAR_PROYECTO"."PERSONA" p 
+		WHERE p."ID_TIPO_DOCUMENTO" = #{idTipoDocumento}
+		AND   p."NUMERO_DOCUMENTO" = #{nrodocumento};
+	</select>
+	
+	<delete id="eliminarPersona" parameterType="int">
+	 	DELETE FROM "CREAR_PROYECTO"."PERSONA" WHERE "ID_PERSONA" = #{id};
+	</delete>
 	<!-- FIN - PERSONA -->
 	
 </mapper>

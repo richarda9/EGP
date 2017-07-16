@@ -15,4 +15,6 @@ public interface PersonaDao {
 	
 	public void registrarPersona(Persona persona);
 	public void editarPersona(Persona persona);
+	public int buscarPersonabyTipobyNroDocumento(Persona persona);
+	public void eliminarPersona(Integer id);
 }

@@ -19,6 +19,7 @@ import com.sigcomt.gestionProyectos.dominio.administracion.EstadoProyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.Persona;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoCostoOperativo;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoDependencia;
+import com.sigcomt.gestionProyectos.dominio.administracion.TipoDocumento;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoProyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoRequisito;
@@ -27,6 +28,7 @@ import com.sigcomt.gestionProyectos.dominio.administracion.TipoSupuesto;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.Complejidad;
 import com.sigcomt.gestionProyectos.model.administracion.ContactoEmpresaModel;
 import com.sigcomt.gestionProyectos.model.administracion.MntEmpresaModel;
+import com.sigcomt.gestionProyectos.model.administracion.RecursosModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
@@ -333,6 +335,47 @@ public class AdministracionServiceImp implements AdministracionService
 		return administracionDao.eliminarEmpresa(idempresa);
 	}
 //	FIN - EMPRESA
+	
+//	INI - RECURSOS
+	public List<RecursosModel> listarRecursos(RecursosModel recurso){
+		return administracionDao.listarRecursos(recurso);
+	}
+	
+	public int mntoRecurso(RecursosModel dato){
+		int resultado = 0;
+		Persona persona = new Persona();
+		persona.setId(dato.getId());
+		persona.setIdTipoDocumento(dato.getIdTipoDocumento());
+		persona.setNrodocumento(dato.getNroDocumento());
+		persona.setNombres(dato.getNombres());
+		persona.setApellidos(dato.getApellidos());
+		persona.setTelefono(dato.getCelular());
+		persona.setIdTipoRol(dato.getIdTipoCargo());
+		persona.setDireccion(dato.getDireccion());
+		persona.setRstwitter(dato.getTwitterRecurso() != null && dato.getTwitterRecurso().length() > 0 ? dato.getTwitterRecurso() : null);
+		persona.setRsfacebook(dato.getFacebookRecurso() != null && dato.getFacebookRecurso().length() > 0 ? dato.getFacebookRecurso() : null);
+		persona.setRslinkedin(dato.getLinkedinRecurso() != null && dato.getLinkedinRecurso().length() > 0 ? dato.getLinkedinRecurso() : null);
+		persona.setRsgmail(dato.getGmailRecurso() != null && dato.getGmailRecurso().length() > 0 ? dato.getGmailRecurso() : null);
+		persona.setCorreo(dato.getCorreo());
+		persona.setPerfilProfesional(dato.getDscperfil() != null && dato.getDscperfil().length() > 0 ? dato.getDscperfil() : null);
+		persona.setEstado(dato.getEstado());
+		
+		if(dato.getId() == null){
+			resultado = personaDao.buscarPersonabyTipobyNroDocumento(persona);
+			
+			if(resultado == 0)
+				personaDao.registrarPersona(persona);
+		}else{
+			personaDao.editarPersona(persona);			
+		}
+		
+		return resultado;
+	}
+	
+	public void eliminarRecursos(Integer id) {
+		personaDao.eliminarPersona(id);
+	}
+//	FIN - RECURSOS
 
 //  INI - ENTREGABLE
 	public int registrarComplejidadEntregable(Complejidad dato) {
@@ -358,5 +401,13 @@ public class AdministracionServiceImp implements AdministracionService
 
 	public void eliminarEstadoEntregable(Integer id) {
 		administracionDao.eliminarEstadoEntregable(id);
+	}
+	
+	public List<TipoDocumento> listarTipoDocumento(){
+		return administracionDao.listarTipoDocumento();
+	}
+	
+	public List<TipoRol> listarTipoRol(int tipo){
+		return administracionDao.listarTipoRol(tipo);
 	}
 }
