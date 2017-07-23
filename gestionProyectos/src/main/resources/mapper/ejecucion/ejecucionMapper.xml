@@ -238,4 +238,12 @@
 		 WHERE "ID_DETALLE_CRONOGRAMA" = #{id};
 	</update>
 	<!-- [FIN] TAREAS -->
+	<!-- [INI] ADQUISICIONES -->
+	<select id="listarEstadoAdquisicion" resultType="estadoAdquisicion">
+		SELECT "ID_ESTADO_ADQUISICION" id, 
+		       "DESCRIPCION" descripcion, 
+		       "ESTADO" estado
+		FROM "PLANIFICAR_PROYECTO"."ESTADO_ADQUISICION";
+	</select>
+	<!-- [FIN] ADQUISICIONES -->
 </mapper>

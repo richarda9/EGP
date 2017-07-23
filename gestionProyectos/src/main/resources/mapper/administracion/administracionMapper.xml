@@ -420,7 +420,7 @@
 	  FROM "CREAR_PROYECTO"."TIPO_DOCUMENTO";
 	</select>
 	
-	<select id="listarTipoRol" parameterType="int" resultType="tipoRol">
+	<select id="listarTipoRolbyTipoRol" parameterType="int" resultType="tipoRol">
 		SELECT tr."ID_TIPO_ROL" id, 
 		       tr."DESCRIPCION_ROL" descripcion, 
 		       tr."ESTADO" estado, 
@@ -429,4 +429,42 @@
 		  FROM "PLANIFICAR_PROYECTO"."TIPO_ROL" tr
 		  WHERE tr."TIPO_ROL" = #{tipo};
 	</select>
+	
+	<!-- [INI] ORGANIGRAMA -->
+	<insert id="registrarOrganigrama" parameterType="tipoRol">
+		INSERT INTO "PLANIFICAR_PROYECTO"."TIPO_ROL"("ID_TIPO_ROL", "DESCRIPCION_ROL", "ESTADO", "TIPO_ROL", "NOMBRE_TIPOROL")
+    	VALUES (nextval('"PLANIFICAR_PROYECTO".sq_tipo_rol'), #{descripcion}, #{estado}, #{tipoRol}, #{nombreRol});
+	</insert>
+	
+	<select id="listarTipoRol" parameterType="tipoRol" resultType="tipoRol">
+		SELECT tr."ID_TIPO_ROL" id, 
+		       tr."DESCRIPCION_ROL" descripcion, 
+		       tr."ESTADO" estado, 
+		       tr."TIPO_ROL" tipoRol, 
+		       tr."NOMBRE_TIPOROL" nombreRol
+		  FROM "PLANIFICAR_PROYECTO"."TIPO_ROL" tr
+		<if test="id != null and id != ''">
+		  WHERE tr."ID_TIPO_ROL" = #{id};
+		</if>
+	</select>
+	
+	<delete id="eliminarOrganigrama" parameterType="int">
+		DELETE FROM "PLANIFICAR_PROYECTO"."TIPO_ROL" WHERE "ID_TIPO_ROL" = #{id};
+	</delete>
+	
+	<select id="buscarOrganigrama" resultType="int" parameterType="tipoRol">		
+		SELECT COUNT(1)
+		FROM "PLANIFICAR_PROYECTO"."TIPO_ROL" tr
+		WHERE tr."NOMBRE_TIPOROL" = #{nombreRol}
+		AND   tr."TIPO_ROL" = #{tipoRol};
+	</select>
+	
+	<update id="actualizarOrganigrama">
+		UPDATE "PLANIFICAR_PROYECTO"."TIPO_ROL"
+		   SET "DESCRIPCION_ROL" = COALESCE(#{descripcion}, "DESCRIPCION_ROL"), 
+		       "ESTADO" = COALESCE(#{estado}, "ESTADO"), 
+		       "TIPO_ROL" = COALESCE(#{tipoRol}, "TIPO_ROL"), 
+		       "NOMBRE_TIPOROL" = COALESCE(#{nombreRol}, "NOMBRE_TIPOROL")
+		WHERE "ID_TIPO_ROL" = #{id};
+	</update>
 </mapper>

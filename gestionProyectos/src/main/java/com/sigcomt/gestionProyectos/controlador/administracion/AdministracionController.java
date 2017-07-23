@@ -33,6 +33,7 @@ import com.sigcomt.gestionProyectos.dominio.administracion.TipoDependencia;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoProyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoRequisito;
+import com.sigcomt.gestionProyectos.dominio.administracion.TipoRol;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoSupuesto;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.Complejidad;
 import com.sigcomt.gestionProyectos.model.administracion.MntEmpresaModel;
@@ -128,7 +129,7 @@ public class AdministracionController
 		recursos.setTipoRol(Constantes.TIPO_ROL_PROVEEDOR);
 		
 		myModel.put("listaTipoDocumento", this.administracionService.listarTipoDocumento());
-		myModel.put("listaTipoCargo", this.administracionService.listarTipoRol(Constantes.TIPO_ROL_PROVEEDOR));
+		myModel.put("listaTipoCargo", this.administracionService.listarTipoRolbyTipoRol(Constantes.TIPO_ROL_PROVEEDOR));
 		myModel.put("listaRecursos", mapper.writeValueAsString(this.administracionService.listarRecursos(recursos)));
 		
 		return new ModelAndView("recursos", "model", myModel);
@@ -172,11 +173,42 @@ public class AdministracionController
 	public ModelAndView organigrama(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		HashMap<String, Object> myModel = new HashMap<String, Object>();
-		myModel.put("listaTipoProyecto", this.administracionService.listarTipoProyecto());
-		myModel.put("listaEstadoProyecto", this.administracionService.listarEstadoProyecto());
-		myModel.put("listaTipoRequisito", this.administracionService.listarTipoRequisitoProyecto());
+		ObjectMapper mapper = new ObjectMapper();
+		TipoRol rol = new TipoRol();
+		
+		myModel.put("listaOrganigrama", mapper.writeValueAsString(administracionService.listarTipoRol(rol)));
 		
 		return new ModelAndView("organigrama", "model", myModel);
+	}
+	
+	@RequestMapping(value = "/mnto_Organigrama.htm", method = RequestMethod.POST)
+	public @ResponseBody int mntoOrganigrama(@RequestBody TipoRol dato) 
+	{
+		int ind = administracionService.mntoOrganigrama(dato); 
+		return ind;
+	}	
+	
+	@RequestMapping(value = "/listar_Organigrama.htm", method = RequestMethod.POST)
+	public @ResponseBody String listarOrganigrama(@RequestBody int dato) throws JsonGenerationException, JsonMappingException, IOException 
+	{
+		TipoRol rol = new TipoRol();
+		return new ObjectMapper().writeValueAsString(administracionService.listarTipoRol(rol));
+	}
+	
+	@RequestMapping(value = "/obtener_Organigrama.htm", method = RequestMethod.POST)
+	public @ResponseBody String obtenerOrganigrama(@RequestBody int dato) throws JsonGenerationException, JsonMappingException, IOException 
+	{	
+		TipoRol rol = new TipoRol();
+		rol.setId(new Long(dato));
+		
+		return new ObjectMapper().writeValueAsString(administracionService.listarTipoRol(rol));
+	}
+	
+	@RequestMapping(value = "/eliminar_Organigrama.htm", method = RequestMethod.POST)
+	public @ResponseBody int eliminarOrganigrama(@RequestBody Integer dato) 
+	{
+		administracionService.eliminarOrganigrama(dato); 
+		return 0;
 	}
 	//----------------------------------------------------------- [FIN] ORGANIGRAMA -----------------------------------------------------------
 	//----------------------------------------------------------- [INI] ASOCIADO A PROYECTO -----------------------------------------------------------
@@ -376,7 +408,8 @@ public class AdministracionController
 		HashMap<String, Object> myModel = new HashMap<String, Object>();
 		ObjectMapper mapper = new ObjectMapper();
 		
-		myModel.put("listaCompEntregable",  mapper.writeValueAsString(administracionService.listarComplejidadEntregable(Constantes.ESTADO_ACTIVO)));		
+		String resultado = "[{\"COLUMNAS\":"+ mapper.writeValueAsString(administracionService.listarComplejidadEntregable(Constantes.ESTADO_ACTIVO))+"}]";
+		myModel.put("listaCompEntregable",  resultado); // mapper.writeValueAsString(administracionService.listarComplejidadEntregable(Constantes.ESTADO_ACTIVO)));		
 		myModel.put("listaEstadoEntregable", mapper.writeValueAsString(administracionService.listarEstadoEntregable(Constantes.ESTADO_ACTIVO)));
 		
 		return new ModelAndView("asociadoEntregable", "model", myModel);

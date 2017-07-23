@@ -56,6 +56,7 @@
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago" alias="tipoFormaPago"/>
  		<typeAlias type="com.sigcomt.gestionProyectos.model.administracion.RecursosModel" alias="recursosModel"/>
  		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.TipoDocumento" alias="tipoDocumento"/>
+ 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.ejecucion.EstadoAdquisicion" alias="estadoAdquisicion"/>
 	</typeAliases>
 	
     <mappers>

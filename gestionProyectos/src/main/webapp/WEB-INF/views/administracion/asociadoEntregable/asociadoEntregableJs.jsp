@@ -7,7 +7,7 @@ $(function()
 {
 	var tabla1 = $('#tablaComplejidadEntregable').DataTable({
 		"ajax"		 : function (data, callback, settings) {
-						callback ( { data: dataCompEntregable } );
+						callback ( { data: dataCompEntregable[0].COLUMNAS } );
 					   },	
 		"paging"     : true,
 		"autoWidth"  : true,

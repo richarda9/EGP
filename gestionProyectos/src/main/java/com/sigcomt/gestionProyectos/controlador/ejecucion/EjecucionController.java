@@ -99,6 +99,8 @@ public class EjecucionController
 		myModel.put("listaProveedores", this.ejecucionService.listarAsignacionRecurso(bsqResponsable));
 		bsqResponsable.setTiporol(Constantes.TIPO_ROL_CLIENTE);
 		myModel.put("listaCliente", this.ejecucionService.listarAsignacionRecurso(bsqResponsable));
+		myModel.put("listaEstadoAdquisicion", this.ejecucionService.listarEstadoAdquisicion());
+		myModel.put("listaCategoriaAdquisicion", this.administracionService.listarCategAdquisicion());
 		//listarEntregableCertificacion()
 				
 		ObjectMapper mapper = new ObjectMapper();

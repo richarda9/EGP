@@ -9,6 +9,7 @@ import com.sigcomt.gestionProyectos.dominio.administracion.Persona;
 import com.sigcomt.gestionProyectos.dominio.administracion.Rol;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.Complejidad;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAsignacionResponsable;
+import com.sigcomt.gestionProyectos.dominio.ejecucion.EstadoAdquisicion;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.EstadoTarea;
 import com.sigcomt.gestionProyectos.model.ejecucion.EnvioCertificacionModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.LstAsignarResponsableModel;
@@ -36,4 +37,6 @@ public interface EjecucionService {
 	public void mntTareasProyecto(MntTareaCtrolCambioModel dato);
 	
 	public void mntEnvioCertificacion(MultipartFile multipartFile, EnvioCertificacionModel objeto, String ruta);
+	
+	public List<EstadoAdquisicion> listarEstadoAdquisicion();
 }

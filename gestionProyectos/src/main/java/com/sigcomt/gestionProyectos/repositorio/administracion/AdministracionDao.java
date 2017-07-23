@@ -105,6 +105,13 @@ public interface AdministracionDao
 //  FIN - ENTREGABLE
 	
 	public List<TipoDocumento> listarTipoDocumento();
-	public List<TipoRol> listarTipoRol(int tipo);
-
+	public List<TipoRol> listarTipoRolbyTipoRol(int tipo);
+	
+//	INI - ORGANIGRAMA
+	public List<TipoRol> listarTipoRol(TipoRol rol);
+	public int buscarOrganigrama(TipoRol rol);
+	public void registrarOrganigrama(TipoRol rol);
+	public void eliminarOrganigrama(Integer id);
+	public void actualizarOrganigrama(TipoRol rol);
+//  FIN - ORGANIGRAMA
 }

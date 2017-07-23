@@ -407,7 +407,33 @@ public class AdministracionServiceImp implements AdministracionService
 		return administracionDao.listarTipoDocumento();
 	}
 	
-	public List<TipoRol> listarTipoRol(int tipo){
-		return administracionDao.listarTipoRol(tipo);
+	public List<TipoRol> listarTipoRolbyTipoRol(int tipo){
+		return administracionDao.listarTipoRolbyTipoRol(tipo);
 	}
+
+//	[INI] - ORGANIGRAMA
+	public List<TipoRol> listarTipoRol(TipoRol rol){
+		return administracionDao.listarTipoRol(rol);
+	}
+	
+	public int mntoOrganigrama(TipoRol dato){
+		int ind = 0;
+		if(dato.getId() == null){
+			ind = administracionDao.buscarOrganigrama(dato);
+		
+			if(ind == 0){
+				administracionDao.registrarOrganigrama(dato);
+			}
+		}else{
+			administracionDao.actualizarOrganigrama(dato);
+		}			
+		
+		return ind;
+	}
+	
+	public void eliminarOrganigrama(Integer id){
+		administracionDao.eliminarOrganigrama(id);
+	}
+//	[FIN] - ORGANIGRAMA
 }
+

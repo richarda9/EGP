@@ -21,6 +21,7 @@ import com.sigcomt.gestionProyectos.dominio.ejecucion.Complejidad;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAsignacionResponsable;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleCronograma;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleRolProyecto;
+import com.sigcomt.gestionProyectos.dominio.ejecucion.EstadoAdquisicion;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.EstadoTarea;
 import com.sigcomt.gestionProyectos.model.comunes.EnvioCorreo;
 import com.sigcomt.gestionProyectos.model.ejecucion.EnvioCertificacionModel;
@@ -223,5 +224,9 @@ public class EjecucionServiceImp implements EjecucionService
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
+	}
+	
+	public List<EstadoAdquisicion> listarEstadoAdquisicion(){
+		return ejecucionDao.listarEstadoAdquisicion();
 	}
 }

@@ -10,11 +10,25 @@
 				<div class="span2">ID:</div>
 				<div class="span4"><input type="text" class="span6" id="idAdquisiciones" readonly="readonly"/></div>
 				<div class="span2">Estado:</div>
-				<div class="span4"><select class="span12" id="estadoAdquisiciones"></select></div>
+				<div class="span4">
+					<select class="span12" id="estadoAdquisiciones">
+						<option value="">Seleccionar</option>
+						<c:forEach var="lista" items="${model.listaEstadoAdquisicion}" varStatus="contador">
+						   <option value="${lista.id}">${lista.descripcion}</option>
+						</c:forEach>
+					</select>
+				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span2">Categor&iacute;a:</div>
-				<div class="span10"><select class="span5" id="categoriaAdquisiciones"></select></div>
+				<div class="span10">
+					<select class="span5" id="categoriaAdquisiciones">
+						<option value="">Seleccionar</option>
+						<c:forEach var="lista" items="${model.listaCategoriaAdquisicion}" varStatus="contador">
+						   <option value="${lista.id}">${lista.descripcion}</option>
+						</c:forEach>
+					</select>
+				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span2">Descripci&oacute;n:</div>

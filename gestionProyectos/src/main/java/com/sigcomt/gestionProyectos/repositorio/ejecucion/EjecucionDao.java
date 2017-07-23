@@ -10,6 +10,7 @@ import com.sigcomt.gestionProyectos.dominio.ejecucion.Complejidad;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAsignacionResponsable;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleCronograma;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleRolProyecto;
+import com.sigcomt.gestionProyectos.dominio.ejecucion.EstadoAdquisicion;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.EstadoTarea;
 import com.sigcomt.gestionProyectos.model.ejecucion.LstAsignarResponsableModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.LstCtrolCambiosModel;
@@ -39,4 +40,7 @@ public interface EjecucionDao
 	public void actualizaTareaProyecto(DetalleCronograma detalle);
 	public void eliminarTareasProyecto(LstDetalleCronogramaModel dato);
 	public List<LstDetalleCronogramaModel> obtListaTareaProyectobyProyecto(Long idProyecto);
+	
+	//
+	public List<EstadoAdquisicion> listarEstadoAdquisicion();
 }

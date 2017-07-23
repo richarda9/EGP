@@ -102,6 +102,12 @@ public interface AdministracionService
 //  FIN - ENTREGABLE
 	
 	public List<TipoDocumento> listarTipoDocumento();
-	public List<TipoRol> listarTipoRol(int tipo);
+	public List<TipoRol> listarTipoRolbyTipoRol(int tipo);
+
+//	INI - ORGANIGRAMA
+	public List<TipoRol> listarTipoRol(TipoRol rol);
+	public int mntoOrganigrama(TipoRol dato);
+	public void eliminarOrganigrama(Integer id);
+//  FIN - ORGANIGRAMA
 
 }

@@ -21,7 +21,7 @@
 	<select id="listarInteresadoByEstadoByEmpresa" parameterType= "map" resultType="map">
 		SELECT DETEMP."ID_DETALLE_EMPRESA_PERSONA" as iddet, 
 			PER."NOMBRE_PERSONA"||' '|| PER."APELLIDO_PERSONA" as nombreinteresado,
-			ROL."NOMBRE_TIPO_ROL" as cargo
+			ROL."NOMBRE_TIPOROL" as cargo
 		FROM "CREAR_PROYECTO"."DETALLE_EMPRESA_PERSONA" DETEMP 
 		INNER JOIN "CREAR_PROYECTO"."EMPRESA" EMP 
 		ON EMP."ID_EMPRESA" = DETEMP."ID_EMPRESA" 

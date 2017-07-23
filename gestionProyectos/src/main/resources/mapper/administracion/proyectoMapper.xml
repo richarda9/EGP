@@ -106,7 +106,7 @@
         "FECHA_CREACION",
         "ESTADO")
         values
-        (nextval('"CREAR_PROYECTO"."SQ_DETALLE_ESTADO_PROYECTO"'),  
+        (nextval('"CREAR_PROYECTO".sq_detalle_estado_proyecto'),  
         #{idEstadoProyecto},
         #{idProyecto},
         #{fechaCreacion},
@@ -243,7 +243,7 @@
 		SELECT DETEMPPER."ID_DETALLE_EMPRESA_PERSONA" idInteresado,
 			DETINT."INTERES_CONTACTO" interes,
 			PER."NOMBRE_PERSONA"||' '||PER."APELLIDO_PERSONA" nombreInteresado,
-			ROL."NOMBRE_TIPO_ROL" cargo
+			ROL."NOMBRE_TIPOROL" cargo
 		FROM "CREAR_PROYECTO"."DETALLE_INTERESADO" DETINT 
 		INNER JOIN "CREAR_PROYECTO"."DETALLE_EMPRESA_PERSONA" DETEMPPER
 		ON DETEMPPER."ID_DETALLE_EMPRESA_PERSONA" = DETINT."ID_DETALLE_EMPRESA_PERSONA"
