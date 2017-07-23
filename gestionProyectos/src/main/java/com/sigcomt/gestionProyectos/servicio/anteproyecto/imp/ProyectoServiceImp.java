@@ -16,6 +16,7 @@ import com.sigcomt.gestionProyectos.model.cierre.BuscarCierreModel;
 import com.sigcomt.gestionProyectos.model.cierre.LstProyectoCierreModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.BuscarEjecucionModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.LstProyectoEjecucionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
 import com.sigcomt.gestionProyectos.repositorio.anteproyecto.ProyectoDao;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.ProyectoService;
 
@@ -77,6 +78,11 @@ public class ProyectoServiceImp implements ProyectoService {
 		params.put("idTipoArch", idTipoArch);
 		
 		return proyectoDao.listarAnexosByIdProyecto(params);
+	}
+
+	public void actualizarProyectoByIdPy(
+			AgregarPlanificacionModel agregarPlanificacionModel) {
+		proyectoDao.actualizarProyectoByIdPy(agregarPlanificacionModel);		
 	}
 
 }

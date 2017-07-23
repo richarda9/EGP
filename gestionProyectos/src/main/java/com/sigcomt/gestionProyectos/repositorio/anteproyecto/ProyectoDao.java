@@ -18,6 +18,7 @@ import com.sigcomt.gestionProyectos.model.cierre.BuscarCierreModel;
 import com.sigcomt.gestionProyectos.model.cierre.LstProyectoCierreModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.BuscarEjecucionModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.LstProyectoEjecucionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
 
 public interface ProyectoDao {
 	
@@ -51,6 +52,10 @@ public interface ProyectoDao {
     
     public DetProyectoUserRolModel listarDetPyUserRolByPyByUserRol(DetProyectoUserRolModel detProyectoUserRolModel);
     public void grabarDetPyUserRol(DetProyectoUserRolModel detProyectoUserRolModel);
+    
+//  INI - PLANIFICACION
+    public void actualizarProyectoByIdPy(AgregarPlanificacionModel agregarPlanificacionModel);
+//  FIN - PLANIFICACION
     
     
 }
