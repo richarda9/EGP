@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
+import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
+import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
+import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.AnexosAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.BuscarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.InteresadoAnteproyectoModel;
@@ -83,6 +86,26 @@ public class ProyectoServiceImp implements ProyectoService {
 	public void actualizarProyectoByIdPy(
 			AgregarPlanificacionModel agregarPlanificacionModel) {
 		proyectoDao.actualizarProyectoByIdPy(agregarPlanificacionModel);		
+	}
+
+	public Proyecto buscarPyByIdPy(Long idPy) {
+		
+		return proyectoDao.buscarPyByIdPy(idPy);
+	}
+
+	public List<TipoRequisitoProyectoModel> listarTipoRequisitoProyectoByIdTipoPy(
+			Long idTipoPy) {
+		return proyectoDao.listarTipoRequisitoProyectoByIdTipoPy(idTipoPy);
+	}
+
+	public List<TipoSupuestoProyectoModel> listarTipoSupuestoProyectoByIdTipoPy(
+			Long idTipoPy) {
+		return proyectoDao.listarTipoSupuestoProyectoByIdTipoPy(idTipoPy);
+	}
+
+	public List<TipoDependenciaProyectoModel> listarTipoDependenciaProyectoByIdTipoPy(
+			Long idTipoPy) {
+		return proyectoDao.listarTipoDependenciaProyectoByIdTipoPy(idTipoPy);
 	}
 
 }

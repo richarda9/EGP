@@ -24,12 +24,16 @@ import com.sigcomt.gestionProyectos.common.Constantes;
 import com.sigcomt.gestionProyectos.common.enumerations.EstadoProyectoEnum;
 import com.sigcomt.gestionProyectos.common.enumerations.RolEnum;
 import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
+import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
+import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
+import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.AgregarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.BuscarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
 import com.sigcomt.gestionProyectos.servicio.administracion.AdministracionService;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.PersonaService;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.ProyectoService;
+import com.sigcomt.gestionProyectos.servicio.planificacion.PlanificacionService;
 
 @Controller
 @RequestMapping(value = "/planificacion")
@@ -38,6 +42,9 @@ public class PlanificacionController
 	protected final Log logger = LogFactory.getLog(getClass());
 	
 	private final static int ESTADO_ACTIVO = 1;
+	
+	@Autowired
+	private PlanificacionService planificacionService;
 	
 	@Autowired
 	private AdministracionService administracionService;
@@ -72,11 +79,17 @@ public class PlanificacionController
 	{
 		HashMap<String, Object> myModel = new HashMap<String, Object>();
 		String index = request.getParameter("idPlanificacion");
-		myModel.put("codigoPy", index);
-//		myModel.put("listaTipoProyecto", this.administracionService.listarTipoProyecto());
-//		myModel.put("listaEstadoProyecto", this.administracionService.listarEstadoProyecto());
-//		myModel.put("listaTipoRequisito", this.administracionService.listarTipoRequisitoProyecto());
-		
+		Proyecto py = proyectoService.buscarPyByIdPy(Long.parseLong(index));
+		List<TipoRequisitoProyectoModel> tipoReqPy = proyectoService.listarTipoRequisitoProyectoByIdTipoPy(py.getIdTipoProyecto());
+		List<TipoSupuestoProyectoModel> tipoSupuesto = proyectoService.listarTipoSupuestoProyectoByIdTipoPy(py.getIdTipoProyecto());
+		List<TipoDependenciaProyectoModel> tipoDependencia = proyectoService.listarTipoDependenciaProyectoByIdTipoPy(py.getIdTipoProyecto());
+		myModel.put("codigoPy", index);		
+		myModel.put("listaTipoRequisito", tipoReqPy);
+		myModel.put("listaTipoSupuesto", tipoSupuesto);
+		myModel.put("listaTipoDependencia", tipoDependencia);
+				
+		myModel.put("descripcionProductoProyecto", py.getDescripcionProductoProyecto());
+		myModel.put("alcanceInicial", py.getAlcanceInicial());
 		return new ModelAndView("mntPlanificacion", "model", myModel);
 	}
 	
@@ -115,4 +128,24 @@ public class PlanificacionController
 	}
 //	FIN - DESCRIPCION DEL PRODUCTO
 
+//	INI - ALCANCE
+	@RequestMapping(value = "/guardarAlcance.htm", method = RequestMethod.POST)
+	public @ResponseBody Map<String, String>  guardarAlcance(@RequestBody AgregarPlanificacionModel agregarPlanificacionModel) {
+		
+		logger.info("INI - PlanificacionController.guardarAlcance");
+		Map<String, String> respuesta =  new HashMap<String, String>();
+		respuesta.put("respuesta", "OK");
+		try {
+			String rpta = planificacionService.guardarAlcance(agregarPlanificacionModel);
+			respuesta.put("respuesta", rpta);
+		} catch (Exception e) {
+			logger.error("ERROR - PlanificacionController.guardarAlcance", e);
+			respuesta.put("respuesta", "ERROR");
+		}
+		
+		logger.info("FIN - PlanificacionController.guardarAlcance");
+		return respuesta;	
+	}
+//	FIN - ALCANCE
+	
 }

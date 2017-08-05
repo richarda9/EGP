@@ -136,7 +136,10 @@
     </select>
     
     <select id="buscarPyByIdPy" parameterType = "java.lang.Long" resultType="Proyecto">
-       select py."CODIGO_PROYECTO" as codigoProyecto
+       select py."CODIGO_PROYECTO" as codigoProyecto,
+       			py."ID_TIPO_PROYECTO" as idTipoProyecto,
+       			py."DESCRIPCION_PRODUCTO_PROYECTO" as descripcionProductoProyecto,
+       			py."ALCANCE_INICIAL" as alcanceInicial
        from "CREAR_PROYECTO"."PROYECTO" py
        where py."ID_PROYECTO" = #{idPy}   
     </select>
@@ -302,9 +305,121 @@
 	<!-- INI - PLANIFICACION -->
     <insert id="actualizarProyectoByIdPy" parameterType="AgregarPlanificacionModel">
         update "CREAR_PROYECTO"."PROYECTO" 
-        set "DESCRIPCION_PRODUCTO_PROYECTO" = #{descripcionProducto}      
+        set "DESCRIPCION_PRODUCTO_PROYECTO" = #{descripcionProducto},
+        	"ALCANCE_PROYECTO" = #{definicionAlcance}
         where "ID_PROYECTO" = #{idProyecto};
     </insert>
+    
+    <select id="listarTipoRequisitoProyectoByIdTipoPy" parameterType="Long" resultType="tipoReqProyectoModel">
+	   select  tr."ID_TIPO_REQUISITO" as id, 
+	   		   tr."DESCRIPCION_TIPO_REQUISITO" as descripcion			   
+	   from "PLANIFICAR_PROYECTO"."TIPO_REQUISITO" tr
+	   inner join "CREAR_PROYECTO"."TIPO_PROYECTO" tp
+	   on tp."ID_TIPO_PROYECTO" = tr."ID_TIPO_PROYECTO"
+	   where tr."ID_TIPO_PROYECTO" = #{idTipoPy};
+	</select>
+	
+	
+	<select id="listarTipoSupuestoProyectoByIdTipoPy" parameterType="Long" resultType="tipoSupProyectoModel">
+	   SELECT ts."ID_TIPO_SUPUESTO" id, 
+	       ts."DESCRIPCION" descripcion 	       
+	  FROM "PLANIFICAR_PROYECTO"."TIPO_SUPUESTO" ts
+	  inner join "CREAR_PROYECTO"."TIPO_PROYECTO" tp
+	  on ts."ID_TIPO_PROYECTO" = tp."ID_TIPO_PROYECTO"
+	  where ts."ID_TIPO_PROYECTO" = #{idTipoPy};
+	</select>
+	
+	<select id="listarTipoDependenciaProyectoByIdTipoPy" parameterType="Long" resultType="tipoDepProyectoModel">
+	   SELECT td."ID_TIPO_DEPENDENCIA" id, 
+	       td."DESCRIPCION_TIPO_DEPENDENCIA" descripcion
+	  FROM "PLANIFICAR_PROYECTO"."TIPO_DEPENDENCIA" td
+	  inner join "CREAR_PROYECTO"."TIPO_PROYECTO" tp
+	  on td."ID_TIPO_PROYECTO" = tp."ID_TIPO_PROYECTO"
+	  where td."ID_TIPO_PROYECTO" = #{idTipoPy};
+	</select>
+	
+	<insert id="insertarListaDetalleTipoRequisito" parameterType="java.util.List">        
+        <foreach collection="tipoRequisitos" item="element" index="index" separator="">
+            INSERT INTO "PLANIFICAR_PROYECTO"."DETALLE_REQUISITO_PROYECTO" (
+            "ID_DETALLE_REQUISITO_PROYECTO",
+            "ID_TIPO_REQUISITO",
+            "ID_PROYECTO",
+            "DESCRIPCION",
+            "OBSERVACION")
+            VALUES
+            (nextval('"PLANIFICAR_PROYECTO"."SQ_DETALLE_REQUISITO_PROYECTO"'),  
+            #{element.idTipoRequisito},
+            #{element.idProyecto},
+            #{element.descripcion},
+            #{element.observacion});
+       </foreach>
+    </insert>
+    
+    <insert id="insertarListaDetalleExclusion" parameterType="java.util.List">        
+        <foreach collection="exclusion" item="element" index="index" separator="">
+            INSERT INTO "PLANIFICAR_PROYECTO"."DETALLE_EXCLUSION" (
+            "ID_DETALLE_EXCLUSION",
+            "ID_PROYECTO",
+            "DESCRIPCION",
+            "ESTADO")
+            VALUES
+            (nextval('"PLANIFICAR_PROYECTO"."SQ_DETALLE_EXCLUSION"'),  
+            #{element.idProyecto},
+            #{element.descripcion},
+            1);
+       </foreach>
+    </insert>
+    
+    <insert id="insertarListaDetalleSupuesto" parameterType="java.util.List">        
+        <foreach collection="supuesto" item="element" index="index" separator="">
+            INSERT INTO "PLANIFICAR_PROYECTO"."DETALLE_SUPUESTO_PROYECTO" (
+            "ID_DETALLE_SUPUESTO_PROYECTO",
+            "ID_TIPO_SUPUESTO",
+            "ID_PROYECTO",
+            "DESCRIPCION",
+            "ESTADO")
+            VALUES
+            (nextval('"PLANIFICAR_PROYECTO"."SQ_DETALLE_SUPUESTO_PROYECTO"'),  
+            #{element.idTipoSupuesto},
+            #{element.idProyecto},
+            #{element.descripcion},
+            1);
+       </foreach>
+    </insert>
+    
+    <insert id="insertarListaDetalleDependencia" parameterType="java.util.List">        
+        <foreach collection="dependencia" item="element" index="index" separator="">
+            INSERT INTO "PLANIFICAR_PROYECTO"."DETALLE_DEPENDENCIA_PROYECTO" (
+            "ID_DETALLE_DEPENDENCIA_PROYECTO",
+            "ID_TIPO_DEPENDENCIA",
+            "ID_PROYECTO",
+            "DESCRIPCION_DEPENDENCIA",
+            "ESTADO")
+            VALUES
+            (nextval('"PLANIFICAR_PROYECTO"."SQ_DETALLE_DEPENDENCIA_PROYECTO"'),  
+            #{element.idTipoDependencia},
+            #{element.idProyecto},
+            #{element.descripcion},
+            1);
+       </foreach>
+    </insert>
+    
+    <insert id="insertarListaDetalleFactorExito" parameterType="java.util.List">        
+        <foreach collection="factorExito" item="element" index="index" separator="">
+            INSERT INTO "PLANIFICAR_PROYECTO"."DETALLE_FACTOR_EXITO" (
+            "ID_DETALLE_FACTOR_EXITO",
+            "ID_PROYECTO",
+            "DESCRIPCION_FACTOR_EXITO",
+            "ESTADO")
+            VALUES
+            (nextval('"PLANIFICAR_PROYECTO"."SQ_DETALLE_FACTOR_EXITO"'),  
+            #{element.idProyecto},
+            #{element.descripcion},
+            1);
+       </foreach>
+    </insert>
+	
+	
     <!-- FIN - PLANIFICACION -->
     
 	<!-- [INI] EJECUCION -->

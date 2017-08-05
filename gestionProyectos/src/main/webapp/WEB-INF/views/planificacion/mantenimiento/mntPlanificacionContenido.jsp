@@ -123,13 +123,32 @@
 						</div>
 						<br>
 						<form  name="formPlanDescripcion" id="formPlanDescripcion" method="post">
-							<textarea class="span12" id="descripcion" name="descripcion"></textarea>
+							<textarea class="span12" id="descripcion" name="descripcion" >${model.descripcionProductoProyecto}</textarea>
 						</form>
 					</div>
 					<!-- FIN - PLANIFICACION - DESCRIPCION PRODUCTO  -->
 
+					<!-- INI - PLANIFICACION - ALCANCE  -->
 					<div id="alcance" class="tab-pane">
+						<div class="row-fluid">
+							<div class="span12">
+								<div class="page-header position-relative"><h1>Alcance</h1></div>
+							</div>
+						</div>
+						<div class="row-fluid">
+							<div class="span12">
+								<div class="span9"></div>
+								<div class="span3" style="float:left;">
+									<a class="btn btn-small btn-info span12" onclick="guardarAlcance()">
+										<i class="icon-save bigger-125"></i>
+										Guardar
+									</a>
+								</div>
+							</div>
+						</div>
+						<br>
 						<div id="accordion2" class="accordion">
+						<form  name="formPlanAlcance" id="formPlanAlcance" method="post">
 							<div class="accordion-group">
 								<div class="accordion-heading">
 									<a href="#definicionAlcance" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle collapsed">
@@ -140,7 +159,9 @@
 								<div class="accordion-body in collapse" id="definicionAlcance">
 									<div class="accordion-inner">
 										<br>
-										<div class="wysiwyg-editor" id="editor2"></div>
+										<div class="control-group">
+											<textarea class="span12" id="txtdefinicionAlcance" name="definicionAlcance">${model.alcanceInicial}</textarea>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -155,19 +176,55 @@
 								<div class="accordion-body collapse" id="reqProyecto">
 									<div class="accordion-inner">
 										<div class="row-fluid">
-											<div class="span4">
-												<button class="btn btn-info span12">
-													<i class="icon-plus bigger-125"></i>
-													Agregar Requisito
-												</button>
+											<div class="span12">
+												<div class="control-group">
+													<label class="control-label" for="tipo">Tipo</label>	
+													<div class="controls">
+														<select id="idTipoRequisito" title="tipo">
+															<option value="">Seleccionar</option>
+															<c:forEach var="tipoRequisito" items="${model.listaTipoRequisito}" varStatus="contador">
+															   <option value="${tipoRequisito.id}">${tipoRequisito.descripcion}</option>
+															</c:forEach>
+														</select>
+													</div>
+												</div>
 											</div>
 										</div>
+										<div class="row-fluid">
+											<div class="span12">
+												<div class="span6">
+													<div class="control-group">
+														<label class="control-label" for="descripcion">Descripción</label>	
+														<div class="controls">
+															<input type="text" id="idDescripcionAlcance" class="span12" placeholder="Descripción"/>															
+														</div>
+													</div>
+												</div>
+												<div class="span6">
+													<div class="control-group">
+														<label class="control-label" for="observacion">Observación</label>	
+														<div class="controls">
+															<input type="text" id="idObservacionAlcance" class="span12" placeholder="Observación"/>															
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<div class="span9"></div>
+											<div class="span3">
+												<a class="btn btn-small btn-info span12" onclick="agregarPlanificacionRequisito()">
+													<i class="icon-plus-sign bigger-125"></i>
+													Agregar Requisito
+												</a>
+											</div>										
+										</div>
 										<br>
-										<table id="tablaReqProyecto" class="table table-striped table-bordered table-hover">
+										<table id="tablaReqProyecto" class="table table-striped table-bordered table-hover" style = "width : 100%">
 											<thead>
 												<tr>
 													<th>Tipo</th>
-													<th>Codigo</th>
+													<!-- <th>Codigo</th> -->
 													<th>Descripci&oacute;n</th>
 													<th>Observaciones</th>
 <!-- 													<th>Mockups</th> -->
@@ -176,14 +233,14 @@
 											</thead>
 				
 											<tbody>
-												<tr>
+												<!-- <tr>
 													<td></td>
 													<td></td>
 													<td></td>
 													<td></td>
-<!-- 													<td></td> -->
+													<td></td>
 													<td></td>													
-												</tr>
+												</tr> -->
 											</tbody>
 										</table>
 									</div>
@@ -197,37 +254,40 @@
 									</a>
 								</div>
 								<div class="accordion-body collapse" id="exclusiones">
-									<div class="accordion-inner">
+									<div class="accordion-inner">										
 										<div class="row-fluid">
-											<div class="span4">
-												<button class="btn btn-info span12">
-													<i class="icon-plus bigger-125"></i>
-													Agregar Exclusi&oacute;n
-												</button>
-											</div>
-											<div class="span4">
-												<button class="btn btn-info span12">
-													<i class="icon-plus bigger-125"></i>
-													Importar Plantilla
-												</button>
+											<div class="control-group">
+												<label class="control-label" for="descripcion">Descripción</label>	
+												<div class="controls">
+													<input type="text" id="idDescripcionExlclusion" class="span12" placeholder="Descripción"/>															
+												</div>
 											</div>
 										</div>
+										<div class="row-fluid">
+											<div class="span9"></div>
+											<div class="span3">
+												<a class="btn btn-small btn-info span12" onclick="agregarPlanificacionExclusion()">
+													<i class="icon-plus-sign bigger-125"></i>
+													Agregar Exclusi&oacute;n
+												</a>
+											</div>										
+										</div>
 										<br>
-										<table id="tablaExclProyecto" class="table table-striped table-bordered table-hover">
+										<table id="tablaExclProyecto" class="table table-striped table-bordered table-hover" style= "width:100%">
 											<thead>
 												<tr>
-													<th>Codigo</th>
+													<!-- <th>Codigo</th> -->
 													<th>Descripci&oacute;n</th>
 													<th>Opciones</th>
 												</tr>
 											</thead>
 				
 											<tbody>
-												<tr>
+												<!-- <tr>
 													<td></td>
 													<td></td>
 													<td></td>													
-												</tr>
+												</tr> -->
 											</tbody>
 										</table>
 									</div>
@@ -241,39 +301,58 @@
 									</a>
 								</div>
 								<div class="accordion-body collapse" id="supuestos">
-									<div class="accordion-inner">
+									<div class="accordion-inner">									
 										<div class="row-fluid">
-											<div class="span4">
-												<button class="btn btn-info span12">
-													<i class="icon-plus bigger-125"></i>
-													Agregar Supuesto
-												</button>
-											</div>
-											<div class="span4">
-												<button class="btn btn-info span12">
-													<i class="icon-plus bigger-125"></i>
-													Importar Plantilla
-												</button>
+											<div class="span12">
+												<div class="control-group">
+													<label class="control-label" for="tipo">Tipo</label>	
+													<div class="controls">
+														<select id="idTipoSupuesto" title="tipo">
+															<option value="">Seleccionar</option>
+															<c:forEach var="tipoSupuesto" items="${model.listaTipoSupuesto}" varStatus="contador">
+															   <option value="${tipoSupuesto.id}">${tipoSupuesto.descripcion}</option>
+															</c:forEach>
+														</select>
+													</div>
+												</div>
 											</div>
 										</div>
-										<br>
-										<table id="tablaSupuestoProyecto" class="table table-striped table-bordered table-hover">
+										<div class="row-fluid">
+											<div class="span12">
+												<div class="control-group">
+													<label class="control-label" for="descripcion">Descripción</label>	
+													<div class="controls">
+														<input type="text" id="idDescripcionSupuesto" class="span12" placeholder="Descripción"/>															
+													</div>
+												</div>											
+											</div>
+										</div>
+										<div class="row-fluid">
+											<div class="span9"></div>
+											<div class="span3">
+												<a class="btn btn-small btn-info span12" onclick="agregarPlanificacionSupuesto()">
+													<i class="icon-plus-sign bigger-125"></i>
+													Agregar Supuesto
+												</a>
+											</div>										
+										</div>
+										<br>									
+										<table id="tablaSupuestoProyecto" class="table table-striped table-bordered table-hover" style = "width: 100%">
 											<thead>
 												<tr>
 													<th>Tipo</th>
-													<th>Codigo</th>
 													<th>Descripci&oacute;n</th>
 													<th>Opciones</th>
 												</tr>
 											</thead>
 				
 											<tbody>
-												<tr>
+												<!-- <tr>
 													<td></td>
 													<td></td>
 													<td></td>
 													<td></td>													
-												</tr>
+												</tr> -->
 											</tbody>
 										</table>
 									</div>
@@ -287,39 +366,58 @@
 									</a>
 								</div>
 								<div class="accordion-body collapse" id="dependencias">
-									<div class="accordion-inner">
+									<div class="accordion-inner">									
 										<div class="row-fluid">
-											<div class="span4">
-												<button class="btn btn-info span12">
-													<i class="icon-plus bigger-125"></i>
-													Agregar Dependencia
-												</button>
-											</div>
-											<div class="span4">
-												<button class="btn btn-info span12">
-													<i class="icon-plus bigger-125"></i>
-													Importar Plantilla
-												</button>
+											<div class="span12">
+												<div class="control-group">
+													<label class="control-label" for="tipo">Tipo</label>	
+													<div class="controls">
+														<select id="idTipoDependencia" title="tipo">
+															<option value="">Seleccionar</option>
+															<c:forEach var="tipoDependencia" items="${model.listaTipoDependencia}" varStatus="contador">
+															   <option value="${tipoDependencia.id}">${tipoDependencia.descripcion}</option>
+															</c:forEach>
+														</select>
+													</div>
+												</div>
 											</div>
 										</div>
+										<div class="row-fluid">
+											<div class="span12">
+												<div class="control-group">
+													<label class="control-label" for="descripcion">Descripción</label>	
+													<div class="controls">
+														<input type="text" id="idDescripcionDependencia" class="span12" placeholder="Descripción"/>															
+													</div>
+												</div>											
+											</div>
+										</div>
+										<div class="row-fluid">
+											<div class="span9"></div>
+											<div class="span3">
+												<a class="btn btn-small btn-info span12" onclick="agregarPlanificacionDependencia()">
+													<i class="icon-plus-sign bigger-125"></i>
+													Agregar Dependencia
+												</a>
+											</div>										
+										</div>
 										<br>
-										<table id="tablaDependenciaProyecto" class="table table-striped table-bordered table-hover">
+										<table id="tablaDependenciaProyecto" class="table table-striped table-bordered table-hover" style ="width:100%">
 											<thead>
 												<tr>
 													<th>Tipo</th>
-													<th>Codigo</th>
 													<th>Descripci&oacute;n</th>
 													<th>Opciones</th>
 												</tr>
 											</thead>
 				
 											<tbody>
-												<tr>
+												<!-- <tr>
 													<td></td>
 													<td></td>
 													<td></td>
 													<td></td>													
-												</tr>
+												</tr> -->
 											</tbody>
 										</table>
 									</div>
@@ -334,43 +432,49 @@
 								</div>
 								<div class="accordion-body collapse" id="facExito">
 									<div class="accordion-inner">
+									
 										<div class="row-fluid">
-											<div class="span4">
-												<button class="btn btn-info span12">
-													<i class="icon-plus bigger-125"></i>
-													Agregar Factor Exito
-												</button>
-											</div>
-											<div class="span4">
-												<button class="btn btn-info span12">
-													<i class="icon-plus bigger-125"></i>
-													Importar Plantilla
-												</button>
+											<div class="control-group">
+												<label class="control-label" for="descripcion">Descripción</label>	
+												<div class="controls">
+													<input type="text" id="idDescripcionFactorExito" class="span12" placeholder="Descripción"/>															
+												</div>
 											</div>
 										</div>
+										<div class="row-fluid">
+											<div class="span9"></div>
+											<div class="span3">
+												<a class="btn btn-small btn-info span12" onclick="agregarPlanificacionFactorExito()">
+													<i class="icon-plus-sign bigger-125"></i>
+													Agregar Factor
+												</a>
+											</div>										
+										</div>
 										<br>
-										<table id="tablafactExitoProyecto" class="table table-striped table-bordered table-hover">
+										<table id="tablafactExitoProyecto" class="table table-striped table-bordered table-hover" style="width: 100%">
 											<thead>
 												<tr>
-													<th>Codigo</th>
+													<!-- <th>Codigo</th> -->
 													<th>Descripci&oacute;n</th>
 													<th>Opciones</th>
 												</tr>
 											</thead>
 				
 											<tbody>
-												<tr>
+												<!-- <tr>
 													<td></td>
 													<td></td>
 													<td></td>													
-												</tr>
+												</tr> -->
 											</tbody>
 										</table>
 									</div>
 								</div>
 							</div>
+						</form>
 						</div>
 					</div>
+					<!-- FIN - PLANIFICACION - ALCANCE  -->
 
 					<div id="recursoHumanos" class="tab-pane">
 						<div id="accordion3" class="accordion">
@@ -689,4 +793,125 @@
 	</div>
 <!-- 	<div class="space-20"></div> -->
 <!-- 	Jr. Leon Velarde -->
+
+	<!-- INI - MODAL ELIMINAR REQUISITO PROYECTO TABLA-->
+	<div id="modalEliminarRequisitoProyecto" class="modal hide fade" tabindex="-1" data-attr-index="" >
+		<div class="modal-header no-padding">
+			<div class="table-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+		</div>
+
+		<div class="modal-body padding">
+			<b style="text-align: center">¿Est&aacute; seguro que desea eliminar requisito?</b> 	
+		</div>
+
+		<div class="modal-footer">
+			<a id ="confirmarEliminarRequisitoProyecto" class="btn btn-small btn-primary">
+				<i class="icon-ok"></i> Confirmar
+			</a>
+			<a class="btn btn-small btn-light" data-dismiss="modal">
+				<i class="icon-remove"></i> Salir
+			</a>
+		</div>
+
+	</div>
+	<!-- FIN - MODAL ELIMINAR REQUISITO PROYECTO TABLA-->
+	
+	<!-- INI - MODAL ELIMINAR EXCLUSIONES TABLA-->
+	<div id="modalEliminarExclusiones" class="modal hide fade" tabindex="-1" data-attr-index="" >
+		<div class="modal-header no-padding">
+			<div class="table-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+		</div>
+
+		<div class="modal-body padding">
+			<b style="text-align: center">¿Est&aacute; seguro que desea eliminar exclusión?</b> 	
+		</div>
+
+		<div class="modal-footer">
+			<a id ="confirmarEliminarExclusion" class="btn btn-small btn-primary">
+				<i class="icon-ok"></i> Confirmar
+			</a>
+			<a class="btn btn-small btn-light" data-dismiss="modal">
+				<i class="icon-remove"></i> Salir
+			</a>
+		</div>
+
+	</div>
+	<!-- FIN - MODAL ELIMINAR EXCLUSIONES TABLA-->
+	
+	<!-- INI - MODAL ELIMINAR SUPUESTO TABLA-->
+	<div id="modalEliminarSupuesto" class="modal hide fade" tabindex="-1" data-attr-index="" >
+		<div class="modal-header no-padding">
+			<div class="table-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+		</div>
+
+		<div class="modal-body padding">
+			<b style="text-align: center">¿Est&aacute; seguro que desea eliminar supuesto?</b> 	
+		</div>
+
+		<div class="modal-footer">
+			<a id ="confirmarEliminarSupuesto" class="btn btn-small btn-primary">
+				<i class="icon-ok"></i> Confirmar
+			</a>
+			<a class="btn btn-small btn-light" data-dismiss="modal">
+				<i class="icon-remove"></i> Salir
+			</a>
+		</div>
+
+	</div>
+	<!-- FIN - MODAL ELIMINAR SUPUESTO TABLA-->
+	
+	<!-- INI - MODAL ELIMINAR DEPENDENCIA TABLA-->
+	<div id="modalEliminarDependencia" class="modal hide fade" tabindex="-1" data-attr-index="" >
+		<div class="modal-header no-padding">
+			<div class="table-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+		</div>
+
+		<div class="modal-body padding">
+			<b style="text-align: center">¿Est&aacute; seguro que desea eliminar dependencia?</b> 	
+		</div>
+
+		<div class="modal-footer">
+			<a id ="confirmarEliminarDependencia" class="btn btn-small btn-primary">
+				<i class="icon-ok"></i> Confirmar
+			</a>
+			<a class="btn btn-small btn-light" data-dismiss="modal">
+				<i class="icon-remove"></i> Salir
+			</a>
+		</div>
+
+	</div>
+	<!-- FIN - MODAL ELIMINAR DEPENDENCIA TABLA-->	
+	
+	<!-- INI - MODAL ELIMINAR FACTOR EXITO TABLA-->
+	<div id="modalEliminarFactorExito" class="modal hide fade" tabindex="-1" data-attr-index="" >
+		<div class="modal-header no-padding">
+			<div class="table-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+		</div>
+
+		<div class="modal-body padding">
+			<b style="text-align: center">¿Est&aacute; seguro que desea eliminar factor de éxito?</b> 	
+		</div>
+
+		<div class="modal-footer">
+			<a id ="confirmarEliminarFactorExito" class="btn btn-small btn-primary">
+				<i class="icon-ok"></i> Confirmar
+			</a>
+			<a class="btn btn-small btn-light" data-dismiss="modal">
+				<i class="icon-remove"></i> Salir
+			</a>
+		</div>
+
+	</div>
+	<!-- FIN - MODAL ELIMINAR FACTOR EXITO TABLA-->	
+
 </div>	
