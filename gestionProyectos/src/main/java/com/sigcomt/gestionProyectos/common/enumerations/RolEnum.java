@@ -3,7 +3,8 @@ package com.sigcomt.gestionProyectos.common.enumerations;
 public enum RolEnum {
 	
 	EJECUTIVO_CUENTA ("1", "EJECUTIVO DE CUENTA"),
-	RESPONSABLE_PROYECTO ("2", "RESPONSABLE DEL PROYECTO");
+	RESPONSABLE_PROYECTO ("2", "RESPONSABLE DEL PROYECTO"),
+	CERTIFICADOR("3", "CERTIFICADOR");
 	
 	private String codigo;
 	private String descripcion;
