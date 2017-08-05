@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,16 +17,20 @@ import com.sigcomt.gestionProyectos.dominio.administracion.DetalleEmpresaPersona
 import com.sigcomt.gestionProyectos.dominio.administracion.Persona;
 import com.sigcomt.gestionProyectos.dominio.administracion.Rol;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.Complejidad;
+import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAdquisicionProyecto;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAsignacionResponsable;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleCronograma;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleRolProyecto;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.EstadoAdquisicion;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.EstadoTarea;
+import com.sigcomt.gestionProyectos.dominio.ejecucion.InformeAvance;
 import com.sigcomt.gestionProyectos.model.comunes.EnvioCorreo;
 import com.sigcomt.gestionProyectos.model.ejecucion.EnvioCertificacionModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.LstAsignarResponsableModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.LstCtrolCambiosModel;
+import com.sigcomt.gestionProyectos.model.ejecucion.LstDetalleAdquisicionesProyectoModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.LstDetalleCronogramaModel;
+import com.sigcomt.gestionProyectos.model.ejecucion.LstEnvioCertificacionModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.MntAsignarResponsableModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.MntCtrolCambiosModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.MntTareaCtrolCambioModel;
@@ -218,6 +221,9 @@ public class EjecucionServiceImp implements EjecucionService
 	        
 	        comunService.envioCorreo(correo);
 	        
+	        objeto.setIdestadoEntregable(new Long("2"));
+	        ejecucionDao.actualizarEnvioCorreo(objeto);
+	        
 	        File fichero = new File(rutaArch);
 	        fichero.delete();
 			
@@ -228,5 +234,61 @@ public class EjecucionServiceImp implements EjecucionService
 	
 	public List<EstadoAdquisicion> listarEstadoAdquisicion(){
 		return ejecucionDao.listarEstadoAdquisicion();
+	}
+	
+	public List<Persona> listarResponsablebyProyecto(Long id){
+		return ejecucionDao.listarResponsablebyProyecto(id);
+	}
+	
+	public List<LstDetalleAdquisicionesProyectoModel> listarCategAdquisicionbyProyecto(DetalleAdquisicionProyecto bsqAdquisicion){
+		return ejecucionDao.listarCategAdquisicionbyProyecto(bsqAdquisicion);
+	}
+	
+	public int mntAdquisiciones(DetalleAdquisicionProyecto dato){
+		if(dato.getId() == null)
+			return ejecucionDao.mntAdquisiciones(dato);
+		else{
+			ejecucionDao.actualizarAdquisiciones(dato);
+			return 1;
+		}
+	}
+	
+	public void eliminarAdquisiciones(Integer id){
+		ejecucionDao.eliminarAdquisiciones(id);
+	}
+	
+	public List<LstEnvioCertificacionModel> listarEnvioCertificacionbyProyecto(Long idproyecto)
+	{
+		return ejecucionDao.listarEnvioCertificacionbyProyecto(idproyecto);
+	}
+	
+	//
+	public List<InformeAvance> listarInfoAvancebyProyecto(InformeAvance info){
+		return ejecucionDao.listarInfoAvancebyProyecto(info);
+	}
+	
+	public int mntoInformeAvance(InformeAvance dato){
+		if(dato.getId() == null)
+			return ejecucionDao.mntoInformeAvance(dato);
+		else{
+			ejecucionDao.actualizarInformeAvance(dato);
+			return 1;
+		}
+	}
+	
+	public void eliminarInformeAvance(Integer id){
+		InformeAvance info = new InformeAvance();
+		info.setId(new Long(id));
+		info.setEstado(Constantes.ESTADO_INACTIVO);
+		
+		ejecucionDao.eliminarInformeAvance(info);
+	}
+	
+	public int enviarCorreoInformeAvance(InformeAvance dato){
+		List<InformeAvance> lista = ejecucionDao.listarInfoAvancebyProyecto(dato);
+		
+		
+		
+		return 1;
 	}
 }

@@ -3,7 +3,6 @@ package com.sigcomt.gestionProyectos.controlador.ejecucion;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,8 +25,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sigcomt.gestionProyectos.common.Constantes;
 import com.sigcomt.gestionProyectos.common.enumerations.EstadoProyectoEnum;
+import com.sigcomt.gestionProyectos.common.enumerations.RolEnum;
 import com.sigcomt.gestionProyectos.dominio.administracion.Persona;
+import com.sigcomt.gestionProyectos.dominio.administracion.Sponsor;
+import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAdquisicionProyecto;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAsignacionResponsable;
+import com.sigcomt.gestionProyectos.dominio.ejecucion.InformeAvance;
 import com.sigcomt.gestionProyectos.model.ejecucion.BuscarEjecucionModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.EnvioCertificacionModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.LstAsignarResponsableModel;
@@ -37,7 +40,9 @@ import com.sigcomt.gestionProyectos.model.ejecucion.MntAsignarResponsableModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.MntCtrolCambiosModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.MntTareaCtrolCambioModel;
 import com.sigcomt.gestionProyectos.servicio.administracion.AdministracionService;
+import com.sigcomt.gestionProyectos.servicio.anteproyecto.PersonaService;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.ProyectoService;
+import com.sigcomt.gestionProyectos.servicio.cierre.CierreService;
 import com.sigcomt.gestionProyectos.servicio.ejecucion.EjecucionService;
 
 @Controller
@@ -55,6 +60,12 @@ public class EjecucionController
 	
 	@Autowired
 	private EjecucionService ejecucionService;
+	
+	@Autowired
+	private PersonaService personaService;
+	
+	@Autowired
+	private CierreService cierreService;
 
 	@RequestMapping(value = "/ejecucion.htm")
 	public ModelAndView ejecucion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
@@ -71,16 +82,27 @@ public class EjecucionController
 	}
 	
 	@RequestMapping(value = "/mntEjecucion.htm")
-	public ModelAndView mntEjecucion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	public ModelAndView mntEjecucion(HttpServletRequest request, HttpServletResponse response) throws NumberFormatException, Exception 
 	{
 		HashMap<String, Object> myModel = new HashMap<String, Object>();
 		MntCtrolCambiosModel bsqCtrolCambios = new MntCtrolCambiosModel();
-		bsqCtrolCambios.setEstado(Constantes.ESTADO_ACTIVO);		
+		MntAsignarResponsableModel bsqResponsable = new MntAsignarResponsableModel();
+		DetalleAdquisicionProyecto bsqAdquisicion = new DetalleAdquisicionProyecto();
+		InformeAvance info = new InformeAvance();
+		Sponsor sponsor = new Sponsor();
+		ObjectMapper mapper = new ObjectMapper();
 		String idProyecto = request.getParameter("idEjecucion");
 		
-		MntAsignarResponsableModel bsqResponsable = new MntAsignarResponsableModel();
+		bsqCtrolCambios.setEstado(Constantes.ESTADO_ACTIVO);		
+		bsqCtrolCambios.setIdproyecto(new Long(idProyecto));
+				
 		bsqResponsable.setIdproyecto(new Long(idProyecto));
 		bsqResponsable.setTiporol(Constantes.TIPO_ROL_PROVEEDOR);
+		
+		bsqAdquisicion.setIdproyecto(new Long(idProyecto));
+		
+		info.setIdProyecto(new Long(idProyecto));
+		sponsor.setEstado(Constantes.ESTADO_ACTIVO);
 		
 		HashMap<String, String> mapa = new HashMap<String, String>();
 		mapa.put("idproyecto", idProyecto);
@@ -101,9 +123,16 @@ public class EjecucionController
 		myModel.put("listaCliente", this.ejecucionService.listarAsignacionRecurso(bsqResponsable));
 		myModel.put("listaEstadoAdquisicion", this.ejecucionService.listarEstadoAdquisicion());
 		myModel.put("listaCategoriaAdquisicion", this.administracionService.listarCategAdquisicion());
-		//listarEntregableCertificacion()
-				
-		ObjectMapper mapper = new ObjectMapper();
+		myModel.put("listaResponsableProyecto", this.ejecucionService.listarResponsablebyProyecto(new Long(idProyecto)));
+		myModel.put("listaCertificador", this.personaService.listarEjecutivoResponsableByEstadoByRol(Constantes.ESTADO_ACTIVO, Long.parseLong(RolEnum.CERTIFICADOR.getCodigo())));
+		myModel.put("listaEnvioCertificacion",  mapper.writeValueAsString(ejecucionService.listarEnvioCertificacionbyProyecto(new Long(idProyecto))));
+		
+		myModel.put("listaInformeAvance",  mapper.writeValueAsString(ejecucionService.listarInfoAvancebyProyecto(info)));
+		myModel.put("listaTipoAvance", administracionService.listarTipoAvance());
+		myModel.put("listaSponsor", cierreService.listaSponsor(sponsor));
+		
+		myModel.put("listaCategoriaAdquisiciones", mapper.writeValueAsString(ejecucionService.listarCategAdquisicionbyProyecto(bsqAdquisicion)));
+						
 		myModel.put("listaTareas", mapper.writeValueAsString(ejecucionService.obtListaTareaProyectobyProyecto(new Long(idProyecto))));
 				
 		return new ModelAndView("mntEjecucion", "model", myModel);
@@ -226,12 +255,98 @@ public class EjecucionController
 			
 			ejecucionService.mntEnvioCertificacion(multipartFile, map, ruta);
 		
+			return 0;
 		}catch(Exception e){
 			System.out.println(e.getMessage());
-		}
-		
-		return 0;	
+			return 1;	
+		}		
+	}
+	
+	@RequestMapping(value = "/listar_EnvioCertificacion.htm", method = RequestMethod.POST)
+	public @ResponseBody String listarEnvioCertificacion(@RequestBody int dato) throws JsonGenerationException, JsonMappingException, IOException 
+	{
+		return new ObjectMapper().writeValueAsString(ejecucionService.listarEnvioCertificacionbyProyecto(new Long(dato)));
 	}
 	//--------------------------------- [FIN] ENVIO CERTIFICACION ------------------------------------
+	//--------------------------------- [INI] ADQUISICIONES ------------------------------------------
+	@RequestMapping(value = "/mnto_Adquisiciones.htm", method = RequestMethod.POST)
+	public @ResponseBody int mntoAdquisiciones(@RequestBody DetalleAdquisicionProyecto dato) 
+	{
+		try{
+			int resultado = ejecucionService.mntAdquisiciones(dato);
+			return resultado;
+		}catch(Exception e){
+			logger.error(e.getMessage());
+			return 0;
+		}		
+	}
 	
+	@RequestMapping(value = "/listar_Adquisiciones.htm", method = RequestMethod.POST)
+	public @ResponseBody String listarAdquisiciones(@RequestBody int dato) throws JsonGenerationException, JsonMappingException, IOException 
+	{	
+		DetalleAdquisicionProyecto bsqAdquisicion = new DetalleAdquisicionProyecto();
+		bsqAdquisicion.setIdproyecto(new Long(dato));
+		return new ObjectMapper().writeValueAsString(ejecucionService.listarCategAdquisicionbyProyecto(bsqAdquisicion));
+	}
+		
+	@RequestMapping(value = "/obtener_Adquisiciones.htm", method = RequestMethod.POST)
+	public @ResponseBody String obtenerAdquisiciones(@RequestBody DetalleAdquisicionProyecto dato) throws JsonGenerationException, JsonMappingException, IOException 
+	{	
+		return new ObjectMapper().writeValueAsString(ejecucionService.listarCategAdquisicionbyProyecto(dato));
+	}
+	
+	@RequestMapping(value = "/eliminar_Adquisiciones.htm", method = RequestMethod.POST)
+	public @ResponseBody int eliminarAdquisiciones(@RequestBody Integer dato) 
+	{
+		ejecucionService.eliminarAdquisiciones(dato); 
+		return 0;
+	}
+	//--------------------------------- [FIN] ADQUISICIONES ------------------------------------------
+	//--------------------------------- [INI] INFORME DE AVANCE ------------------------------------------
+	@RequestMapping(value = "/mnto_InformeAvance.htm", method = RequestMethod.POST)
+	public @ResponseBody int mntoInformeAvance(@RequestBody InformeAvance dato) 
+	{
+		try{
+			int resultado = ejecucionService.mntoInformeAvance(dato);
+			return resultado;
+		}catch(Exception e){
+			logger.error(e.getMessage());
+			return 0;
+		}		
+	}
+	
+	@RequestMapping(value = "/listar_InformeAvance.htm", method = RequestMethod.POST)
+	public @ResponseBody String listarInformeAvance(@RequestBody int dato) throws JsonGenerationException, JsonMappingException, IOException 
+	{	
+		InformeAvance info = new InformeAvance();
+		info.setIdProyecto(new Long(dato));
+		return new ObjectMapper().writeValueAsString(ejecucionService.listarInfoAvancebyProyecto(info));
+	}
+	
+	@RequestMapping(value = "/obtener_InformeAvance.htm", method = RequestMethod.POST)
+	public @ResponseBody String obtenerInformeAvance(@RequestBody InformeAvance dato) throws JsonGenerationException, JsonMappingException, IOException 
+	{	
+		return new ObjectMapper().writeValueAsString(ejecucionService.listarInfoAvancebyProyecto(dato));
+	}
+	
+	@RequestMapping(value = "/eliminar_InformeAvance.htm", method = RequestMethod.POST)
+	public @ResponseBody int eliminarInformeAvance(@RequestBody Integer dato) 
+	{
+		ejecucionService.eliminarInformeAvance(dato); 
+		return 0;
+	}
+	
+	@RequestMapping(value = "/enviarCorreo_InformeAvance.htm", method = RequestMethod.POST)
+	public @ResponseBody int enviarCorreoInformeAvance(@RequestBody InformeAvance dato) 
+	{
+		try{
+			int resultado = ejecucionService.enviarCorreoInformeAvance(dato);
+			return resultado;
+		}catch(Exception e){
+			logger.error(e.getMessage());
+			return 0;
+		}		
+	}
+	//--------------------------------- [FIN] INFORME DE AVANCE ------------------------------------------
+		
 }

@@ -26,6 +26,9 @@ $('document').ready(function(){
 	$('#registrarEnvioCertificacion').validate({
 		errorClass: 'help-block',
 		rules: {
+			idDestinoCertificacion: {
+				required: true
+			},
 			destinoCertificacion: {
 				required: true
 			},
@@ -57,34 +60,51 @@ $('document').ready(function(){
 	});
 	
 	function envioCertificacion(){
-		
+		$('#modal-EnviarCertificacion').modal('hide');
+		loadModalCargando();
 		var objetoCtrol = $('#registrarEnvioCertificacion').serializeObject();
+			objetoCtrol.idproyecto = $("#idProyectoGeneral").val();
 		 var oMyForm = new FormData();
          oMyForm.append("file", $('#envioEntregableCertificacion').data('ace_input_files')[0]);
          oMyForm.append("objeto",JSON.stringify(objetoCtrol));
-         //objetoCtrol.fichero = $('#envioEntregableCertificacion').data('ace_input_files')[0];//oMyForm;
-         
-         console.log(oMyForm);
-		
+         		
 		jQuery.ajax({
 	        'type': 'POST',
 	        'url': 'mnt_EnvioCertificacion.htm',
-	        //'contentType': 'application/json; charset=utf-8',
-	        //'enctype': 'multipart/form-data',
-	        'data': oMyForm, //{dato  : objetoCtrol}, //, file: oMyForm}, //JSON.stringify(data),
-	        //'dataType': 'json',
+	        'data': oMyForm,
 	        'processData': false, 
             'contentType':false,
-            
-//            'contentType': 'application/json; charset=utf-8',
-//            'data': JSON.stringify(objetoCtrol),
-//            'dataType': 'json',
-            
 	        'success': function(data) {
-				if(data){
-					console.log('paso');
+				if(data == 0){
+					listarEnvioCertificacion();
+					closeModalCargando();
+					$.gritter.add({
+						title: 'Info!',
+						text: 'Se realizo la operaci&oacute;n con &eacute;xito.',
+						sticky: false,
+						time: '1200',
+						class_name: 'gritter-info gritter-light'
+					});
+				}else if(data == 1){
+					closeModalCargando();
+					$.gritter.add({
+						title: 'Error!',
+						text: 'Ocurrio un error al tratar de realizar la operaci&oacute;n.',
+						sticky: false,
+						time: '1200',
+						class_name: 'gritter-error'
+					});				
 				}
 	        }
-	    });
+	    }).fail(function() {
+			closeModalCargando();
+			$.gritter.add({
+				title: 'Error!',
+				text: 'Ocurrio un error al tratar de realizar la operaci&oacute;n.',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-error'
+			});				
+		});
 	}
 });

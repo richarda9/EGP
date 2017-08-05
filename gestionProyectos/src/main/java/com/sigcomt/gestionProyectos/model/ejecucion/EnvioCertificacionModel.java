@@ -8,10 +8,14 @@ public class EnvioCertificacionModel implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
+	private Long id;
+	private Long idproyecto;
+	private Long idDestinoCertificacion;
 	private String destinoCertificacion;
 	private String ccdestinoCertificacion;
 	private String asuntoDestinoCertificacion;
 	private String observacionCertificacion;
+	private Long idestadoEntregable;
 //	private MultipartFile fichero;
 	
 	public String getDestinoCertificacion() {
@@ -53,6 +57,38 @@ public class EnvioCertificacionModel implements Serializable
 				+ ccdestinoCertificacion + ", asuntoDestinoCertificacion="
 				+ asuntoDestinoCertificacion + ", observacionCertificacion="
 				+ observacionCertificacion + "]";
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getIdproyecto() {
+		return idproyecto;
+	}
+
+	public void setIdproyecto(Long idproyecto) {
+		this.idproyecto = idproyecto;
+	}
+
+	public Long getIdDestinoCertificacion() {
+		return idDestinoCertificacion;
+	}
+
+	public void setIdDestinoCertificacion(Long idDestinoCertificacion) {
+		this.idDestinoCertificacion = idDestinoCertificacion;
+	}
+
+	public Long getIdestadoEntregable() {
+		return idestadoEntregable;
+	}
+
+	public void setIdestadoEntregable(Long idestadoEntregable) {
+		this.idestadoEntregable = idestadoEntregable;
 	}
 
 //	public MultipartFile getFichero() {

@@ -49,7 +49,10 @@
 		       cc."SOLICITANTE" dscSolicitante, 
 		       cc."COD_CONTROL_CAMBIOS" codctrolcambios
 		FROM "PLANIFICAR_PROYECTO"."CONTROL_CAMBIOS" cc
-		<where>                                    
+		<where>   
+			<if test="idproyecto != null and idproyecto != ''">    
+			 	cc."ID_PROYECTO" = #{idproyecto}
+			</if>                                 
 			<if test="idCtrolCambios != null and idCtrolCambios != ''">    
 			 	cc."ID_CONTROL_CAMBIOS" = #{idCtrolCambios}
 			</if>			                                           
@@ -199,7 +202,7 @@
 	        WHERE et."ID_ESTADO_TAREA" = dc."ID_ESTADO_TAREA") dscEstado,
 	       "JUSTIFICACION" justificacion, 
 	       "ID_CONTROL_CAMBIOS" idCtrolCambios, 
-	       "ID_PERSONA", 
+	       "ID_PERSONA" idResponsable, 
 	       "COD_DETALLE_CRONOGRAMA" codigo
 	    FROM "PLANIFICAR_PROYECTO"."DETALLE_CRONOGRAMA" dc
 	    WHERE dc."ID_PROYECTO" = #{idProyecto}
@@ -245,5 +248,190 @@
 		       "ESTADO" estado
 		FROM "PLANIFICAR_PROYECTO"."ESTADO_ADQUISICION";
 	</select>
+	
+	<select id="listarCategAdquisicionbyProyecto" parameterType="detalleAdquisicionProyecto" resultType="lstDetalleAdquisicionesProyectoModel">
+		SELECT dap."ID_DETALLE_ADQUISICION_PROYECTO" id, 
+		       dap."ID_PROYECTO" idproyecto, 
+		       dap."ID_CATEGORIA_ADQUISICION" idCategAdquisicion, 
+		       (SELECT "DESCRIPCION"
+		        FROM "PLANIFICAR_PROYECTO"."CATEGORIA_ADQUISICION" ca
+		        WHERE ca."ID_CATEGORIA_ADQUISICION" = dap."ID_CATEGORIA_ADQUISICION") dscCategoria,
+		       dap."PRODUCTO" descripcion, 
+		       dap."CANTIDAD" cantidad, 
+		       dap."COSTO_UNITARIO" costoUnitario, 
+		       to_char(dap."FECHA_ADQUISICION", 'DD/MM/YYYY') fechaCompra, 
+		       dap."ESTADO" estado, 
+		       dap."ID_ESTADO_ADQUISICION" idEstadoAdquisicion,
+		       (SELECT es."DESCRIPCION"
+			FROM "PLANIFICAR_PROYECTO"."ESTADO_ADQUISICION" es
+			WHERE es."ID_ESTADO_ADQUISICION" = dap."ID_ESTADO_ADQUISICION") dscEstadoAdquisicion,
+		       pe."ID_PERSONA" idResponsable,
+		       pe."NOMBRE_PERSONA"|| ' ' || pe."APELLIDO_PERSONA" dscResponsable
+		FROM "PLANIFICAR_PROYECTO"."DETALLE_ADQUISICION_PROYECTO" dap,
+		     "CREAR_PROYECTO"."PROYECTO" p,
+		     "CREAR_PROYECTO"."DETALLE_PROYECTO_USER_ROL" dpur,
+		     seguridad.security_rol_user sru,
+		     seguridad.security_user su,
+		     "CREAR_PROYECTO"."PERSONA" pe
+		WHERE dap."ID_PROYECTO" = p."ID_PROYECTO"
+		AND   p."ID_RESPONSABLE_PROYECTO" = dpur.id_detalle_proyecto_user
+		AND   dpur."ID_USER_ROL" = sru.id_detalle
+		AND   sru.id_user = su.id_user
+		AND   su."ID_PERSONA" = pe."ID_PERSONA"
+		AND   p."ID_PROYECTO" = #{idproyecto}
+	  	<if test="id != null and id != ''">  
+			AND dap."ID_DETALLE_ADQUISICION_PROYECTO" = #{id}
+		</if>
+	</select>
+	
+	<insert id="mntAdquisiciones" parameterType="detalleAdquisicionProyecto">
+		INSERT INTO "PLANIFICAR_PROYECTO"."DETALLE_ADQUISICION_PROYECTO"("ID_DETALLE_ADQUISICION_PROYECTO", "ID_PROYECTO", "ID_CATEGORIA_ADQUISICION", "PRODUCTO", 
+								 "CANTIDAD", "COSTO_UNITARIO", "FECHA_ADQUISICION", "ESTADO", "ID_ESTADO_ADQUISICION", "ID_PERSONA")
+	     VALUES (nextval('"PLANIFICAR_PROYECTO".sq_detalle_adquisicion_proyecto'), #{idproyecto}, #{idcatadquisicion}, #{producto}, 
+	             #{cantidad}, #{costoUnitario}, to_date(#{fechaAdquisicion}, 'DD/MM/YYYY'), #{estado}, #{idestadoadquisicion}, #{idresponsable});
+	</insert>
+	
+	<update id="actualizarAdquisiciones" parameterType="detalleAdquisicionProyecto" >
+		UPDATE "PLANIFICAR_PROYECTO"."DETALLE_ADQUISICION_PROYECTO"
+		   SET "ID_PROYECTO" = COALESCE(#{idproyecto}, "ID_PROYECTO"),
+		       "ID_CATEGORIA_ADQUISICION" = COALESCE(#{idcatadquisicion}, "ID_CATEGORIA_ADQUISICION"),
+		       "PRODUCTO" = COALESCE(#{producto}, "PRODUCTO"),
+		       "CANTIDAD" = COALESCE(#{cantidad}, "CANTIDAD"),
+		       "COSTO_UNITARIO" = COALESCE(#{costoUnitario}, "COSTO_UNITARIO"),
+		       "FECHA_ADQUISICION" = COALESCE(to_date(#{fechaAdquisicion}, 'DD/MM/YYYY'), "FECHA_ADQUISICION"),
+		       "ESTADO" = COALESCE(#{estado}, "ESTADO"),
+		       "ID_ESTADO_ADQUISICION" = COALESCE(#{idestadoadquisicion}, "ID_ESTADO_ADQUISICION"),
+		       "ID_PERSONA" = COALESCE(#{idresponsable}, "ID_PERSONA")
+		 WHERE "ID_DETALLE_ADQUISICION_PROYECTO" = #{id};
+	</update>
+	
+	<delete id="eliminarAdquisiciones" parameterType="int">
+		DELETE FROM "PLANIFICAR_PROYECTO"."DETALLE_ADQUISICION_PROYECTO" WHERE "ID_DETALLE_ADQUISICION_PROYECTO" = #{id};
+	</delete>
 	<!-- [FIN] ADQUISICIONES -->
+	<select id="listarResponsablebyProyecto" parameterType="long" resultType="persona">
+	 	SELECT pe."ID_PERSONA" id, 
+	 	       pe."NOMBRE_PERSONA"|| ' ' || pe."APELLIDO_PERSONA" nombreCompleto
+		FROM   "CREAR_PROYECTO"."PROYECTO" p,
+		       "CREAR_PROYECTO"."DETALLE_PROYECTO_USER_ROL" dpur,
+		       seguridad.security_rol_user sru,
+		       seguridad.security_user su,
+		       "CREAR_PROYECTO"."PERSONA" pe
+		WHERE p."ID_RESPONSABLE_PROYECTO" = dpur.id_detalle_proyecto_user
+		AND   dpur."ID_USER_ROL" = sru.id_detalle
+		AND   sru.id_user = su.id_user
+		AND   su."ID_PERSONA" = pe."ID_PERSONA"
+		AND   p."ID_PROYECTO" = #{id};
+	</select>
+	
+	<select id="listarEnvioCertificacionbyProyecto" parameterType="long" resultType="lstEnvioCertificacionModel">
+		SELECT e."ID_ENTREGABLE" identregable, 
+		       dep."ID_DETALLE_ENTREGABLE_PRODUCTO" id,
+		       e."ID_ESTADO_ENTREGABLE" idestadoentregable,
+		       (SELECT ee."DESCRIPCION" FROM "PLANIFICAR_PROYECTO"."ESTADO_ENTREGABLE" ee
+		        WHERE ee."ID_ESTADO_ENTREGABLE" = e."ID_ESTADO_ENTREGABLE") dscestadoentregable,
+		       e."DESCRIPCION_ENTREGABLE" dscentregable, 
+		       to_char(e."FECHA_ENVIO", 'DD/MM/YYYY') fechaEnvio, 
+		       (SELECT pe."ID_PERSONA"
+				FROM   "CREAR_PROYECTO"."PROYECTO" p,
+				       "CREAR_PROYECTO"."DETALLE_PROYECTO_USER_ROL" dpur,
+				       seguridad.security_rol_user sru,
+				       seguridad.security_user su,
+				       "CREAR_PROYECTO"."PERSONA" pe
+				WHERE p."ID_RESPONSABLE_PROYECTO" = dpur.id_detalle_proyecto_user
+				AND   dpur."ID_USER_ROL" = sru.id_detalle
+				AND   sru.id_user = su.id_user
+				AND   su."ID_PERSONA" = pe."ID_PERSONA"
+				AND   p."ID_PROYECTO" = dep."ID_PROYECTO") idresponentregable,
+		       (SELECT pe."NOMBRE_PERSONA"|| ' ' || pe."APELLIDO_PERSONA"
+		        FROM   "CREAR_PROYECTO"."PROYECTO" p,
+				       "CREAR_PROYECTO"."DETALLE_PROYECTO_USER_ROL" dpur,
+				       seguridad.security_rol_user sru,
+				       seguridad.security_user su,
+				       "CREAR_PROYECTO"."PERSONA" pe
+				WHERE p."ID_RESPONSABLE_PROYECTO" = dpur.id_detalle_proyecto_user
+				AND   dpur."ID_USER_ROL" = sru.id_detalle
+				AND   sru.id_user = su.id_user
+				AND   su."ID_PERSONA" = pe."ID_PERSONA"
+				AND   p."ID_PROYECTO" = dep."ID_PROYECTO") nombreresponentregable,
+		       to_char(e."FECHA_APROBACION", 'DD/MM/YYYY') fechaAprobacion,
+		       e."ID_PER_ASIGNADO_CERTIFICACION" idcertificadorasignado,
+		       (SELECT p."NOMBRE_PERSONA"||' '||p."APELLIDO_PERSONA" FROM "CREAR_PROYECTO"."PERSONA" p
+		        WHERE p."ID_PERSONA" = e."ID_PER_ASIGNADO_CERTIFICACION") dsccertificador,
+		       e."ASIGNADO_CERTIFICACION" indcertificacion
+		FROM "PLANIFICAR_PROYECTO"."ENTREGABLE" e,
+		     "PLANIFICAR_PROYECTO"."DETALLE_ENTREGABLE_PRODUCTO" dep
+		WHERE e."ID_ENTREGABLE" = dep."ID_ENTREGABLE"
+		AND   dep."ID_PROYECTO" = #{idproyecto};
+	</select>
+	
+	<update id="actualizarEnvioCorreo" parameterType="envioCertificacionModel">
+		UPDATE "PLANIFICAR_PROYECTO"."ENTREGABLE"
+		   SET "ID_ESTADO_ENTREGABLE" = #{idestadoEntregable},
+		       "FECHA_ENVIO" = CURRENT_TIMESTAMP, 
+		       "ASIGNADO_CERTIFICACION" = 1, 
+		       "ID_PER_ASIGNADO_CERTIFICACION" = #{idDestinoCertificacion}
+		 WHERE "ID_ENTREGABLE" = #{id};
+	</update>
+	
+	<insert id="mntoInformeAvance" parameterType="informeAvance">
+		INSERT INTO "PLANIFICAR_PROYECTO"."INFORME_AVANCE"("ID_INFORME_AVANCE", "ID_PROYECTO", "DESCRIPCION_AVANCE", "FECHA_ENVIO", "ID_TIPO_AVANCE", 
+						   "FECHA_INICIO", "FECHA_FIN", "INCLUIR_ADQUISICIONES", "INCLUIR_CTROL_CAMBIOS", 
+						   "INCLUIR_TAREA_TERMINADA", "INCLUIR_TAREA_ATRASADA", "INCLUIR_REUNIONES", "DIRIGIDO", "ENVIO_CORREO")
+	    VALUES (nextval('"PLANIFICAR_PROYECTO".sq_informe_avance'), #{idProyecto}, #{descripcion}, COALESCE(to_date(#{fechaEnvio}, 'DD/MM/YYYY'), null), #{idTipoAvance}, 
+		    (SELECT CASE WHEN LENGTH(trim(#{fechaInicio})) = 0 THEN NULL
+		                WHEN LENGTH(trim(#{fechaInicio})) > 0 THEN to_date(#{fechaInicio}, 'DD/MM/YYYY') END), 
+		    (SELECT CASE WHEN LENGTH(trim(#{fechaFin})) = 0 THEN NULL
+		                WHEN LENGTH(trim(#{fechaFin})) > 0 THEN to_date(#{fechaFin}, 'DD/MM/YYYY') END), 
+		    COALESCE(#{incluirAdquisiciones}, 0), COALESCE(#{incluirCtrolCambios}, 0),
+		    COALESCE(#{incluirTareaTerminada}, 0), COALESCE(#{incluirTareaAtrasada}, 0), COALESCE(#{incluirReuniones}, 0), #{dirigido}, COALESCE(#{envioCorreo}, 0));
+	</insert>
+	<update id="actualizarInformeAvance" parameterType="informeAvance">
+		UPDATE "PLANIFICAR_PROYECTO"."INFORME_AVANCE"
+		   SET "ID_PROYECTO" = COALESCE(#{idProyecto}, "ID_PROYECTO"),
+		       "DESCRIPCION_AVANCE" = COALESCE(#{descripcion}, "DESCRIPCION_AVANCE"),
+		       "FECHA_ENVIO" = COALESCE(to_date(#{fechaEnvio}, 'DD/MM/YYYY'), "FECHA_ENVIO"),
+		       "ID_TIPO_AVANCE" = COALESCE(#{idTipoAvance}, "ID_TIPO_AVANCE"),
+		       "FECHA_INICIO" = COALESCE(to_date(#{fechaInicio}, 'DD/MM/YYYY'), "FECHA_INICIO"),
+		       "FECHA_FIN" = COALESCE(to_date(#{fechaFin}, 'DD/MM/YYYY'), "FECHA_FIN"),
+		       "INCLUIR_ADQUISICIONES" = COALESCE(#{incluirAdquisiciones}, "INCLUIR_ADQUISICIONES"),
+		       "INCLUIR_CTROL_CAMBIOS" = COALESCE(#{incluirCtrolCambios}, "INCLUIR_CTROL_CAMBIOS"),
+		       "INCLUIR_TAREA_TERMINADA" = COALESCE(#{incluirTareaTerminada}, "INCLUIR_TAREA_TERMINADA"),
+		       "INCLUIR_TAREA_ATRASADA" = COALESCE(#{incluirTareaAtrasada}, "INCLUIR_TAREA_ATRASADA"),
+		       "INCLUIR_REUNIONES" = COALESCE(#{incluirReuniones}, "INCLUIR_REUNIONES"),
+		       "DIRIGIDO" = COALESCE(#{dirigido}, "DIRIGIDO"),
+		       "ENVIO_CORREO" = COALESCE(#{envioCorreo}, "ENVIO_CORREO")
+		 WHERE "ID_INFORME_AVANCE" = #{id};
+	</update>
+	
+	<select id="listarInfoAvancebyProyecto" parameterType="informeAvance" resultType="informeAvance">
+		SELECT ia."ID_INFORME_AVANCE" id, 
+		       ia."ID_PROYECTO" idProyecto, 
+		       ia."DESCRIPCION_AVANCE" descripcion, 
+		       to_char(ia."FECHA_ENVIO", 'DD/MM/YYYY') fechaEnvio, 
+		       ia."ID_TIPO_AVANCE" idTipoAvance, 
+		       (SELECT ta."DESCRIPCION" FROM "PLANIFICAR_PROYECTO"."TIPO_AVANCE" ta
+		        WHERE ta."ID_TIPO_AVANCE" = ia."ID_TIPO_AVANCE") dscTipoAvance,
+		       to_char(ia."FECHA_INICIO", 'DD/MM/YYYY') fechaInicio, 
+		       to_char(ia."FECHA_FIN", 'DD/MM/YYYY') fechaFin, 
+		       ia."INCLUIR_ADQUISICIONES" incluirAdquisiciones, 
+		       ia."INCLUIR_CTROL_CAMBIOS" incluirCtrolCambios, 
+		       ia."INCLUIR_TAREA_TERMINADA" incluirTareaTerminada, 
+		       ia."INCLUIR_TAREA_ATRASADA" incluirTareaAtrasada, 
+		       ia."INCLUIR_REUNIONES" incluirReuniones, 
+		       ia."DIRIGIDO" dirigido, 
+		       ia."ENVIO_CORREO" envioCorreo
+		  FROM "PLANIFICAR_PROYECTO"."INFORME_AVANCE" ia
+		  WHERE ia."ID_PROYECTO" = #{idProyecto}
+		  AND	ia."ESTADO" = 1
+		<if test="id != null and id != ''">  
+			AND   ia."ID_INFORME_AVANCE" = #{id}
+		</if>
+	</select>
+	
+	<update id="eliminarInformeAvance" parameterType="informeAvance">
+		UPDATE "PLANIFICAR_PROYECTO"."INFORME_AVANCE"
+		   SET "ESTADO" = #{estado}
+		 WHERE "ID_INFORME_AVANCE" = #{id};
+	</update>
 </mapper>

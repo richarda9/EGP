@@ -1,43 +1,36 @@
 $('document').ready(function(){
-	$('#fecCompAdquisiciones').datepicker({
+
+	$('#fechaInicioInfAvance').datepicker({
 		language: 'es',
-		format: 'dd/mm/yyyy'
+		format: 'dd/mm/yyyy',
+		 defaultDate: 0
 	});
-	$('#fecCompAdquisiciones').datepicker().next().on('click', function(){  
+	$('#fechaInicioInfAvance').datepicker().next().on('click', function(){ 
 		$(this).prev().focus();
 	});
 
-	$('#registrarAdquisiciones').validate({
+	
+	$('#fechaFinInfAvance').datepicker({
+		language: 'es',
+		format: 'dd/mm/yyyy',
+		 defaultDate: 0
+	});
+	$('#fechaFinInfAvance').datepicker().next().on('click', function(){ 
+		$(this).prev().focus();
+	});
+
+	$('#registrarInformeAvance').validate({
 		errorClass: 'help-block',
 		rules: {
-			id: {
-				required: false
-			},
-			estado: {
+			dirigido: {
 				required: true
 			},
-			idestadoadquisicion: {
+			descripcion: {
 				required: true
 			},
-			idcatadquisicion: {
+			idTipoAvance: {
 				required: true
 			},
-			producto: {
-				required: true
-			},
-			fechaAdquisicion: {
-				required: true
-			},
-			idresponsable: {
-				required: true,
-				number	: true
-			},
-			cantidad: {
-				required: true
-			},
-			costoUnitario: {
-				required: true
-			}
 		},
 
 		highlight: function (e) {
@@ -50,24 +43,24 @@ $('document').ready(function(){
 		},
 		
 		submitHandler: function (form) {
-			registrarAdquisiciones();
+			registrarInformeAvance();
 		}
 	});
 
-	$('#btnAdquisciones').click( function () {
-		limpiarMntAdquisiciones();
+	$('#btnInfAvance').click( function () {
+		$("#btnEnviarInfoAvance").hide();
+		limpiarMntInformeAvance();
 	});
-
-	//Registrar Recurso
-	function registrarAdquisiciones() 
-	{
-		$('#modal-Adquisiciones').modal('hide');
+	
+	function registrarInformeAvance(){
+		$('#modal-infoAvance').modal('hide');
 		loadModalCargando();
-		var objeto = $("#registrarAdquisiciones").serializeObject();
-			objeto.idproyecto = $("#idProyectoGeneral").val();
-		$.postJSON('mnto_Adquisiciones.htm', objeto, function(data) {
+
+		var objeto = $("#registrarInformeAvance").serializeObject();
+
+		$.postJSON('mnto_InformeAvance.htm', objeto, function(data) {
 			if(data == 1){
-				listarAdquisiciones();
+				listarInformeAvance();
 				closeModalCargando();			
 				
 				$.gritter.add({
@@ -99,15 +92,12 @@ $('document').ready(function(){
 				class_name: 'gritter-error'
 			});
 		});
-	};
-
-	//Listar tipo proyectos
-	
-
-	function limpiarMntAdquisiciones(){
-		$("#registrarAdquisiciones").validate().resetForm();
-		$('#registrarAdquisiciones .control-group').removeClass('error');
-		document.getElementById("registrarAdquisiciones").reset();
 	}
 
+	function limpiarMntInformeAvance(){
+		$("#registrarInformeAvance").validate().resetForm();
+		$('#registrarInformeAvance .control-group').removeClass('error');
+		document.getElementById("registrarInformeAvance").reset();
+		$("#idInformeAvance").val('');
+	}
 });

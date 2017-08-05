@@ -15,7 +15,20 @@
 				<div class="span9">
 					<div class="control-group row-fluid">
 						<div class="control-label span2">Para:</div>
-						<div class="span10"><input type="text" class="span12" id="destinoCertificacion" name="destinoCertificacion"/></div>
+						<div class="span10">
+							<input type="hidden" id="idEnvioEntregable" name="id"/>
+							<input type="hidden" name="idproyecto"/>
+							<select id="idDestinoCertificacion" name="idDestinoCertificacion" class="span12" onchange="mostrarCorreoCertificador();"> 
+								<option value="">Seleccionar</option>
+								<c:forEach var="lista" items="${model.listaCertificador}" varStatus="contador">
+								   <option value="${lista.id}" data-correo = "${lista.correo}">${lista.nombres}</option>
+								</c:forEach>
+							</select>
+						</div>
+					</div>
+					<div class="control-group row-fluid">
+						<div class="control-label span2">Correo:</div>
+						<div class="span10"><input type="text" class="span12" id="destinoCertificacion" name="destinoCertificacion" readonly="readonly"/></div>
 					</div>
 					<div class="control-group row-fluid">
 						<div class="control-label span2">CC:</div>

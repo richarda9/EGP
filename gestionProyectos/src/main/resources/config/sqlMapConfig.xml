@@ -57,6 +57,12 @@
  		<typeAlias type="com.sigcomt.gestionProyectos.model.administracion.RecursosModel" alias="recursosModel"/>
  		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.TipoDocumento" alias="tipoDocumento"/>
  		<typeAlias type="com.sigcomt.gestionProyectos.dominio.ejecucion.EstadoAdquisicion" alias="estadoAdquisicion"/>
+ 		<typeAlias type="com.sigcomt.gestionProyectos.model.ejecucion.LstDetalleAdquisicionesProyectoModel" alias="lstDetalleAdquisicionesProyectoModel"/>
+ 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAdquisicionProyecto" alias="detalleAdquisicionProyecto"/>
+ 		<typeAlias type="com.sigcomt.gestionProyectos.model.ejecucion.LstEnvioCertificacionModel" alias="lstEnvioCertificacionModel"/>
+ 		<typeAlias type="com.sigcomt.gestionProyectos.model.ejecucion.EnvioCertificacionModel" alias="envioCertificacionModel"/>
+ 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.ejecucion.InformeAvance" alias="informeAvance"/>
+ 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.TipoAvance" alias="tipoAvance"/>
  		
  		<!-- INI - PLANIFICACION -->
         <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel" alias="AgregarPlanificacionModel"/>

@@ -95,6 +95,9 @@
 						<div class="span8">
 							<select class="span12" id="responsableTarea" name="idResponsableTarea">
 								<option value="">Seleccionar</option>
+								<c:forEach var="lista" items="${model.listaResponsableProyecto}" varStatus="contador">
+								   <option value="${lista.id}">${lista.nombreCompleto}</option>
+								</c:forEach>
 							</select>
 						</div>
 					</div>

@@ -467,4 +467,11 @@
 		       "NOMBRE_TIPOROL" = COALESCE(#{nombreRol}, "NOMBRE_TIPOROL")
 		WHERE "ID_TIPO_ROL" = #{id};
 	</update>
+	
+	<select id="listarTipoAvance" resultType="tipoAvance">
+		SELECT "ID_TIPO_AVANCE" id, 
+		       "DESCRIPCION" descripcion, 
+		       "ESTADO" estado
+	    FROM "PLANIFICAR_PROYECTO"."TIPO_AVANCE";
+	</select>
 </mapper>

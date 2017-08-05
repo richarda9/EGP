@@ -17,6 +17,7 @@ import com.sigcomt.gestionProyectos.dominio.administracion.Empresa;
 import com.sigcomt.gestionProyectos.dominio.administracion.EstadoEntregable;
 import com.sigcomt.gestionProyectos.dominio.administracion.EstadoProyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.Persona;
+import com.sigcomt.gestionProyectos.dominio.administracion.TipoAvance;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoCostoOperativo;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoDependencia;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoDocumento;
@@ -32,6 +33,7 @@ import com.sigcomt.gestionProyectos.model.administracion.RecursosModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
+import com.sigcomt.gestionProyectos.model.ejecucion.LstDetalleAdquisicionesProyectoModel;
 import com.sigcomt.gestionProyectos.repositorio.administracion.AdministracionDao;
 import com.sigcomt.gestionProyectos.repositorio.anteproyecto.PersonaDao;
 import com.sigcomt.gestionProyectos.servicio.administracion.AdministracionService;
@@ -435,5 +437,11 @@ public class AdministracionServiceImp implements AdministracionService
 		administracionDao.eliminarOrganigrama(id);
 	}
 //	[FIN] - ORGANIGRAMA
+	
+//	[INI] - TIPO AVANCE
+	public List<TipoAvance> listarTipoAvance(){
+		return administracionDao.listarTipoAvance();
+	}
+//	[FIN] - TIPO AVANCE
 }
 

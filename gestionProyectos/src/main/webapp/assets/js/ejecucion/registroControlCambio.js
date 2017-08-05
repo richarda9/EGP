@@ -95,6 +95,7 @@ $('document').ready(function(){
 		t.clear().draw();
 		var objeto = new Object();
 			objeto.estado = 1;
+			objeto.idproyecto = $("#idProyectoGeneral").val();
 
 		$.postJSON('listar_CtrolCambios.htm',objeto,
 			function(data) {

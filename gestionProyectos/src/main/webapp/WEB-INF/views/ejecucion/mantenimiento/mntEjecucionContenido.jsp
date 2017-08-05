@@ -478,7 +478,7 @@
 											<td class="td-actions">
 												<!-- [INI] BOTON ENVIAR A CERTIFICACION -->
 												<div class="hidden-phone visible-desktop action-buttons">
-													<a class="abrir-eliminarTproyecto blue tooltip-info" href="#modal-EnviarCertificacion" data-toggle="modal" data-id="${tipoProyecto.id}" 
+													<a class="blue tooltip-info" href="#modal-EnviarCertificacion" data-toggle="modal" data-id="${tipoProyecto.id}" 
 													   data-rel="tooltip" title="Enviar a Certificaci&oacute;n">
 														<i class="icon-envelope bigger-130"></i>
 													</a>
@@ -502,7 +502,7 @@
 														</ul>
 													</div>
 												</div>
-												<!-- [FIN] BOTON CERTIFICACION -->
+												<!-- [FIN] BOTON ENVIAR A CERTIFICACION -->
 												<!-- [INI] BOTON VISUALIZAR CERTIFICACION -->
 												<div class="hidden-phone visible-desktop action-buttons">
 													<a class="abrir-eliminarTproyecto blue tooltip-info" href="#modal-VisualizarCertificacion" data-toggle="modal" data-id="${tipoProyecto.id}" 
@@ -645,7 +645,7 @@
 							<div class="span12">
 								<div class="span9"></div>
 								<div class="span3">
-									<a href="#modal-Adquisiciones" role="button" class="btn btn-small btn-primary" data-toggle="modal">
+									<a id="btnAdquisciones" href="#modal-Adquisiciones" role="button" class="btn btn-small btn-primary" data-toggle="modal">
 										<i class="icon-plus"></i>Agregar 
 									</a>
 								</div>
@@ -654,88 +654,24 @@
 						<div class="space-20"></div>
 						<div class="row-fluid">
 							<div class="table-header">Lista de Adquisiciones</div>
-							<table id="tablasegAdquisiciones" class="table table-striped table-bordered table-hover">
+							<table id="tablasegAdquisiciones" class="table table-striped table-bordered table-hover" style="width: 100%;">
 								<thead>
 									<tr>
 										<th>Id</th>
-										<th>Estado</th>
+										<th>Estado Acquisici&oacute;n</th>
 										<th>Categor&iacute;a</th>
 										<th>Descripci&oacute;n</th>
 										<th>Fecha de Compra</th>
 										<th>Responsable</th>
 										<th>Cantidad</th>
 										<th>Costo Unitario</th>
+										<th>Estado Registro</th>
 										<th>Opciones</th>
+										<th>idEstado</th>
+										<th>idCategoria</th>
+										<th>idResponsable</th>										
 									</tr>
 								</thead>
-								<tbody>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td class="td-actions">
-											<!-- [INI] BOTON EDITAR -->
-											<div class="hidden-phone visible-desktop action-buttons">
-												<a class="abrir-eliminarTproyecto blue tooltip-info" href="#modal-Adquisiciones" data-toggle="modal" data-id="${tipoProyecto.id}" 
-												   data-rel="tooltip" title="Editar">
-													<i class="icon-edit bigger-130"></i>
-												</a>
-											</div>
-
-											<div class="hidden-desktop visible-phone">
-												<div class="inline position-relative">
-													<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
-														<i class="icon-caret-down icon-only bigger-120"></i>
-													</button>
-
-													<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
-														<li>
-															<a href="#modal-Adquisiciones" class="abrir-eliminarTproyecto tooltip-info"  
-																data-rel="tooltip" title="Editar" data-toggle="modal" data-id="${tipoProyecto.id}">
-																<span class="blue">
-																	<i class="icon-edit bigger-120"></i>
-																</span>
-															</a>
-														</li>
-													</ul>
-												</div>
-											</div>
-											<!-- [FIN] BOTON EDITAR -->
-											<!-- [INI] BOTON ELIMINAR -->
-											<div class="hidden-phone visible-desktop action-buttons">
-												<a class="abrir-eliminarTproyecto red tooltip-error" href="#" data-toggle="modal" data-id="${tipoProyecto.id}" 
-												   data-rel="tooltip" title="Eliminar">
-													<i class="icon-trash bigger-130"></i>
-												</a>
-											</div>
-
-											<div class="hidden-desktop visible-phone">
-												<div class="inline position-relative">
-													<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
-														<i class="icon-caret-down icon-only bigger-120"></i>
-													</button>
-
-													<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
-														<li>
-															<a href="#" class="abrir-eliminarTproyecto tooltip-error"  
-																data-rel="tooltip" title="Eliminar" data-toggle="modal" data-id="${tipoProyecto.id}">
-																<span class="red">
-																	<i class="icon-trash bigger-120"></i>
-																</span>
-															</a>
-														</li>
-													</ul>
-												</div>
-											</div>
-											<!-- [FIN] BOTON ELIMINAR -->
-										</td>
-									</tr>
-								</tbody>
 							</table>
 						</div>
 					</div>
@@ -859,7 +795,7 @@
 							<div class="span12">
 								<div class="span9"></div>
 								<div class="span3">
-									<a href="#modal-infoAvance" role="button" class="btn btn-small btn-primary" data-toggle="modal">
+									<a id="btnInfAvance" href="#modal-infoAvance" role="button" class="btn btn-small btn-primary" data-toggle="modal">
 										<i class="icon-plus"></i>Agregar 
 									</a>
 								</div>
@@ -868,7 +804,7 @@
 						<div class="space-20"></div>
 						<div class="row-fluid">
 							<div class="table-header">Lista de Informe de Avance</div>
-							<table id="tablainfAvance" class="table table-striped table-bordered table-hover">
+							<table id="tablainfAvance" class="table table-striped table-bordered table-hover" style="width: 100%;">
 								<thead>
 									<tr>
 										<th>Id</th>
@@ -876,6 +812,15 @@
 										<th>Fecha de Env&iacute;o</th>
 										<th>Tipo</th>
 										<th>Opciones</th>
+										<th>idInfAvance</th>
+										<th>idTipoInfAvance</th>
+										<th>fechaIniInfAvance</th>
+										<th>fechaFinInfAvance</th>
+										<th>IncAdquisicion</th>
+										<th>IncCtrolCambio</th>
+										<th>IncTareaTerminada</th>
+										<th>IncTareaAtrasada</th>
+										<th>IncReuniones</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -954,5 +899,6 @@
 	<%@ include file="/WEB-INF/views/ventanasEmergentes/ejecucion/registroSeguimientoEntregable.jsp"%>
 	<%@ include file="/WEB-INF/views/ventanasEmergentes/ejecucion/registroAdquisiciones.jsp"%>	
 	<%@ include file="/WEB-INF/views/ventanasEmergentes/ejecucion/registroControlCambio.jsp"%>
+	<%@ include file="/WEB-INF/views/ventanasEmergentes/ejecucion/registroInformeAvance.jsp"%>
 
 </div>	

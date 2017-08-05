@@ -8,6 +8,7 @@ import com.sigcomt.gestionProyectos.dominio.administracion.CategoriaAdquisicion;
 import com.sigcomt.gestionProyectos.dominio.administracion.Empresa;
 import com.sigcomt.gestionProyectos.dominio.administracion.EstadoEntregable;
 import com.sigcomt.gestionProyectos.dominio.administracion.EstadoProyecto;
+import com.sigcomt.gestionProyectos.dominio.administracion.TipoAvance;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoCostoOperativo;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoDependencia;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoDocumento;
@@ -23,6 +24,7 @@ import com.sigcomt.gestionProyectos.model.administracion.RecursosModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
+import com.sigcomt.gestionProyectos.model.ejecucion.LstDetalleAdquisicionesProyectoModel;
 
 
 public interface AdministracionService 
@@ -109,5 +111,9 @@ public interface AdministracionService
 	public int mntoOrganigrama(TipoRol dato);
 	public void eliminarOrganigrama(Integer id);
 //  FIN - ORGANIGRAMA
-
+	
+//	INI - TIPO AVANCE
+	public List<TipoAvance> listarTipoAvance();
+//	FIN - TIPO AVANCE
+	
 }
