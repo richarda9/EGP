@@ -57,6 +57,10 @@
  		<typeAlias type="com.sigcomt.gestionProyectos.model.administracion.RecursosModel" alias="recursosModel"/>
  		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.TipoDocumento" alias="tipoDocumento"/>
  		<typeAlias type="com.sigcomt.gestionProyectos.dominio.ejecucion.EstadoAdquisicion" alias="estadoAdquisicion"/>
+ 		
+ 		<!-- INI - PLANIFICACION -->
+        <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel" alias="AgregarPlanificacionModel"/>
+        <!-- FIN - PLANIFICACION -->
 	</typeAliases>
 	
     <mappers>
