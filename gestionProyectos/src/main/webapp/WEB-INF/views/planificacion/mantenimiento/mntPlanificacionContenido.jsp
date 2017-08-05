@@ -779,8 +779,129 @@
 					</div>
 
 					<div id="formasdePago" class="tab-pane">
-						<p>"formasdePago"	.</p>
-						<p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
+						
+								<div class="span12">Formas de Pago</div>
+							
+								<div class="row-fluid">
+								<div class="span12">
+								<div class="span6">
+								<div class="control-group">
+									<label class="control-label" for="fechaInicio">Fecha Facturaci&oacute;n:</label>
+									<div class="controls">
+										<div class="row-fluid input-append">
+											<input id="fechaFacturaFP" name="fechaFacturaFP" type="text" data-date-format="dd-mm-yyyy" />
+											<span class="add-on">
+											<i class="icon-calendar"></i>
+											</span>
+										</div>
+									</div>
+								</div>
+								</div>
+				
+								<div class="span6">
+								<div class="control-group">
+									<label class="control-label" for="idFormaPago">Forma Pago:</label>
+									<div class="controls">
+										<div class="span6">
+											<select id="idFormaPago" name="idFormaPago" >
+											<option value="">Seleccionar</option>
+											<c:forEach var="listaCliente" items="${model.listaRolCliente}" varStatus="contador">
+												<option value="${listaCliente.id}">${listaCliente.nombre}</option>
+											</c:forEach>
+											</select>
+										</div> 
+									</div>
+								</div>
+								</div>
+								</div>
+							</div>
+								
+							<div class="row-fluid">
+							<div class="span12">
+								<div class="span6">
+								<div class="control-group">
+									<label class="control-label" for="fechaInicio">Fecha Cobranza:</label>
+									<div class="controls">
+										<div class="row-fluid input-append">
+											<input id="fechaCobranzaFP" name="fechaCobranzaFP" type="text" data-date-format="dd-mm-yyyy" />
+											<span class="add-on">
+											<i class="icon-calendar"></i>
+											</span>
+										</div>
+									</div>
+								</div>
+								</div>
+								
+								<div class="span6">
+								<div class="control-group">
+									<label class="control-label" for="idEntregableFP">Entregables:</label>
+									<div class="controls">
+										<div class="span6">
+											<select id="idEntregableFP" name="idEntregableFP" >
+											<option value="">Seleccionar</option>
+											<c:forEach var="listaCliente" items="${model.listaRolCliente}" varStatus="contador">
+												<option value="${listaCliente.id}">${listaCliente.nombre}</option>
+											</c:forEach>
+											</select>
+										</div> 
+									</div>
+								</div>
+								</div>								
+								</div>
+								</div>
+							
+							<div class="row-fluid">
+							<div class="span12">
+								<div class="span6">
+								<div class="control-group">
+									<label class="control-label" for="idReqProyecto">% Pago:</label>
+										<div class="controls">
+											<div class="span6">
+												<input type="text" class="span12" id="idPorcPagoFP" name="porcPagoFP" placeholder="% Pago" />
+											</div>
+										</div>
+								</div>
+								</div>
+								
+								<div class="span4">
+									<button class="btn btn-info span12">
+										<i class="icon-plus bigger-125"></i>
+										Guardar Formas de Pago
+									</button>
+								</div>
+							</div>
+							</div>
+							
+						<div class="space-20"></div>
+						<div class="row-fluid">
+							<table id="tablaFormasPago" class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>Nro. Cuota</th>
+										<th>Fecha Facturaci&oacute;n</th>
+										<th>Forma Pago</th>
+										<th>Fecha Cobranza</th>
+										<th>Entregables</th>
+										<th>% Pago</th>
+										<th>Opciones</th>
+									</tr>
+								</thead>	
+								<tbody>
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>	
+										<td></td>	
+										<td></td>
+										<td></td>
+										<td></td>												
+									</tr>
+								</tbody>
+							</table>
+						</div>
+								
+								
+													
 					</div>
 
 					<div id="contrato" class="tab-pane">
