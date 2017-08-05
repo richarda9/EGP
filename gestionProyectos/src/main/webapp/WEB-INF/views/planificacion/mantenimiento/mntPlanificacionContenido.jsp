@@ -8,6 +8,7 @@
 						<a data-toggle="tab" href="#dscProducto">
 							<i class="pink icon-dashboard bigger-110"></i>
 							Descripci&oacute;n del Producto
+							<input id = "codigoPy" type="hidden" value="${model.codigoPy}"/>
 						</a>
 					</li>
 
@@ -88,23 +89,44 @@
 						</a>
 					</li>
 				</ul>
-
+				
 				<div class="tab-content">
+					<!-- INI - PLANIFICACION - DESCRIPCION PRODUCTO  -->
 					<div id="dscProducto" class="tab-pane in active">
 						<div class="row-fluid">
 							<div class="span12">
-								<div class="span9">Descripci&oacute;n del Producto del Proyecto</div>
-								<div class="span3">
-									<button class="btn btn-info span12">
-										<i class="icon-plus bigger-125"></i>
-										Importar Plantilla
+								<div class="page-header position-relative"><h1>Descripci&oacute;n del Producto del Proyecto</h1></div>
+							</div>
+						</div>
+						<div class="row-fluid">
+							<div class="span12">
+								<div class="span6"></div>
+								<div class="span3" style="float:left;">
+									<a class="btn btn-small btn-info span12" onclick="guardarDescripcion()">
+										<i class="icon-save bigger-125"></i>
+										Guardar
+									</a>
+								</div>
+								<div class="span3" style="float:left;">
+									<button class="btn btn-small btn-info span12">
+										<i class="icon-undo bigger-125"></i>
+										Limpiar
 									</button>
 								</div>
+								<!-- <div class="span3" style="float:left;">
+									<button class="btn btn-info span12">
+										<i class="icon-download bigger-125"></i>
+										Importar Plantilla
+									</button>
+								</div> -->
 							</div>
 						</div>
 						<br>
-						<div class="wysiwyg-editor" id="editor1"></div>
+						<form  name="formPlanDescripcion" id="formPlanDescripcion" method="post">
+							<textarea class="span12" id="descripcion" name="descripcion"></textarea>
+						</form>
 					</div>
+					<!-- FIN - PLANIFICACION - DESCRIPCION PRODUCTO  -->
 
 					<div id="alcance" class="tab-pane">
 						<div id="accordion2" class="accordion">

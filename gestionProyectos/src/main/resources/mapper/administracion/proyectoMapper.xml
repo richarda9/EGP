@@ -299,6 +299,14 @@
     				
 	<!-- FIN - PROYECTO -->
 	
+	<!-- INI - PLANIFICACION -->
+    <insert id="actualizarProyectoByIdPy" parameterType="AgregarPlanificacionModel">
+        update "CREAR_PROYECTO"."PROYECTO" 
+        set "DESCRIPCION_PRODUCTO_PROYECTO" = #{descripcionProducto}      
+        where "ID_PROYECTO" = #{idProyecto};
+    </insert>
+    <!-- FIN - PLANIFICACION -->
+    
 	<!-- [INI] EJECUCION -->
 	<select id="listarProyectoByEstado" parameterType="int" resultType="Proyecto">
 		SELECT "ID_PROYECTO" as idProyecto, 

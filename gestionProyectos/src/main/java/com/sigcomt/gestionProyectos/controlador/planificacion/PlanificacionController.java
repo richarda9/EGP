@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +24,9 @@ import com.sigcomt.gestionProyectos.common.Constantes;
 import com.sigcomt.gestionProyectos.common.enumerations.EstadoProyectoEnum;
 import com.sigcomt.gestionProyectos.common.enumerations.RolEnum;
 import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
+import com.sigcomt.gestionProyectos.model.anteproyecto.AgregarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.BuscarAnteproyectoModel;
+import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
 import com.sigcomt.gestionProyectos.servicio.administracion.AdministracionService;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.PersonaService;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.ProyectoService;
@@ -69,6 +72,7 @@ public class PlanificacionController
 	{
 		HashMap<String, Object> myModel = new HashMap<String, Object>();
 		String index = request.getParameter("idPlanificacion");
+		myModel.put("codigoPy", index);
 //		myModel.put("listaTipoProyecto", this.administracionService.listarTipoProyecto());
 //		myModel.put("listaEstadoProyecto", this.administracionService.listarEstadoProyecto());
 //		myModel.put("listaTipoRequisito", this.administracionService.listarTipoRequisitoProyecto());
@@ -91,5 +95,24 @@ public class PlanificacionController
 		
 		return listaProyecto;
 	}
+	
+//	INI - DESCRIPCION DEL PRODUCTO
+	@RequestMapping(value = "/guardarDescripcion.htm", method = RequestMethod.POST)
+	public @ResponseBody Map<String, String> guardarDescripcion(@RequestBody AgregarPlanificacionModel agregarPlanificacionModel, HttpServletRequest request) {
+		
+		logger.info("INI - PlanificacionController.guardarDescripcion");
+		Map<String, String> respuesta =  new HashMap<String, String>();
+		respuesta.put("respuesta", "OK");
+		try {
+			proyectoService.actualizarProyectoByIdPy(agregarPlanificacionModel);
+		} catch (Exception e) {
+			logger.error("ERROR - PlanificacionController.guardarDescripcion", e);
+			respuesta.put("respuesta", "ERROR");
+		}
+		
+		logger.info("FIN - PlanificacionController.guardarDescripcion");
+		return respuesta;	
+	}
+//	FIN - DESCRIPCION DEL PRODUCTO
 
 }

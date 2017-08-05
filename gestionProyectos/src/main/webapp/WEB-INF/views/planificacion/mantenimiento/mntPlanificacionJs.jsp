@@ -4,8 +4,8 @@
 <script src="../assets/js/fuelux/fuelux.tree.min.js"></script>
 
 <script>
-$(function() 
-{
+$(document).ready(function() {/* INI - READY */
+	
 	$('#fechaContacto').datepicker({
 		language: 'es',
 		format: 'dd/mm/yyyy'
@@ -239,6 +239,51 @@ $(function()
 				       }
 	});	
 	
-				
+	/* INI - DESCRIPCION DEL PRODUCTO */
+	$('#formPlanDescripcion').validate({
+		errorClass: 'help-block',
+		rules: {
+			editor1: {
+				required: true
+			}
+		},
+		
+		highlight: function (e) {
+			$(e).closest('.control-group').removeClass('info').addClass('error');
+		},
+
+		success: function (e) {
+			$(e).closest('.control-group').removeClass('error');
+			$(e).remove();
+		}
+	});		
+	/* FIN - DESCRIPCION DEL PRODUCTO */
 });
+
+function guardarDescripcion(){
+	
+	var form=$('#formPlanDescripcion').serializeObject();	
+	var agregarPlanificacionModel = {};
+	agregarPlanificacionModel.descripcionProducto = form.descripcion;
+	agregarPlanificacionModel.idProyecto = $('#codigoPy').val();
+	$.postJSON('${pageContext.request.contextPath}/planificacion/guardarDescripcion.htm',agregarPlanificacionModel, function(data) {
+		if(data.respuesta == 'ERROR'){
+			$.gritter.add({
+				title: 'Error!',
+				text: 'Ocurrió un error al guardar los datos',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-error'
+			});
+		}else{
+			$.gritter.add({
+				title: 'Info!',
+				text: 'Se guardó correctamente los datos.',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-info gritter-light'
+			});
+		}
+	});
+}	
 </script>

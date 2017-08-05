@@ -11,6 +11,7 @@ import com.sigcomt.gestionProyectos.model.cierre.BuscarCierreModel;
 import com.sigcomt.gestionProyectos.model.cierre.LstProyectoCierreModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.BuscarEjecucionModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.LstProyectoEjecucionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
 
 public interface ProyectoService {
 	
@@ -22,5 +23,9 @@ public interface ProyectoService {
 	public List<InteresadoAnteproyectoModel> listarInteresadosByIdProyecto(Long idProyecto);
 	public List<ObservacionesAnteproyectoModel> listarObservacionesByIdProyecto(Long idProyecto, Long idTipoArch);
 	public List<AnexosAnteproyectoModel> listarAnexosByIdProyecto(Long idProyecto, Long idTipoArch);	
+	
+//	INI - PLANIFICACION
+	public void actualizarProyectoByIdPy(AgregarPlanificacionModel agregarPlanificacionModel);
+//	FIN - PLANIFICACION
 	
 }
