@@ -10,6 +10,7 @@ import com.sigcomt.gestionProyectos.dominio.administracion.Entregable;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DependenciaPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.DetalleRiesgosModel;
 import com.sigcomt.gestionProyectos.model.planificacion.ExclusionPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.FactorExitoPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.FormasPagoModel;
@@ -89,6 +90,18 @@ public class PlanificacionServiceImp implements PlanificacionService{
 
 	public List<FormasPagoModel> listarFormaPagoIdProyecto(Long idProyecto) {		
 		return proyectoDao.listarFormaPagoIdProyecto(idProyecto);
+	}
+
+	public void guardarDetalleRiesgos(DetalleRiesgosModel detalleRiesgosModel) {
+		proyectoDao.guardarDetalleRiesgos(detalleRiesgosModel);			
+	}
+
+	public void eliminarDetalleRiesgos(DetalleRiesgosModel detalleRiesgosModel) {
+		proyectoDao.eliminarDetalleRiesgos(detalleRiesgosModel);			
+	}
+
+	public List<DetalleRiesgosModel> listarDetalleRiesgosIdProyecto(Long idProyecto) {
+		return proyectoDao.listarDetalleRiesgosIdProyecto(idProyecto);
 	}
 	
 	

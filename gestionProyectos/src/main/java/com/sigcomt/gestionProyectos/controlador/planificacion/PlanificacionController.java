@@ -34,6 +34,7 @@ import com.sigcomt.gestionProyectos.model.anteproyecto.AgregarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.BuscarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DependenciaPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.DetalleRiesgosModel;
 import com.sigcomt.gestionProyectos.model.planificacion.ExclusionPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.FactorExitoPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.FormasPagoModel;
@@ -96,8 +97,12 @@ public class PlanificacionController
 		Long idProyecto = Long.parseLong(index);
 		List<Entregable> entregableList = planificacionService.listarEntregablesProyectoId(idProyecto);
 		List<FormasPagoModel> formaPagoDetalleList = planificacionService.listarFormaPagoIdProyecto(idProyecto);
+		List<DetalleRiesgosModel> riesgoDetalleList = planificacionService.listarDetalleRiesgosIdProyecto(idProyecto);
+		
 		Gson gson = new Gson();
 		String listaDetalleFormaPagoString = gson.toJson(formaPagoDetalleList);
+		String listaDetalleRiesgoString = gson.toJson(riesgoDetalleList);
+		
 		myModel.put("codigoPy", index);		
 		myModel.put("listaTipoRequisito", tipoReqPy);
 		myModel.put("listaTipoSupuesto", tipoSupuesto);
@@ -105,6 +110,7 @@ public class PlanificacionController
 		myModel.put("listaFormaPago", formaPagoList);
 		myModel.put("listaEntregable", entregableList);
 		myModel.put("listaDetalleFormaPagoBD", listaDetalleFormaPagoString);
+		myModel.put("listaDetalleRiesgoBD", listaDetalleRiesgoString);
 				
 //      INI - ALCANCE - CARGA DATA
         List<RequisitoProyectoPlanificacionModel> listaTipoRequisito = new ArrayList<RequisitoProyectoPlanificacionModel>();
@@ -228,6 +234,43 @@ public class PlanificacionController
 		}
 		
 		logger.info("FIN - PlanificacionController.guardarFormaPago");
+		return respuesta;	
+	}
+	
+	@RequestMapping(value = "/guardarDetalleRiesgos.htm", method = RequestMethod.POST)
+	public @ResponseBody Map<String, String> guardarDetalleRiesgos(@RequestBody DetalleRiesgosModel detalleRiesgosModel, HttpServletRequest request) {
+		logger.info("INI - PlanificacionController.guardarDetalleRiesgos");
+		Map<String, String> respuesta =  new HashMap<String, String>();
+		respuesta.put("respuesta", "OK");
+		detalleRiesgosModel.setEstado(ESTADO_ACTIVO);
+		
+		try {
+			planificacionService.guardarDetalleRiesgos(detalleRiesgosModel);
+			respuesta.put("idDetalleRiesgos", detalleRiesgosModel.getIdDetalleRiesgos().toString());			
+		} catch (Exception e) {
+			logger.error("ERROR - PlanificacionController.guardarFormaPago", e);
+			respuesta.put("respuesta", "ERROR");
+		}
+		
+		logger.info("FIN - PlanificacionController.guardarDetalleRiesgos");
+		return respuesta;	
+	}
+	
+	@RequestMapping(value = "/eliminarDetalleRiesgos.htm", method = RequestMethod.POST)
+	public @ResponseBody Map<String, String> eliminarDetalleRiesgos(@RequestBody DetalleRiesgosModel detalleRiesgosModel, HttpServletRequest request) {		
+		logger.info("INI - PlanificacionController.eliminarDetalleRiesgos");
+		Map<String, String> respuesta =  new HashMap<String, String>();
+		respuesta.put("respuesta", "OK");
+		
+		try {
+			planificacionService.eliminarDetalleRiesgos(detalleRiesgosModel);			
+			
+		} catch (Exception e) {
+			logger.error("ERROR - PlanificacionController.guardarFormaPago", e);
+			respuesta.put("respuesta", "ERROR");
+		}
+		
+		logger.info("FIN - PlanificacionController.eliminarDetalleRiesgos");
 		return respuesta;	
 	}
 	

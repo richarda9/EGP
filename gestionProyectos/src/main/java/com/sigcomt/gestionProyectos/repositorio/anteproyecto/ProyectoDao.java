@@ -25,6 +25,7 @@ import com.sigcomt.gestionProyectos.model.ejecucion.BuscarEjecucionModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.LstProyectoEjecucionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DependenciaPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.DetalleRiesgosModel;
 import com.sigcomt.gestionProyectos.model.planificacion.ExclusionPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.FactorExitoPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.FormasPagoModel;
@@ -92,6 +93,10 @@ public interface ProyectoDao {
     public void guardarFormaPago(FormasPagoModel formasPagoModel);
     public void eliminarFormaPago(FormasPagoModel formasPagoModel);
     public List<FormasPagoModel> listarFormaPagoIdProyecto(Long idProyecto);
+    
+    public void guardarDetalleRiesgos(DetalleRiesgosModel detalleRiesgosModel);
+    public void eliminarDetalleRiesgos(DetalleRiesgosModel detalleRiesgosModel);
+    public List<DetalleRiesgosModel> listarDetalleRiesgosIdProyecto(Long idProyecto);
 //  FIN - PLANIFICACION
     
 }

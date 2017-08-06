@@ -10,6 +10,8 @@ var dataSetSupuesto = [];
 var dataSetDependencia = [];
 var dataSetFactorExito = [];
 var dataSetFormaPago = [];
+var dataSetDetalleRiesgo = [];
+
 $(document).ready(function() {/* INI - READY */
 	
 	$('#fechaContacto').datepicker({
@@ -371,16 +373,46 @@ $(document).ready(function() {/* INI - READY */
 				       }
 	});
 	
+	/* INICIO - DETALLE RIESGO */
+	$('#tablaRiesgosProyecto tbody').on( 'click', '#deleteDetalleRiesgos', function () {
+		var indice = $(this).parents('tr').index();		
+		$('#modalEliminarDetalleRiesgo').attr('data-attr-index',indice);
+		$('#modalEliminarDetalleRiesgo').modal('show');
+	} );
+	
+	$('#modalEliminarDetalleRiesgo').on('click', '#confirmarEliminarDetalleRiesgo', function(){
+		deleteDetalleRiesgos();		
+	});	
+	
+	var opcionesEliminarDetalleRiesgos= '<a id="deleteDetalleRiesgos" class="red tooltip-error" data-rel="tooltip" title="Eliminar"><i class="icon-trash bigger-130"> </i></a>';
 	$('#tablaRiesgosProyecto').DataTable({
-		"paging"     : true,
+		"ajax"		 : function (data, callback, settings) {
+						callback ( { data: dataSetDetalleRiesgo } );
+		   				},
+		"ordering"   : false,
+		"paging"     : false,
 		"autoWidth"  : true,
 		"pageLength" : 10,
 		"searching"  : false,
-		"bInfo"      : false, 
-		//"bLengthChange": false,
+		"bInfo"      : false, 		
 		"language"   : {
 							"url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
-				       }
+				       },
+		 "columns"	 : [
+			{ "data": "idDetalleRiesgos", "visible":false},
+			{ "data": "valRiesgo"},
+			{ "data": "valResponsable"},
+			{ "data": "valImpacto"},
+			{ "data": "valProbabilidad"},
+			{ "data": "valContigencia"},
+			{ "data": "valMitigacion"},
+			{ "data": null}
+				       	],
+		 "columnDefs" : [
+			{   "targets": -1,
+			    "data": null,
+			    "defaultContent": opcionesEliminarDetalleRiesgos}	         			
+					    ]
 	});
 	
 	$('#tablaAdquisicionesProyecto').DataTable({
@@ -449,15 +481,10 @@ $(document).ready(function() {/* INI - READY */
 	
 	/* INICIO - FORMAS DE PAGO */
 	$('#tablaFormasPago tbody').on( 'click', '#deleteFormaPago', function () {
-		var indice = $(this).parents('tr').index();
-		var indice01 = $(this).parents('tr').data();
-		var indice011 = $(this).parents('tr');
+		var indice = $(this).parents('tr').index();		
 		$('#modalEliminarFormasPago').attr('data-attr-index',indice);
 		$('#modalEliminarFormasPago').modal('show');
-		
-		
-
-	} );
+	} );	
 	
 	$('#modalEliminarFormasPago').on('click', '#confirmarEliminarFormasPago', function(){
 		deleteFormasPago();		
@@ -829,8 +856,77 @@ function deleteFormasPago(){
 			t.ajax.reload();
 		}
 	});
-	
+}
 
+function guardarDetalleRiesgos(){
+	var t = $('#tablaRiesgosProyecto').DataTable();
+	var form=$('#formDetalleRiesgos').serializeObject();	
+	var agregarDetalleRiesgo = {};
+	agregarDetalleRiesgo.valRiesgo = form.valRiesgo;	
+	agregarDetalleRiesgo.valResponsable = form.valResponsable;	
+	agregarDetalleRiesgo.valImpacto = form.valImpacto;
+	agregarDetalleRiesgo.valProbabilidad = form.valProbabilidad; 
+	agregarDetalleRiesgo.valContigencia = form.valContigencia;
+	agregarDetalleRiesgo.valMitigacion = form.valMitigacion;
+	agregarDetalleRiesgo.idProyecto = $("#codigoPy").val(); 
+	
+	
+	$.postJSON('${pageContext.request.contextPath}/planificacion/guardarDetalleRiesgos.htm',agregarDetalleRiesgo, function(data) {
+		if(data.respuesta == 'ERROR'){
+			$.gritter.add({
+				title: 'Error!',
+				text: 'Ocurrió un error al guardar los datos',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-error'
+			});
+		}else{
+			$.gritter.add({
+				title: 'Info!',
+				text: 'Se guardó correctamente los datos.',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-info gritter-light'
+			});
+			
+			agregarDetalleRiesgo.idDetalleRiesgos = data.idDetalleRiesgos;
+			dataSetDetalleRiesgo.push(agregarDetalleRiesgo);
+			t.ajax.reload();
+			
+		}
+	});
+}
+
+function deleteDetalleRiesgos(){
+	var t = $('#tablaRiesgosProyecto').DataTable();
+	var id =$('#modalEliminarDetalleRiesgo').attr('data-attr-index');
+	var idDetalle = t.row(id).data().idDetalleRiesgos;	
+	$('#modalEliminarDetalleRiesgo').modal('hide');
+	var eliminarDetalleRiesgo = {};
+	eliminarDetalleRiesgo.idDetalleRiesgos = idDetalle;
+	
+	$.postJSON('${pageContext.request.contextPath}/planificacion/eliminarDetalleRiesgos.htm',eliminarDetalleRiesgo, function(data) {
+		if(data.respuesta == 'ERROR'){
+			$.gritter.add({
+				title: 'Error!',
+				text: 'Ocurrió un error al guardar los datos',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-error'
+			});
+		}else{
+			$.gritter.add({
+				title: 'Info!',
+				text: 'Se elimino correctamente los datos.',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-info gritter-light'
+			});	
+			
+			dataSetDetalleRiesgo.splice(id,1);
+			t.ajax.reload();
+		}
+	});
 }
 
 function mostrarGrillas(){
@@ -854,6 +950,10 @@ function mostrarGrillas(){
 	
 	if(datosGrillas.listaDetalleFormaPagoBD){
 		dataSetFormaPago=JSON.parse(datosGrillas.listaDetalleFormaPagoBD);
+	}
+	
+	if(datosGrillas.listaDetalleRiesgoBD){
+		dataSetDetalleRiesgo=JSON.parse(datosGrillas.listaDetalleRiesgoBD);
 	}
 	/* tablaInteresado.ajax.reload(); */		
 	

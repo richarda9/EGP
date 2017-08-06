@@ -500,6 +500,52 @@
 			and pago."ID_PROYECTO" = #{idProyecto};
 	</select>
 	
+	<insert id="guardarDetalleRiesgos" parameterType="detalleRiesgosModel">
+        <selectKey keyProperty="idDetalleRiesgos" resultType="Long" order="BEFORE">
+            select NEXTVAL('"PLANIFICAR_PROYECTO".sq_detalle_riesgos_proyecto')
+        </selectKey>
+        INSERT INTO "PLANIFICAR_PROYECTO"."DETALLE_RIESGOS_PROYECTO"(
+            "ID_DETALLE_RIESGOS_PROYECTO", 
+            "ID_PROYECTO", 
+            "RIESGO", 
+            "RESPONSABLE", 
+            "IMPACTO", 
+            "PROBABILIDAD", 
+            "CONTINGENCIA", 
+            "MITGACION", 
+            "ESTADO")    	
+        values(
+        	#{idDetalleRiesgos},
+        	#{idProyecto}, 
+        	#{valRiesgo},        
+        	#{valResponsable},
+        	#{valImpacto},
+        	#{valProbabilidad},        	
+        	#{valContigencia},
+        	#{valMitigacion},
+        	#{estado}
+        	);  
+    </insert>
+    
+    <delete id="eliminarDetalleRiesgos" parameterType="detalleRiesgosModel">      
+       DELETE FROM "PLANIFICAR_PROYECTO"."DETALLE_RIESGOS_PROYECTO"
+ 		WHERE  "ID_DETALLE_RIESGOS_PROYECTO" = #{idDetalleRiesgos} ;
+    </delete>
+    
+    <select id="listarDetalleRiesgosIdProyecto" parameterType= "java.lang.Long" resultType="detalleRiesgosModel">
+		SELECT "ID_DETALLE_RIESGOS_PROYECTO" as idDetalleRiesgos, 
+				"ID_PROYECTO" as idProyecto, 
+				"RIESGO" as valRiesgo, 
+				"RESPONSABLE" as valResponsable, 
+       			"IMPACTO" as valImpacto, 
+       			"PROBABILIDAD" as valProbabilidad, 
+       			"CONTINGENCIA" as valContigencia, 
+       			"MITGACION" as valMitigacion, 
+       			"ESTADO" as estado
+  		FROM "PLANIFICAR_PROYECTO"."DETALLE_RIESGOS_PROYECTO"
+  		WHERE "ID_PROYECTO" = #{idProyecto};			
+	</select>
+	
 	<!-- LISTAR TIPO REQUISITO PARA EDITAR -->
     <select id="listarTipoRequisitoByIdProyecto"  parameterType="java.lang.Long" resultType="RequisitoProyectoPlanificacionModel">
         SELECT TIPOREQ."ID_TIPO_REQUISITO" idTipoRequisito, 

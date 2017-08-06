@@ -592,23 +592,112 @@
 						</div>
 					</div>
 
-					<div id="riesgos" class="tab-pane">
+					<div id="riesgos" class="tab-pane">	
 						<div class="row-fluid">
 							<div class="span12">
-								<div class="span9">Riesgos del Proyecto</div>
-								<div class="span3">
-									<button class="btn btn-info span12">
-										<i class="icon-plus bigger-125"></i>
-										Agregar Riesgo
-									</button>
+								<div class="page-header position-relative"><h1>Riesgos del Proyecto</h1></div>
+							</div>
+						</div>						
+										
+					<div class="row-fluid">
+						<div class="span12">
+							<div class="span9"></div>
+								<div class="span3" style="float:left;">
+									<a class="btn btn-small btn-info span12" onclick="guardarDetalleRiesgos()">
+										<i class="icon-save bigger-125"></i>
+										Guardar
+									</a>
+								</div>
+						</div>
+					</div>
+					<div class="space-10"></div>	
+					
+					<form  name="formDetalleRiesgos" id="formDetalleRiesgos" method="post">					
+						<div class="row-fluid">
+							<div class="span12">
+							<div class="span6">
+							<div class="control-group">
+								<label class="control-label" for="valRiesgo">Riesgo:</label>
+								<div class="controls">
+									<div class="span6">
+										<input type="text" class="span12" id="valRiesgo" name="valRiesgo"  />
+									</div>
 								</div>
 							</div>
+							</div>
+				
+							<div class="span6">
+							<div class="control-group">
+								<label class="control-label" for="valResponsable">Responsable:</label>
+								<div class="controls">
+									<div class="span6">
+										<input type="text" class="span12" id="valResponsable" name="valResponsable"  />
+									</div>
+								</div>
+							</div>							
+							</div>
+							</div>
 						</div>
-						<div class="space-20"></div>
+						
 						<div class="row-fluid">
-							<table id="tablaRiesgosProyecto" class="table table-striped table-bordered table-hover">
+							<div class="span12">
+							<div class="span6">
+							<div class="control-group">
+								<label class="control-label" for="valImpacto">Impacto:</label>
+								<div class="controls">
+									<div class="span6">
+										<input type="text" class="span12" id="valImpacto" name="valImpacto"  />
+									</div>
+								</div>
+							</div>
+							</div>
+				
+							<div class="span6">
+							<div class="control-group">
+								<label class="control-label" for="valProbabilidad">Probabilidad:</label>
+								<div class="controls">
+									<div class="span6">
+										<input type="text" class="span12" id="valProbabilidad" name="valProbabilidad"  />
+									</div>
+								</div>
+							</div>							
+							</div>
+							</div>
+						</div>
+						
+						<div class="row-fluid">
+							<div class="span12">
+							<div class="span6">
+							<div class="control-group">
+								<label class="control-label" for="valContigencia">Contigencia:</label>
+								<div class="controls">
+									<div class="span6">
+										<input type="text" class="span12" id="valContigencia" name="valContigencia"  />
+									</div>
+								</div>
+							</div>
+							</div>
+				
+							<div class="span6">
+							<div class="control-group">
+								<label class="control-label" for="valMitigacion">Mitigaci&oacute;n:</label>
+								<div class="controls">
+									<div class="span6">
+										<input type="text" class="span12" id="valMitigacion" name="valMitigacion"  />
+									</div>
+								</div>
+							</div>							
+							</div>
+							</div>
+						</div>								
+					</form>								
+						
+					<div class="space-20"></div>					
+						<div class="row-fluid">
+							<table id="tablaRiesgosProyecto" class="table table-striped table-bordered table-hover" style = "width : 100%">
 								<thead>
 									<tr>
+										<th>Id</th>
 										<th>Riesgo</th>
 										<th>Responsable</th>
 										<th>Impacto</th>
@@ -620,6 +709,7 @@
 								</thead>	
 								<tbody>
 									<tr>
+										<td></td>
 										<td></td>
 										<td></td>
 										<td></td>	
@@ -779,14 +869,27 @@
 					</div>
 
 					<div id="formasdePago" class="tab-pane">
-					<form  name="formFormasPago" id="formFormasPago" method="post">
-						
 						<div class="row-fluid">
 							<div class="span12">
 								<div class="page-header position-relative"><h1>Formas de Pago</h1></div>
 							</div>
-						</div>					
-								<div class="row-fluid">
+						</div>
+						
+						<div class="row-fluid">
+							<div class="span12">
+								<div class="span9"></div>
+								<div class="span3" style="float:left;">
+									<a class="btn btn-small btn-info span12" onclick="guardarFormaPago()">
+										<i class="icon-save bigger-125"></i>
+										Guardar
+									</a>
+								</div>
+							</div>
+						</div>	
+						<div class="space-20"></div>
+						
+					<form  name="formFormasPago" id="formFormasPago" method="post">						
+						<div class="row-fluid">
 								<div class="span12">
 								<div class="span6">
 								<div class="control-group">
@@ -868,21 +971,7 @@
 								</div>
 							</div>
 							</div>
-							</form>					
-								
-							<div class="row-fluid">
-							<div class="span12">
-								<div class="span9"></div>
-								<div class="span3" style="float:left;">
-									<a class="btn btn-small btn-info span12" onclick="guardarFormaPago()">
-										<i class="icon-save bigger-125"></i>
-										Guardar
-									</a>
-								</div>
-							</div>
-							</div>
-						
-							
+							</form>														
 							
 						<div class="space-20"></div>
 						<div class="row-fluid">
@@ -971,9 +1060,31 @@
 				<i class="icon-remove"></i> Salir
 			</a>
 		</div>
-
 	</div>	
 	<!-- FIN - MODAL ELIMINAR FORMAS PAGO -->
+	
+	<!-- INICIO - MODAL DETALLE RIESGO -->
+	<div id="modalEliminarDetalleRiesgo" class="modal hide fade" tabindex="-1" data-attr-index="" >
+		<div class="modal-header no-padding">
+			<div class="table-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+		</div>
+
+		<div class="modal-body padding">
+			<b style="text-align: center">¿Est&aacute; seguro que desea eliminar Riesgo?</b> 	
+		</div>
+
+		<div class="modal-footer">
+			<a id ="confirmarEliminarDetalleRiesgo" class="btn btn-small btn-primary">
+				<i class="icon-ok"></i> Confirmar
+			</a>
+			<a class="btn btn-small btn-light" data-dismiss="modal">
+				<i class="icon-remove"></i> Salir
+			</a>
+		</div>
+	</div>
+	<!-- FIN - MODAL DETALLE RIESGO -->	
 	
 	<!-- INI - MODAL ELIMINAR EXCLUSIONES TABLA-->
 	<div id="modalEliminarExclusiones" class="modal hide fade" tabindex="-1" data-attr-index="" >
@@ -1078,7 +1189,8 @@
 			"listaSupuestoBD":'${model.listaSupuestoBD}',
 			"listaDependenciaBD":'${model.listaDependenciaBD}',
 			"listaFactorExitoBD":'${model.listaFactorExitoBD}',
-			"listaDetalleFormaPagoBD":'${model.listaDetalleFormaPagoBD}'};
+			"listaDetalleFormaPagoBD":'${model.listaDetalleFormaPagoBD}',
+		 	"listaDetalleRiesgoBD":'${model.listaDetalleRiesgoBD}'};
 </script>
 
 	
