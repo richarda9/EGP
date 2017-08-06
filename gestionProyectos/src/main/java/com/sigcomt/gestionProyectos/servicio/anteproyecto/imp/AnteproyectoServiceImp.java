@@ -297,6 +297,7 @@ public class AnteproyectoServiceImp implements AnteproyectoService{
 		proyecto.setAlcanceInicial(agregarAnteproyectoModel.getAlcanceInicialProyecto());
 		proyecto.setObjetivoInicial(agregarAnteproyectoModel.getObjetivo());
 		proyecto.setEstado(1);
+		proyecto.setIdEmpresa(agregarAnteproyectoModel.getIdEmpresa());
 	}
 
 	public AgregarAnteproyectoModel buscarProyectoById(Long idPy)

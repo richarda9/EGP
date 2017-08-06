@@ -20,6 +20,11 @@ import com.sigcomt.gestionProyectos.model.cierre.LstProyectoCierreModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.BuscarEjecucionModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.LstProyectoEjecucionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.DependenciaPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.ExclusionPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.FactorExitoPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.RequisitoProyectoPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.SupuestoPlanificacionModel;
 import com.sigcomt.gestionProyectos.repositorio.anteproyecto.ProyectoDao;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.ProyectoService;
 
@@ -106,6 +111,30 @@ public class ProyectoServiceImp implements ProyectoService {
 	public List<TipoDependenciaProyectoModel> listarTipoDependenciaProyectoByIdTipoPy(
 			Long idTipoPy) {
 		return proyectoDao.listarTipoDependenciaProyectoByIdTipoPy(idTipoPy);
+	}
+
+	public List<RequisitoProyectoPlanificacionModel> listarTipoRequisitoByIdProyecto(
+			Long idPy) {
+		return proyectoDao.listarTipoRequisitoByIdProyecto(idPy);
+	}
+
+	public List<ExclusionPlanificacionModel> listarExclusionByIdProyecto(
+			Long idPy) {
+		return proyectoDao.listarExclusionByIdProyecto(idPy);
+	}
+
+	public List<SupuestoPlanificacionModel> listarSupuestoByIdProyecto(Long idPy) {
+		return proyectoDao.listarSupuestoByIdProyecto(idPy);
+	}
+
+	public List<DependenciaPlanificacionModel> listarDependenciaByIdProyecto(
+			Long idPy) {
+		return proyectoDao.listarDependenciaByIdProyecto(idPy);
+	}
+
+	public List<FactorExitoPlanificacionModel> listarFactorCriticoByIdProyecto(
+			Long idPy) {
+		return proyectoDao.listarFactorCriticoByIdProyecto(idPy);
 	}
 
 }

@@ -9,7 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sigcomt.gestionProyectos.dominio.administracion.Entregable;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.DependenciaPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.ExclusionPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.FactorExitoPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.FormasPagoModel;
+import com.sigcomt.gestionProyectos.model.planificacion.RequisitoProyectoPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.SupuestoPlanificacionModel;
 import com.sigcomt.gestionProyectos.repositorio.anteproyecto.ProyectoDao;
 import com.sigcomt.gestionProyectos.servicio.planificacion.PlanificacionService;
 
@@ -26,14 +31,44 @@ public class PlanificacionServiceImp implements PlanificacionService{
 		String respuesta = "ERROR";
 		
 		proyectoDao.actualizarProyectoByIdPy(agregarPlanificacionModel);
-		proyectoDao.insertarListaDetalleTipoRequisito(agregarPlanificacionModel.getListaTipoRequisito());
-		proyectoDao.insertarListaDetalleExclusion(agregarPlanificacionModel.getListaExclusion());
-		proyectoDao.insertarListaDetalleSupuesto(agregarPlanificacionModel.getListaSupuesto());
-		proyectoDao.insertarListaDetalleDependencia(agregarPlanificacionModel.getListaDependencia());
-		proyectoDao.insertarListaDetalleFactorExito(agregarPlanificacionModel.getListaFactorExito());
-				
-		respuesta = "OK";
-		return respuesta;
+		
+		proyectoDao.eliminarDetalleTipoRequisitoByIdPy(agregarPlanificacionModel.getIdProyecto());
+        for (int i = 0; i < agregarPlanificacionModel.getListaTipoRequisito().size(); i++) {
+            RequisitoProyectoPlanificacionModel requisitoProyectoPlanificacionModel = agregarPlanificacionModel.getListaTipoRequisito().get(i);
+            requisitoProyectoPlanificacionModel.setIdProyecto(agregarPlanificacionModel.getIdProyecto());
+        }
+        proyectoDao.insertarListaDetalleTipoRequisito(agregarPlanificacionModel.getListaTipoRequisito());
+        
+        proyectoDao.eliminarDetalleExclusionByIdPy(agregarPlanificacionModel.getIdProyecto());
+        for (int i = 0; i < agregarPlanificacionModel.getListaExclusion().size(); i++) {
+            ExclusionPlanificacionModel exclusionPlanificacionModel = agregarPlanificacionModel.getListaExclusion().get(i);
+            exclusionPlanificacionModel.setIdProyecto(agregarPlanificacionModel.getIdProyecto());
+        }
+        proyectoDao.insertarListaDetalleExclusion(agregarPlanificacionModel.getListaExclusion());
+        
+        proyectoDao.eliminarDetalleSupuestoByIdPy(agregarPlanificacionModel.getIdProyecto());
+        for (int i = 0; i < agregarPlanificacionModel.getListaSupuesto().size(); i++) {
+            SupuestoPlanificacionModel supuestoPlanificacionModel = agregarPlanificacionModel.getListaSupuesto().get(i);
+            supuestoPlanificacionModel.setIdProyecto(agregarPlanificacionModel.getIdProyecto());
+        }
+        proyectoDao.insertarListaDetalleSupuesto(agregarPlanificacionModel.getListaSupuesto());
+        
+        proyectoDao.eliminarDetalleDependenciaByIdPy(agregarPlanificacionModel.getIdProyecto());
+        for (int i = 0; i < agregarPlanificacionModel.getListaDependencia().size(); i++) {
+            DependenciaPlanificacionModel dependenciaPlanificacionModel = agregarPlanificacionModel.getListaDependencia().get(i);
+            dependenciaPlanificacionModel.setIdProyecto(agregarPlanificacionModel.getIdProyecto());
+        }
+        proyectoDao.insertarListaDetalleDependencia(agregarPlanificacionModel.getListaDependencia());
+        
+        proyectoDao.eliminarDetalleFactorCriticoByIdPy(agregarPlanificacionModel.getIdProyecto());
+        for (int i = 0; i < agregarPlanificacionModel.getListaFactorExito().size(); i++) {
+            FactorExitoPlanificacionModel factorExitoPlanificacionModel = agregarPlanificacionModel.getListaFactorExito().get(i);
+            factorExitoPlanificacionModel.setIdProyecto(agregarPlanificacionModel.getIdProyecto());
+        }
+        proyectoDao.insertarListaDetalleFactorExito(agregarPlanificacionModel.getListaFactorExito());
+                
+        respuesta = "OK";
+        return respuesta;
 	}
 	
 	public List<TipoFormaPago> listarFormasPago(){

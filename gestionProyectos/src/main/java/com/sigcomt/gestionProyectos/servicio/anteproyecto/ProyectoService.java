@@ -6,6 +6,7 @@ import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
 import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
+import com.sigcomt.gestionProyectos.model.anteproyecto.AgregarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.AnexosAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.BuscarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.InteresadoAnteproyectoModel;
@@ -15,6 +16,11 @@ import com.sigcomt.gestionProyectos.model.cierre.LstProyectoCierreModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.BuscarEjecucionModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.LstProyectoEjecucionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.DependenciaPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.ExclusionPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.FactorExitoPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.RequisitoProyectoPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.SupuestoPlanificacionModel;
 
 public interface ProyectoService {
 	
@@ -34,6 +40,11 @@ public interface ProyectoService {
 	public List<TipoSupuestoProyectoModel> listarTipoSupuestoProyectoByIdTipoPy(Long idTipoPy);
 	public List<TipoDependenciaProyectoModel> listarTipoDependenciaProyectoByIdTipoPy(Long idTipoPy);
 	
+	public List<RequisitoProyectoPlanificacionModel> listarTipoRequisitoByIdProyecto(Long idPy);
+    public List<ExclusionPlanificacionModel> listarExclusionByIdProyecto(Long idPy);
+    public List<SupuestoPlanificacionModel> listarSupuestoByIdProyecto(Long idPy);
+    public List<DependenciaPlanificacionModel> listarDependenciaByIdProyecto(Long idPy);
+    public List<FactorExitoPlanificacionModel> listarFactorCriticoByIdProyecto(Long idPy);
 //	FIN - PLANIFICACION
 	
 }

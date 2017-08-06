@@ -67,6 +67,11 @@
  		<!-- INI - PLANIFICACION -->
         <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel" alias="AgregarPlanificacionModel"/>
         <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.FormasPagoModel" alias="formasPagoModel"/>
+        <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.RequisitoProyectoPlanificacionModel" alias="RequisitoProyectoPlanificacionModel"/>
+        <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.ExclusionPlanificacionModel" alias="ExclusionPlanificacionModel"/>
+        <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.SupuestoPlanificacionModel" alias="SupuestoPlanificacionModel"/>
+        <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.DependenciaPlanificacionModel" alias="DependenciaPlanificacionModel"/>
+        <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.FactorExitoPlanificacionModel" alias="FactorExitoPlanificacionModel"/>        
         <!-- FIN - PLANIFICACION -->
 	</typeAliases>
 	

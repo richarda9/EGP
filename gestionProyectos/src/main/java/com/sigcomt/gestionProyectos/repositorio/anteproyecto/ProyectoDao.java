@@ -74,14 +74,24 @@ public interface ProyectoDao {
     public void insertarListaDetalleSupuesto(@Param("supuesto") List<SupuestoPlanificacionModel> supuestoPlanificacionModel);
     public void insertarListaDetalleDependencia(@Param("dependencia") List<DependenciaPlanificacionModel> dependenciaPlanificacionModel);
     public void insertarListaDetalleFactorExito(@Param("factorExito") List<FactorExitoPlanificacionModel> factorExitoPlanificacionModel);
-//  FIN - PLANIFICACION
+    
+    public List<RequisitoProyectoPlanificacionModel> listarTipoRequisitoByIdProyecto(Long idPy);
+    public List<ExclusionPlanificacionModel> listarExclusionByIdProyecto(Long idPy);
+    public List<SupuestoPlanificacionModel> listarSupuestoByIdProyecto(Long idPy);
+    public List<DependenciaPlanificacionModel> listarDependenciaByIdProyecto(Long idPy);
+    public List<FactorExitoPlanificacionModel> listarFactorCriticoByIdProyecto(Long idPy);
+    
+    public void eliminarDetalleTipoRequisitoByIdPy(Long idPy);
+    public void eliminarDetalleExclusionByIdPy(Long idPy);
+    public void eliminarDetalleSupuestoByIdPy(Long idPy);
+    public void eliminarDetalleDependenciaByIdPy(Long idPy);
+    public void eliminarDetalleFactorCriticoByIdPy(Long idPy);
     
     public List<TipoFormaPago> listarFormasPago();
     public List<Entregable> listarEntregablesProyectoId(Long idProyecto);
     public void guardarFormaPago(FormasPagoModel formasPagoModel);
     public void eliminarFormaPago(FormasPagoModel formasPagoModel);
     public List<FormasPagoModel> listarFormaPagoIdProyecto(Long idProyecto);
-    
-    
+//  FIN - PLANIFICACION
     
 }

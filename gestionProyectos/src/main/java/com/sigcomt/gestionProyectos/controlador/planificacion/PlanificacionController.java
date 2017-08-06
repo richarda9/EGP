@@ -33,7 +33,12 @@ import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoMod
 import com.sigcomt.gestionProyectos.model.anteproyecto.AgregarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.BuscarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.DependenciaPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.ExclusionPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.FactorExitoPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.FormasPagoModel;
+import com.sigcomt.gestionProyectos.model.planificacion.RequisitoProyectoPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.SupuestoPlanificacionModel;
 import com.sigcomt.gestionProyectos.servicio.administracion.AdministracionService;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.PersonaService;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.ProyectoService;
@@ -101,8 +106,32 @@ public class PlanificacionController
 		myModel.put("listaEntregable", entregableList);
 		myModel.put("listaDetalleFormaPagoBD", listaDetalleFormaPagoString);
 				
-		myModel.put("descripcionProductoProyecto", py.getDescripcionProductoProyecto());
-		myModel.put("alcanceInicial", py.getAlcanceInicial());
+//      INI - ALCANCE - CARGA DATA
+        List<RequisitoProyectoPlanificacionModel> listaTipoRequisito = new ArrayList<RequisitoProyectoPlanificacionModel>();
+        listaTipoRequisito = this.proyectoService.listarTipoRequisitoByIdProyecto(Long.parseLong(index));
+        List<ExclusionPlanificacionModel> listaExclusion = new ArrayList<ExclusionPlanificacionModel>();
+        listaExclusion = this.proyectoService.listarExclusionByIdProyecto(Long.parseLong(index));
+        List<SupuestoPlanificacionModel> listaSupuesto = new ArrayList<SupuestoPlanificacionModel>();
+        listaSupuesto = this.proyectoService.listarSupuestoByIdProyecto(Long.parseLong(index));
+        List<DependenciaPlanificacionModel> listaDependencia = new ArrayList<DependenciaPlanificacionModel>();
+        listaDependencia = this.proyectoService.listarDependenciaByIdProyecto(Long.parseLong(index));
+        List<FactorExitoPlanificacionModel> listaFactorExito = new ArrayList<FactorExitoPlanificacionModel>();
+        listaFactorExito = this.proyectoService.listarFactorCriticoByIdProyecto(Long.parseLong(index));
+        Gson gSon= new Gson(); 
+        String listaTipoRequisitoString = gSon.toJson(listaTipoRequisito);
+        String listaExclusionString = gSon.toJson(listaExclusion);
+        String listaSupuestoString = gSon.toJson(listaSupuesto);
+        String listaDependenciaString = gSon.toJson(listaDependencia);
+        String listaFactorExitoString = gSon.toJson(listaFactorExito);
+        myModel.put("listaTipoRequisitoBD", listaTipoRequisitoString);
+        myModel.put("listaExclusionBD", listaExclusionString);
+        myModel.put("listaSupuestoBD", listaSupuestoString);
+        myModel.put("listaDependenciaBD", listaDependenciaString);
+        myModel.put("listaFactorExitoBD", listaFactorExitoString);
+ 
+        myModel.put("descripcionProductoProyecto", py.getDescripcionProductoProyecto());
+        myModel.put("alcanceInicial", py.getAlcanceProyecto());
+//      FIN - ALCANCE - CARGA DATA
 		return new ModelAndView("mntPlanificacion", "model", myModel);
 	}
 	

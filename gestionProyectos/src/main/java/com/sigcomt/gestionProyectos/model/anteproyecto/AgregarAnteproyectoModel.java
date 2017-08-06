@@ -23,6 +23,7 @@ public class AgregarAnteproyectoModel implements Serializable{
 	private List<InteresadoAnteproyectoModel>listaInteresados;
 	private List<ObservacionesAnteproyectoModel>listaObservaciones;
 	private List<AnexosAnteproyectoModel>listaAnexos;
+	private Long idEmpresa;
 	
 	private Long idEstadoProyecto;
 	private Long idProyecto;
@@ -139,5 +140,11 @@ public class AgregarAnteproyectoModel implements Serializable{
 	}
 	public void setNombreResponsable(String nombreResponsable) {
 		this.nombreResponsable = nombreResponsable;
-	}				
+	}
+	public Long getIdEmpresa() {
+		return idEmpresa;
+	}
+	public void setIdEmpresa(Long idEmpresa) {
+		this.idEmpresa = idEmpresa;
+	}
 }

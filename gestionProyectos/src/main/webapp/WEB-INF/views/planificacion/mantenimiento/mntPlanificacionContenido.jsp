@@ -1067,10 +1067,11 @@
 				<i class="icon-remove"></i> Salir
 			</a>
 		</div>
+		<!-- FIN - MODAL ELIMINAR FACTOR EXITO TABLA-->	
 
 	</div>
 	
-	<script type="text/javascript">
+<script type="text/javascript">
 	var datosGrillas={};
 	datosGrillas = {"listaTipoRequisitoBD":'${model.listaTipoRequisitoBD}',
 			"listaExclusionBD":'${model.listaExclusionBD}',
@@ -1080,6 +1081,6 @@
 			"listaDetalleFormaPagoBD":'${model.listaDetalleFormaPagoBD}'};
 </script>
 
-	<!-- FIN - MODAL ELIMINAR FACTOR EXITO TABLA-->	
+	
 
 </div>	

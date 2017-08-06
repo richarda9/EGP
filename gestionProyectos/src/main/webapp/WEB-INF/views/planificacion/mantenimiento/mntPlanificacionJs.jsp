@@ -502,7 +502,7 @@ $(document).ready(function() {/* INI - READY */
 	mostrarGrillas();
 	
 		
-});
+});/* FIN - READY */
 
 /* INI - DESCRIPCION DEL PRODUCTO */
 function guardarDescripcion(){

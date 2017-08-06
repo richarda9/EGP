@@ -81,7 +81,8 @@
         "NOMBRE_PROYECTO",
         "ALCANCE_INICIAL",
         "OBJETIVO_INICIAL",
-        "ESTADO")
+        "ESTADO",
+        "ID_EMPRESA")
         values
         (#{idProyecto}, 
         #{idProyectoAsociado},
@@ -92,7 +93,8 @@
         #{nombreProyecto},
         #{alcanceInicial},
         #{ObjetivoInicial},
-        #{estado})  
+        #{estado},
+        #{idEmpresa}) 
         <!-- <selectKey keyProperty="codigoProyecto" resultType="String" order="AFTER">
             select "CODIGO_PROYECTO"
         </selectKey> -->
@@ -139,7 +141,7 @@
        select py."CODIGO_PROYECTO" as codigoProyecto,
        			py."ID_TIPO_PROYECTO" as idTipoProyecto,
        			py."DESCRIPCION_PRODUCTO_PROYECTO" as descripcionProductoProyecto,
-       			py."ALCANCE_INICIAL" as alcanceInicial
+       			py."ALCANCE_PROYECTO" as alcanceProyecto
        from "CREAR_PROYECTO"."PROYECTO" py
        where py."ID_PROYECTO" = #{idPy}   
     </select>
@@ -154,7 +156,8 @@
         "NOMBRE_PROYECTO" = #{nombreProyecto},
         "ALCANCE_INICIAL" = #{alcanceInicial},
         "OBJETIVO_INICIAL" = #{ObjetivoInicial},
-        "ESTADO" = #{estado}
+        "ESTADO" = #{estado},
+        "ID_EMPRESA" = #{idEmpresa} 
         where "ID_PROYECTO" = #{idProyecto}
             
     </insert>
@@ -236,7 +239,8 @@
 			py."ID_RESPONSABLE_PROYECTO" as idResponsable,
 			py."NOMBRE_PROYECTO" as tituloProyecto,
 			py."ALCANCE_INICIAL" as alcanceInicialProyecto,
-			py."OBJETIVO_INICIAL" as objetivo
+			py."OBJETIVO_INICIAL" as objetivo,
+            py."ID_EMPRESA" as idEmpresa 
 		from "CREAR_PROYECTO"."PROYECTO" py	
 		where py."ID_PROYECTO" = #{idPy}		
 	</select>
@@ -305,8 +309,16 @@
 	<!-- INI - PLANIFICACION -->
     <insert id="actualizarProyectoByIdPy" parameterType="AgregarPlanificacionModel">
         update "CREAR_PROYECTO"."PROYECTO" 
-        set "DESCRIPCION_PRODUCTO_PROYECTO" = #{descripcionProducto},
-        	"ALCANCE_PROYECTO" = #{definicionAlcance}
+        set 
+        <if test="descripcionProducto != null and descripcionProducto != ''">
+            "DESCRIPCION_PRODUCTO_PROYECTO" = #{descripcionProducto}
+        </if>
+        <if test="descripcionProducto != null and descripcionProducto != '' and definicionAlcance != null and definicionAlcance != ''">
+            , 
+        </if>
+        <if test="definicionAlcance != null and definicionAlcance != ''">
+            "ALCANCE_PROYECTO" = #{definicionAlcance} 
+        </if>     
         where "ID_PROYECTO" = #{idProyecto};
     </insert>
     
@@ -487,8 +499,79 @@
 			and general."ID_ENTREGABLE" = pago."ID_ENTREGABLE"
 			and pago."ID_PROYECTO" = #{idProyecto};
 	</select>
+	
+	<!-- LISTAR TIPO REQUISITO PARA EDITAR -->
+    <select id="listarTipoRequisitoByIdProyecto"  parameterType="java.lang.Long" resultType="RequisitoProyectoPlanificacionModel">
+        SELECT TIPOREQ."ID_TIPO_REQUISITO" idTipoRequisito, 
+            TIPOREQ."DESCRIPCION_TIPO_REQUISITO" descTipoRequisito,
+            DETTIPREQ."DESCRIPCION" descripcion,
+            DETTIPREQ."OBSERVACION" observacion
+        FROM "PLANIFICAR_PROYECTO"."DETALLE_REQUISITO_PROYECTO" DETTIPREQ 
+        INNER JOIN "PLANIFICAR_PROYECTO"."TIPO_REQUISITO" TIPOREQ
+        ON DETTIPREQ."ID_TIPO_REQUISITO" = TIPOREQ."ID_TIPO_REQUISITO"
+        WHERE DETTIPREQ."ID_PROYECTO" = #{idPy}   
+    </select>
     
-    	
+    <!-- LISTAR EXCLUSION PARA EDITAR -->
+    <select id="listarExclusionByIdProyecto"  parameterType="java.lang.Long" resultType="ExclusionPlanificacionModel">
+        SELECT DETEXCLU."DESCRIPCION" descripcion
+        FROM "PLANIFICAR_PROYECTO"."DETALLE_EXCLUSION" DETEXCLU  
+        WHERE DETEXCLU."ID_PROYECTO" = #{idPy}    
+    </select>
+    
+    <!-- LISTAR SUPUESTO PARA EDITAR -->
+    <select id="listarSupuestoByIdProyecto"  parameterType="java.lang.Long" resultType="SupuestoPlanificacionModel">
+        SELECT TIPOSUP."ID_TIPO_SUPUESTO" idTipoSupuesto, 
+            TIPOSUP."DESCRIPCION" descTipoSupuesto,
+            DETSUP."DESCRIPCION" descripcion
+        FROM "PLANIFICAR_PROYECTO"."DETALLE_SUPUESTO_PROYECTO" DETSUP 
+        INNER JOIN "PLANIFICAR_PROYECTO"."TIPO_SUPUESTO" TIPOSUP
+        ON DETSUP."ID_TIPO_SUPUESTO" = TIPOSUP."ID_TIPO_SUPUESTO"
+        WHERE DETSUP."ID_PROYECTO" = #{idPy}  
+    </select>
+    
+    <!-- LISTAR DEPENDENCIA PARA EDITAR -->
+    <select id="listarDependenciaByIdProyecto"  parameterType="java.lang.Long" resultType="DependenciaPlanificacionModel">
+        SELECT TIPODEP."ID_TIPO_DEPENDENCIA" idTipoDependencia, 
+            TIPODEP."DESCRIPCION_TIPO_DEPENDENCIA" descTipoDepedencia,
+            DETDEP."DESCRIPCION_DEPENDENCIA" descripcion
+        FROM "PLANIFICAR_PROYECTO"."DETALLE_DEPENDENCIA_PROYECTO" DETDEP 
+        INNER JOIN "PLANIFICAR_PROYECTO"."TIPO_DEPENDENCIA" TIPODEP
+        ON DETDEP."ID_TIPO_DEPENDENCIA" = TIPODEP."ID_TIPO_DEPENDENCIA"
+        WHERE DETDEP."ID_PROYECTO" = #{idPy}  
+    </select>
+    
+    <!-- LISTAR FACTOR CRITICO PARA EDITAR -->
+    <select id="listarFactorCriticoByIdProyecto"  parameterType="java.lang.Long" resultType="FactorExitoPlanificacionModel">
+        SELECT DETFACCRI."DESCRIPCION_FACTOR_EXITO" descripcion
+        FROM "PLANIFICAR_PROYECTO"."DETALLE_FACTOR_EXITO" DETFACCRI 
+        WHERE DETFACCRI."ID_PROYECTO" = #{idPy}   
+    </select>
+    
+    <delete id="eliminarDetalleTipoRequisitoByIdPy" parameterType="Long">
+      delete FROM "PLANIFICAR_PROYECTO"."DETALLE_REQUISITO_PROYECTO" DETTIPREQ 
+      where "ID_PROYECTO" = #{idPy};
+    </delete>
+    
+    <delete id="eliminarDetalleExclusionByIdPy" parameterType="Long">
+      delete FROM "PLANIFICAR_PROYECTO"."DETALLE_EXCLUSION" DETEXCLU 
+      where "ID_PROYECTO" = #{idPy};
+    </delete>
+    
+    <delete id="eliminarDetalleSupuestoByIdPy" parameterType="Long">
+      delete FROM "PLANIFICAR_PROYECTO"."DETALLE_SUPUESTO_PROYECTO" DETSUP 
+      where "ID_PROYECTO" = #{idPy};
+    </delete>
+    
+    <delete id="eliminarDetalleDependenciaByIdPy" parameterType="Long">
+      delete FROM "PLANIFICAR_PROYECTO"."DETALLE_DEPENDENCIA_PROYECTO" DETDEP 
+      where "ID_PROYECTO" = #{idPy};
+    </delete>
+    
+    <delete id="eliminarDetalleFactorCriticoByIdPy" parameterType="Long">
+      delete FROM "PLANIFICAR_PROYECTO"."DETALLE_FACTOR_EXITO" DETFACCRI 
+      where "ID_PROYECTO" = #{idPy};
+    </delete>       	
     <!-- FIN - PLANIFICACION -->
     
 	<!-- [INI] EJECUCION -->
