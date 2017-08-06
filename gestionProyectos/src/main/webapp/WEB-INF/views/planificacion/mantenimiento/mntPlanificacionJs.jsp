@@ -9,7 +9,7 @@ var dataSetExclusion = [];
 var dataSetSupuesto = [];
 var dataSetDependencia = [];
 var dataSetFactorExito = [];
-
+var dataSetFormaPago = [];
 $(document).ready(function() {/* INI - READY */
 	
 	$('#fechaContacto').datepicker({
@@ -17,6 +17,22 @@ $(document).ready(function() {/* INI - READY */
 		format: 'dd/mm/yyyy'
 	});
 	$('#fechaContacto').datepicker().next().on('click', function(){ 
+		$(this).prev().focus();
+	});
+	
+	$('#fechaFacturaFP').datepicker({
+		language: 'es',
+		format: 'dd/mm/yyyy'
+	});
+	$('#fechaFacturaFP').datepicker().next().on('click', function(){ 
+		$(this).prev().focus();
+	});
+	
+	$('#fechaCobranzaFP').datepicker({
+		language: 'es',
+		format: 'dd/mm/yyyy'
+	});
+	$('#fechaCobranzaFP').datepicker().next().on('click', function(){ 
 		$(this).prev().focus();
 	});
 	
@@ -431,6 +447,61 @@ $(document).ready(function() {/* INI - READY */
 	});		
 	/* FIN - ALCANCE */	
 	
+	/* INICIO - FORMAS DE PAGO */
+	$('#tablaFormasPago tbody').on( 'click', '#deleteFormaPago', function () {
+		var indice = $(this).parents('tr').index();
+		var indice01 = $(this).parents('tr').data();
+		var indice011 = $(this).parents('tr');
+		$('#modalEliminarFormasPago').attr('data-attr-index',indice);
+		$('#modalEliminarFormasPago').modal('show');
+		
+		
+
+	} );
+	
+	$('#modalEliminarFormasPago').on('click', '#confirmarEliminarFormasPago', function(){
+		deleteFormasPago();		
+	});
+	
+	var opcionesEliminarFormaPago= '<a id="deleteFormaPago" class="red tooltip-error" data-rel="tooltip" title="Eliminar"><i class="icon-trash bigger-130"> </i></a>';
+	$('#tablaFormasPago').DataTable({
+		"ajax"		 : function (data, callback, settings) {
+			callback ( { data: dataSetFormaPago } );
+		   },
+		"ordering"   : false,
+		"paging"    : false,
+		"autoWidth" : true,
+		"pageLength": 10,
+		"searching" : false,
+		"bInfo"     : false, 
+		//"bLengthChange": false,
+		"language"  : {
+			            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+			          },
+         "columns"	 : [
+        	{ "data": "idFormaPagoDetal", "visible":false},
+           	{ "data": "fechaFacturacion"},
+           	{ "data": "descripcionFormaPago"},
+           	{ "data": "fechaCobranza"},
+           	{ "data": "descripcionEntregable"},
+           	{ "data": "porcentajePago"},
+           	{ "data": null}
+       			],
+	     "columnDefs" : [
+	                       {        				
+	         				"targets": -1,
+	         				"data": function ( row, type, val, meta ) {
+	         					var abc = type;
+	         					var abcd = val;
+	         				},
+	         				"defaultContent": opcionesEliminarFormaPago}	         			
+	       		]
+	});	
+	
+	
+	mostrarGrillas();
+	
+		
 });
 
 /* INI - DESCRIPCION DEL PRODUCTO */
@@ -686,6 +757,106 @@ function guardarAlcance(){
 			});
 		}
 	}
+}
+
+function guardarFormaPago(){
+	var t = $('#tablaFormasPago').DataTable();
+	var form=$('#formFormasPago').serializeObject();	
+	var agregarFormaPago = {};
+	agregarFormaPago.idEntregable = form.idEntregableFP;
+	agregarFormaPago.descripcionEntregable = $('#idEntregableFP option:selected').text();
+	agregarFormaPago.idFormaPago = form.idFormaPago;
+	agregarFormaPago.descripcionFormaPago = $('#idFormaPago option:selected').text();
+ 	agregarFormaPago.fechaFacturacion = form.fechaFacturaFP;
+	agregarFormaPago.fechaCobranza = form.fechaCobranzaFP; 
+	agregarFormaPago.porcentajePago = form.valPorcPago;
+	agregarFormaPago.idProyecto = $("#codigoPy").val(); 
+	
+	
+	$.postJSON('${pageContext.request.contextPath}/planificacion/guardarFormaPago.htm',agregarFormaPago, function(data) {
+		if(data.respuesta == 'ERROR'){
+			$.gritter.add({
+				title: 'Error!',
+				text: 'Ocurrió un error al guardar los datos',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-error'
+			});
+		}else{
+			$.gritter.add({
+				title: 'Info!',
+				text: 'Se guardó correctamente los datos.',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-info gritter-light'
+			});
+			
+			agregarFormaPago.idFormaPagoDetal = data.idFormaPagoDetal;
+			dataSetFormaPago.push(agregarFormaPago);
+			t.ajax.reload();
+			
+		}
+	});
+}
+
+function deleteFormasPago(){
+	var t = $('#tablaFormasPago').DataTable();
+	var id =$('#modalEliminarFormasPago').attr('data-attr-index');
+	var idDetalle = t.row(id).data().idFormaPagoDetal;	
+	$('#modalEliminarFormasPago').modal('hide');
+	var eliminarFormaPago = {};
+	eliminarFormaPago.idFormaPagoDetal = idDetalle;
+	
+	$.postJSON('${pageContext.request.contextPath}/planificacion/eliminarFormaPago.htm',eliminarFormaPago, function(data) {
+		if(data.respuesta == 'ERROR'){
+			$.gritter.add({
+				title: 'Error!',
+				text: 'Ocurrió un error al guardar los datos',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-error'
+			});
+		}else{
+			$.gritter.add({
+				title: 'Info!',
+				text: 'Se elimino correctamente los datos.',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-info gritter-light'
+			});	
+			
+			dataSetFormaPago.splice(id,1);
+			t.ajax.reload();
+		}
+	});
+	
+
+}
+
+function mostrarGrillas(){
+	
+	/* var t = $('#tablaInteresadoEmpresa').DataTable(); */
+	if(datosGrillas.listaTipoRequisitoBD){
+		dataSetRequisitoProyecto=JSON.parse(datosGrillas.listaTipoRequisitoBD);
+	}	
+	if(datosGrillas.listaExclusionBD){
+		dataSetExclusion=JSON.parse(datosGrillas.listaExclusionBD);
+	}
+	if(datosGrillas.listaSupuestoBD){
+		dataSetSupuesto=JSON.parse(datosGrillas.listaSupuestoBD);
+	}
+	if(datosGrillas.listaDependenciaBD){
+		dataSetDependencia=JSON.parse(datosGrillas.listaDependenciaBD);
+	}
+	if(datosGrillas.listaFactorExitoBD){
+		dataSetFactorExito=JSON.parse(datosGrillas.listaFactorExitoBD);
+	}
+	
+	if(datosGrillas.listaDetalleFormaPagoBD){
+		dataSetFormaPago=JSON.parse(datosGrillas.listaDetalleFormaPagoBD);
+	}
+	/* tablaInteresado.ajax.reload(); */		
+	
 }
 
 /* *************************** FIN - TAB ALCANCE *************************** */

@@ -7,7 +7,9 @@ import org.apache.ibatis.annotations.Param;
 
 import com.sigcomt.gestionProyectos.dominio.administracion.DetalleEstadoProyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.DetalleProyecto;
+import com.sigcomt.gestionProyectos.dominio.administracion.Entregable;
 import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
+import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
 import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
@@ -25,6 +27,7 @@ import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionMode
 import com.sigcomt.gestionProyectos.model.planificacion.DependenciaPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.ExclusionPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.FactorExitoPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.FormasPagoModel;
 import com.sigcomt.gestionProyectos.model.planificacion.RequisitoProyectoPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.SupuestoPlanificacionModel;
 
@@ -72,6 +75,13 @@ public interface ProyectoDao {
     public void insertarListaDetalleDependencia(@Param("dependencia") List<DependenciaPlanificacionModel> dependenciaPlanificacionModel);
     public void insertarListaDetalleFactorExito(@Param("factorExito") List<FactorExitoPlanificacionModel> factorExitoPlanificacionModel);
 //  FIN - PLANIFICACION
+    
+    public List<TipoFormaPago> listarFormasPago();
+    public List<Entregable> listarEntregablesProyectoId(Long idProyecto);
+    public void guardarFormaPago(FormasPagoModel formasPagoModel);
+    public void eliminarFormaPago(FormasPagoModel formasPagoModel);
+    public List<FormasPagoModel> listarFormaPagoIdProyecto(Long idProyecto);
+    
     
     
 }

@@ -779,9 +779,13 @@
 					</div>
 
 					<div id="formasdePago" class="tab-pane">
+					<form  name="formFormasPago" id="formFormasPago" method="post">
 						
-								<div class="span12">Formas de Pago</div>
-							
+						<div class="row-fluid">
+							<div class="span12">
+								<div class="page-header position-relative"><h1>Formas de Pago</h1></div>
+							</div>
+						</div>					
 								<div class="row-fluid">
 								<div class="span12">
 								<div class="span6">
@@ -805,8 +809,8 @@
 										<div class="span6">
 											<select id="idFormaPago" name="idFormaPago" >
 											<option value="">Seleccionar</option>
-											<c:forEach var="listaCliente" items="${model.listaRolCliente}" varStatus="contador">
-												<option value="${listaCliente.id}">${listaCliente.nombre}</option>
+											<c:forEach var="listFormaPago" items="${model.listaFormaPago}" varStatus="pago">
+												<option value="${listFormaPago.id}">${listFormaPago.descripcion}</option>
 											</c:forEach>
 											</select>
 										</div> 
@@ -839,8 +843,8 @@
 										<div class="span6">
 											<select id="idEntregableFP" name="idEntregableFP" >
 											<option value="">Seleccionar</option>
-											<c:forEach var="listaCliente" items="${model.listaRolCliente}" varStatus="contador">
-												<option value="${listaCliente.id}">${listaCliente.nombre}</option>
+											<c:forEach var="listEntregable" items="${model.listaEntregable}" varStatus="contador">
+												<option value="${listEntregable.identregable}">${listEntregable.nombre}</option>
 											</c:forEach>
 											</select>
 										</div> 
@@ -854,30 +858,38 @@
 							<div class="span12">
 								<div class="span6">
 								<div class="control-group">
-									<label class="control-label" for="idReqProyecto">% Pago:</label>
+									<label class="control-label" for="valPorcPago">% Pago:</label>
 										<div class="controls">
 											<div class="span6">
-												<input type="text" class="span12" id="idPorcPagoFP" name="porcPagoFP" placeholder="% Pago" />
+												<input type="text" class="span12" id="valPorcPago" name="valPorcPago" placeholder="% Pago" />
 											</div>
 										</div>
 								</div>
 								</div>
+							</div>
+							</div>
+							</form>					
 								
-								<div class="span4">
-									<button class="btn btn-info span12">
-										<i class="icon-plus bigger-125"></i>
-										Guardar Formas de Pago
-									</button>
+							<div class="row-fluid">
+							<div class="span12">
+								<div class="span9"></div>
+								<div class="span3" style="float:left;">
+									<a class="btn btn-small btn-info span12" onclick="guardarFormaPago()">
+										<i class="icon-save bigger-125"></i>
+										Guardar
+									</a>
 								</div>
 							</div>
 							</div>
+						
+							
 							
 						<div class="space-20"></div>
 						<div class="row-fluid">
-							<table id="tablaFormasPago" class="table table-striped table-bordered table-hover">
+							<table id="tablaFormasPago" class="table table-striped table-bordered table-hover" style = "width : 100%">
 								<thead>
 									<tr>
-										<th>Nro. Cuota</th>
+										<th>Id</th>										
 										<th>Fecha Facturaci&oacute;n</th>
 										<th>Forma Pago</th>
 										<th>Fecha Cobranza</th>
@@ -888,7 +900,7 @@
 								</thead>	
 								<tbody>
 									<tr>
-										<td></td>
+										<td></td>										
 										<td></td>
 										<td></td>	
 										<td></td>	
@@ -938,6 +950,30 @@
 
 	</div>
 	<!-- FIN - MODAL ELIMINAR REQUISITO PROYECTO TABLA-->
+	
+	<!-- INICIO - MODAL ELIMINAR FORMAS PAGO -->
+	<div id="modalEliminarFormasPago" class="modal hide fade" tabindex="-1" data-attr-index="" >
+		<div class="modal-header no-padding">
+			<div class="table-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+		</div>
+
+		<div class="modal-body padding">
+			<b style="text-align: center">¿Est&aacute; seguro que desea eliminar Forma de Pago?</b> 	
+		</div>
+
+		<div class="modal-footer">
+			<a id ="confirmarEliminarFormasPago" class="btn btn-small btn-primary">
+				<i class="icon-ok"></i> Confirmar
+			</a>
+			<a class="btn btn-small btn-light" data-dismiss="modal">
+				<i class="icon-remove"></i> Salir
+			</a>
+		</div>
+
+	</div>	
+	<!-- FIN - MODAL ELIMINAR FORMAS PAGO -->
 	
 	<!-- INI - MODAL ELIMINAR EXCLUSIONES TABLA-->
 	<div id="modalEliminarExclusiones" class="modal hide fade" tabindex="-1" data-attr-index="" >
@@ -1033,6 +1069,17 @@
 		</div>
 
 	</div>
+	
+	<script type="text/javascript">
+	var datosGrillas={};
+	datosGrillas = {"listaTipoRequisitoBD":'${model.listaTipoRequisitoBD}',
+			"listaExclusionBD":'${model.listaExclusionBD}',
+			"listaSupuestoBD":'${model.listaSupuestoBD}',
+			"listaDependenciaBD":'${model.listaDependenciaBD}',
+			"listaFactorExitoBD":'${model.listaFactorExitoBD}',
+			"listaDetalleFormaPagoBD":'${model.listaDetalleFormaPagoBD}'};
+</script>
+
 	<!-- FIN - MODAL ELIMINAR FACTOR EXITO TABLA-->	
 
 </div>	

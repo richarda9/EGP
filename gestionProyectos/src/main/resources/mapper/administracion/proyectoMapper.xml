@@ -419,7 +419,76 @@
        </foreach>
     </insert>
 	
+	<select id="listarFormasPago" resultType="tipoFormaPago">
+	   SELECT "ID_TIPO_FORMA_PAGO" as id, 
+				"DESCRIPCION" as descripcion
+  		FROM "PLANIFICAR_PROYECTO"."TIPO_FORMA_PAGO"
+  		WHERE "ESTADO" = 1;
+	</select>
 	
+	<select id="listarEntregablesProyectoId" parameterType="long" resultType="entregable">
+		SELECT general."ID_ENTREGABLE" as identregable, 
+				general."NOMBRE_ENTREGABLE" as nombre
+  		FROM "PLANIFICAR_PROYECTO"."ENTREGABLE" general 
+  		inner join "PLANIFICAR_PROYECTO"."DETALLE_ENTREGABLE_PRODUCTO" detalle
+  		on detalle."ID_ENTREGABLE" = general."ID_ENTREGABLE"
+  		WHERE detalle."ID_PROYECTO" = #{idProyecto}
+  		and general."ESTADO"  = 1;
+	</select>
+	
+	<insert id="guardarFormaPago" parameterType="formasPagoModel">
+        <selectKey keyProperty="idFormaPagoDetal" resultType="Long" order="BEFORE">
+            select NEXTVAL('"PLANIFICAR_PROYECTO".sq_detalle_forma_pago_proyecto')
+        </selectKey>
+        INSERT INTO "PLANIFICAR_PROYECTO"."DETALLE_FORMA_PAGO_PROYECTO"(
+            "ID_DETALLE_FORMA_PAGO_PROYECTO", 
+            "ID_ENTREGABLE", 
+            "ID_FORMA_PAGO", 
+            "NUMERO_CUOTA", 
+            "FECHA_FACTURACION", 
+            "FECHA_COBRANZA", 
+            "PORCENTAJE_PAGO", 
+            "ESTADO",
+            "ID_PROYECTO")    	
+        values(
+        	#{idFormaPagoDetal},
+        	#{idEntregable}, 
+        	#{idFormaPago},        
+        	#{idFormaPagoDetal},
+        	to_date(#{fechaFacturacion}, 'DD/MM/YYYY'),
+        	to_date(#{fechaCobranza}, 'DD/MM/YYYY'),        	
+        	#{porcentajePago},
+        	#{estado},
+        	#{idProyecto}
+        	);  
+    </insert>
+    
+    <delete id="eliminarFormaPago" parameterType="formasPagoModel">      
+       DELETE FROM "PLANIFICAR_PROYECTO"."DETALLE_FORMA_PAGO_PROYECTO"
+ 		WHERE "ID_DETALLE_FORMA_PAGO_PROYECTO" = #{idFormaPagoDetal} ;
+    </delete>
+    
+    <select id="listarFormaPagoIdProyecto" parameterType= "java.lang.Long" resultType="formasPagoModel">
+		SELECT "ID_DETALLE_FORMA_PAGO_PROYECTO" as idFormaPagoDetal, 
+			pago."ID_ENTREGABLE" as idEntregable,
+			general."NOMBRE_ENTREGABLE" as descripcionEntregable, 
+			"ID_FORMA_PAGO" as idFormaPago, 
+			forma."DESCRIPCION" as descripcionFormaPago, 
+       		"NUMERO_CUOTA" as nroCuota, 
+       		to_char("FECHA_FACTURACION",'dd/MM/yyyy') as fechaFacturacion, 
+       		to_char("FECHA_COBRANZA",'dd/MM/yyyy') as fechaCobranza, 
+       		"PORCENTAJE_PAGO" as porcentajePago, 
+       		pago."ESTADO" as estado,
+       		"ID_PROYECTO" idProyecto
+		 FROM "PLANIFICAR_PROYECTO"."DETALLE_FORMA_PAGO_PROYECTO" pago,
+			"PLANIFICAR_PROYECTO"."TIPO_FORMA_PAGO" forma,
+			"PLANIFICAR_PROYECTO"."ENTREGABLE" general 
+			where forma."ID_TIPO_FORMA_PAGO" = pago."ID_FORMA_PAGO"
+			and general."ID_ENTREGABLE" = pago."ID_ENTREGABLE"
+			and pago."ID_PROYECTO" = #{idProyecto};
+	</select>
+    
+    	
     <!-- FIN - PLANIFICACION -->
     
 	<!-- [INI] EJECUCION -->

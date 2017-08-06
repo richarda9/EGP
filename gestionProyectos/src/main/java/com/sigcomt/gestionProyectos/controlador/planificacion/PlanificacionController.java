@@ -20,16 +20,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.sigcomt.gestionProyectos.common.Constantes;
 import com.sigcomt.gestionProyectos.common.enumerations.EstadoProyectoEnum;
 import com.sigcomt.gestionProyectos.common.enumerations.RolEnum;
+import com.sigcomt.gestionProyectos.dominio.administracion.Entregable;
 import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
+import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
 import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.AgregarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.BuscarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.FormasPagoModel;
 import com.sigcomt.gestionProyectos.servicio.administracion.AdministracionService;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.PersonaService;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.ProyectoService;
@@ -62,7 +66,7 @@ public class PlanificacionController
 		
 		try {
 			myModel.put("listaEmpresa", this.administracionService.listarEmpresaByEstado(ESTADO_ACTIVO));
-			myModel.put("listaProyecto", this.proyectoService.listarProyectoByEstado(Constantes.ESTADO_ACTIVO));
+			myModel.put("listaProyecto", this.proyectoService.listarProyectoByEstado(ESTADO_ACTIVO));
 			myModel.put("listaTipoProyecto", this.administracionService.listarTipoProyectoByEsado(ESTADO_ACTIVO));
 			myModel.put("listaResponsableProyecto", this.personaService.listarEjecutivoResponsableByEstadoByRol(ESTADO_ACTIVO, Long.parseLong(RolEnum.RESPONSABLE_PROYECTO.getCodigo())));
 			
@@ -83,10 +87,19 @@ public class PlanificacionController
 		List<TipoRequisitoProyectoModel> tipoReqPy = proyectoService.listarTipoRequisitoProyectoByIdTipoPy(py.getIdTipoProyecto());
 		List<TipoSupuestoProyectoModel> tipoSupuesto = proyectoService.listarTipoSupuestoProyectoByIdTipoPy(py.getIdTipoProyecto());
 		List<TipoDependenciaProyectoModel> tipoDependencia = proyectoService.listarTipoDependenciaProyectoByIdTipoPy(py.getIdTipoProyecto());
+		List<TipoFormaPago> formaPagoList = planificacionService.listarFormasPago();
+		Long idProyecto = Long.parseLong(index);
+		List<Entregable> entregableList = planificacionService.listarEntregablesProyectoId(idProyecto);
+		List<FormasPagoModel> formaPagoDetalleList = planificacionService.listarFormaPagoIdProyecto(idProyecto);
+		Gson gson = new Gson();
+		String listaDetalleFormaPagoString = gson.toJson(formaPagoDetalleList);
 		myModel.put("codigoPy", index);		
 		myModel.put("listaTipoRequisito", tipoReqPy);
 		myModel.put("listaTipoSupuesto", tipoSupuesto);
 		myModel.put("listaTipoDependencia", tipoDependencia);
+		myModel.put("listaFormaPago", formaPagoList);
+		myModel.put("listaEntregable", entregableList);
+		myModel.put("listaDetalleFormaPagoBD", listaDetalleFormaPagoString);
 				
 		myModel.put("descripcionProductoProyecto", py.getDescripcionProductoProyecto());
 		myModel.put("alcanceInicial", py.getAlcanceInicial());
@@ -147,5 +160,46 @@ public class PlanificacionController
 		return respuesta;	
 	}
 //	FIN - ALCANCE
+	
+	@RequestMapping(value = "/guardarFormaPago.htm", method = RequestMethod.POST)
+	public @ResponseBody Map<String, String> guardarFormaPago(@RequestBody FormasPagoModel formasPagoModel, HttpServletRequest request) {
+		
+		logger.info("INI - PlanificacionController.guardarFormaPago");
+		Map<String, String> respuesta =  new HashMap<String, String>();
+		respuesta.put("respuesta", "OK");
+		formasPagoModel.setEstado(ESTADO_ACTIVO);
+		
+		try {
+			planificacionService.guardarFormaPago(formasPagoModel);
+			respuesta.put("idFormaPagoDetal", formasPagoModel.getIdFormaPagoDetal().toString());
+			
+		} catch (Exception e) {
+			logger.error("ERROR - PlanificacionController.guardarFormaPago", e);
+			respuesta.put("respuesta", "ERROR");
+		}
+		
+		logger.info("FIN - PlanificacionController.guardarFormaPago");
+		return respuesta;	
+	}
+	
+	@RequestMapping(value = "/eliminarFormaPago.htm", method = RequestMethod.POST)
+	public @ResponseBody Map<String, String> eliminarFormaPago(@RequestBody FormasPagoModel formasPagoModel, HttpServletRequest request) {		
+		logger.info("INI - PlanificacionController.eliminarFormaPago");
+		Map<String, String> respuesta =  new HashMap<String, String>();
+		respuesta.put("respuesta", "OK");
+		
+		
+		try {
+			planificacionService.eliminarFormaPago(formasPagoModel);
+			
+			
+		} catch (Exception e) {
+			logger.error("ERROR - PlanificacionController.guardarFormaPago", e);
+			respuesta.put("respuesta", "ERROR");
+		}
+		
+		logger.info("FIN - PlanificacionController.guardarFormaPago");
+		return respuesta;	
+	}
 	
 }

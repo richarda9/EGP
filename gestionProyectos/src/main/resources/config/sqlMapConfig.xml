@@ -66,6 +66,7 @@
  		
  		<!-- INI - PLANIFICACION -->
         <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel" alias="AgregarPlanificacionModel"/>
+        <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.FormasPagoModel" alias="formasPagoModel"/>
         <!-- FIN - PLANIFICACION -->
 	</typeAliases>
 	
