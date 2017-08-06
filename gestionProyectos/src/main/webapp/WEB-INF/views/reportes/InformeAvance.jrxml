@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InformeAvance" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="26fb8aa3-495d-40dc-b494-eb1bc5ff79e0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="756"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Richard\\Documents\\PROYECTO TESIS\\REPORTES EGP\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idproyecto" class="java.lang.Long"/>
+	<parameter name="idinformeavance" class="java.lang.Long"/>
+	<parameter name="ROOT_DIR" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT e."RAZON_SOCIAL" razonSocial,
+       P."NOMBRE_PROYECTO" nombreProyecto,
+       tp."DESCRIPCION_TIPO_PROYECTO" tipoProyecto,
+       (SELECT ta."DESCRIPCION" FROM "PLANIFICAR_PROYECTO"."TIPO_AVANCE" ta
+	WHERE ta."ID_TIPO_AVANCE" = ia."ID_TIPO_AVANCE") tipoInforme,
+       to_char(ia."FECHA_INICIO", 'DD/MM/YYYY') fechaInicio,
+       to_char(ia."FECHA_FIN", 'DD/MM/YYYY') fechaFin,
+       ia."DESCRIPCION_AVANCE" resumen,
+       ia."INCLUIR_ADQUISICIONES" incluirAdquisiciones,
+       ia."INCLUIR_CTROL_CAMBIOS" incluirCtrolCambios,
+       ia."INCLUIR_TAREA_TERMINADA" incluirTareaTerminada,
+       ia."INCLUIR_TAREA_ATRASADA" incluirTareaAtrasada,
+       ia."INCLUIR_REUNIONES" incluirReuniones,
+       ia."DIRIGIDO" dirigido
+       /*ia."ID_INFORME_AVANCE" id,
+       ia."ID_PROYECTO" idProyecto,
+       ia."DESCRIPCION_AVANCE" descripcion,
+       to_char(ia."FECHA_ENVIO", 'DD/MM/YYYY') fechaEnvio,
+       ia."ID_TIPO_AVANCE" idTipoAvance,
+       (SELECT ta."DESCRIPCION" FROM "PLANIFICAR_PROYECTO"."TIPO_AVANCE" ta
+	WHERE ta."ID_TIPO_AVANCE" = ia."ID_TIPO_AVANCE") dscTipoAvance,
+       to_char(ia."FECHA_INICIO", 'DD/MM/YYYY') fechaInicio,
+       to_char(ia."FECHA_FIN", 'DD/MM/YYYY') fechaFin
+       ia."ENVIO_CORREO" envioCorreo*/
+FROM "PLANIFICAR_PROYECTO"."INFORME_AVANCE" ia,
+     "CREAR_PROYECTO"."PROYECTO" p,
+     "CREAR_PROYECTO"."DETALLE_INTERESADO" di,
+     "CREAR_PROYECTO"."DETALLE_EMPRESA_PERSONA" dep,
+     "CREAR_PROYECTO"."TIPO_PROYECTO" tp,
+     "CREAR_PROYECTO"."EMPRESA" e
+WHERE ia."ID_PROYECTO" = p."ID_PROYECTO"
+AND   p."ID_TIPO_PROYECTO" = tp."ID_TIPO_PROYECTO"
+AND   p."ID_PROYECTO" = di."ID_PROYECTO"
+AND   di."ID_DETALLE_EMPRESA_PERSONA" = dep."ID_DETALLE_EMPRESA_PERSONA"
+AND   dep."ID_EMPRESA" = e."ID_EMPRESA"
+AND   p."ESTADO" = 1
+AND   ia."ID_PROYECTO" = $P{idproyecto}
+AND   ia."ESTADO" = 1
+AND   ia."ID_INFORME_AVANCE" = $P{idinformeavance}]]>
+	</queryString>
+	<field name="razonsocial" class="java.lang.String"/>
+	<field name="nombreproyecto" class="java.lang.String"/>
+	<field name="tipoproyecto" class="java.lang.String"/>
+	<field name="tipoinforme" class="java.lang.String"/>
+	<field name="fechainicio" class="java.lang.String"/>
+	<field name="fechafin" class="java.lang.String"/>
+	<field name="resumen" class="java.lang.String"/>
+	<field name="incluiradquisiciones" class="java.lang.Integer"/>
+	<field name="incluirctrolcambios" class="java.lang.Integer"/>
+	<field name="incluirtareaterminada" class="java.lang.Integer"/>
+	<field name="incluirtareaatrasada" class="java.lang.Integer"/>
+	<field name="incluirreuniones" class="java.lang.Integer"/>
+	<field name="dirigido" class="java.lang.Long"/>
+	<background>
+		<band height="600" splitType="Stretch">
+			<image scaleImage="RealSize">
+				<reportElement x="34" y="175" width="475" height="316" uuid="70c89ea3-3e4a-47c6-8f51-21c18d7708af"/>
+				<imageExpression><![CDATA[$P{ROOT_DIR} + "imagenFondo.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<title>
+		<band height="83" splitType="Stretch">
+			<image>
+				<reportElement x="2" y="2" width="98" height="49" uuid="06b16b29-c438-4405-ae5f-2413fd7a8e3b"/>
+				<imageExpression><![CDATA[$P{ROOT_DIR} + "firmaSigcomt.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="126" y="26" width="311" height="23" uuid="be8d3c2a-10cd-4f6b-b76f-68d22d589a50"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INFORME DE AVANCE]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="437" y="63" width="69" height="20" uuid="4f9c5133-6397-48d0-b16f-ef6b3507d7d1"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm a">
+				<reportElement x="509" y="63" width="46" height="20" uuid="2122fe5f-06ee-4927-b3f5-61fb4cc725ed"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="506" y="63" width="3" height="20" uuid="4b379ae8-eccf-4389-a2a6-ccfbf7e73c8f"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[;]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="120" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="20" width="120" height="20" uuid="d42f7d99-c82e-454a-80e4-2efe3cf6af50"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[ EMPRESA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="120" height="20" uuid="d39891cd-7f39-43b2-84b9-a1a2110cb132"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[ PROYECTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="120" height="20" uuid="7563c142-27ce-4d80-979a-8a5b9ce8c663"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[ TIPO DE PROYECTO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="126" y="20" width="429" height="20" uuid="852f78b1-1e00-4ce5-a430-cbec038db159"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{razonsocial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="126" y="40" width="429" height="20" uuid="0a6ae54b-3a04-4718-8cef-3a0464bcbfda"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombreproyecto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="126" y="60" width="429" height="20" uuid="d46d1932-333e-421b-bd54-fb7547627f57"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tipoproyecto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="80" width="120" height="20" uuid="d34013e3-4846-4234-96e3-d09b0953d4e6"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[ TIPO DE INFORME]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="126" y="80" width="164" height="20" uuid="dd933362-6d97-4502-ab17-872bfd8d2df7"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tipoinforme}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="290" y="80" width="41" height="20" uuid="a68d2b90-b25c-466c-ab1a-5882bfeb1322">
+					<printWhenExpression><![CDATA[$F{tipoinforme}.equals("PERSONALIZADO")]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[DESDE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="331" y="80" width="75" height="20" uuid="367fde72-61b4-4f83-be95-7759f0dab01f">
+					<printWhenExpression><![CDATA[$F{tipoinforme}.equals("PERSONALIZADO")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fechainicio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="407" y="80" width="46" height="20" uuid="523cf115-e634-4f2f-adc1-90e4193f09ac">
+					<printWhenExpression><![CDATA[$F{tipoinforme}.equals("PERSONALIZADO")]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[HASTA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="453" y="80" width="75" height="20" uuid="b812fe73-f40c-47e5-a968-bf80bc6efa9a">
+					<printWhenExpression><![CDATA[$F{tipoinforme}.equals("PERSONALIZADO")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fechafin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="100" width="120" height="20" uuid="9aaa14ae-3bd9-498a-8d2c-86dda26419f5"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[ RESUMEN]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="126" y="100" width="429" height="20" isPrintWhenDetailOverflows="true" uuid="2d760963-9e7c-4c3e-ba6f-30e49f792eef"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{resumen}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#CCCCCC" uuid="e13eee88-3900-4428-bf2b-a23b9000848f"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ DATOS DE INFORME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="528" y="80" width="27" height="20" uuid="8e8a461c-41a9-4b7a-9723-5e43b99b6d07"/>
+				<box>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="20" width="6" height="20" uuid="e0663d48-2901-4109-a160-0a9c01fb8c37"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="40" width="6" height="20" uuid="86eebe89-63fd-4479-bb8d-7e79e19ae37e"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="60" width="6" height="20" uuid="d0a9f30f-2965-45a9-8512-cee3c82cadd3"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="80" width="6" height="20" uuid="e9ca98cf-e608-44fa-942c-11b146469ef9"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="100" width="6" height="20" uuid="372254d7-f4f0-4898-97d2-a2c283ff9dba"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+		</band>
+		<band height="50">
+			<printWhenExpression><![CDATA[$F{incluiradquisiciones}.toString().equals("1") ||
+$F{incluirctrolcambios}.toString().equals("1") ||
+$F{incluirtareaterminada}.toString().equals("1") ||
+$F{incluirtareaatrasada}.toString().equals("1") ||
+$F{incluirreuniones}.toString().equals("1")]]></printWhenExpression>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#CCCCCC" uuid="b779b409-34ad-4e5e-86c9-808d2a9393d5"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ DESCRIPCION DEL AVANCE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="555" height="30" uuid="4a7b4a0b-94c9-4c10-be4b-961aa56804af"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[
+   * A continuación se detalla el avance relizado hasta el momento para el periodo indicado:]]></text>
+			</staticText>
+		</band>
+		<band height="20">
+			<printWhenExpression><![CDATA[$F{incluiradquisiciones}.toString().equals("1")]]></printWhenExpression>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#CCCCCC" uuid="e85be538-9914-4b22-b32f-4fc4695b0654"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[       * ADQUISICIONES]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="20" width="555" height="0" uuid="e995a7fd-44e4-4633-8706-f8872a242c11"/>
+				<subreportParameter name="idproyecto">
+					<subreportParameterExpression><![CDATA[$P{idproyecto}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{ROOT_DIR} + "InfAvanceAdquisiciones.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="20">
+			<printWhenExpression><![CDATA[$F{incluirctrolcambios}.toString().equals("1")]]></printWhenExpression>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#CCCCCC" uuid="765a9ed4-a71a-4485-856b-457d60f59a3e"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[       * CONTROL DE CAMBIOS]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="20" width="555" height="0" uuid="b598ea34-83c7-49a1-9f26-cbc172b1f20b"/>
+				<subreportParameter name="idproyecto">
+					<subreportParameterExpression><![CDATA[$P{idproyecto}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{ROOT_DIR} + "InfAvanceCtrolCambios.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="20">
+			<printWhenExpression><![CDATA[$F{incluirtareaterminada}.toString().equals("1")]]></printWhenExpression>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#CCCCCC" uuid="c1a41a7e-b6ae-4c0a-bdfd-fbb856624dbf"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[       * TAREAS TERMINADAS]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="20" width="555" height="0" uuid="b67eee98-460f-47ab-9552-d4f68329aa84"/>
+				<subreportParameter name="idproyecto">
+					<subreportParameterExpression><![CDATA[$P{idproyecto}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{ROOT_DIR} + "InfAvanceTareaTerminada.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="20">
+			<printWhenExpression><![CDATA[$F{incluirtareaatrasada}.toString().equals("1")]]></printWhenExpression>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#CCCCCC" uuid="0402ff9b-5c46-44c4-8ae5-fa204ee026a5"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[       * TAREAS ATRASADAS]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="20" width="555" height="0" uuid="f0e6ff1a-7442-4888-9aa7-b75f3e5c46a7"/>
+				<subreportParameter name="idproyecto">
+					<subreportParameterExpression><![CDATA[$P{idproyecto}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{ROOT_DIR} + "InfAvanceTareaAtrasada.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<printWhenExpression><![CDATA[false]]></printWhenExpression>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#CCCCCC" uuid="40c75dc5-0716-46e9-941f-80ebc07dbccc"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[       * ENTREGABLES]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="426" y="0" width="80" height="20" uuid="b446f83b-b18b-4209-a86c-5e06fd045add"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página"+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="506" y="0" width="40" height="20" uuid="7dcc6f4f-01ce-49bd-9fea-fd8f19f43439"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

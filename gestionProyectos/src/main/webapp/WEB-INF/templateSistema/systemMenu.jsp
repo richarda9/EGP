@@ -113,15 +113,31 @@
 					</a>
 				</li>
 				<!-- TIPO DE CAMBIO  -->
-				<li id="idTipoCambio">
-					<a href="../administracion/tipoCambio.htm">
-						<i class="icon-double-angle-right"></i> Tipo de Cambio 
-					</a>
-				</li>
+<!-- 				<li id="idTipoCambio"> -->
+<!-- 					<a href="../administracion/tipoCambio.htm"> -->
+<!-- 						<i class="icon-double-angle-right"></i> Tipo de Cambio  -->
+<!-- 					</a> -->
+<!-- 				</li> -->
 
 
 			</ul></li>
 		<!-- [FIN] MENU ADMINISTRACION -->
+		<!-- [INI] MENU REPORTES -->
+		<li id="gestionReportes">
+				<a href="#" class="dropdown-toggle">
+					<i class="icon-edit"></i> 
+						<span class="menu-text"> GESTI&Oacute;N DE REPORTES </span> <b class="arrow icon-angle-down"></b>
+				</a>
+				<ul class="submenu">					
+						<!-- REPORTES  -->
+						<li id="idReportesProyecto">
+							<a href="../reportes/reportesProyecto.htm">
+								<i class="icon-double-angle-right"></i> Reportes
+							</a>
+						</li>				
+				</ul>
+			</li>
+			<!-- [INI] MENU REPORTES -->
 
 	</ul>
 

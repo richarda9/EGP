@@ -99,5 +99,6 @@ $('document').ready(function(){
 		$('#registrarInformeAvance .control-group').removeClass('error');
 		document.getElementById("registrarInformeAvance").reset();
 		$("#idInformeAvance").val('');
+		$("#correoDirigidoInfAvance").val('');
 	}
 });

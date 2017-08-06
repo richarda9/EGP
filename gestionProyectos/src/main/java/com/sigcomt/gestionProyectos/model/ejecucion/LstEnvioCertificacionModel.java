@@ -11,6 +11,7 @@ public class LstEnvioCertificacionModel implements Serializable
 	private Long idproyecto;
 	private Long idestadoentregable;
 	private String dscestadoentregable;
+	private String nombentregable;
 	private String dscentregable;
 	private String fechaEnvio;
 	private Long idresponentregable;
@@ -19,6 +20,7 @@ public class LstEnvioCertificacionModel implements Serializable
 	private Long idcertificadorasignado;
 	private String dsccertificador;
 	private Integer indcertificacion;
+	private String comentarioRespuesta;
 	
 	public Long getId() {
 		return id;
@@ -137,5 +139,21 @@ public class LstEnvioCertificacionModel implements Serializable
 				+ ", idcertificadorasignado=" + idcertificadorasignado
 				+ ", dsccertificador=" + dsccertificador
 				+ ", indcertificacion=" + indcertificacion + "]";
+	}
+
+	public String getNombentregable() {
+		return nombentregable;
+	}
+
+	public void setNombentregable(String nombentregable) {
+		this.nombentregable = nombentregable;
+	}
+
+	public String getComentarioRespuesta() {
+		return comentarioRespuesta;
+	}
+
+	public void setComentarioRespuesta(String comentarioRespuesta) {
+		this.comentarioRespuesta = comentarioRespuesta;
 	}
 }

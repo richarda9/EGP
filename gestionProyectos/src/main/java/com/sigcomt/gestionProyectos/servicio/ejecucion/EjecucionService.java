@@ -56,6 +56,12 @@ public interface EjecucionService {
 	public List<InformeAvance> listarInfoAvancebyProyecto(InformeAvance info);
 	public int mntoInformeAvance(InformeAvance dato);
 	public void eliminarInformeAvance(Integer id);
-	public int enviarCorreoInformeAvance(InformeAvance dato);
+	public String enviarCorreoInformeAvance(InformeAvance dato, String ruta);
+	public String descargarInformeAvance(InformeAvance dato, String ruta);
+	
+	//[INI] SEGUIMIENTO ENTREGABLE
+	public List<LstEnvioCertificacionModel> listarSeguimientoCertificacionbyProyecto(Long idproyecto);
+	public void cambioEstadoEntregable(EnvioCertificacionModel entregable);
+	//[FIN] SEGUIMIENTO ENTREGABLE
 	
 }

@@ -33,7 +33,6 @@ import com.sigcomt.gestionProyectos.model.administracion.RecursosModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
-import com.sigcomt.gestionProyectos.model.ejecucion.LstDetalleAdquisicionesProyectoModel;
 import com.sigcomt.gestionProyectos.repositorio.administracion.AdministracionDao;
 import com.sigcomt.gestionProyectos.repositorio.anteproyecto.PersonaDao;
 import com.sigcomt.gestionProyectos.servicio.administracion.AdministracionService;
@@ -390,6 +389,10 @@ public class AdministracionServiceImp implements AdministracionService
 	
 	public void eliminarComplejidadEntregable(Integer id){
 		administracionDao.eliminarComplejidadEntregable(id);
+	}
+	
+	public List<EstadoEntregable> listarEstadoEntregableSeguimiento(){
+		return administracionDao.listarEstadoEntregableSeguimiento();
 	}
 //  FIN - ENTREGABLE
 

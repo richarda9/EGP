@@ -52,16 +52,24 @@
 				</list>
 			</property>
 		</bean>
-		<bean id="viewResolver"	class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
-			<property name="basename" value="views"/>
-			<property name="order" value="1" />
-		</bean>
-		
+				
 		<bean id="tilesViewResolver"
 			class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 			<property name="viewClass"
 				value="org.springframework.web.servlet.view.tiles2.TilesView" />
 		</bean>
+		
+		<bean id="viewResolver"	class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+			<property name="basename" value="views"/>
+			<property name="order" value="1" />
+		</bean>
+
+<!-- 			<import resource="jasper-views.xml"/> -->
+			
+<!-- 			<bean class="org.springframework.web.servlet.view.XmlViewResolver"> -->
+<!-- 			    <property name="location" value="/WEB-INF/spring/jasper-views.xml"/> -->
+<!-- 			    <property name="order" value="0"/> -->
+<!-- 			</bean> -->
 		
 		<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 

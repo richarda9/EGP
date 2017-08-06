@@ -8,6 +8,7 @@
 		<div class="modal-body overflow-visible" style="height: auto; overflow: auto;">
 			<input id="idProyectoInformeAvance" name="idProyecto" type="hidden" value="${model.idProyecto}"/>
 			<input id="idInformeAvance" name="id" type="hidden" />
+			<input id="correoDirigidoInfAvance" name="correoDirigido" type="hidden" />
 			<div class="row-fluid">				
 				<div class="span6">
 					<div class="control-group row-fluid">
@@ -15,8 +16,8 @@
 						<div class="span8">
 							<select class="span12" id="idDirigido" name="dirigido" >
 								<option value="">Seleccionar</option>
-								<c:forEach var="sponsor" items="${model.listaSponsor}" varStatus="contador">
-								   <option value="${sponsor.id}">${sponsor.descripcion}</option>
+								<c:forEach var="sponsor" items="${model.listaInteresado}" varStatus="contador">
+								   <option value="${sponsor.idPersona}">${sponsor.nombreInteresado}</option>
 								</c:forEach>
 							</select>
 						</div>

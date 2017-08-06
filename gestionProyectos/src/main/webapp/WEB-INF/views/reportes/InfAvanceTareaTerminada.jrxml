@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InfAvanceTareaTerminada" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="650b221e-4a63-4955-83c5-a89033a789b8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idproyecto" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[SELECT "NOMBRE" descripcion,
+       "DURACION" horas,
+       to_char("FECHA_INICIO", 'DD/MM/YYYY') fechaInicio,
+       to_char("FECHA_FIN", 'DD/MM/YYYY') fechaFin,
+       "PRECEDE" precede,
+       "RECURSOS" dscRecursos,
+       "ESTADO" estadoTarea,
+       (SELECT c."DESCRIPCION" FROM "PLANIFICAR_PROYECTO"."COMPLEJIDAD" c
+	WHERE c."ID_COMPLEJIDAD" = dc."ID_COMPLEJIDAD") dscComplejidad,
+       (SELECT et."DESCRIPCION_ESTADO_TAREA" FROM "PLANIFICAR_PROYECTO"."ESTADO_TAREA" et
+	WHERE et."ID_ESTADO_TAREA" = dc."ID_ESTADO_TAREA") dscEstado,
+       "JUSTIFICACION" justificacion,
+       (SELECT "DESCRIPCION_SOLICITUD"
+        FROM "PLANIFICAR_PROYECTO"."CONTROL_CAMBIOS" cc
+        WHERE cc."ID_CONTROL_CAMBIOS" = dc."ID_CONTROL_CAMBIOS") dscCtrolCambios,
+       "ID_PERSONA" idResponsable,
+       "COD_DETALLE_CRONOGRAMA" codigo
+    FROM "PLANIFICAR_PROYECTO"."DETALLE_CRONOGRAMA" dc
+    WHERE dc."ID_PROYECTO" = $P{idproyecto}
+    AND   dc."ESTADO" = 1
+    AND   dc."ID_ESTADO_TAREA" = 3
+    ORDER BY dc."ID_DETALLE_CRONOGRAMA";]]>
+	</queryString>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="horas" class="java.lang.Integer"/>
+	<field name="fechainicio" class="java.lang.String"/>
+	<field name="fechafin" class="java.lang.String"/>
+	<field name="precede" class="java.lang.Integer"/>
+	<field name="dscrecursos" class="java.lang.String"/>
+	<field name="estadotarea" class="java.lang.Integer"/>
+	<field name="dsccomplejidad" class="java.lang.String"/>
+	<field name="dscestado" class="java.lang.String"/>
+	<field name="justificacion" class="java.lang.String"/>
+	<field name="dscctrolcambios" class="java.lang.String"/>
+	<field name="idresponsable" class="java.lang.Long"/>
+	<field name="codigo" class="java.lang.Long"/>
+	<detail>
+		<band height="81" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="1" width="89" height="20" uuid="1030ea8f-3a42-47f2-ae15-b7108afe3486"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[ NOMBRE TAREA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="89" y="1" width="6" height="20" uuid="787e23b0-c157-417a-a607-06373d598352"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="95" y="1" width="460" height="20" uuid="2b5d47d2-e7d6-440f-850e-d270d6463113"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="21" width="89" height="20" uuid="9d24d0a5-349b-4fc1-8209-2e315fea6ff4"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[ FECHA INICIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="89" y="21" width="6" height="20" uuid="7ab7d796-b80c-4923-bc38-64153948d958"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="95" y="21" width="90" height="20" uuid="6e5b0d5a-8803-4147-8222-a9ec2b44fbdc"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fechainicio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="260" y="21" width="6" height="20" uuid="b4747d52-4ed0-4434-b4c1-f50460cbf810"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="21" width="75" height="20" uuid="30d79f4a-e1bd-4add-9781-1a7eaac94639"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[FECHA FIN]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="266" y="21" width="94" height="20" uuid="93e88f69-22d9-42dd-864b-93c645dcc57b"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fechafin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="466" y="21" width="89" height="20" uuid="9c0a94e8-3ac6-4cc2-b031-1115116232aa"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{horas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="360" y="21" width="100" height="20" uuid="d013cbd5-6004-4ae1-b4dc-1141e0fbc045"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[HORAS ESTIMADAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="460" y="21" width="6" height="20" uuid="b482c1dc-2a23-4d22-be1f-70a0c6a0a195"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="41" width="89" height="20" uuid="7e1dadbf-4b37-4ec3-9841-915f77d17f35"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[ COMPLEJIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="89" y="41" width="6" height="20" uuid="a617110c-f68e-438d-9151-492c50ba47e7"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="95" y="41" width="90" height="20" uuid="5d43240b-2baf-4615-919d-891250f02d3a"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dsccomplejidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="41" width="80" height="20" uuid="cae942a6-d6ea-42cc-ac92-9307bce1defe"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dscestado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="185" y="41" width="89" height="20" uuid="4b12b4be-dc53-4290-8af3-ed273920cf31"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[ESTADO TAREA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="274" y="41" width="6" height="20" uuid="7fec84e2-f52c-4fb9-a742-b4f1c1a17d2f"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="466" y="41" width="89" height="20" isPrintWhenDetailOverflows="true" uuid="4c2767e2-4e07-4704-94d9-b6399e8c72f5"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dscrecursos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="462" y="41" width="4" height="20" uuid="87044485-bfc8-4c72-80bf-9858124ffeb8"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="41" width="102" height="20" uuid="0bc0b0e7-bb89-4af4-b9cd-102fbb70e742"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[CODIGO RECURSOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="61" width="89" height="20" uuid="7aebef37-891f-4603-b392-e070dfa76ae9"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="1.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[ JUSTIFICACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="89" y="61" width="6" height="20" uuid="2357d975-9771-424d-84cb-b56e5c2463a4"/>
+				<box>
+					<bottomPen lineWidth="1.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="95" y="61" width="218" height="20" uuid="f7f47787-f60d-4f47-b77f-ec4746bc00dd"/>
+				<box>
+					<bottomPen lineWidth="1.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{justificacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="313" y="61" width="123" height="20" uuid="f4bfd1bc-0b84-4dfc-8e5f-3b87912d3a02"/>
+				<box>
+					<bottomPen lineWidth="1.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[CONTROL DE CAMBIOS]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="440" y="61" width="115" height="20" isPrintWhenDetailOverflows="true" uuid="d4c25bc9-b232-4126-b47f-2ee4ec241a1f"/>
+				<box>
+					<bottomPen lineWidth="1.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dscctrolcambios}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="436" y="61" width="4" height="20" uuid="35bde1a0-694e-4e45-b39a-a16713f54d6f"/>
+				<box>
+					<bottomPen lineWidth="1.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

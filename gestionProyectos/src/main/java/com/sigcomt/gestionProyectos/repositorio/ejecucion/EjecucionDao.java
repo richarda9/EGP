@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.sigcomt.gestionProyectos.dominio.administracion.DetalleEmpresaPersona;
+import com.sigcomt.gestionProyectos.dominio.administracion.Entregable;
 import com.sigcomt.gestionProyectos.dominio.administracion.Persona;
 import com.sigcomt.gestionProyectos.dominio.administracion.Rol;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.Complejidad;
@@ -62,4 +63,9 @@ public interface EjecucionDao
 	public int actualizarInformeAvance(InformeAvance dato);	
 	public List<InformeAvance> listarInfoAvancebyProyecto(InformeAvance info);
 	public void eliminarInformeAvance(InformeAvance Info);
+	
+	//[INI] SEGUIMIENTO ENTREGABLE
+	public List<LstEnvioCertificacionModel> listarSeguimientoCertificacionbyProyecto(Long idproyecto);
+	public void cambioEstadoEntregable(EnvioCertificacionModel entregable);
+	//[FIN] SEGUIMIENTO ENTREGABLE
 }

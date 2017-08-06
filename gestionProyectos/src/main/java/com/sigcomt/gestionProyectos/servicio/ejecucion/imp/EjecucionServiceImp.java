@@ -3,11 +3,24 @@ package com.sigcomt.gestionProyectos.servicio.ejecucion.imp;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.sql.Connection;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,6 +59,9 @@ public class EjecucionServiceImp implements EjecucionService
 	
 	@Autowired
 	ComunService comunService;
+	
+	 @Autowired
+	 ApplicationContext ctx;
 	
 	public List<Rol> listarTipoRol(HashMap<String, String> mapa){
 		return ejecucionDao.listarTipoRol(mapa);
@@ -284,11 +300,62 @@ public class EjecucionServiceImp implements EjecucionService
 		ejecucionDao.eliminarInformeAvance(info);
 	}
 	
-	public int enviarCorreoInformeAvance(InformeAvance dato){
-		List<InformeAvance> lista = ejecucionDao.listarInfoAvancebyProyecto(dato);
+	public String enviarCorreoInformeAvance(InformeAvance dato, String ruta){
+		try{        
+        //ApplicationContext context = new ClassPathXmlApplicationContext("classpath*:/spring/applicationContext.xml");
+       // SqlSessionFactoryBean dataSource1 =(SqlSessionFactoryBean)context.getBean("sqlSessionFactory");
+		DateFormat parser = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        DriverManagerDataSource dataSource =(DriverManagerDataSource)ctx.getBean("dataSource");
+        Connection cnn = dataSource.getConnection();
+        JasperPrint jasperPrint;
+        String rutaCompleta = ruta + "WEB-INF\\views\\reportes\\" + "InformeAvance.jasper";
+        String fileName = "InformeAvance-" + parser.format(new Date())+".pdf";
 		
+        dato.setEnvioCorreo(Constantes.ESTADO_ACTIVO);
+        ejecucionDao.actualizarInformeAvance(dato);
+        
+        //Generacion PDF
+        Map<String,Object> parameterMap = new HashMap<String,Object>();		 
+        parameterMap.put("idproyecto", dato.getIdProyecto());
+        parameterMap.put("idinformeavance", dato.getId());
+        parameterMap.put("ROOT_DIR", ruta + "WEB-INF\\views\\reportes\\");
+        
+        jasperPrint  = JasperFillManager.fillReport(rutaCompleta, parameterMap, cnn);
+        JasperExportManager.exportReportToPdfFile(jasperPrint, ruta + "WEB-INF\\temp\\"+ fileName);
+        
+        //Envio Correo
+        String rutaLogo = ruta + "WEB-INF\\temp\\" + Constantes.LOGO_FIRMA_SIGCOMT;
+        
+        EnvioCorreo correo = new EnvioCorreo();
+        correo.setCorreoDestino(dato.getCorreoDirigido());
+        correo.setAsunto("INFORME DE AVANCE - " + new SimpleDateFormat("yyyyMMdd").format(new Date()));
+        correo.setMensaje(dato.getDescripcion());
+        correo.setRutaArchivo(ruta + "WEB-INF\\temp\\"+ fileName);
+        correo.setNombreArchivo(fileName);
+        correo.setRutaLogo(rutaLogo);
+        
+        comunService.envioCorreo(correo);
+			
+		}catch(Exception e){
+			throw new RuntimeException(e);
+		}
 		
-		
-		return 1;
+		return "";
 	}
+	
+	public String descargarInformeAvance(InformeAvance dato, String ruta){
+		
+		String rutaLogo = "temp\\" + "copiaDNI.pdf";
+		return rutaLogo;
+	}
+	
+	//[INI] SEGUIMIENTO ENTREGABLE
+	public List<LstEnvioCertificacionModel> listarSeguimientoCertificacionbyProyecto(Long idproyecto){
+		return ejecucionDao.listarSeguimientoCertificacionbyProyecto(idproyecto);
+	}
+	
+	public void cambioEstadoEntregable(EnvioCertificacionModel entregable){
+		ejecucionDao.cambioEstadoEntregable(entregable);
+	}
+	//[FIN] SEGUIMIENTO ENTREGABLE
 }

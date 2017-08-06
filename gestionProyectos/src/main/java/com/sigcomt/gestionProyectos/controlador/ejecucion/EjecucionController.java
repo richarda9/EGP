@@ -3,6 +3,7 @@ package com.sigcomt.gestionProyectos.controlador.ejecucion;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -71,7 +72,6 @@ public class EjecucionController
 	public ModelAndView ejecucion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		HashMap<String, Object> myModel = new HashMap<String, Object>();
-		//String index = request.getParameter("idanteproyecto");
 		myModel.put("listaTipoProyecto", this.administracionService.listarTipoProyectoByEsado(Constantes.ESTADO_ACTIVO));
 		myModel.put("listaProyecto", this.proyectoService.listarProyectoByEstado(Constantes.ESTADO_ACTIVO));
 		myModel.put("listaCliente", this.administracionService.listarEmpresaByEstado(Constantes.ESTADO_ACTIVO));
@@ -127,9 +127,12 @@ public class EjecucionController
 		myModel.put("listaCertificador", this.personaService.listarEjecutivoResponsableByEstadoByRol(Constantes.ESTADO_ACTIVO, Long.parseLong(RolEnum.CERTIFICADOR.getCodigo())));
 		myModel.put("listaEnvioCertificacion",  mapper.writeValueAsString(ejecucionService.listarEnvioCertificacionbyProyecto(new Long(idProyecto))));
 		
+		myModel.put("listaSeguimientoCertificacion",  mapper.writeValueAsString(ejecucionService.listarSeguimientoCertificacionbyProyecto(new Long(idProyecto))));
+		myModel.put("EstadoSeguimientoCertificacion",  this.administracionService.listarEstadoEntregableSeguimiento());
+		
 		myModel.put("listaInformeAvance",  mapper.writeValueAsString(ejecucionService.listarInfoAvancebyProyecto(info)));
 		myModel.put("listaTipoAvance", administracionService.listarTipoAvance());
-		myModel.put("listaSponsor", cierreService.listaSponsor(sponsor));
+		myModel.put("listaInteresado", proyectoService.listarInteresadosByIdProyecto(new Long(idProyecto)));
 		
 		myModel.put("listaCategoriaAdquisiciones", mapper.writeValueAsString(ejecucionService.listarCategAdquisicionbyProyecto(bsqAdquisicion)));
 						
@@ -234,13 +237,8 @@ public class EjecucionController
 	//--------------------------------- [FIN] SEGUIMIENTO DE TAREAS ------------------------------------
 	//--------------------------------- [INI] ENVIO CERTIFICACION ------------------------------------
 	@RequestMapping(value = "/mnt_EnvioCertificacion.htm", method = RequestMethod.POST)
-	public @ResponseBody int mntEnvioCertificacion( /*@RequestParam("destinoCertificacion") String dato,
-			 										@RequestParam("ccdestinoCertificacion") String dato1,
-			 										@RequestParam("asuntoDestinoCertificacion") String dato2,*/
-												   @RequestParam("file") MultipartFile multipartFile
-												   /*@RequestParam("observacionCertificacion") String dato3*/
-												   //@RequestParam("objeto") EnvioCertificacionModel dato
-												   , HttpServletRequest request)  
+	public @ResponseBody int mntEnvioCertificacion(@RequestParam("file") MultipartFile multipartFile,
+													HttpServletRequest request)  
 	{		
 		try{
 			String ruta = "";
@@ -268,6 +266,14 @@ public class EjecucionController
 		return new ObjectMapper().writeValueAsString(ejecucionService.listarEnvioCertificacionbyProyecto(new Long(dato)));
 	}
 	//--------------------------------- [FIN] ENVIO CERTIFICACION ------------------------------------
+	//--------------------------------- [FIN] SEGUIMIENTO CERTIFICACION ------------------------------------
+	@RequestMapping(value = "/cambiar_EstadoEntregable.htm", method = RequestMethod.POST)
+	public @ResponseBody String cambiarEstadoEntregable(@RequestBody EnvioCertificacionModel dato) throws JsonGenerationException, JsonMappingException, IOException 
+	{
+		ejecucionService.cambioEstadoEntregable(dato);
+		return new ObjectMapper().writeValueAsString(ejecucionService.listarSeguimientoCertificacionbyProyecto(dato.getIdproyecto()));
+	}
+	//--------------------------------- [FIN] SEGUIMIENTO CERTIFICACION ------------------------------------
 	//--------------------------------- [INI] ADQUISICIONES ------------------------------------------
 	@RequestMapping(value = "/mnto_Adquisiciones.htm", method = RequestMethod.POST)
 	public @ResponseBody int mntoAdquisiciones(@RequestBody DetalleAdquisicionProyecto dato) 
@@ -337,16 +343,33 @@ public class EjecucionController
 	}
 	
 	@RequestMapping(value = "/enviarCorreo_InformeAvance.htm", method = RequestMethod.POST)
-	public @ResponseBody int enviarCorreoInformeAvance(@RequestBody InformeAvance dato) 
+	public @ResponseBody String enviarCorreoInformeAvance(@RequestBody InformeAvance dato, HttpServletRequest request) 
 	{
 		try{
-			int resultado = ejecucionService.enviarCorreoInformeAvance(dato);
+			String ruta = request.getSession().getServletContext().getRealPath("/")+System.getProperty("file.separator");
+			String resultado = ejecucionService.enviarCorreoInformeAvance(dato, ruta);
 			return resultado;
 		}catch(Exception e){
 			logger.error(e.getMessage());
-			return 0;
+			return "";
 		}		
 	}
+		
+	@RequestMapping(value = "/descargar_InformeAvance.htm", method = RequestMethod.GET)
+	public ModelAndView descargarInformeAvance(@RequestParam Long idParam1,@RequestParam Long idParam2, HttpServletRequest request) 
+	{
+	  	String path = request.getSession().getServletContext().getRealPath("/WEB-INF/views/reportes/");
+        Map<String,Object> parameterMap = new HashMap<String,Object>();		        
+        parameterMap.put("idproyecto", idParam1);
+        parameterMap.put("idinformeavance", idParam2);
+        parameterMap.put("ROOT_DIR", path + "/");
+
+        System.out.print("************"+path);
+        
+        return new ModelAndView("dataReport",parameterMap);
+		
+	}
+	
 	//--------------------------------- [FIN] INFORME DE AVANCE ------------------------------------------
 		
 }

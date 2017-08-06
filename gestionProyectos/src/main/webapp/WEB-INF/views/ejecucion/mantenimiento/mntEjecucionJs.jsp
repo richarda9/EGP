@@ -19,6 +19,7 @@ var dataTarea = eval('${model.listaTareas}');
 var dataCategAdquisiciones = eval('${model.listaCategoriaAdquisiciones}');
 var dataEnvioCertificacion = eval('${model.listaEnvioCertificacion}');
 var datainfAvance = eval('${model.listaInformeAvance}');
+var dataSeguiCertificacion = eval('${model.listaSeguimientoCertificacion}');
 
 $(function() 
 {	
@@ -55,8 +56,6 @@ $(function()
 		"pageLength" : 10,
 		"searching"  : false,
 		"bInfo"      : false, 
-		//"scrollCollapse": true,
-		//"bLengthChange": false,
 		"columnDefs"		:
 	    	[
 		    	{	"targets": [ 8 ], "visible": false, "searchable": false, "width": "0%"},
@@ -121,6 +120,7 @@ $(function()
 		     		   	}
 		     		   },  
 		     		   {"data": "dscestadoentregable"},  
+		     		   {"data": "nombentregable"},
 		     		   {"data": "dscentregable"},  
 		     		   {"data": "fechaEnvio"},  
 		     		   {"data": "nombreresponentregable"},  
@@ -181,12 +181,61 @@ $(function()
 	}).draw();
 	
 	$('#tablasegEntregables').DataTable({
+		"ajax"		 : function (data, callback, settings) {
+						callback ( { data: dataSeguiCertificacion } );
+					   },				        
 		"paging"     : true,
 		"autoWidth"  : true,
 		"pageLength" : 10,
 		"searching"  : false,
 		"bInfo"      : false, 
-		//"bLengthChange": false,
+		"columns"	 : [
+		     		   {"data": "nombentregable"},
+		     		   {"data": "fechaEnvio"}, 
+		     		   {"data": "nombreresponentregable"},
+		     		   {"data": null, render: function ( data, type, row ) {
+		     			   return '';
+		     		   	}
+		     		   },
+		     		   {"data": "dscestadoentregable"},
+		     		   {"data": "fechaAprobacion"}, 
+		     		   {"data": "dsccertificador"}, 		     		   
+		     		   {"data": "comentarioRespuesta"}, 
+				       {"data": null, render: function ( data, type, row ) {
+				       	    if(data.dscestadoentregable != 'OBSERVADO' && data.dscestadoentregable != 'APROBADO')
+				    		   return '<!-- [INI] BOTON EDITAR -->'+
+										'<div class="hidden-phone visible-desktop action-buttons">'+
+											'<a class="blue tooltip-info" onclick="cambiarEstadoEntregable('+ data.identregable +')" '+
+											   'data-rel="tooltip" title="Editar">'+
+												'<i class="icon-edit bigger-130"></i>'+
+											'</a>'+
+										'</div>'+
+
+										'<div class="hidden-desktop visible-phone">'+
+											'<div class="inline position-relative">'+
+												'<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">'+
+													'<i class="icon-caret-down icon-only bigger-120"></i>'+
+												'</button>'+
+
+												'<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">'+
+													'<li>'+
+														'<a class="tooltip-info" data-rel="tooltip" '+
+															'title="Editar" onclick="cambiarEstadoEntregable('+ data.identregable +')">'+
+															'<span class="blue">'+
+																'<i class="icon-edit bigger-120"></i>'+
+															'</span>'+
+														'</a>'+
+													'</li>'+
+												'</ul>'+
+											'</div>'+
+										'</div>'+
+										'<!-- [FIN] BOTON EDITAR -->';
+							else
+								return '';
+				        }
+		     		   }
+					  ],
+		"destroy"	 : true,
 		"language"   : {
 							"url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
 				       }
@@ -320,7 +369,8 @@ $(function()
 							{	"targets": [ 10 ], "visible": false, "searchable": false},
 							{	"targets": [ 11 ], "visible": false, "searchable": false},
 							{	"targets": [ 12 ], "visible": false, "searchable": false},
-							{	"targets": [ 13 ], "visible": false, "searchable": false}
+							{	"targets": [ 13 ], "visible": false, "searchable": false},
+							{	"targets": [ 14 ], "visible": false, "searchable": false}
 				    	],
 		"columns"	 : [
 			     		   {"data": null, render: function ( data, type, row ) { 
@@ -352,7 +402,8 @@ $(function()
 										'</div>'+
 
 							    	   	'<div class="hidden-phone visible-desktop action-buttons">'+
-											'<a class="blue" onclick="descargarInfAvance('+ data.id +')"> <i class="icon-download-alt bigger-130" data-rel="tooltip" title="Descargar"> </i></a></div>'+
+										//	'<a class="blue" onclick="descargarInfAvance(this, '+ data.id +')"> <i class="icon-download-alt bigger-130" data-rel="tooltip" title="Descargar"> </i></a></div>'+
+										'<a class="blue" href="descargar_InformeAvance.htm?idParam1='+ data.idProyecto+'&idParam2='+data.id+'" target="_blank"> <i class="icon-download-alt bigger-130" data-rel="tooltip" title="Descargar"> </i></a></div>'+
 										'<div class="hidden-desktop visible-phone">'+
 											'<div class="inline position-relative">'+
 												'<button class="btn btn-minier btn-yellow dropdown-toggle"'+
@@ -361,7 +412,7 @@ $(function()
 												'</button>'+
 
 												'<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">'+
-													'<li><a class="tooltip-error" onclick=descargarInfAvance('+ data.id +')'+ 
+													'<li><a class="tooltip-error" href="descargar_InformeAvance.htm?idParam1='+ data.idProyecto+'&idParam2='+data.id+'" target="_blank"'+ 
 														' data-rel="tooltip" title="Descargar"> <span class="blue">'+
 																'<i class="icon-download-alt bigger-120"></i>'+
 														'</span>'+
@@ -390,7 +441,7 @@ $(function()
 										'</div>'; 
 								else
 							 		return '<div class="hidden-phone visible-desktop action-buttons">'+
-											'<a class="blue" onclick="descargarInfAvance('+ data.id +')"> <i class="icon-download-alt bigger-130" data-rel="tooltip" title="Descargar"> </i></a></div>'+
+											'<a class="blue" href="descargar_InformeAvance.htm?idParam1='+ data.idProyecto+'&idParam2='+data.id+'" target="_blank"> <i class="icon-download-alt bigger-130" data-rel="tooltip" title="Descargar"> </i></a></div>'+
 										'<div class="hidden-desktop visible-phone">'+
 											'<div class="inline position-relative">'+
 												'<button class="btn btn-minier btn-yellow dropdown-toggle"'+
@@ -399,7 +450,7 @@ $(function()
 												'</button>'+
 
 												'<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">'+
-													'<li><a class="tooltip-error" onclick=descargarInfAvance('+ data.id +')'+ 
+													'<li><a class="tooltip-error" href="descargar_InformeAvance.htm?idParam1='+ data.idProyecto+'&idParam2='+data.id+'" target="_blank"'+ 
 														' data-rel="tooltip" title="Descargar"> <span class="blue">'+
 																'<i class="icon-download-alt bigger-120"></i>'+
 														'</span>'+
@@ -436,7 +487,8 @@ $(function()
 					       {"data": "incluirCtrolCambios"},
 					       {"data": "incluirTareaTerminada"},
 					       {"data": "incluirTareaAtrasada"},
-					       {"data": "incluirReuniones"}
+					       {"data": "incluirReuniones"},
+					       {"data": "correoDirigido"}
 					  ],
 		"destroy"	 : true,
 		"language"   : {
@@ -914,6 +966,65 @@ function listarEnvioCertificacion() {
 	});
 };
 //-------------------------------------[FIN] ENVIO CERTIFICACION ------------------------------------------------------
+//-------------------------------------[INI] SEGUIMIENTO CERTIFICACION ------------------------------------------------
+function cambiarEstadoEntregable(id){
+	$('#modalSeguiCertificacion').modal('show');
+	$("#idEntregableSeguimiento").val(id);
+	$("#idSegEntregableProyecto").val($("#idProyectoGeneral").val());
+}
+
+$('#formSeguiCertificacion').validate({
+		errorClass: 'help-block',
+		rules: {
+			idestadoEntregable: {
+				required: true
+			},
+			observacionCertificacion: {
+				required: true
+			}
+		},
+
+		highlight: function (e) {
+			$(e).closest('.control-group').removeClass('info').addClass('error');
+		},
+
+		success: function (e) {
+			$(e).closest('.control-group').removeClass('error');
+			$(e).remove();
+		},
+		
+		submitHandler: function (form) {
+			registrarSeguiCertificacion();			
+			limpiarRegistrarSeguiCertificacion();
+		}
+});
+
+function limpiarRegistrarSeguiCertificacion(){
+	$("#formSeguiCertificacion").validate().resetForm();
+	$('#formSeguiCertificacion .control-group').removeClass('error');
+	document.getElementById("formSeguiCertificacion").reset();
+}
+
+function registrarSeguiCertificacion(){
+	loadModalCargando();
+	$('#modalSeguiCertificacion').modal('hide');
+	var objeto = $("#formSeguiCertificacion").serializeObject();
+	$.postJSON('${pageContext.request.contextPath}/ejecucion/cambiar_EstadoEntregable.htm', objeto,
+		function(data) {
+		dataSeguiCertificacion = eval(data);
+		$("#tablasegEntregables").DataTable().ajax.reload();	
+		$('[data-rel=tooltip]').tooltip();	
+		closeModalCargando();
+		$.gritter.add({
+					title: 'Info!',
+					text: 'Se realizo la operaci&oacute;n con &eacute;xito.',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-info gritter-light'
+				});
+	});
+}
+//-------------------------------------[FIN] SEGUIMIENTO CERTIFICACION ------------------------------------------------
 //-------------------------------------[INI] INFORME DE AVANCE --------------------------------------------------------
 function editarInfAvance(id){
 	loadModalCargando();
@@ -929,7 +1040,9 @@ function editarInfAvance(id){
 			$("#dscInfAvance").val(data[0].descripcion);
 			$("#idTipoInfAvance").val(data[0].idTipoAvance);
 			$("#fechaInicioInfAvance").val(data[0].fechaInicio);
-			$("#fechaFinInfAvance").val(data[0].fechaFin);
+			$("#fechaFinInfAvance").val(data[0].fechaFin);			
+			$("#correoDirigidoInfAvance").val(data[0].correoDirigido);
+
 			data[0].incluirAdquisiciones == '1' ? $("#incluirAdquisicionesInfAvance").prop("checked", true) : $("#incluirAdquisicionesInfAvance").prop("checked", false);
 			data[0].incluirCtrolCambios == '1' ? $("#incluirCtrolCambiosInfAvance").prop("checked", true) : $("#incluirCtrolCambiosInfAvance").prop("checked", false);
 			data[0].incluirTareaTerminada == '1' ? $("#incluirTareaTerminadaInfAvance").prop("checked", true) : $("#incluirTareaTerminadaInfAvance").prop("checked", false);
@@ -986,12 +1099,12 @@ function listarInformeAvance() {
 	});
 };
 
-function descargarInfAvance(id){
+function descargarInfAvance(obj, id){
 	var objeto = new Object();
 	    objeto.idProyecto = $("#idProyectoGeneral").val();
 	    objeto.id = id;
 
-	$.postJSON('${pageContext.request.contextPath}/ejecucion/descargar_InformeAvance.htm', dato,
+	$.postJSON('${pageContext.request.contextPath}/ejecucion/descargar_InformeAvance.htm', objeto,
 		function(data) {
 
 				closeModalCargando();			
@@ -1004,7 +1117,8 @@ function descargarInfAvance(id){
 					class_name: 'gritter-info gritter-light'
 				});
 
-				window.open("/gestionProyectos/"+ data,'_blank');
+				//window.open("/gestionProyectos/"+ data,'_blank');
+				obj.target="_blank";
 	}).fail(function() {
 		closeModalCargando();
 		$.gritter.add({
@@ -1020,11 +1134,11 @@ function descargarInfAvance(id){
 $('#btnEnviarInfoAvance').click( function () {
 	$('#modal-infoAvance').modal('hide');
 	loadModalCargando();
-	var objeto = new Object();
-	    objeto.idProyecto = $("#idProyectoGeneral").val();
-	    objeto.id = $("#idInformeAvance").val();	
+	var objeto = $("#registrarInformeAvance").serializeObject();
+	//    objeto.idProyecto = $("#idProyectoGeneral").val();
+	//    objeto.id = $("#idInformeAvance").val();	
 
-	$.postJSON('${pageContext.request.contextPath}/ejecucion/enviarCorreo_InformeAvance.htm', dato,
+	$.postJSON('${pageContext.request.contextPath}/ejecucion/enviarCorreo_InformeAvance.htm', objeto,
 		function(data) {
 		
 	}).fail(function() {

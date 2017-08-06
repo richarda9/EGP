@@ -22,7 +22,6 @@ import com.sigcomt.gestionProyectos.model.administracion.RecursosModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
-import com.sigcomt.gestionProyectos.model.ejecucion.LstDetalleAdquisicionesProyectoModel;
 
 public interface AdministracionDao 
 {
@@ -61,18 +60,21 @@ public interface AdministracionDao
 	public void eliminarTipoDependenciaProyecto(Integer id);
 	public int buscarTipoDependenciaProyecto(TipoDependencia param);
 	//[FIN] TIPO DEPENDENCIA
+	
 	//[INI] CATEGORIA ADQUISICIONES 
 	public void registrarCategAdquisicion(CategoriaAdquisicion param);
 	public List<CategoriaAdquisicion> listarCategAdquisicion();
 	public void eliminarCategAdquisicion(Integer id);
 	public int buscarCategAdquisicion(CategoriaAdquisicion param);
 	//[FIN] CATEGORIA ADQUISICIONES
+	
 	//[INI] COSTO OPERATIVO 
 	public void registrarCostoOperativo(TipoCostoOperativo param);
 	public List<TipoCostoOperativo> listarCostoOperativo();
 	public void eliminarCostoOperativo(Integer id);
 	public int buscarCostoOperativo(TipoCostoOperativo param);
 	//[FIN] COSTO OPERATIVO
+	
 	//[INI] FORMA PAGO 
 	public void registrarFormaPago(TipoFormaPago param);
 	public List<TipoFormaPago> listarFormaPago();
@@ -104,6 +106,7 @@ public interface AdministracionDao
 	public int registrarEstadoEntregable(EstadoEntregable dato); 
 	public List<EstadoEntregable> listarEstadoEntregable(int dato);
 	public void eliminarEstadoEntregable(Integer id);
+	public List<EstadoEntregable> listarEstadoEntregableSeguimiento();
 //  FIN - ENTREGABLE
 	
 	public List<TipoDocumento> listarTipoDocumento();

@@ -16,7 +16,6 @@ public class EnvioCertificacionModel implements Serializable
 	private String asuntoDestinoCertificacion;
 	private String observacionCertificacion;
 	private Long idestadoEntregable;
-//	private MultipartFile fichero;
 	
 	public String getDestinoCertificacion() {
 		return destinoCertificacion;

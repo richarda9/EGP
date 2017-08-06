@@ -15,6 +15,7 @@ public class Entregable implements Serializable
 	private String fechaEnvio;
 	private String fechaAprobacion;
 	private int asignado;
+	private String observaciones;
 	
 	public Long getIdentregable() {
 		return identregable;
@@ -96,5 +97,13 @@ public class Entregable implements Serializable
 				+ ", idestadoEntregable=" + idestadoEntregable
 				+ ", fechaEnvio=" + fechaEnvio + ", fechaAprobacion="
 				+ fechaAprobacion + ", asignado=" + asignado + "]";
+	}
+
+	public String getObservaciones() {
+		return observaciones;
+	}
+
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
 	}
 }

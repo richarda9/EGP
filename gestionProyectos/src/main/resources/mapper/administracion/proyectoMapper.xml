@@ -81,7 +81,8 @@
         "NOMBRE_PROYECTO",
         "ALCANCE_INICIAL",
         "OBJETIVO_INICIAL",
-        "ESTADO")
+        "ESTADO",
+        "ID_EMPRESA")
         values
         (#{idProyecto}, 
         #{idProyectoAsociado},
@@ -92,7 +93,8 @@
         #{nombreProyecto},
         #{alcanceInicial},
         #{ObjetivoInicial},
-        #{estado})  
+        #{estado},
+        #{idEmpresa}) 
         <!-- <selectKey keyProperty="codigoProyecto" resultType="String" order="AFTER">
             select "CODIGO_PROYECTO"
         </selectKey> -->
@@ -136,7 +138,10 @@
     </select>
     
     <select id="buscarPyByIdPy" parameterType = "java.lang.Long" resultType="Proyecto">
-       select py."CODIGO_PROYECTO" as codigoProyecto
+       select py."CODIGO_PROYECTO" as codigoProyecto,
+       			py."ID_TIPO_PROYECTO" as idTipoProyecto,
+       			py."DESCRIPCION_PRODUCTO_PROYECTO" as descripcionProductoProyecto,
+       			py."ALCANCE_PROYECTO" as alcanceProyecto
        from "CREAR_PROYECTO"."PROYECTO" py
        where py."ID_PROYECTO" = #{idPy}   
     </select>
@@ -151,7 +156,8 @@
         "NOMBRE_PROYECTO" = #{nombreProyecto},
         "ALCANCE_INICIAL" = #{alcanceInicial},
         "OBJETIVO_INICIAL" = #{ObjetivoInicial},
-        "ESTADO" = #{estado}
+        "ESTADO" = #{estado},
+        "ID_EMPRESA" = #{idEmpresa} 
         where "ID_PROYECTO" = #{idProyecto}
             
     </insert>
@@ -233,7 +239,8 @@
 			py."ID_RESPONSABLE_PROYECTO" as idResponsable,
 			py."NOMBRE_PROYECTO" as tituloProyecto,
 			py."ALCANCE_INICIAL" as alcanceInicialProyecto,
-			py."OBJETIVO_INICIAL" as objetivo
+			py."OBJETIVO_INICIAL" as objetivo,
+            py."ID_EMPRESA" as idEmpresa 
 		from "CREAR_PROYECTO"."PROYECTO" py	
 		where py."ID_PROYECTO" = #{idPy}		
 	</select>
@@ -243,6 +250,8 @@
 		SELECT DETEMPPER."ID_DETALLE_EMPRESA_PERSONA" idInteresado,
 			DETINT."INTERES_CONTACTO" interes,
 			PER."NOMBRE_PERSONA"||' '||PER."APELLIDO_PERSONA" nombreInteresado,
+			PER."EMAIL" correoInteresado,
+			PER."ID_PERSONA" idPersona,
 			ROL."NOMBRE_TIPOROL" cargo
 		FROM "CREAR_PROYECTO"."DETALLE_INTERESADO" DETINT 
 		INNER JOIN "CREAR_PROYECTO"."DETALLE_EMPRESA_PERSONA" DETEMPPER
@@ -302,9 +311,315 @@
 	<!-- INI - PLANIFICACION -->
     <insert id="actualizarProyectoByIdPy" parameterType="AgregarPlanificacionModel">
         update "CREAR_PROYECTO"."PROYECTO" 
-        set "DESCRIPCION_PRODUCTO_PROYECTO" = #{descripcionProducto}      
+        set 
+        <if test="descripcionProducto != null and descripcionProducto != ''">
+            "DESCRIPCION_PRODUCTO_PROYECTO" = #{descripcionProducto}
+        </if>
+        <if test="descripcionProducto != null and descripcionProducto != '' and definicionAlcance != null and definicionAlcance != ''">
+            , 
+        </if>
+        <if test="definicionAlcance != null and definicionAlcance != ''">
+            "ALCANCE_PROYECTO" = #{definicionAlcance} 
+        </if>     
         where "ID_PROYECTO" = #{idProyecto};
     </insert>
+    
+    <select id="listarTipoRequisitoProyectoByIdTipoPy" parameterType="Long" resultType="tipoReqProyectoModel">
+	   select  tr."ID_TIPO_REQUISITO" as id, 
+	   		   tr."DESCRIPCION_TIPO_REQUISITO" as descripcion			   
+	   from "PLANIFICAR_PROYECTO"."TIPO_REQUISITO" tr
+	   inner join "CREAR_PROYECTO"."TIPO_PROYECTO" tp
+	   on tp."ID_TIPO_PROYECTO" = tr."ID_TIPO_PROYECTO"
+	   where tr."ID_TIPO_PROYECTO" = #{idTipoPy};
+	</select>
+	
+	
+	<select id="listarTipoSupuestoProyectoByIdTipoPy" parameterType="Long" resultType="tipoSupProyectoModel">
+	   SELECT ts."ID_TIPO_SUPUESTO" id, 
+	       ts."DESCRIPCION" descripcion 	       
+	  FROM "PLANIFICAR_PROYECTO"."TIPO_SUPUESTO" ts
+	  inner join "CREAR_PROYECTO"."TIPO_PROYECTO" tp
+	  on ts."ID_TIPO_PROYECTO" = tp."ID_TIPO_PROYECTO"
+	  where ts."ID_TIPO_PROYECTO" = #{idTipoPy};
+	</select>
+	
+	<select id="listarTipoDependenciaProyectoByIdTipoPy" parameterType="Long" resultType="tipoDepProyectoModel">
+	   SELECT td."ID_TIPO_DEPENDENCIA" id, 
+	       td."DESCRIPCION_TIPO_DEPENDENCIA" descripcion
+	  FROM "PLANIFICAR_PROYECTO"."TIPO_DEPENDENCIA" td
+	  inner join "CREAR_PROYECTO"."TIPO_PROYECTO" tp
+	  on td."ID_TIPO_PROYECTO" = tp."ID_TIPO_PROYECTO"
+	  where td."ID_TIPO_PROYECTO" = #{idTipoPy};
+	</select>
+	
+	<insert id="insertarListaDetalleTipoRequisito" parameterType="java.util.List">        
+        <foreach collection="tipoRequisitos" item="element" index="index" separator="">
+            INSERT INTO "PLANIFICAR_PROYECTO"."DETALLE_REQUISITO_PROYECTO" (
+            "ID_DETALLE_REQUISITO_PROYECTO",
+            "ID_TIPO_REQUISITO",
+            "ID_PROYECTO",
+            "DESCRIPCION",
+            "OBSERVACION")
+            VALUES
+            (nextval('"PLANIFICAR_PROYECTO"."SQ_DETALLE_REQUISITO_PROYECTO"'),  
+            #{element.idTipoRequisito},
+            #{element.idProyecto},
+            #{element.descripcion},
+            #{element.observacion});
+       </foreach>
+    </insert>
+    
+    <insert id="insertarListaDetalleExclusion" parameterType="java.util.List">        
+        <foreach collection="exclusion" item="element" index="index" separator="">
+            INSERT INTO "PLANIFICAR_PROYECTO"."DETALLE_EXCLUSION" (
+            "ID_DETALLE_EXCLUSION",
+            "ID_PROYECTO",
+            "DESCRIPCION",
+            "ESTADO")
+            VALUES
+            (nextval('"PLANIFICAR_PROYECTO"."SQ_DETALLE_EXCLUSION"'),  
+            #{element.idProyecto},
+            #{element.descripcion},
+            1);
+       </foreach>
+    </insert>
+    
+    <insert id="insertarListaDetalleSupuesto" parameterType="java.util.List">        
+        <foreach collection="supuesto" item="element" index="index" separator="">
+            INSERT INTO "PLANIFICAR_PROYECTO"."DETALLE_SUPUESTO_PROYECTO" (
+            "ID_DETALLE_SUPUESTO_PROYECTO",
+            "ID_TIPO_SUPUESTO",
+            "ID_PROYECTO",
+            "DESCRIPCION",
+            "ESTADO")
+            VALUES
+            (nextval('"PLANIFICAR_PROYECTO"."SQ_DETALLE_SUPUESTO_PROYECTO"'),  
+            #{element.idTipoSupuesto},
+            #{element.idProyecto},
+            #{element.descripcion},
+            1);
+       </foreach>
+    </insert>
+    
+    <insert id="insertarListaDetalleDependencia" parameterType="java.util.List">        
+        <foreach collection="dependencia" item="element" index="index" separator="">
+            INSERT INTO "PLANIFICAR_PROYECTO"."DETALLE_DEPENDENCIA_PROYECTO" (
+            "ID_DETALLE_DEPENDENCIA_PROYECTO",
+            "ID_TIPO_DEPENDENCIA",
+            "ID_PROYECTO",
+            "DESCRIPCION_DEPENDENCIA",
+            "ESTADO")
+            VALUES
+            (nextval('"PLANIFICAR_PROYECTO"."SQ_DETALLE_DEPENDENCIA_PROYECTO"'),  
+            #{element.idTipoDependencia},
+            #{element.idProyecto},
+            #{element.descripcion},
+            1);
+       </foreach>
+    </insert>
+    
+    <insert id="insertarListaDetalleFactorExito" parameterType="java.util.List">        
+        <foreach collection="factorExito" item="element" index="index" separator="">
+            INSERT INTO "PLANIFICAR_PROYECTO"."DETALLE_FACTOR_EXITO" (
+            "ID_DETALLE_FACTOR_EXITO",
+            "ID_PROYECTO",
+            "DESCRIPCION_FACTOR_EXITO",
+            "ESTADO")
+            VALUES
+            (nextval('"PLANIFICAR_PROYECTO"."SQ_DETALLE_FACTOR_EXITO"'),  
+            #{element.idProyecto},
+            #{element.descripcion},
+            1);
+       </foreach>
+    </insert>
+	
+	<select id="listarFormasPago" resultType="tipoFormaPago">
+	   SELECT "ID_TIPO_FORMA_PAGO" as id, 
+				"DESCRIPCION" as descripcion
+  		FROM "PLANIFICAR_PROYECTO"."TIPO_FORMA_PAGO"
+  		WHERE "ESTADO" = 1;
+	</select>
+	
+	<select id="listarEntregablesProyectoId" parameterType="long" resultType="entregable">
+		SELECT general."ID_ENTREGABLE" as identregable, 
+				general."NOMBRE_ENTREGABLE" as nombre
+  		FROM "PLANIFICAR_PROYECTO"."ENTREGABLE" general 
+  		inner join "PLANIFICAR_PROYECTO"."DETALLE_ENTREGABLE_PRODUCTO" detalle
+  		on detalle."ID_ENTREGABLE" = general."ID_ENTREGABLE"
+  		WHERE detalle."ID_PROYECTO" = #{idProyecto}
+  		and general."ESTADO"  = 1;
+	</select>
+	
+	<insert id="guardarFormaPago" parameterType="formasPagoModel">
+        <selectKey keyProperty="idFormaPagoDetal" resultType="Long" order="BEFORE">
+            select NEXTVAL('"PLANIFICAR_PROYECTO".sq_detalle_forma_pago_proyecto')
+        </selectKey>
+        INSERT INTO "PLANIFICAR_PROYECTO"."DETALLE_FORMA_PAGO_PROYECTO"(
+            "ID_DETALLE_FORMA_PAGO_PROYECTO", 
+            "ID_ENTREGABLE", 
+            "ID_FORMA_PAGO", 
+            "NUMERO_CUOTA", 
+            "FECHA_FACTURACION", 
+            "FECHA_COBRANZA", 
+            "PORCENTAJE_PAGO", 
+            "ESTADO",
+            "ID_PROYECTO")    	
+        values(
+        	#{idFormaPagoDetal},
+        	#{idEntregable}, 
+        	#{idFormaPago},        
+        	#{idFormaPagoDetal},
+        	to_date(#{fechaFacturacion}, 'DD/MM/YYYY'),
+        	to_date(#{fechaCobranza}, 'DD/MM/YYYY'),        	
+        	#{porcentajePago},
+        	#{estado},
+        	#{idProyecto}
+        	);  
+    </insert>
+    
+    <delete id="eliminarFormaPago" parameterType="formasPagoModel">      
+       DELETE FROM "PLANIFICAR_PROYECTO"."DETALLE_FORMA_PAGO_PROYECTO"
+ 		WHERE "ID_DETALLE_FORMA_PAGO_PROYECTO" = #{idFormaPagoDetal} ;
+    </delete>
+    
+    <select id="listarFormaPagoIdProyecto" parameterType= "java.lang.Long" resultType="formasPagoModel">
+		SELECT "ID_DETALLE_FORMA_PAGO_PROYECTO" as idFormaPagoDetal, 
+			pago."ID_ENTREGABLE" as idEntregable,
+			general."NOMBRE_ENTREGABLE" as descripcionEntregable, 
+			"ID_FORMA_PAGO" as idFormaPago, 
+			forma."DESCRIPCION" as descripcionFormaPago, 
+       		"NUMERO_CUOTA" as nroCuota, 
+       		to_char("FECHA_FACTURACION",'dd/MM/yyyy') as fechaFacturacion, 
+       		to_char("FECHA_COBRANZA",'dd/MM/yyyy') as fechaCobranza, 
+       		"PORCENTAJE_PAGO" as porcentajePago, 
+       		pago."ESTADO" as estado,
+       		"ID_PROYECTO" idProyecto
+		 FROM "PLANIFICAR_PROYECTO"."DETALLE_FORMA_PAGO_PROYECTO" pago,
+			"PLANIFICAR_PROYECTO"."TIPO_FORMA_PAGO" forma,
+			"PLANIFICAR_PROYECTO"."ENTREGABLE" general 
+			where forma."ID_TIPO_FORMA_PAGO" = pago."ID_FORMA_PAGO"
+			and general."ID_ENTREGABLE" = pago."ID_ENTREGABLE"
+			and pago."ID_PROYECTO" = #{idProyecto};
+	</select>
+	
+	<insert id="guardarDetalleRiesgos" parameterType="detalleRiesgosModel">
+        <selectKey keyProperty="idDetalleRiesgos" resultType="Long" order="BEFORE">
+            select NEXTVAL('"PLANIFICAR_PROYECTO".sq_detalle_riesgos_proyecto')
+        </selectKey>
+        INSERT INTO "PLANIFICAR_PROYECTO"."DETALLE_RIESGOS_PROYECTO"(
+            "ID_DETALLE_RIESGOS_PROYECTO", 
+            "ID_PROYECTO", 
+            "RIESGO", 
+            "RESPONSABLE", 
+            "IMPACTO", 
+            "PROBABILIDAD", 
+            "CONTINGENCIA", 
+            "MITGACION", 
+            "ESTADO")    	
+        values(
+        	#{idDetalleRiesgos},
+        	#{idProyecto}, 
+        	#{valRiesgo},        
+        	#{valResponsable},
+        	#{valImpacto},
+        	#{valProbabilidad},        	
+        	#{valContigencia},
+        	#{valMitigacion},
+        	#{estado}
+        	);  
+    </insert>
+    
+    <delete id="eliminarDetalleRiesgos" parameterType="detalleRiesgosModel">      
+       DELETE FROM "PLANIFICAR_PROYECTO"."DETALLE_RIESGOS_PROYECTO"
+ 		WHERE  "ID_DETALLE_RIESGOS_PROYECTO" = #{idDetalleRiesgos} ;
+    </delete>
+    
+    <select id="listarDetalleRiesgosIdProyecto" parameterType= "java.lang.Long" resultType="detalleRiesgosModel">
+		SELECT "ID_DETALLE_RIESGOS_PROYECTO" as idDetalleRiesgos, 
+				"ID_PROYECTO" as idProyecto, 
+				"RIESGO" as valRiesgo, 
+				"RESPONSABLE" as valResponsable, 
+       			"IMPACTO" as valImpacto, 
+       			"PROBABILIDAD" as valProbabilidad, 
+       			"CONTINGENCIA" as valContigencia, 
+       			"MITGACION" as valMitigacion, 
+       			"ESTADO" as estado
+  		FROM "PLANIFICAR_PROYECTO"."DETALLE_RIESGOS_PROYECTO"
+  		WHERE "ID_PROYECTO" = #{idProyecto};			
+	</select>
+	
+	<!-- LISTAR TIPO REQUISITO PARA EDITAR -->
+    <select id="listarTipoRequisitoByIdProyecto"  parameterType="java.lang.Long" resultType="RequisitoProyectoPlanificacionModel">
+        SELECT TIPOREQ."ID_TIPO_REQUISITO" idTipoRequisito, 
+            TIPOREQ."DESCRIPCION_TIPO_REQUISITO" descTipoRequisito,
+            DETTIPREQ."DESCRIPCION" descripcion,
+            DETTIPREQ."OBSERVACION" observacion
+        FROM "PLANIFICAR_PROYECTO"."DETALLE_REQUISITO_PROYECTO" DETTIPREQ 
+        INNER JOIN "PLANIFICAR_PROYECTO"."TIPO_REQUISITO" TIPOREQ
+        ON DETTIPREQ."ID_TIPO_REQUISITO" = TIPOREQ."ID_TIPO_REQUISITO"
+        WHERE DETTIPREQ."ID_PROYECTO" = #{idPy}   
+    </select>
+    
+    <!-- LISTAR EXCLUSION PARA EDITAR -->
+    <select id="listarExclusionByIdProyecto"  parameterType="java.lang.Long" resultType="ExclusionPlanificacionModel">
+        SELECT DETEXCLU."DESCRIPCION" descripcion
+        FROM "PLANIFICAR_PROYECTO"."DETALLE_EXCLUSION" DETEXCLU  
+        WHERE DETEXCLU."ID_PROYECTO" = #{idPy}    
+    </select>
+    
+    <!-- LISTAR SUPUESTO PARA EDITAR -->
+    <select id="listarSupuestoByIdProyecto"  parameterType="java.lang.Long" resultType="SupuestoPlanificacionModel">
+        SELECT TIPOSUP."ID_TIPO_SUPUESTO" idTipoSupuesto, 
+            TIPOSUP."DESCRIPCION" descTipoSupuesto,
+            DETSUP."DESCRIPCION" descripcion
+        FROM "PLANIFICAR_PROYECTO"."DETALLE_SUPUESTO_PROYECTO" DETSUP 
+        INNER JOIN "PLANIFICAR_PROYECTO"."TIPO_SUPUESTO" TIPOSUP
+        ON DETSUP."ID_TIPO_SUPUESTO" = TIPOSUP."ID_TIPO_SUPUESTO"
+        WHERE DETSUP."ID_PROYECTO" = #{idPy}  
+    </select>
+    
+    <!-- LISTAR DEPENDENCIA PARA EDITAR -->
+    <select id="listarDependenciaByIdProyecto"  parameterType="java.lang.Long" resultType="DependenciaPlanificacionModel">
+        SELECT TIPODEP."ID_TIPO_DEPENDENCIA" idTipoDependencia, 
+            TIPODEP."DESCRIPCION_TIPO_DEPENDENCIA" descTipoDepedencia,
+            DETDEP."DESCRIPCION_DEPENDENCIA" descripcion
+        FROM "PLANIFICAR_PROYECTO"."DETALLE_DEPENDENCIA_PROYECTO" DETDEP 
+        INNER JOIN "PLANIFICAR_PROYECTO"."TIPO_DEPENDENCIA" TIPODEP
+        ON DETDEP."ID_TIPO_DEPENDENCIA" = TIPODEP."ID_TIPO_DEPENDENCIA"
+        WHERE DETDEP."ID_PROYECTO" = #{idPy}  
+    </select>
+    
+    <!-- LISTAR FACTOR CRITICO PARA EDITAR -->
+    <select id="listarFactorCriticoByIdProyecto"  parameterType="java.lang.Long" resultType="FactorExitoPlanificacionModel">
+        SELECT DETFACCRI."DESCRIPCION_FACTOR_EXITO" descripcion
+        FROM "PLANIFICAR_PROYECTO"."DETALLE_FACTOR_EXITO" DETFACCRI 
+        WHERE DETFACCRI."ID_PROYECTO" = #{idPy}   
+    </select>
+    
+    <delete id="eliminarDetalleTipoRequisitoByIdPy" parameterType="Long">
+      delete FROM "PLANIFICAR_PROYECTO"."DETALLE_REQUISITO_PROYECTO" DETTIPREQ 
+      where "ID_PROYECTO" = #{idPy};
+    </delete>
+    
+    <delete id="eliminarDetalleExclusionByIdPy" parameterType="Long">
+      delete FROM "PLANIFICAR_PROYECTO"."DETALLE_EXCLUSION" DETEXCLU 
+      where "ID_PROYECTO" = #{idPy};
+    </delete>
+    
+    <delete id="eliminarDetalleSupuestoByIdPy" parameterType="Long">
+      delete FROM "PLANIFICAR_PROYECTO"."DETALLE_SUPUESTO_PROYECTO" DETSUP 
+      where "ID_PROYECTO" = #{idPy};
+    </delete>
+    
+    <delete id="eliminarDetalleDependenciaByIdPy" parameterType="Long">
+      delete FROM "PLANIFICAR_PROYECTO"."DETALLE_DEPENDENCIA_PROYECTO" DETDEP 
+      where "ID_PROYECTO" = #{idPy};
+    </delete>
+    
+    <delete id="eliminarDetalleFactorCriticoByIdPy" parameterType="Long">
+      delete FROM "PLANIFICAR_PROYECTO"."DETALLE_FACTOR_EXITO" DETFACCRI 
+      where "ID_PROYECTO" = #{idPy};
+    </delete>       	
     <!-- FIN - PLANIFICACION -->
     
 	<!-- [INI] EJECUCION -->

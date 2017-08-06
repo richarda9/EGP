@@ -330,6 +330,7 @@
 		       e."ID_ESTADO_ENTREGABLE" idestadoentregable,
 		       (SELECT ee."DESCRIPCION" FROM "PLANIFICAR_PROYECTO"."ESTADO_ENTREGABLE" ee
 		        WHERE ee."ID_ESTADO_ENTREGABLE" = e."ID_ESTADO_ENTREGABLE") dscestadoentregable,
+		       e."NOMBRE_ENTREGABLE" nombentregable,
 		       e."DESCRIPCION_ENTREGABLE" dscentregable, 
 		       to_char(e."FECHA_ENVIO", 'DD/MM/YYYY') fechaEnvio, 
 		       (SELECT pe."ID_PERSONA"
@@ -420,6 +421,8 @@
 		       ia."INCLUIR_TAREA_ATRASADA" incluirTareaAtrasada, 
 		       ia."INCLUIR_REUNIONES" incluirReuniones, 
 		       ia."DIRIGIDO" dirigido, 
+		       (SELECT p."EMAIL" FROM "CREAR_PROYECTO"."PERSONA" p
+		        WHERE p."ID_PERSONA" = ia."DIRIGIDO") correoDirigido,
 		       ia."ENVIO_CORREO" envioCorreo
 		  FROM "PLANIFICAR_PROYECTO"."INFORME_AVANCE" ia
 		  WHERE ia."ID_PROYECTO" = #{idProyecto}
@@ -434,4 +437,59 @@
 		   SET "ESTADO" = #{estado}
 		 WHERE "ID_INFORME_AVANCE" = #{id};
 	</update>
+	
+	<!-- [INI] SEGUIMIENTO ENTREGABLE -->
+	<select id="listarSeguimientoCertificacionbyProyecto" parameterType="long" resultType="lstEnvioCertificacionModel">
+		SELECT e."ID_ENTREGABLE" identregable, 
+		       dep."ID_DETALLE_ENTREGABLE_PRODUCTO" id,
+		       e."ID_ESTADO_ENTREGABLE" idestadoentregable,
+		       (SELECT ee."DESCRIPCION" FROM "PLANIFICAR_PROYECTO"."ESTADO_ENTREGABLE" ee
+		        WHERE ee."ID_ESTADO_ENTREGABLE" = e."ID_ESTADO_ENTREGABLE") dscestadoentregable,
+		       e."NOMBRE_ENTREGABLE" nombentregable,
+		       e."DESCRIPCION_ENTREGABLE" dscentregable, 
+		       to_char(e."FECHA_ENVIO", 'DD/MM/YYYY') fechaEnvio, 
+		       (SELECT pe."ID_PERSONA"
+				FROM   "CREAR_PROYECTO"."PROYECTO" p,
+				       "CREAR_PROYECTO"."DETALLE_PROYECTO_USER_ROL" dpur,
+				       seguridad.security_rol_user sru,
+				       seguridad.security_user su,
+				       "CREAR_PROYECTO"."PERSONA" pe
+				WHERE p."ID_RESPONSABLE_PROYECTO" = dpur.id_detalle_proyecto_user
+				AND   dpur."ID_USER_ROL" = sru.id_detalle
+				AND   sru.id_user = su.id_user
+				AND   su."ID_PERSONA" = pe."ID_PERSONA"
+				AND   p."ID_PROYECTO" = dep."ID_PROYECTO") idresponentregable,
+		       (SELECT pe."NOMBRE_PERSONA"|| ' ' || pe."APELLIDO_PERSONA"
+		        FROM   "CREAR_PROYECTO"."PROYECTO" p,
+				       "CREAR_PROYECTO"."DETALLE_PROYECTO_USER_ROL" dpur,
+				       seguridad.security_rol_user sru,
+				       seguridad.security_user su,
+				       "CREAR_PROYECTO"."PERSONA" pe
+				WHERE p."ID_RESPONSABLE_PROYECTO" = dpur.id_detalle_proyecto_user
+				AND   dpur."ID_USER_ROL" = sru.id_detalle
+				AND   sru.id_user = su.id_user
+				AND   su."ID_PERSONA" = pe."ID_PERSONA"
+				AND   p."ID_PROYECTO" = dep."ID_PROYECTO") nombreresponentregable,
+		       to_char(e."FECHA_APROBACION", 'DD/MM/YYYY') fechaAprobacion,
+		       e."ID_PER_ASIGNADO_CERTIFICACION" idcertificadorasignado,
+		       (SELECT p."NOMBRE_PERSONA"||' '||p."APELLIDO_PERSONA" FROM "CREAR_PROYECTO"."PERSONA" p
+		        WHERE p."ID_PERSONA" = e."ID_PER_ASIGNADO_CERTIFICACION") dsccertificador,
+		       e."ASIGNADO_CERTIFICACION" indcertificacion,
+		       e."OBSERVACIONES" comentarioRespuesta
+		FROM "PLANIFICAR_PROYECTO"."ENTREGABLE" e,
+		     "PLANIFICAR_PROYECTO"."DETALLE_ENTREGABLE_PRODUCTO" dep
+		WHERE e."ID_ENTREGABLE" = dep."ID_ENTREGABLE"
+		AND   e."ASIGNADO_CERTIFICACION" = 1
+		AND   dep."ID_PROYECTO" = #{idproyecto};
+	</select>
+	
+	<update id="cambioEstadoEntregable" parameterType="envioCertificacionModel">
+		UPDATE "PLANIFICAR_PROYECTO"."ENTREGABLE"
+		   SET "ID_ESTADO_ENTREGABLE" = #{idestadoEntregable},
+		       "FECHA_APROBACION" = CURRENT_TIMESTAMP,
+		       "OBSERVACIONES" = #{observacionCertificacion}
+		 WHERE "ID_ENTREGABLE" = #{id};
+		
+	</update>
+	<!-- [FIN] SEGUIMIENTO ENTREGABLE -->
 </mapper>

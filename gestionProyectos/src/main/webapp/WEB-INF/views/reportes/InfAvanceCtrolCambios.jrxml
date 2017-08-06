@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InfAvanceCtrolCambios" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8d8335db-a908-42be-86d9-15763671016f">
+	<property name="ireport.zoom" value="1.1000000000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idproyecto" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[SELECT cc."DESCRIPCION_SOLICITUD" descripcionCtrolCambios,
+       to_char(cc."FECHA_SOLICITUD", 'DD/MM/YYYY') fecSolCtrolCambios,
+       (SELECT c."DESCRIPCION" FROM "PLANIFICAR_PROYECTO"."COMPLEJIDAD" c
+	WHERE c."ID_COMPLEJIDAD" = cc."ID_COMPLEJIDAD") dscComplejidad,
+       cc."HORAS_ESTIMADAS" horasEstimadas,
+       cc."COMENTARIOS" comentarios,
+       cc."SOLICITANTE" dscSolicitante,
+       cc."COD_CONTROL_CAMBIOS" codctrolcambios
+FROM "PLANIFICAR_PROYECTO"."CONTROL_CAMBIOS" cc
+WHERE cc."ID_PROYECTO" = $P{idproyecto}
+AND   cc."ESTADO" = 1;]]>
+	</queryString>
+	<field name="descripcionctrolcambios" class="java.lang.String"/>
+	<field name="fecsolctrolcambios" class="java.lang.String"/>
+	<field name="dsccomplejidad" class="java.lang.String"/>
+	<field name="horasestimadas" class="java.lang.Integer"/>
+	<field name="comentarios" class="java.lang.String"/>
+	<field name="dscsolicitante" class="java.lang.Long"/>
+	<field name="codctrolcambios" class="java.lang.Long"/>
+	<detail>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="1" width="161" height="20" uuid="1a38be98-b1ea-4ff5-b5c4-7ded4913899c"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[ DESCRIPCION DE LA SOLICITUD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="161" y="1" width="6" height="20" uuid="5c0e9eed-d4c3-46c3-bbea-7886c460bb84"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="21" width="161" height="20" uuid="e4490c6d-4fb9-4818-b6d4-bdaf7c5e32ae"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[ FECHA DE SOLICITUD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="161" y="21" width="6" height="20" uuid="e3536a82-13ce-4459-b3c5-3d1ea0dbc954"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="167" y="1" width="388" height="20" uuid="9fae074f-fafc-41b0-99e5-fb4d0c9f8a9d"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descripcionctrolcambios}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="167" y="21" width="74" height="20" uuid="52430733-9d98-4134-8cf1-796fa1900a49"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecsolctrolcambios}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="241" y="21" width="74" height="20" uuid="465e01ff-36fa-46be-ba50-8e9781926df0"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[COMPLEJIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="315" y="21" width="6" height="20" uuid="84636776-4c2e-42b9-b132-9b9abff2187e"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="321" y="21" width="74" height="20" uuid="868fe301-ca43-4107-affe-e1e79c5182dd"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dsccomplejidad}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="395" y="21" width="97" height="20" uuid="bd9e667e-a2af-4dae-85de-41b12055b4dc"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[HORAS ESTIMADAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="492" y="21" width="6" height="20" uuid="7e581263-9f03-4498-93fe-3cee95bae9d9"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="498" y="21" width="57" height="20" uuid="0d4f9147-a7ac-471b-b924-4809da78b3d8"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{horasestimadas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="41" width="161" height="20" uuid="d14bfe1e-0447-44ab-afc7-e5379514912c"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="1.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[ CODIGO CONTROL CAMBIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="161" y="41" width="6" height="20" uuid="e0b82ab4-01c1-410d-bcb0-f508c4808207"/>
+				<box>
+					<bottomPen lineWidth="1.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="167" y="41" width="46" height="20" uuid="9d914009-59df-47dd-ba13-5f6410e4fd1e"/>
+				<box>
+					<bottomPen lineWidth="1.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{codctrolcambios}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="213" y="41" width="66" height="20" uuid="0b878eab-3caa-41f8-a0e5-c8dd1acc8a02"/>
+				<box>
+					<bottomPen lineWidth="1.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[SOLICITANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="41" width="6" height="20" uuid="c5c1d014-ab3b-4160-bea7-db5d2bba3b7b"/>
+				<box>
+					<bottomPen lineWidth="1.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="285" y="41" width="270" height="20" uuid="bd6db1cc-904c-4bb0-b5a3-008bea0e1c50"/>
+				<box>
+					<bottomPen lineWidth="1.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dscsolicitante}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

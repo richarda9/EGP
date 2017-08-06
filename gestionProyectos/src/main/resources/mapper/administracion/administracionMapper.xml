@@ -410,6 +410,16 @@
 		DELETE FROM "PLANIFICAR_PROYECTO"."ESTADO_ENTREGABLE" ee
  		WHERE ee."ID_ESTADO_ENTREGABLE" = #{id};
 	</delete>
+	
+	<select id="listarEstadoEntregableSeguimiento"  resultType="estadoEntregable">
+		SELECT "ID_ESTADO_ENTREGABLE" id, "DESCRIPCION" descripcion
+		FROM "PLANIFICAR_PROYECTO"."ESTADO_ENTREGABLE" ee
+		WHERE ee."DESCRIPCION" LIKE '%OBSERVADO%'
+		UNION
+		SELECT "ID_ESTADO_ENTREGABLE" id, "DESCRIPCION" descripcion
+		FROM "PLANIFICAR_PROYECTO"."ESTADO_ENTREGABLE" ee
+		WHERE ee."DESCRIPCION" LIKE '%APROBADO%';
+	</select>
 	<!-- [FIN] ENTREGABLE -->
 	
 	<select id="listarTipoDocumento" resultType="tipoDocumento">

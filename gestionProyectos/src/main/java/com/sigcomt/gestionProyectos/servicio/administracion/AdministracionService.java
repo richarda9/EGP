@@ -24,7 +24,6 @@ import com.sigcomt.gestionProyectos.model.administracion.RecursosModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
-import com.sigcomt.gestionProyectos.model.ejecucion.LstDetalleAdquisicionesProyectoModel;
 
 
 public interface AdministracionService 
@@ -101,6 +100,7 @@ public interface AdministracionService
 	public int registrarEstadoEntregable(EstadoEntregable dato); 
 	public List<EstadoEntregable> listarEstadoEntregable(int dato);
 	public void eliminarEstadoEntregable(Integer id);
+	public List<EstadoEntregable> listarEstadoEntregableSeguimiento();
 //  FIN - ENTREGABLE
 	
 	public List<TipoDocumento> listarTipoDocumento();

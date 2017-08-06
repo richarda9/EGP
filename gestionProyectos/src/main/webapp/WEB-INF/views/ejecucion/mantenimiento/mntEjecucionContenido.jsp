@@ -458,6 +458,7 @@
 										<tr>
 											<th>Id</th>
 											<th>Estado</th>
+											<th>Nombre</th>
 											<th>Descripci&oacute;n</th>
 											<th>Fecha de Envio</th>
 											<th>Responsable Entregable</th>
@@ -465,74 +466,7 @@
 											<th>Asignado Certificaci&oacute;n</th>
 											<th>Opciones</th>
 										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td class="td-actions">
-												<!-- [INI] BOTON ENVIAR A CERTIFICACION -->
-												<div class="hidden-phone visible-desktop action-buttons">
-													<a class="blue tooltip-info" href="#modal-EnviarCertificacion" data-toggle="modal" data-id="${tipoProyecto.id}" 
-													   data-rel="tooltip" title="Enviar a Certificaci&oacute;n">
-														<i class="icon-envelope bigger-130"></i>
-													</a>
-												</div>
-	
-												<div class="hidden-desktop visible-phone">
-													<div class="inline position-relative">
-														<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
-															<i class="icon-caret-down icon-only bigger-120"></i>
-														</button>
-	
-														<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
-															<li>
-																<a href="#modal-EnviarCertificacion" class="abrir-eliminarTproyecto tooltip-info" data-rel="tooltip" 
-																	title="Enviar a Certificaci&oacute;n" data-toggle="modal" data-id="${tipoProyecto.id}">
-																	<span class="blue">
-																		<i class="icon-envelope bigger-120"></i>
-																	</span>
-																</a>
-															</li>
-														</ul>
-													</div>
-												</div>
-												<!-- [FIN] BOTON ENVIAR A CERTIFICACION -->
-												<!-- [INI] BOTON VISUALIZAR CERTIFICACION -->
-												<div class="hidden-phone visible-desktop action-buttons">
-													<a class="abrir-eliminarTproyecto blue tooltip-info" href="#modal-VisualizarCertificacion" data-toggle="modal" data-id="${tipoProyecto.id}" 
-													   data-rel="tooltip" title="Visualizar Certificaci&oacute;n">
-														<i class="icon-eye-open bigger-130"></i>
-													</a>
-												</div>
-	
-												<div class="hidden-desktop visible-phone">
-													<div class="inline position-relative">
-														<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
-															<i class="icon-caret-down icon-only bigger-120"></i>
-														</button>
-	
-														<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
-															<li>
-																<a href="#modal-VisualizarCertificacion" class="abrir-eliminarTproyecto tooltip-info" data-rel="tooltip" 
-																	title="Visualizar Certificaci&oacute;n" data-toggle="modal" data-id="${tipoProyecto.id}">
-																	<span class="blue">
-																		<i class="icon-eye-open bigger-120"></i>
-																	</span>
-																</a>
-															</li>
-														</ul>
-													</div>
-												</div>
-												<!-- [FIN] BOTON VISUALIZAR CERTIFICACION -->
-											</td>
-										</tr>
-									</tbody>
+									</thead>									
 								</table>
 							</div>										
 						</div>
@@ -600,33 +534,6 @@
 													</div>
 												</div>
 												<!-- [FIN] BOTON ENVIAR PARA APROBACION -->
-												<!-- [INI] BOTON EDITAR -->
-												<div class="hidden-phone visible-desktop action-buttons">
-													<a class="abrir-eliminarTproyecto blue tooltip-info" href="#modal-editarEntregable" data-toggle="modal" data-id="${tipoProyecto.id}" 
-													   data-rel="tooltip" title="Editar">
-														<i class="icon-edit bigger-130"></i>
-													</a>
-												</div>
-	
-												<div class="hidden-desktop visible-phone">
-													<div class="inline position-relative">
-														<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
-															<i class="icon-caret-down icon-only bigger-120"></i>
-														</button>
-	
-														<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
-															<li>
-																<a href="#modal-editarEntregable" class="abrir-eliminarTproyecto tooltip-info" data-rel="tooltip" 
-																	title="Editar" data-toggle="modal" data-id="${tipoProyecto.id}">
-																	<span class="blue">
-																		<i class="icon-edit bigger-120"></i>
-																	</span>
-																</a>
-															</li>
-														</ul>
-													</div>
-												</div>
-												<!-- [FIN] BOTON EDITAR -->
 											</td>
 										</tr>
 									</tbody>
@@ -658,7 +565,7 @@
 								<thead>
 									<tr>
 										<th>Id</th>
-										<th>Estado Acquisici&oacute;n</th>
+										<th>Estado Adquisici&oacute;n</th>
 										<th>Categor&iacute;a</th>
 										<th>Descripci&oacute;n</th>
 										<th>Fecha de Compra</th>
@@ -821,6 +728,7 @@
 										<th>IncTareaTerminada</th>
 										<th>IncTareaAtrasada</th>
 										<th>IncReuniones</th>
+										<th>correoDirigido</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -900,5 +808,6 @@
 	<%@ include file="/WEB-INF/views/ventanasEmergentes/ejecucion/registroAdquisiciones.jsp"%>	
 	<%@ include file="/WEB-INF/views/ventanasEmergentes/ejecucion/registroControlCambio.jsp"%>
 	<%@ include file="/WEB-INF/views/ventanasEmergentes/ejecucion/registroInformeAvance.jsp"%>
+	<%@ include file="/WEB-INF/views/ventanasEmergentes/ejecucion/seguimientoCertificacion.jsp"%>
 
 </div>	

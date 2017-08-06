@@ -15,6 +15,7 @@ public class InformeAvance implements Serializable
 	private String fechaInicio;
 	private String fechaFin;
 	private Long dirigido;
+	private String correoDirigido;
 	private Integer incluirAdquisiciones;
 	private Integer incluirCtrolCambios;
 	private Integer incluirTareaTerminada;
@@ -162,5 +163,13 @@ public class InformeAvance implements Serializable
 
 	public void setEstado(Integer estado) {
 		this.estado = estado;
+	}
+
+	public String getCorreoDirigido() {
+		return correoDirigido;
+	}
+
+	public void setCorreoDirigido(String correoDirigido) {
+		this.correoDirigido = correoDirigido;
 	}
 }
