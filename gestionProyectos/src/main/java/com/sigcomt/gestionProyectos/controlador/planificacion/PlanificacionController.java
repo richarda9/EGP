@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.omg.PortableServer.SERVANT_RETENTION_POLICY_ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,9 +25,11 @@ import com.google.gson.Gson;
 import com.sigcomt.gestionProyectos.common.Constantes;
 import com.sigcomt.gestionProyectos.common.enumerations.EstadoProyectoEnum;
 import com.sigcomt.gestionProyectos.common.enumerations.RolEnum;
+import com.sigcomt.gestionProyectos.dominio.administracion.CategoriaAdquisicion;
 import com.sigcomt.gestionProyectos.dominio.administracion.Entregable;
 import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
+import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAdquisicionProyecto;
 import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
@@ -43,6 +46,7 @@ import com.sigcomt.gestionProyectos.model.planificacion.SupuestoPlanificacionMod
 import com.sigcomt.gestionProyectos.servicio.administracion.AdministracionService;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.PersonaService;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.ProyectoService;
+import com.sigcomt.gestionProyectos.servicio.ejecucion.EjecucionService;
 import com.sigcomt.gestionProyectos.servicio.planificacion.PlanificacionService;
 
 @Controller
@@ -52,6 +56,7 @@ public class PlanificacionController
 	protected final Log logger = LogFactory.getLog(getClass());
 	
 	private final static int ESTADO_ACTIVO = 1;
+	private final static Long ESTADO_ADQUISICION_PENDIENTE = 1L;
 	
 	@Autowired
 	private PlanificacionService planificacionService;
@@ -64,6 +69,9 @@ public class PlanificacionController
 	
 	@Autowired
 	private PersonaService personaService;
+	
+	@Autowired
+	private EjecucionService ejecucionService;
 	
 	@RequestMapping(value = "/planificacion.htm")
 	public ModelAndView planificacion(HttpServletRequest request, HttpServletResponse response) 
@@ -98,10 +106,13 @@ public class PlanificacionController
 		List<Entregable> entregableList = planificacionService.listarEntregablesProyectoId(idProyecto);
 		List<FormasPagoModel> formaPagoDetalleList = planificacionService.listarFormaPagoIdProyecto(idProyecto);
 		List<DetalleRiesgosModel> riesgoDetalleList = planificacionService.listarDetalleRiesgosIdProyecto(idProyecto);
+		List<CategoriaAdquisicion> categoriaAdquisicionList = administracionService.listarCategAdquisicion();		
+		List<DetalleAdquisicionProyecto> detalleAdquisicionList = planificacionService.listarDetalleAdquisicionIdProyecto(idProyecto);
 		
 		Gson gson = new Gson();
 		String listaDetalleFormaPagoString = gson.toJson(formaPagoDetalleList);
 		String listaDetalleRiesgoString = gson.toJson(riesgoDetalleList);
+		String listaDetalleAdquisicionString = gson.toJson(detalleAdquisicionList);
 		
 		myModel.put("codigoPy", index);		
 		myModel.put("listaTipoRequisito", tipoReqPy);
@@ -111,6 +122,8 @@ public class PlanificacionController
 		myModel.put("listaEntregable", entregableList);
 		myModel.put("listaDetalleFormaPagoBD", listaDetalleFormaPagoString);
 		myModel.put("listaDetalleRiesgoBD", listaDetalleRiesgoString);
+		myModel.put("listaCategoriaAdquisicion", categoriaAdquisicionList);
+		myModel.put("listaDetalleAdquisicionBD", listaDetalleAdquisicionString);
 				
 //      INI - ALCANCE - CARGA DATA
         List<RequisitoProyectoPlanificacionModel> listaTipoRequisito = new ArrayList<RequisitoProyectoPlanificacionModel>();
@@ -271,6 +284,44 @@ public class PlanificacionController
 		}
 		
 		logger.info("FIN - PlanificacionController.eliminarDetalleRiesgos");
+		return respuesta;	
+	}
+	
+	@RequestMapping(value = "/guardarDetalleAdquisicion.htm", method = RequestMethod.POST)
+	public @ResponseBody Map<String, String> guardarDetalleAdquisicion(@RequestBody DetalleAdquisicionProyecto detalleAdquisicionProyecto, HttpServletRequest request) {
+		logger.info("INI - PlanificacionController.guardarDetalleAdquisicion");
+		Map<String, String> respuesta =  new HashMap<String, String>();
+		respuesta.put("respuesta", "OK");
+		
+		detalleAdquisicionProyecto.setIdestadoadquisicion(ESTADO_ADQUISICION_PENDIENTE);
+		detalleAdquisicionProyecto.setEstado(ESTADO_ACTIVO);
+		detalleAdquisicionProyecto.setIdresponsable(null);
+		try {
+			ejecucionService.mntAdquisiciones(detalleAdquisicionProyecto);			
+			respuesta.put("id", detalleAdquisicionProyecto.getId().toString());			
+		} catch (Exception e) {
+			logger.error("ERROR - PlanificacionController.guardarFormaPago", e);
+			respuesta.put("respuesta", "ERROR");
+		}
+		
+		logger.info("FIN - PlanificacionController.guardarDetalleAdquisicion");
+		return respuesta;	
+	}
+	
+	@RequestMapping(value = "/eliminarDetalleAdquisicion.htm", method = RequestMethod.POST)
+	public @ResponseBody Map<String, String> eliminarDetalleAdquisicion(@RequestBody DetalleAdquisicionProyecto detalleAdquisicionProyecto, HttpServletRequest request) {		
+		logger.info("INI - PlanificacionController.eliminarDetalleAdquisicion");
+		Map<String, String> respuesta =  new HashMap<String, String>();
+		respuesta.put("respuesta", "OK");
+		int id = Integer.parseInt(detalleAdquisicionProyecto.getId().toString());
+		try {
+			ejecucionService.eliminarAdquisiciones(id);						
+		} catch (Exception e) {
+			logger.error("ERROR - PlanificacionController.eliminarDetalleAdquisicion", e);
+			respuesta.put("respuesta", "ERROR");
+		}
+		
+		logger.info("FIN - PlanificacionController.eliminarDetalleAdquisicion");
 		return respuesta;	
 	}
 	

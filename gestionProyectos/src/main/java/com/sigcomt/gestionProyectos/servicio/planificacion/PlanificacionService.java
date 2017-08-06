@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.sigcomt.gestionProyectos.dominio.administracion.Entregable;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
+import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAdquisicionProyecto;
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DetalleRiesgosModel;
 import com.sigcomt.gestionProyectos.model.planificacion.FormasPagoModel;
@@ -21,6 +22,8 @@ public interface PlanificacionService {
     public void guardarDetalleRiesgos(DetalleRiesgosModel detalleRiesgosModel);
     public void eliminarDetalleRiesgos(DetalleRiesgosModel detalleRiesgosModel);
     public List<DetalleRiesgosModel> listarDetalleRiesgosIdProyecto(Long idProyecto);
+    
+    public List<DetalleAdquisicionProyecto> listarDetalleAdquisicionIdProyecto(Long idProyecto);
     
 
 }

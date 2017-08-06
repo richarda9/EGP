@@ -10,6 +10,7 @@ import com.sigcomt.gestionProyectos.dominio.administracion.DetalleProyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.Entregable;
 import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
+import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAdquisicionProyecto;
 import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
@@ -97,6 +98,8 @@ public interface ProyectoDao {
     public void guardarDetalleRiesgos(DetalleRiesgosModel detalleRiesgosModel);
     public void eliminarDetalleRiesgos(DetalleRiesgosModel detalleRiesgosModel);
     public List<DetalleRiesgosModel> listarDetalleRiesgosIdProyecto(Long idProyecto);
+    
+    public List<DetalleAdquisicionProyecto> listarDetalleAdquisicionIdProyecto(Long idProyecto);
 //  FIN - PLANIFICACION
     
 }

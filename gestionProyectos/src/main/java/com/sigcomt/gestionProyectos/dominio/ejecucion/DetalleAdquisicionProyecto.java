@@ -17,6 +17,7 @@ public class DetalleAdquisicionProyecto implements Serializable
 	private String fechaAdquisicion;
 	private Integer estado;
 	private Long idresponsable;
+	private String 	categoriaDescripcion;
 	
 	public Long getId() {
 		return id;
@@ -97,5 +98,15 @@ public class DetalleAdquisicionProyecto implements Serializable
 	public void setIdresponsable(Long idresponsable) {
 		this.idresponsable = idresponsable;
 	}
+
+	public String getCategoriaDescripcion() {
+		return categoriaDescripcion;
+	}
+
+	public void setCategoriaDescripcion(String categoriaDescripcion) {
+		this.categoriaDescripcion = categoriaDescripcion;
+	}
+	
+	
 	
 }

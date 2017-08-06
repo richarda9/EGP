@@ -11,6 +11,7 @@ var dataSetDependencia = [];
 var dataSetFactorExito = [];
 var dataSetFormaPago = [];
 var dataSetDetalleRiesgo = [];
+var dataSetDetalleAdquisicion = [];
 
 $(document).ready(function() {/* INI - READY */
 	
@@ -35,6 +36,14 @@ $(document).ready(function() {/* INI - READY */
 		format: 'dd/mm/yyyy'
 	});
 	$('#fechaCobranzaFP').datepicker().next().on('click', function(){ 
+		$(this).prev().focus();
+	});
+	
+	$('#fechaAdquirirAD').datepicker({
+		language: 'es',
+		format: 'dd/mm/yyyy'
+	});
+	$('#fechaAdquirirAD').datepicker().next().on('click', function(){ 
 		$(this).prev().focus();
 	});
 	
@@ -415,16 +424,46 @@ $(document).ready(function() {/* INI - READY */
 					    ]
 	});
 	
+	/* INICIO - DETALLE ADQUISICIONES */
+	$('#tablaAdquisicionesProyecto tbody').on( 'click', '#deleteDetalleAdquisicion', function () {
+		var indice = $(this).parents('tr').index();		
+		$('#modalEliminarDetalleAdquisicion').attr('data-attr-index',indice);
+		$('#modalEliminarDetalleAdquisicion').modal('show');
+	} );
+	
+	$('#modalEliminarDetalleAdquisicion').on('click', '#confirmarEliminarDetalleAdquisicion', function(){
+		deleteDetalleAdquisicion();		
+	});	
+	
+	var opcionesEliminarAdquisicion= '<a id="deleteDetalleAdquisicion" class="red tooltip-error" data-rel="tooltip" title="Eliminar"><i class="icon-trash bigger-130"> </i></a>';
 	$('#tablaAdquisicionesProyecto').DataTable({
-		"paging"     : true,
+		"ajax"		 : function (data, callback, settings) {
+						callback ( { data: dataSetDetalleAdquisicion } );
+		   				},
+		"ordering"   : false,
+		"paging"     : false,
 		"autoWidth"  : true,
 		"pageLength" : 10,
 		"searching"  : false,
-		"bInfo"      : false, 
-		//"bLengthChange": false,
+		"bInfo"      : false, 		
 		"language"   : {
 							"url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
-				       }
+					   },
+		"columns"	 : [
+			{ "data": "id", "visible":false},
+			{ "data": "producto"},
+			{ "data": "categoriaDescripcion"},
+			{ "data": "cantidad"},
+			{ "data": "costoUnitario"},
+			{ "data": "fechaAdquisicion"},			
+			{ "data": null}
+						],
+		"columnDefs" : [
+			{   "targets": -1,
+				"data": null,
+				"defaultContent": opcionesEliminarAdquisicion}	         			
+						]
+
 	});
 	
 	$('#tablaCostosProyecto').DataTable({
@@ -929,6 +968,76 @@ function deleteDetalleRiesgos(){
 	});
 }
 
+function guardarDetalleAdquisicion(){
+	var t = $('#tablaAdquisicionesProyecto').DataTable();
+	var form=$('#formDetalleAdquisicion').serializeObject();	
+	var agregarDetalleAdquisicion = {};
+	agregarDetalleAdquisicion.producto = form.valProductoAD;
+	agregarDetalleAdquisicion.idcatadquisicion = form.idCategoriaAD;
+	agregarDetalleAdquisicion.categoriaDescripcion = $('#idCategoriaAD option:selected').text();
+	agregarDetalleAdquisicion.cantidad = form.valCantidadAD;
+	agregarDetalleAdquisicion.costoUnitario = form.valCostoUnitAD; 
+	agregarDetalleAdquisicion.fechaAdquisicion = form.fechaAdquirirAD;
+	agregarDetalleAdquisicion.idproyecto = $("#codigoPy").val(); 
+	
+	
+	$.postJSON('${pageContext.request.contextPath}/planificacion/guardarDetalleAdquisicion.htm',agregarDetalleAdquisicion, function(data) {
+		if(data.respuesta == 'ERROR'){
+			$.gritter.add({
+				title: 'Error!',
+				text: 'Ocurrió un error al guardar los datos',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-error'
+			});
+		}else{
+			$.gritter.add({
+				title: 'Info!',
+				text: 'Se guardó correctamente los datos.',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-info gritter-light'
+			});
+			
+			agregarDetalleAdquisicion.id = data.id;
+			dataSetDetalleAdquisicion.push(agregarDetalleAdquisicion);
+			t.ajax.reload();			
+		}
+	});
+}
+
+function deleteDetalleAdquisicion(){
+	var t = $('#tablaAdquisicionesProyecto').DataTable();
+	var id =$('#modalEliminarDetalleAdquisicion').attr('data-attr-index');
+	var idDetalle = t.row(id).data().id;	
+	$('#modalEliminarDetalleAdquisicion').modal('hide');
+	var eliminarDetalleAdquisicion = {};
+	eliminarDetalleAdquisicion.id = idDetalle;
+	
+	$.postJSON('${pageContext.request.contextPath}/planificacion/eliminarDetalleAdquisicion.htm',eliminarDetalleAdquisicion, function(data) {
+		if(data.respuesta == 'ERROR'){
+			$.gritter.add({
+				title: 'Error!',
+				text: 'Ocurrió un error al guardar los datos',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-error'
+			});
+		}else{
+			$.gritter.add({
+				title: 'Info!',
+				text: 'Se elimino correctamente los datos.',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-info gritter-light'
+			});	
+			
+			dataSetDetalleAdquisicion.splice(id,1);
+			t.ajax.reload();
+		}
+	});
+}
+
 function mostrarGrillas(){
 	
 	/* var t = $('#tablaInteresadoEmpresa').DataTable(); */
@@ -954,6 +1063,10 @@ function mostrarGrillas(){
 	
 	if(datosGrillas.listaDetalleRiesgoBD){
 		dataSetDetalleRiesgo=JSON.parse(datosGrillas.listaDetalleRiesgoBD);
+	}
+	
+	if(datosGrillas.listaDetalleAdquisicionBD){
+		dataSetDetalleAdquisicion=JSON.parse(datosGrillas.listaDetalleAdquisicionBD);
 	}
 	/* tablaInteresado.ajax.reload(); */		
 	

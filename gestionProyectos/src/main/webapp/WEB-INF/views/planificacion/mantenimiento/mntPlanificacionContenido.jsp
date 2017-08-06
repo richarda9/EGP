@@ -756,22 +756,114 @@
 					</div>
 
 					<div id="adquisiciones" class="tab-pane">
+					<div class="row-fluid">
+							<div class="span12">
+								<div class="page-header position-relative"><h1>Adquisiciones para el Proyecto</h1></div>
+							</div>
+						</div>						
+										
+					<div class="row-fluid">
+						<div class="span12">
+							<div class="span9"></div>
+								<div class="span3" style="float:left;">
+									<a class="btn btn-small btn-info span12" onclick="guardarDetalleAdquisicion()">
+										<i class="icon-save bigger-125"></i>
+										Guardar
+									</a>
+								</div>
+						</div>
+					</div>
+					<div class="space-10"></div>
+					
+					<form  name="formDetalleAdquisicion" id="formDetalleAdquisicion" method="post">						
 						<div class="row-fluid">
 							<div class="span12">
-								<div class="span9">Adquisiciones para el Proyecto</div>
-								<div class="span3">
-									<button class="btn btn-info span12">
-										<i class="icon-plus bigger-125"></i>
-										Agregar Adquisici&oacute;n
-									</button>
+								<div class="span6">
+								<div class="control-group">
+									<label class="control-label" for="valProductoAD">Producto:</label>
+									<div class="controls">
+									<div class="span6">
+										<input type="text" class="span12" id="valProductoAD" name="valProductoAD" />
+									</div>
+									</div>
+								</div>	
+								</div>
+				
+								<div class="span6">
+								<div class="control-group">
+									<label class="control-label" for="idCategoriaAD">Categor&iacute;a:</label>
+									<div class="controls">
+										<div class="span6">
+											<select id="idCategoriaAD" name="idCategoriaAD" >
+											<option value="">Seleccionar</option>
+											<c:forEach var="listCategoriaAdqui" items="${model.listaCategoriaAdquisicion}" varStatus="pago">
+												<option value="${listCategoriaAdqui.id}">${listCategoriaAdqui.descripcion}</option>
+											</c:forEach>
+											</select>
+										</div> 
+									</div>
+								</div>
+								</div>
 								</div>
 							</div>
+							
+						<div class="row-fluid">
+							<div class="span12">
+							<div class="span6">
+							<div class="control-group">
+								<label class="control-label" for="valCantidadAD">Cantidad:</label>
+								<div class="controls">
+									<div class="span6">
+										<input type="text" class="span12" id="valCantidadAD" name="valCantidadAD"  />
+									</div>
+								</div>
+							</div>
+							</div>
+				
+							<div class="span6">
+							<div class="control-group">
+								<label class="control-label" for="valCostoUnitAD">Costo Unitario:</label>
+								<div class="controls">
+									<div class="span6">
+										<input type="text" class="span12" id="valCostoUnitAD" name="valCostoUnitAD"  />
+									</div>
+								</div>
+							</div>							
+							</div>
+							</div>
 						</div>
+						
+						<div class="row-fluid">
+							<div class="span12">
+								<div class="span6">
+								<div class="control-group">
+									<label class="control-label" for="fechaAdquirirAD">Fecha Adquisici&oacute;n:</label>
+									<div class="controls">
+										<div class="row-fluid input-append">
+											<input id="fechaAdquirirAD" name="fechaAdquirirAD" type="text" data-date-format="dd-mm-yyyy" />
+											<span class="add-on">
+											<i class="icon-calendar"></i>
+											</span>
+										</div>
+									</div>
+								</div>
+								</div>
+				
+								<div class="span6">								
+								</div>
+								</div>
+						</div>
+					</form>
+						
+						
+						
+						
 						<div class="space-20"></div>
 						<div class="row-fluid">
-							<table id="tablaAdquisicionesProyecto" class="table table-striped table-bordered table-hover">
+							<table id="tablaAdquisicionesProyecto" class="table table-striped table-bordered table-hover" style = "width : 100%">
 								<thead>
 									<tr>
+										<th>Id</th>
 										<th>Producto</th>
 										<th>Categor&iacute;a</th>
 										<th>Cantidad</th>
@@ -782,6 +874,7 @@
 								</thead>	
 								<tbody>
 									<tr>
+										<td></td>
 										<td></td>
 										<td></td>
 										<td></td>	
@@ -1084,7 +1177,30 @@
 			</a>
 		</div>
 	</div>
-	<!-- FIN - MODAL DETALLE RIESGO -->	
+	<!-- FIN - MODAL DETALLE RIESGO -->
+	
+	<!-- INICIO - MODAL DETALLE ADQUISICION -->
+	<div id="modalEliminarDetalleAdquisicion" class="modal hide fade" tabindex="-1" data-attr-index="" >
+		<div class="modal-header no-padding">
+			<div class="table-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+		</div>
+
+		<div class="modal-body padding">
+			<b style="text-align: center">¿Est&aacute; seguro que desea eliminar Adquisición?</b> 	
+		</div>
+
+		<div class="modal-footer">
+			<a id ="confirmarEliminarDetalleAdquisicion" class="btn btn-small btn-primary">
+				<i class="icon-ok"></i> Confirmar
+			</a>
+			<a class="btn btn-small btn-light" data-dismiss="modal">
+				<i class="icon-remove"></i> Salir
+			</a>
+		</div>
+	</div>	
+	<!-- FIN - MODAL DETALLE ADQUISICION -->	
 	
 	<!-- INI - MODAL ELIMINAR EXCLUSIONES TABLA-->
 	<div id="modalEliminarExclusiones" class="modal hide fade" tabindex="-1" data-attr-index="" >
@@ -1190,7 +1306,8 @@
 			"listaDependenciaBD":'${model.listaDependenciaBD}',
 			"listaFactorExitoBD":'${model.listaFactorExitoBD}',
 			"listaDetalleFormaPagoBD":'${model.listaDetalleFormaPagoBD}',
-		 	"listaDetalleRiesgoBD":'${model.listaDetalleRiesgoBD}'};
+		 	"listaDetalleRiesgoBD":'${model.listaDetalleRiesgoBD}',
+		 	"listaDetalleAdquisicionBD":'${model.listaDetalleAdquisicionBD}'};
 </script>
 
 	

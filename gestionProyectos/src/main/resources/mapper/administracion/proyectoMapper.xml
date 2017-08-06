@@ -548,6 +548,24 @@
   		WHERE "ID_PROYECTO" = #{idProyecto};			
 	</select>
 	
+	<select id="listarDetalleAdquisicionIdProyecto" parameterType= "java.lang.Long" resultType="detalleAdquisicionProyecto">
+        SELECT dap."ID_DETALLE_ADQUISICION_PROYECTO" id, 
+               dap."ID_PROYECTO" idproyecto, 
+               dap."ID_CATEGORIA_ADQUISICION" idcatadquisicion, 
+               (SELECT "DESCRIPCION"
+                FROM "PLANIFICAR_PROYECTO"."CATEGORIA_ADQUISICION" ca
+                WHERE ca."ID_CATEGORIA_ADQUISICION" = dap."ID_CATEGORIA_ADQUISICION") categoriaDescripcion,
+               dap."PRODUCTO" producto, 
+               dap."CANTIDAD" cantidad, 
+               dap."COSTO_UNITARIO" costoUnitario, 
+               to_char(dap."FECHA_ADQUISICION", 'DD/MM/YYYY') fechaAdquisicion, 
+               dap."ESTADO" estado, 
+               dap."ID_ESTADO_ADQUISICION" idestadoadquisicion,              
+               dap."ID_PERSONA" idResponsable            
+        FROM "PLANIFICAR_PROYECTO"."DETALLE_ADQUISICION_PROYECTO" dap           
+        WHERE dap."ID_PROYECTO" = #{idProyecto};                  
+    </select>
+	
 	<!-- LISTAR TIPO REQUISITO PARA EDITAR -->
     <select id="listarTipoRequisitoByIdProyecto"  parameterType="java.lang.Long" resultType="RequisitoProyectoPlanificacionModel">
         SELECT TIPOREQ."ID_TIPO_REQUISITO" idTipoRequisito, 
