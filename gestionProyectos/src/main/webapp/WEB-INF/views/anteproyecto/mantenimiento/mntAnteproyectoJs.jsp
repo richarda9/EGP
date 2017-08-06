@@ -394,7 +394,9 @@ function planificarAnteproyecto(){
 		form.nombreResponsable = $("#idResponsableProyecto option:selected").attr("data-nombre");
 		form.listaInteresados = dataSetInteresados;
 		form.listaObservaciones = dataSetObservacion;
-		form.listaAnexos = dataSetAnexos;		
+		form.listaAnexos = dataSetAnexos;
+		form.idEmpresa = $('#empresa').val();
+		
 		$.postJSON('${pageContext.request.contextPath}/anteproyecto/planificarAnteproyecto.htm',form, function(data) {
 			/* console.log("qwqw");
 			alert(data); */
@@ -459,9 +461,8 @@ function mostrarGrillas(modoEdicion){
 		/* tablaInteresado.ajax.reload(); */
 		
 		if(datosGrillas.idEmpresa){
-			$('#idEmpresa').val(datosGrillas.idEmpresa);
-			$('#idEmpresa').attr('disabled', 'disabled');
-						
+			$('#empresa').val(datosGrillas.idEmpresa);
+			$('#empresa').attr('disabled', 'disabled');						
 			var buscarAnteproyectoModel = {};
 			buscarAnteproyectoModel.idEmpresa = datosGrillas.idEmpresa;
 			cleanCbm("#idContacto");
