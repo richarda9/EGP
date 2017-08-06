@@ -203,7 +203,8 @@ function listarInteresado(empresa){
 				$(data).each(function() {
 					newOption = '<option value="' + this.iddet + '" data-cargo ="'+this.cargo+'">' + this.nombreinteresado + '</option>';
 					$selectElement.append(newOption);
-				});
+				});				
+				$('#empresa').attr('disabled', 'disabled');
 			}
 		});
 }
@@ -237,6 +238,9 @@ function agregarInteresados(){
 function deleteInteresado(){
 	var t = $('#tablaInteresadoEmpresa').DataTable();
 	dataSetInteresados.splice($('#modalEliminarInteresado').attr('data-attr-index'),1);
+	if(dataSetInteresados == null || dataSetInteresados.length == 0 ){
+		$('#empresa').removeAttr('disabled', 'disabled');
+	}
 	t.ajax.reload();
 	$('#modalEliminarInteresado').modal('hide'); 
 
@@ -350,6 +354,7 @@ function guardarAnteproyecto(){
 		form.listaInteresados = dataSetInteresados;
 		form.listaObservaciones = dataSetObservacion;
 		form.listaAnexos = dataSetAnexos;
+		form.idEmpresa = $('#empresa').val();
 		
 		$.postJSON('${pageContext.request.contextPath}/anteproyecto/agregarAnteproyecto.htm',form, function(data) {
 			/* console.log("qwqw");
@@ -389,7 +394,9 @@ function planificarAnteproyecto(){
 		form.nombreResponsable = $("#idResponsableProyecto option:selected").attr("data-nombre");
 		form.listaInteresados = dataSetInteresados;
 		form.listaObservaciones = dataSetObservacion;
-		form.listaAnexos = dataSetAnexos;		
+		form.listaAnexos = dataSetAnexos;
+		form.idEmpresa = $('#empresa').val();
+		
 		$.postJSON('${pageContext.request.contextPath}/anteproyecto/planificarAnteproyecto.htm',form, function(data) {
 			/* console.log("qwqw");
 			alert(data); */
@@ -451,7 +458,26 @@ function mostrarGrillas(modoEdicion){
 		if(datosGrillas.listaAnexo){
 			dataSetAnexos=JSON.parse(datosGrillas.listaAnexo);
 		}
-		/* tablaInteresado.ajax.reload(); */		
+		/* tablaInteresado.ajax.reload(); */
+		
+		if(datosGrillas.idEmpresa){
+			$('#empresa').val(datosGrillas.idEmpresa);
+			$('#empresa').attr('disabled', 'disabled');						
+			var buscarAnteproyectoModel = {};
+			buscarAnteproyectoModel.idEmpresa = datosGrillas.idEmpresa;
+			cleanCbm("#idContacto");
+			$.postJSON('${pageContext.request.contextPath}/anteproyecto/listarInteresado.htm',buscarAnteproyectoModel, function(data) { 
+				if (data != null) {				
+					var $selectElement = $("#idContacto");
+					$(data).each(function() {
+						newOption = '<option value="' + this.iddet + '" data-cargo ="'+this.cargo+'">' + this.nombreinteresado + '</option>';
+						$selectElement.append(newOption);
+					});		
+				}
+			});
+			
+			
+		}
 	}	
 }
 </script>

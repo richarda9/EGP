@@ -32,8 +32,8 @@
 
 <!--fonts-->
 
-<link rel="stylesheet"
-	href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
+<!-- <link rel="stylesheet"
+	href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" /> -->
 
 <!--ace styles-->
 

@@ -799,5 +799,6 @@
 	datosGrillas = {"modoEdicion":"${model.modoEdicion}",
 			"listaInteresado":'${model.listaInteresado}',
 			"listaObservaciones":'${model.listaObservaciones}',
-			"listaAnexo":'${model.listaAnexo}'};
+			"listaAnexo":'${model.listaAnexo}',
+			"idEmpresa" : '${model.datosPy.idEmpresa}'};
 </script>

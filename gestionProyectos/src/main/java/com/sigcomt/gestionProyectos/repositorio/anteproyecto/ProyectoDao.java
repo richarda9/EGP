@@ -7,7 +7,12 @@ import org.apache.ibatis.annotations.Param;
 
 import com.sigcomt.gestionProyectos.dominio.administracion.DetalleEstadoProyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.DetalleProyecto;
+import com.sigcomt.gestionProyectos.dominio.administracion.Entregable;
 import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
+import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
+import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
+import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
+import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.AgregarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.AnexosAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.BuscarAnteproyectoModel;
@@ -19,6 +24,13 @@ import com.sigcomt.gestionProyectos.model.cierre.LstProyectoCierreModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.BuscarEjecucionModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.LstProyectoEjecucionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.DependenciaPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.DetalleRiesgosModel;
+import com.sigcomt.gestionProyectos.model.planificacion.ExclusionPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.FactorExitoPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.FormasPagoModel;
+import com.sigcomt.gestionProyectos.model.planificacion.RequisitoProyectoPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.SupuestoPlanificacionModel;
 
 public interface ProyectoDao {
 	
@@ -55,7 +67,36 @@ public interface ProyectoDao {
     
 //  INI - PLANIFICACION
     public void actualizarProyectoByIdPy(AgregarPlanificacionModel agregarPlanificacionModel);
-//  FIN - PLANIFICACION
+    public List<TipoRequisitoProyectoModel> listarTipoRequisitoProyectoByIdTipoPy(Long idTipoPy);
+    public List<TipoSupuestoProyectoModel> listarTipoSupuestoProyectoByIdTipoPy(Long idTipoPy);
+    public List<TipoDependenciaProyectoModel> listarTipoDependenciaProyectoByIdTipoPy(Long idTipoPy);
+    public void insertarListaDetalleTipoRequisito(@Param("tipoRequisitos") List<RequisitoProyectoPlanificacionModel> requisitoProyectoPlanificacionModel);
+    public void insertarListaDetalleExclusion(@Param("exclusion") List<ExclusionPlanificacionModel> exclusionPlanificacionModel);
+    public void insertarListaDetalleSupuesto(@Param("supuesto") List<SupuestoPlanificacionModel> supuestoPlanificacionModel);
+    public void insertarListaDetalleDependencia(@Param("dependencia") List<DependenciaPlanificacionModel> dependenciaPlanificacionModel);
+    public void insertarListaDetalleFactorExito(@Param("factorExito") List<FactorExitoPlanificacionModel> factorExitoPlanificacionModel);
     
+    public List<RequisitoProyectoPlanificacionModel> listarTipoRequisitoByIdProyecto(Long idPy);
+    public List<ExclusionPlanificacionModel> listarExclusionByIdProyecto(Long idPy);
+    public List<SupuestoPlanificacionModel> listarSupuestoByIdProyecto(Long idPy);
+    public List<DependenciaPlanificacionModel> listarDependenciaByIdProyecto(Long idPy);
+    public List<FactorExitoPlanificacionModel> listarFactorCriticoByIdProyecto(Long idPy);
+    
+    public void eliminarDetalleTipoRequisitoByIdPy(Long idPy);
+    public void eliminarDetalleExclusionByIdPy(Long idPy);
+    public void eliminarDetalleSupuestoByIdPy(Long idPy);
+    public void eliminarDetalleDependenciaByIdPy(Long idPy);
+    public void eliminarDetalleFactorCriticoByIdPy(Long idPy);
+    
+    public List<TipoFormaPago> listarFormasPago();
+    public List<Entregable> listarEntregablesProyectoId(Long idProyecto);
+    public void guardarFormaPago(FormasPagoModel formasPagoModel);
+    public void eliminarFormaPago(FormasPagoModel formasPagoModel);
+    public List<FormasPagoModel> listarFormaPagoIdProyecto(Long idProyecto);
+    
+    public void guardarDetalleRiesgos(DetalleRiesgosModel detalleRiesgosModel);
+    public void eliminarDetalleRiesgos(DetalleRiesgosModel detalleRiesgosModel);
+    public List<DetalleRiesgosModel> listarDetalleRiesgosIdProyecto(Long idProyecto);
+//  FIN - PLANIFICACION
     
 }
