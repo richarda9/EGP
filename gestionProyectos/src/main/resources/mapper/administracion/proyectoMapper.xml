@@ -141,7 +141,8 @@
        select py."CODIGO_PROYECTO" as codigoProyecto,
        			py."ID_TIPO_PROYECTO" as idTipoProyecto,
        			py."DESCRIPCION_PRODUCTO_PROYECTO" as descripcionProductoProyecto,
-       			py."ALCANCE_PROYECTO" as alcanceProyecto
+       			py."ALCANCE_PROYECTO" as alcanceProyecto, 
+                py."NOMBRE_PROYECTO" as nombreProyecto
        from "CREAR_PROYECTO"."PROYECTO" py
        where py."ID_PROYECTO" = #{idPy}   
     </select>
@@ -534,6 +535,42 @@
  		WHERE  "ID_DETALLE_RIESGOS_PROYECTO" = #{idDetalleRiesgos} ;
     </delete>
     
+    <insert id="guardarDetalleRolProyecto" parameterType="detalleRolProyecto">
+        <selectKey keyProperty="id" resultType="Long" order="BEFORE">
+            select NEXTVAL('"PLANIFICAR_PROYECTO".sq_detalle_rol_proyecto')
+        </selectKey>
+        INSERT INTO "PLANIFICAR_PROYECTO"."DETALLE_ROL_PROYECTO"(
+            "ID_DETALLE_ROL_PROYECTO", 
+            "ID_PROYECTO", 
+            "ID_TIPO_ROL", 
+            "CANTIDAD", 
+            "ESTADO")     
+        values(
+            #{id},
+            #{idProyecto}, 
+            #{idtiporol},        
+            #{cantidad},
+            #{estado}
+            );  
+    </insert>
+    
+    <delete id="eliminarDetalleRolProyecto" parameterType="detalleRolProyecto">      
+       DELETE FROM "PLANIFICAR_PROYECTO"."DETALLE_ROL_PROYECTO"
+        WHERE "ID_DETALLE_ROL_PROYECTO" = #{id} ;
+    </delete>
+    
+    <select id="listarDetalleRolProyectoByIdProyectoByTipoRol" parameterType= "Map" resultType="detalleRolProyecto">
+        SELECT DETROLPY."ID_DETALLE_ROL_PROYECTO" as id, 
+            TIPOROL."NOMBRE_TIPOROL" as descripcion,
+            DETROLPY."CANTIDAD" as cantidad,          
+            DETROLPY."ID_PROYECTO" as idProyecto
+         FROM "PLANIFICAR_PROYECTO"."DETALLE_ROL_PROYECTO" DETROLPY
+         INNER JOIN "PLANIFICAR_PROYECTO"."TIPO_ROL" TIPOROL
+         ON DETROLPY."ID_TIPO_ROL" = TIPOROL."ID_TIPO_ROL"
+         where DETROLPY."ID_PROYECTO" = #{idProyecto}
+                and TIPOROL."TIPO_ROL" = #{tipoRol};
+    </select>
+    
     <select id="listarDetalleRiesgosIdProyecto" parameterType= "java.lang.Long" resultType="detalleRiesgosModel">
 		SELECT "ID_DETALLE_RIESGOS_PROYECTO" as idDetalleRiesgos, 
 				"ID_PROYECTO" as idProyecto, 
@@ -637,7 +674,14 @@
     <delete id="eliminarDetalleFactorCriticoByIdPy" parameterType="Long">
       delete FROM "PLANIFICAR_PROYECTO"."DETALLE_FACTOR_EXITO" DETFACCRI 
       where "ID_PROYECTO" = #{idPy};
-    </delete>       	
+    </delete>     
+    
+    <select id="listarTipoRolByTipoRol" parameterType="int" resultType="tipoRol">
+        SELECT "ID_TIPO_ROL" as id, 
+                "NOMBRE_TIPOROL" as nombreRol
+          FROM "PLANIFICAR_PROYECTO"."TIPO_ROL" 
+        WHERE "TIPO_ROL" = #{tipoRol};
+    </select>  	
     <!-- FIN - PLANIFICACION -->
     
 	<!-- [INI] EJECUCION -->

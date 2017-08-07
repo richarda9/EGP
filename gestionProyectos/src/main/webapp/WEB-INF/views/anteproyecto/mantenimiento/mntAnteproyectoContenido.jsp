@@ -412,7 +412,7 @@
 											Agregar observaci&oacute;n
 									</a>
 								</div>								
- 							<div>			
+ 							</div>			
 						</div>
 						<div class="space-20"></div>
 						<div class="row-fluid">

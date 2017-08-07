@@ -7,11 +7,11 @@ public class DetalleRolProyecto implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	private Long idproyecto;
+	private Long idProyecto;
 	private Long idtiporol;
 	private String descripcion;
-	private Integer cantidad;
-	private Integer estado;
+	private int cantidad;
+	private int estado;
 	
 	public Long getId() {
 		return id;
@@ -21,12 +21,12 @@ public class DetalleRolProyecto implements Serializable
 		this.id = id;
 	}
 	
-	public Long getIdproyecto() {
-		return idproyecto;
+	public Long getIdProyecto() {
+		return idProyecto;
 	}
 	
-	public void setIdproyecto(Long idproyecto) {
-		this.idproyecto = idproyecto;
+	public void setIdProyecto(Long idProyecto) {
+		this.idProyecto = idProyecto;
 	}
 	
 	public Long getIdtiporol() {
@@ -45,11 +45,11 @@ public class DetalleRolProyecto implements Serializable
 		this.descripcion = descripcion;
 	}
 	
-	public Integer getCantidad() {
+	public int getCantidad() {
 		return cantidad;
 	}
 	
-	public void setCantidad(Integer cantidad) {
+	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
 	
@@ -63,7 +63,7 @@ public class DetalleRolProyecto implements Serializable
 
 	@Override
 	public String toString() {
-		return "DetalleRolProyecto [id=" + id + ", idproyecto=" + idproyecto
+		return "DetalleRolProyecto [id=" + id + ", idproyecto=" + idProyecto
 				+ ", idtiporol=" + idtiporol + ", descripcion=" + descripcion
 				+ ", cantidad=" + cantidad + ", estado=" + estado + "]";
 	}

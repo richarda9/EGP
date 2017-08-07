@@ -99,7 +99,7 @@ public class EjecucionServiceImp implements EjecucionService
 		DetalleRolProyecto detalle = ejecucionDao.obtCantidadRecursobyRol(dato);
 		int cantActual = ejecucionDao.obtCantidadActualRecursobyRol(detalle);
 		
-		if(cantActual < detalle.getCantidad().intValue()){
+		if(cantActual < detalle.getCantidad()){
 			DetalleAsignacionResponsable deta = new DetalleAsignacionResponsable();
 			
 			deta.setIddetrolproyecto(detalle.getId());

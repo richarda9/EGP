@@ -1,6 +1,8 @@
 package com.sigcomt.gestionProyectos.servicio.planificacion.imp;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sigcomt.gestionProyectos.dominio.administracion.Entregable;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAdquisicionProyecto;
+import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleRolProyecto;
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DependenciaPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DetalleRiesgosModel;
@@ -81,10 +84,12 @@ public class PlanificacionServiceImp implements PlanificacionService{
     	return proyectoDao.listarEntregablesProyectoId(idProyecto);
     }
 
+    @Transactional
 	public void guardarFormaPago(FormasPagoModel formasPagoModel) {
 		proyectoDao.guardarFormaPago(formasPagoModel);		
 	}
 	
+    @Transactional
 	public void eliminarFormaPago(FormasPagoModel formasPagoModel) {
 		proyectoDao.eliminarFormaPago(formasPagoModel);		
 	}
@@ -93,10 +98,12 @@ public class PlanificacionServiceImp implements PlanificacionService{
 		return proyectoDao.listarFormaPagoIdProyecto(idProyecto);
 	}
 
+	@Transactional
 	public void guardarDetalleRiesgos(DetalleRiesgosModel detalleRiesgosModel) {
 		proyectoDao.guardarDetalleRiesgos(detalleRiesgosModel);			
 	}
 
+	@Transactional
 	public void eliminarDetalleRiesgos(DetalleRiesgosModel detalleRiesgosModel) {
 		proyectoDao.eliminarDetalleRiesgos(detalleRiesgosModel);			
 	}
@@ -109,8 +116,27 @@ public class PlanificacionServiceImp implements PlanificacionService{
 		return proyectoDao.listarDetalleAdquisicionIdProyecto(idProyecto);
 	}
 	
-	
-	
-	
-
+	@Transactional
+    public void guardarDetalleRolProyecto(DetalleRolProyecto detalleRolProyecto) {
+        proyectoDao.guardarDetalleRolProyecto(detalleRolProyecto);  
+        
+    }
+ 
+    @Transactional
+    public void eliminarDetalleRolProyecto(DetalleRolProyecto detalleRolProyecto) {
+        proyectoDao.eliminarDetalleRolProyecto(detalleRolProyecto); 
+        
+    }
+ 
+    public List<DetalleRolProyecto> listarDetalleRolProyectoByIdProyectoByTipoRol(
+            Long idProyecto, Long tipoRol) {
+        
+        Map params = new HashMap<String, Object>();
+        params.put("idProyecto", idProyecto);
+        params.put("tipoRol", tipoRol);
+        
+        return proyectoDao.listarDetalleRolProyectoByIdProyectoByTipoRol(params);
+        
+    }
+		
 }

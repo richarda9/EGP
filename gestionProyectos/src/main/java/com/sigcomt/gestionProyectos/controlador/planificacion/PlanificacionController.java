@@ -29,7 +29,9 @@ import com.sigcomt.gestionProyectos.dominio.administracion.CategoriaAdquisicion;
 import com.sigcomt.gestionProyectos.dominio.administracion.Entregable;
 import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
+import com.sigcomt.gestionProyectos.dominio.administracion.TipoRol;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAdquisicionProyecto;
+import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleRolProyecto;
 import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
@@ -57,7 +59,9 @@ public class PlanificacionController
 	
 	private final static int ESTADO_ACTIVO = 1;
 	private final static Long ESTADO_ADQUISICION_PENDIENTE = 1L;
-	
+	private final static int TIPO_ROL_PROVEEDOR = 1;    
+    private final static int TIPO_ROL_CLIENTE = 2;
+    
 	@Autowired
 	private PlanificacionService planificacionService;
 	
@@ -98,6 +102,9 @@ public class PlanificacionController
 		HashMap<String, Object> myModel = new HashMap<String, Object>();
 		String index = request.getParameter("idPlanificacion");
 		Proyecto py = proyectoService.buscarPyByIdPy(Long.parseLong(index));
+		myModel.put("codigoProyecto", py.getCodigoProyecto());
+        myModel.put("nombreProyecto", py.getNombreProyecto());
+        myModel.put("codigoPy", index); 
 		List<TipoRequisitoProyectoModel> tipoReqPy = proyectoService.listarTipoRequisitoProyectoByIdTipoPy(py.getIdTipoProyecto());
 		List<TipoSupuestoProyectoModel> tipoSupuesto = proyectoService.listarTipoSupuestoProyectoByIdTipoPy(py.getIdTipoProyecto());
 		List<TipoDependenciaProyectoModel> tipoDependencia = proyectoService.listarTipoDependenciaProyectoByIdTipoPy(py.getIdTipoProyecto());
@@ -108,18 +115,22 @@ public class PlanificacionController
 		List<DetalleRiesgosModel> riesgoDetalleList = planificacionService.listarDetalleRiesgosIdProyecto(idProyecto);
 		List<CategoriaAdquisicion> categoriaAdquisicionList = administracionService.listarCategAdquisicion();		
 		List<DetalleAdquisicionProyecto> detalleAdquisicionList = planificacionService.listarDetalleAdquisicionIdProyecto(idProyecto);
+		List<TipoRol> listTipoRolProveedor = proyectoService.listarTipoRolByTipoRol(TIPO_ROL_PROVEEDOR);
+        List<TipoRol> listTipoRolCliente= proyectoService.listarTipoRolByTipoRol(TIPO_ROL_CLIENTE);               
 		
-		Gson gson = new Gson();
-		String listaDetalleFormaPagoString = gson.toJson(formaPagoDetalleList);
-		String listaDetalleRiesgoString = gson.toJson(riesgoDetalleList);
-		String listaDetalleAdquisicionString = gson.toJson(detalleAdquisicionList);
-		
+		Gson gSon = new Gson();
+		String listaDetalleFormaPagoString = gSon.toJson(formaPagoDetalleList);
+		String listaDetalleRiesgoString = gSon.toJson(riesgoDetalleList);
+		String listaDetalleAdquisicionString = gSon.toJson(detalleAdquisicionList);
+		 
 		myModel.put("codigoPy", index);		
 		myModel.put("listaTipoRequisito", tipoReqPy);
 		myModel.put("listaTipoSupuesto", tipoSupuesto);
 		myModel.put("listaTipoDependencia", tipoDependencia);
 		myModel.put("listaFormaPago", formaPagoList);
 		myModel.put("listaEntregable", entregableList);
+		myModel.put("listaTipoRolProveedor", listTipoRolProveedor);
+        myModel.put("listaTipoRolCliente", listTipoRolCliente);
 		myModel.put("listaDetalleFormaPagoBD", listaDetalleFormaPagoString);
 		myModel.put("listaDetalleRiesgoBD", listaDetalleRiesgoString);
 		myModel.put("listaCategoriaAdquisicion", categoriaAdquisicionList);
@@ -136,7 +147,6 @@ public class PlanificacionController
         listaDependencia = this.proyectoService.listarDependenciaByIdProyecto(Long.parseLong(index));
         List<FactorExitoPlanificacionModel> listaFactorExito = new ArrayList<FactorExitoPlanificacionModel>();
         listaFactorExito = this.proyectoService.listarFactorCriticoByIdProyecto(Long.parseLong(index));
-        Gson gSon= new Gson(); 
         String listaTipoRequisitoString = gSon.toJson(listaTipoRequisito);
         String listaExclusionString = gSon.toJson(listaExclusion);
         String listaSupuestoString = gSon.toJson(listaSupuesto);
@@ -151,6 +161,16 @@ public class PlanificacionController
         myModel.put("descripcionProductoProyecto", py.getDescripcionProductoProyecto());
         myModel.put("alcanceInicial", py.getAlcanceProyecto());
 //      FIN - ALCANCE - CARGA DATA
+        
+//      INI - RECURSOS HUMANOS - CARGA DATA
+        List<DetalleRolProyecto> listaDetalleRolProyectoProveedor = planificacionService.listarDetalleRolProyectoByIdProyectoByTipoRol(idProyecto, new Long(TIPO_ROL_PROVEEDOR));
+        String listaDetalleRolProyectoProveedorBDString = gSon.toJson(listaDetalleRolProyectoProveedor);
+        myModel.put("listaDetalleRolProyectoProveedorBD", listaDetalleRolProyectoProveedorBDString);
+        
+        List<DetalleRolProyecto> listaDetalleRolProyectoCliente = planificacionService.listarDetalleRolProyectoByIdProyectoByTipoRol(idProyecto, new Long(TIPO_ROL_CLIENTE));
+        String listaDetalleRolProyectoClienteBDString = gSon.toJson(listaDetalleRolProyectoCliente);
+        myModel.put("listaDetalleRolProyectoClienteBD", listaDetalleRolProyectoClienteBDString);
+//      FIN - RECURSOS HUMANOS - CARGA DATA   
 		return new ModelAndView("mntPlanificacion", "model", myModel);
 	}
 	
@@ -324,5 +344,49 @@ public class PlanificacionController
 		logger.info("FIN - PlanificacionController.eliminarDetalleAdquisicion");
 		return respuesta;	
 	}
+	
+//  INI - RECURSOS HUMANOS
+    @RequestMapping(value = "/guardarRolProveedor.htm", method = RequestMethod.POST)
+    public @ResponseBody Map<String, String> guardarRolProveedor(@RequestBody DetalleRolProyecto detalleRolProyecto, HttpServletRequest request) {
+        logger.info("INI - PlanificacionController.guardarRolProveedor");
+        Map<String, String> respuesta =  new HashMap<String, String>();
+        respuesta.put("respuesta", "OK");
+ 
+ 
+        detalleRolProyecto.setEstado(ESTADO_ACTIVO);
+ 
+        
+        try {
+            planificacionService.guardarDetalleRolProyecto(detalleRolProyecto);
+            respuesta.put("idTipoRolProveedor", detalleRolProyecto.getId().toString());           
+        } catch (Exception e) {
+            logger.error("ERROR - PlanificacionController.guardarRolProveedor", e);
+            respuesta.put("respuesta", "ERROR");
+        }
+        
+        logger.info("FIN - PlanificacionController.guardarRolProveedor");
+        return respuesta;   
+    }
+    
+    @RequestMapping(value = "/deleteTipoRolProveedor.htm", method = RequestMethod.POST)
+    public @ResponseBody Map<String, String> deleteTipoRolProveedor(@RequestBody DetalleRolProyecto detalleRolProyecto, HttpServletRequest request) {     
+        logger.info("INI - PlanificacionController.deleteTipoRolProveedor");
+        Map<String, String> respuesta =  new HashMap<String, String>();
+        respuesta.put("respuesta", "OK");   
+ 
+        
+        try {
+            planificacionService.eliminarDetalleRolProyecto(detalleRolProyecto);            
+            
+        } catch (Exception e) {
+            logger.error("ERROR - PlanificacionController.deleteTipoRolProveedor", e);
+            respuesta.put("respuesta", "ERROR");
+        }
+        
+        logger.info("FIN - PlanificacionController.deleteTipoRolProveedor");
+        return respuesta;   
+    }
+    
+//  FIN - RECURSOS HUMANOS
 	
 }

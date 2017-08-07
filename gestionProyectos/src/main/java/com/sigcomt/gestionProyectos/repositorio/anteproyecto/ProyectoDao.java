@@ -10,7 +10,9 @@ import com.sigcomt.gestionProyectos.dominio.administracion.DetalleProyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.Entregable;
 import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
+import com.sigcomt.gestionProyectos.dominio.administracion.TipoRol;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAdquisicionProyecto;
+import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleRolProyecto;
 import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
@@ -100,6 +102,13 @@ public interface ProyectoDao {
     public List<DetalleRiesgosModel> listarDetalleRiesgosIdProyecto(Long idProyecto);
     
     public List<DetalleAdquisicionProyecto> listarDetalleAdquisicionIdProyecto(Long idProyecto);
+    
+    public List<TipoRol> listarTipoRolByTipoRol(int tipoRol);
+    
+    public void guardarDetalleRolProyecto(DetalleRolProyecto detalleRolProyecto);
+    public void eliminarDetalleRolProyecto(DetalleRolProyecto detalleRolProyecto);    
+    public List<DetalleRolProyecto> listarDetalleRolProyectoByIdProyectoByTipoRol(Map<String, Object> params);
+    
 //  FIN - PLANIFICACION
     
 }

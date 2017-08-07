@@ -12,8 +12,24 @@ var dataSetFactorExito = [];
 var dataSetFormaPago = [];
 var dataSetDetalleRiesgo = [];
 var dataSetDetalleAdquisicion = [];
+var dataSetRolProveedor = [];
+var dataSetRolCliente = [];
 
 $(document).ready(function() {/* INI - READY */
+	
+	$('#archContrato').ace_file_input({
+        no_file:'Seleccionar archivo ...',
+        btn_choose:'Seleccionar',
+        btn_change:'Cambiar',
+        droppable:false,
+        onchange:null,
+        thumbnail:false 
+        //| true | large
+        //whitelist:'gif|png|jpg|jpeg'
+        //blacklist:'exe|php'
+        //onchange:''
+        //
+    });
 	
 	$('#fechaContacto').datepicker({
 		language: 'es',
@@ -564,10 +580,87 @@ $(document).ready(function() {/* INI - READY */
 	       		]
 	});	
 	
-	
-	mostrarGrillas();
-	
-		
+	 /* INI - TAB RECURSOS HUMANOS  */
+    var opcionesTipoRolProveedor = '<a id="deleteTipoRolProveedor" class="red tooltip-error" data-rel="tooltip" title="Eliminar"><i class="icon-trash bigger-130"> </i></a>';
+    $('#tablaTipoRolProveedor').DataTable({
+        "ajax"         : function (data, callback, settings) {
+            callback ( { data: dataSetRolProveedor } );
+           },
+        "ordering"   : false,
+        "paging"     : false,
+        "autoWidth"  : true,
+        "pageLength" : 10,
+        "searching"  : false,
+        "bInfo"      : false, 
+        "language"   : {
+                            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+                       },
+        "columns"  : [       
+                        { "data": "id", "visible":false},
+                        { "data": "descripcion"},
+                        { "data": "cantidad"},
+                        { "data": null}
+                ],
+        "columnDefs" : [
+                        {                       
+                            "targets": -1,
+                            "data": null,
+                            "defaultContent": opcionesTipoRolProveedor}                       
+                ]
+    });
+    
+    $('#tablaTipoRolProveedor tbody').on( 'click', '#deleteTipoRolProveedor', function () {
+        var indice = $(this).parents('tr').index();
+        $('#modalEliminarTipoRolProveedor').attr('data-attr-index',indice);
+        $('#modalEliminarTipoRolProveedor').modal('show'); 
+ 
+    } );
+    
+    $('#modalEliminarTipoRolProveedor').on('click', '#confirmarEliminarTipoRolProveedor', function(){
+        deleteTipoRolProveedor();       
+    });
+    
+    var opcionesTipoRolCliente = '<a id="deleteTipoRolCliente" class="red tooltip-error" data-rel="tooltip" title="Eliminar"><i class="icon-trash bigger-130"> </i></a>';
+    $('#tablaTipoRolCliente').DataTable({
+        "ajax"         : function (data, callback, settings) {
+            callback ( { data: dataSetRolCliente } );
+           },
+        "ordering"   : false,
+        "paging"     : false,
+        "autoWidth"  : true,
+        "pageLength" : 10,
+        "searching"  : false,
+        "bInfo"      : false, 
+        "language"   : {
+                            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+                       },
+        "columns"  : [
+                        { "data": "id", "visible":false},
+                        { "data": "descripcion"},
+                        { "data": "cantidad"},
+                        { "data": null}
+                ],
+        "columnDefs" : [
+                        {                       
+                            "targets": -1,
+                            "data": null,
+                            "defaultContent": opcionesTipoRolCliente}                     
+                ]
+    });
+    
+    $('#tablaTipoRolCliente tbody').on( 'click', '#deleteTipoRolCliente', function () {
+        var indice = $(this).parents('tr').index();
+        $('#modalEliminarTipoRolCliente').attr('data-attr-index',indice);
+        $('#modalEliminarTipoRolCliente').modal('show'); 
+ 
+    } );
+    
+    $('#modalEliminarTipoRolCliente').on('click', '#confirmarEliminarTipoRolCliente', function(){
+        deleteTipoRolCliente();     
+    });
+    /* FIN - TAB RECURSOS HUMANOS  */
+    	
+	mostrarGrillas();	
 });/* FIN - READY */
 
 /* INI - DESCRIPCION DEL PRODUCTO */
@@ -824,6 +917,7 @@ function guardarAlcance(){
 		}
 	}
 }
+/* *************************** FIN - TAB ALCANCE *************************** */
 
 function guardarFormaPago(){
 	var t = $('#tablaFormasPago').DataTable();
@@ -1038,6 +1132,146 @@ function deleteDetalleAdquisicion(){
 	});
 }
 
+/* *************************** INI - TAB RECURSOS HUMANOS *************************** */
+function guardarRolProveedor(){
+    var t = $('#tablaTipoRolProveedor').DataTable();
+    var form=$('#formTipoRolProveedor').serializeObject();  
+    var detalleRolProyecto = {};
+    detalleRolProyecto.idtiporol = form.idTipoRolProveedor;
+    detalleRolProyecto.descripcion = $('#idTipoRolProveedor option:selected').text();
+    detalleRolProyecto.cantidad = form.idCantidadTipoRolProveedor;
+ 
+ 
+ 
+    detalleRolProyecto.idProyecto = $("#codigoPy").val(); 
+    
+ 
+    $.postJSON('${pageContext.request.contextPath}/planificacion/guardarRolProveedor.htm',detalleRolProyecto, function(data) {
+        if(data.respuesta == 'ERROR'){
+            $.gritter.add({
+                title: 'Error!',
+                text: 'Ocurrió un error al guardar los datos',
+                sticky: false,
+                time: '1200',
+                class_name: 'gritter-error'
+            });
+        }else{
+            $.gritter.add({
+                title: 'Info!',
+                text: 'Se guardó correctamente los datos.',
+                sticky: false,
+                time: '1200',
+                class_name: 'gritter-info gritter-light'
+            });
+            
+            detalleRolProyecto.id = data.idTipoRolProveedor;
+            dataSetRolProveedor.push(detalleRolProyecto);
+            t.ajax.reload();
+            
+        }
+    });
+}
+ 
+function deleteTipoRolProveedor(){
+    var t = $('#tablaTipoRolProveedor').DataTable();
+    var id =$('#modalEliminarTipoRolProveedor').attr('data-attr-index');
+    var idDetalle = t.row(id).data().id;    
+    $('#modalEliminarTipoRolProveedor').modal('hide');
+    var eliminarTipoRolProveedor = {};
+    eliminarTipoRolProveedor.id = idDetalle;
+    
+    $.postJSON('${pageContext.request.contextPath}/planificacion/deleteTipoRolProveedor.htm',eliminarTipoRolProveedor, function(data) {
+        if(data.respuesta == 'ERROR'){
+            $.gritter.add({
+                title: 'Error!',
+                text: 'Ocurrió un error al guardar los datos',
+                sticky: false,
+                time: '1200',
+                class_name: 'gritter-error'
+            });
+        }else{
+            $.gritter.add({
+                title: 'Info!',
+                text: 'Se elimino correctamente los datos.',
+                sticky: false,
+                time: '1200',
+                class_name: 'gritter-info gritter-light'
+            }); 
+            
+            dataSetRolProveedor.splice(id,1);
+            t.ajax.reload();
+        }
+    });
+}
+ 
+function guardarRolCliente(){
+    var t = $('#tablaTipoRolCliente').DataTable();
+    var form=$('#formTipoRolCliente').serializeObject();    
+    var detalleRolProyecto = {};
+    detalleRolProyecto.idtiporol = form.idTipoRolCliente;
+    detalleRolProyecto.descripcion = $('#idTipoRolCliente option:selected').text();
+    detalleRolProyecto.cantidad = form.idCantidadTipoRolCliente;
+    detalleRolProyecto.idProyecto = $("#codigoPy").val(); 
+    
+    $.postJSON('${pageContext.request.contextPath}/planificacion/guardarRolProveedor.htm',detalleRolProyecto, function(data) {
+        if(data.respuesta == 'ERROR'){
+            $.gritter.add({
+                title: 'Error!',
+                text: 'Ocurrió un error al guardar los datos',
+                sticky: false,
+                time: '1200',
+                class_name: 'gritter-error'
+            });
+        }else{
+            $.gritter.add({
+                title: 'Info!',
+                text: 'Se guardó correctamente los datos.',
+                sticky: false,
+                time: '1200',
+                class_name: 'gritter-info gritter-light'
+            });
+            
+            detalleRolProyecto.id = data.idTipoRolProveedor;
+            dataSetRolCliente.push(detalleRolProyecto);
+            t.ajax.reload();
+            
+        }
+    });
+}
+ 
+function deleteTipoRolCliente(){
+    var t = $('#tablaTipoRolCliente').DataTable();
+    var id =$('#modalEliminarTipoRolCliente').attr('data-attr-index');
+    var idDetalle = t.row(id).data().id;    
+    $('#modalEliminarTipoRolCliente').modal('hide');
+    var eliminarTipoRolProveedor = {};
+    eliminarTipoRolProveedor.id = idDetalle;
+    
+    $.postJSON('${pageContext.request.contextPath}/planificacion/deleteTipoRolProveedor.htm',eliminarTipoRolProveedor, function(data) {
+        if(data.respuesta == 'ERROR'){
+            $.gritter.add({
+                title: 'Error!',
+                text: 'Ocurrió un error al guardar los datos',
+                sticky: false,
+                time: '1200',
+                class_name: 'gritter-error'
+            });
+        }else{
+            $.gritter.add({
+                title: 'Info!',
+                text: 'Se elimino correctamente los datos.',
+                sticky: false,
+                time: '1200',
+                class_name: 'gritter-info gritter-light'
+            }); 
+            
+            dataSetRolCliente.splice(id,1);
+            t.ajax.reload();
+        }
+    });
+}
+/* *************************** FIN - TAB RECURSOS HUMANOS *************************** */
+ 
 function mostrarGrillas(){
 	
 	/* var t = $('#tablaInteresadoEmpresa').DataTable(); */
@@ -1068,9 +1302,16 @@ function mostrarGrillas(){
 	if(datosGrillas.listaDetalleAdquisicionBD){
 		dataSetDetalleAdquisicion=JSON.parse(datosGrillas.listaDetalleAdquisicionBD);
 	}
+	
+	if(datosGrillas.listaDetalleRolProyectoProveedorBD){
+        dataSetRolProveedor=JSON.parse(datosGrillas.listaDetalleRolProyectoProveedorBD);
+    }
+    
+    if(datosGrillas.listaDetalleRolProyectoClienteBD){
+        dataSetRolCliente=JSON.parse(datosGrillas.listaDetalleRolProyectoClienteBD);
+    }
 	/* tablaInteresado.ajax.reload(); */		
 	
 }
 
-/* *************************** FIN - TAB ALCANCE *************************** */
 </script>
