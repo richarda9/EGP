@@ -571,6 +571,21 @@
                 and TIPOROL."TIPO_ROL" = #{tipoRol};
     </select>
     
+    <select id="listarDetalleRolProyectoByIdProyectoByTipoRolResponsabilidad" parameterType= "Map" resultType="detalleRolProyecto">
+         SELECT DETROLPY."ID_DETALLE_ROL_PROYECTO" as id, 
+            TIPOROL."NOMBRE_TIPOROL" as descripcion,
+            DETROLPY."CANTIDAD" as cantidad,          
+            DETROLPY."ID_PROYECTO" as idProyecto,
+            CASE WHEN DETROLPY."DESCRIPCION" IS NOT NULL THEN DETROLPY."DESCRIPCION"            
+            	ELSE TIPOROL."DESCRIPCION_ROL"
+	        END as descripcionDetalleRol             
+         FROM "PLANIFICAR_PROYECTO"."DETALLE_ROL_PROYECTO" DETROLPY
+         INNER JOIN "PLANIFICAR_PROYECTO"."TIPO_ROL" TIPOROL
+         ON DETROLPY."ID_TIPO_ROL" = TIPOROL."ID_TIPO_ROL"
+         where DETROLPY."ID_PROYECTO" = #{idProyecto}
+         		and TIPOROL."TIPO_ROL" = #{tipoRol};              
+    </select>
+    
     <select id="listarDetalleRiesgosIdProyecto" parameterType= "java.lang.Long" resultType="detalleRiesgosModel">
 		SELECT "ID_DETALLE_RIESGOS_PROYECTO" as idDetalleRiesgos, 
 				"ID_PROYECTO" as idProyecto, 
@@ -682,6 +697,13 @@
           FROM "PLANIFICAR_PROYECTO"."TIPO_ROL" 
         WHERE "TIPO_ROL" = #{tipoRol};
     </select>  	
+    
+    <insert id="actualizarDescripcionTipoRol" parameterType="DetalleEstadoProyecto">
+        update "PLANIFICAR_PROYECTO"."DETALLE_ROL_PROYECTO" 
+        set "DESCRIPCION" = #{descripcionDetalleRol},
+        	"ESTADO" = #{estado}
+        where "ID_DETALLE_ROL_PROYECTO" = #{id};
+    </insert>
     <!-- FIN - PLANIFICACION -->
     
 	<!-- [INI] EJECUCION -->

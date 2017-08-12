@@ -12,6 +12,7 @@ public class DetalleRolProyecto implements Serializable
 	private String descripcion;
 	private int cantidad;
 	private int estado;
+	private String descripcionDetalleRol;
 	
 	public Long getId() {
 		return id;
@@ -52,13 +53,21 @@ public class DetalleRolProyecto implements Serializable
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
-	
-	public Integer getEstado() {
+
+	public int getEstado() {
 		return estado;
 	}
-	
-	public void setEstado(Integer estado) {
+
+	public void setEstado(int estado) {
 		this.estado = estado;
+	}
+
+	public String getDescripcionDetalleRol() {
+		return descripcionDetalleRol;
+	}
+
+	public void setDescripcionDetalleRol(String descripcionDetalleRol) {
+		this.descripcionDetalleRol = descripcionDetalleRol;
 	}
 
 	@Override

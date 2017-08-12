@@ -30,5 +30,7 @@ public interface PlanificacionService {
     public void guardarDetalleRolProyecto(DetalleRolProyecto detalleRolProyecto);
     public void eliminarDetalleRolProyecto(DetalleRolProyecto detalleRolProyecto);    
     public List<DetalleRolProyecto> listarDetalleRolProyectoByIdProyectoByTipoRol(Long idProyecto, Long tipoRol);   
+    public List<DetalleRolProyecto> listarDetalleRolProyectoByIdProyectoByTipoRolResponsabilidad(Long idProyecto, Long tipoRol);   
+    public void actualizarDescripcionTipoRol(DetalleRolProyecto detalleRolProyecto);
 //  FIN - RECURSOS HUMANOS
 }

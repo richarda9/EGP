@@ -138,5 +138,19 @@ public class PlanificacionServiceImp implements PlanificacionService{
         return proyectoDao.listarDetalleRolProyectoByIdProyectoByTipoRol(params);
         
     }
+
+	public List<DetalleRolProyecto> listarDetalleRolProyectoByIdProyectoByTipoRolResponsabilidad(
+			Long idProyecto, Long tipoRol) {
+		
+		Map params = new HashMap<String, Object>();
+        params.put("idProyecto", idProyecto);
+        params.put("tipoRol", tipoRol);
+		return proyectoDao.listarDetalleRolProyectoByIdProyectoByTipoRolResponsabilidad(params);
+	}
+
+	public void actualizarDescripcionTipoRol(
+			DetalleRolProyecto detalleRolProyecto) {
+		proyectoDao.actualizarDescripcionTipoRol(detalleRolProyecto);
+	}
 		
 }

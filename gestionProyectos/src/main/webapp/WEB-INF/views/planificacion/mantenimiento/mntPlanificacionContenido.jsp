@@ -671,23 +671,55 @@
 								<div class="accordion-body collapse" id="responsabilidades">
 									<div class="accordion-inner">
 										<br>
-										<table id="tablafactExitoProyecto" class="table table-striped table-bordered table-hover">
-											<thead>
-												<tr>
-													<th>Codigo</th>
-													<th>Descripci&oacute;n</th>
-													<th>Opciones</th>
-												</tr>
-											</thead>
-				
-											<tbody>
-												<tr>
-													<td></td>
-													<td></td>
-													<td></td>													
-												</tr>
-											</tbody>
-										</table>
+										<h4 class="lighter smaller" style = "color: #2679b5 !important">PROVEEDOR</h4>    
+                                        <hr width="100%" style = "border-bottom: 1px dotted #e2e2e2">
+										<table id="tablaRRHHResponsabilidadesProveedor" class="table table-striped table-bordered table-hover" style = "width : 100%">
+                                             <thead>
+                                                 <tr>
+                                                     <th>Id</th>     
+                                                     <th>ROL</th>
+                                                     <th>DESCRIPCIÓN</th>
+                                                     <th>CANTIDAD</th>
+                                                     <th>OPCIONES</th>
+                                                 </tr>
+                                             </thead>
+                 
+                                             <tbody>
+                                                 <!-- <tr>
+                                                     <td></td>
+                                                     <td></td>
+                                                     <td></td>
+                                                     <td></td>
+                                                     <td></td>
+                                                     <td></td>                                                   
+                                                 </tr> -->
+                                             </tbody>
+                                         </table>  
+                                         <br>
+										 <h4 class="lighter smaller" style = "color: #2679b5 !important">CLIENTE</h4>    
+                                         <hr width="100%" style = "border-bottom: 1px dotted #e2e2e2">
+										 <table id="tablaRRHHResponsabilidadesCliente" class="table table-striped table-bordered table-hover" style = "width : 100%">
+                                             <thead>
+                                                 <tr>
+                                                     <th>Id</th>     
+                                                     <th>ROL</th>
+                                                     <th>DESCRIPCIÓN</th>
+                                                     <th>CANTIDAD</th>
+                                                     <th>OPCIONES</th>
+                                                 </tr>
+                                             </thead>
+                 
+                                             <tbody>
+                                                 <!-- <tr>
+                                                     <td></td>
+                                                     <td></td>
+                                                     <td></td>
+                                                     <td></td>
+                                                     <td></td>
+                                                     <td></td>                                                   
+                                                 </tr> -->
+                                             </tbody>
+                                         </table>
 									</div>
 								</div>
 							</div>
@@ -1526,7 +1558,115 @@
  
     </div>
     <!-- FIN - MODAL ELIMINAR TIPO ROL CLIENTE --> 
+    
+    <!-- INI - MODAL GUARDAR DESCRIPCION TIPO ROL PROVEEDOR -->
+    <div id="modalActualizarTipoRolProveedorResponsabilidad" class="modal hide fade" tabindex="-1" data-attr-index="" >
+        <div class="modal-header">
+            <!-- <div class="table-header"> -->
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="blue bigger">Proveedor - Guardar Descripción</h4>
+            <!-- </div> -->
+        </div>
+ 
+        <div class="modal-body padding">
+            <div class="row-fluid">
+				<div class="span12">
+					<div class="span6">
+						<div class="control-group">
+							<label class="control-label" for="rolProveedor">ROL</label>	
+							<div class="controls">
+								<input type="text" id="idRolProveedor" class="span12" disabled/>															
+							</div>
+						</div>
+					</div>
+					<div class="span6">
+						<div class="control-group">
+							<label class="control-label" for="cantidadProveedor">CANTIDAD</label>	
+							<div class="controls">
+								<input type="text" id="idCantidadProveedor" class="span12" disabled/>															
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span12">					
+					<div class="control-group">
+						<label class="control-label" for="descripcionProveedor">DESCRIPCIÓN</label>	
+						<div class="controls">
+							<input type="text" id="idDescripcionProveedor" class="span12" />															
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+ 
+        <div class="modal-footer">
+            <a id ="confirmarActualizarTipoRolProveedorResponsabilidad" class="btn btn-small btn-primary">
+                <i class="icon-ok"></i> Guardar
+            </a>
+            <a class="btn btn-small btn-light" data-dismiss="modal">
+                <i class="icon-remove"></i> Salir
+            </a>
+        </div>
+ 
+    </div>
+    <!-- FIN - MODAL GUARDAR DESCRIPCION TIPO ROL PROVEEDOR -->
 	
+	<!-- INI - MODAL GUARDAR DESCRIPCION TIPO ROL CLIENTE -->
+    <div id="modalActualizarTipoRolClienteResponsabilidad" class="modal hide fade" tabindex="-1" data-attr-index="" >
+        <div class="modal-header">
+            <!-- <div class="table-header"> -->
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="blue bigger">Cliente - Guardar Descripción</h4>
+            <!-- </div> -->
+        </div>
+ 
+        <div class="modal-body padding">
+            <div class="row-fluid">
+				<div class="span12">
+					<div class="span6">
+						<div class="control-group">
+							<label class="control-label" for="rolCliente">ROL</label>	
+							<div class="controls">
+								<input type="text" id="idRolCliente" class="span12" disabled/>															
+							</div>
+						</div>
+					</div>
+					<div class="span6">
+						<div class="control-group">
+							<label class="control-label" for="cantidadCliente">CANTIDAD</label>	
+							<div class="controls">
+								<input type="text" id="idCantidadCliente" class="span12" disabled/>															
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span12">					
+					<div class="control-group">
+						<label class="control-label" for="descripcionCliente">DESCRIPCIÓN</label>	
+						<div class="controls">
+							<input type="text" id="idDescripcionCliente" class="span12" />															
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+ 
+        <div class="modal-footer">
+            <a id ="confirmarActualizarTipoRolClienteResponsabilidad" class="btn btn-small btn-primary">
+                <i class="icon-ok"></i> Guardar
+            </a>
+            <a class="btn btn-small btn-light" data-dismiss="modal">
+                <i class="icon-remove"></i> Salir
+            </a>
+        </div>
+ 
+    </div>
+    <!-- FIN - MODAL GUARDAR DESCRIPCION TIPO ROL CLIENTE -->
+    
 <script type="text/javascript">
 	var datosGrillas={};
 	datosGrillas = {"listaTipoRequisitoBD":'${model.listaTipoRequisitoBD}',
@@ -1540,7 +1680,9 @@
 		 	"listaTipoRolProveedorBD":'${model.listaTipoRolProveedorBD}',
 	        "listaTipoRolClienteBD":'${model.listaTipoRolClienteBD}',
 	        "listaDetalleRolProyectoProveedorBD":'${model.listaDetalleRolProyectoProveedorBD}',
-	        "listaDetalleRolProyectoClienteBD":'${model.listaDetalleRolProyectoClienteBD}'};
+	        "listaDetalleRolProyectoClienteBD":'${model.listaDetalleRolProyectoClienteBD}',
+	        "listaDetalleRolProyectoProveedorResponsabilidadBD":'${model.listaDetalleRolProyectoProveedorResponsabilidadBD}',
+	        "listaDetalleRolProyectoClienteResponsabilidadBD":'${model.listaDetalleRolProyectoClienteResponsabilidadBD}'};
 </script>
 
 	

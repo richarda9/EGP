@@ -108,7 +108,8 @@ public interface ProyectoDao {
     public void guardarDetalleRolProyecto(DetalleRolProyecto detalleRolProyecto);
     public void eliminarDetalleRolProyecto(DetalleRolProyecto detalleRolProyecto);    
     public List<DetalleRolProyecto> listarDetalleRolProyectoByIdProyectoByTipoRol(Map<String, Object> params);
-    
+    public List<DetalleRolProyecto> listarDetalleRolProyectoByIdProyectoByTipoRolResponsabilidad(Map<String, Object> params);   
+    public void actualizarDescripcionTipoRol(DetalleRolProyecto detalleRolProyecto);
 //  FIN - PLANIFICACION
     
 }

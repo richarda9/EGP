@@ -14,6 +14,8 @@ var dataSetDetalleRiesgo = [];
 var dataSetDetalleAdquisicion = [];
 var dataSetRolProveedor = [];
 var dataSetRolCliente = [];
+var dataSetRRHHResponsabilidadesProveedor = [];
+var dataSetRRHHResponsabilidadesCliente = [];
 
 $(document).ready(function() {/* INI - READY */
 	
@@ -658,9 +660,98 @@ $(document).ready(function() {/* INI - READY */
     $('#modalEliminarTipoRolCliente').on('click', '#confirmarEliminarTipoRolCliente', function(){
         deleteTipoRolCliente();     
     });
+    
+    var opcionesRRHHResponsabilidadesProveedor = '<a id="actualizarRRHHResponsabilidadesProveedor" class="blue tooltip-error" data-rel="tooltip" title="Guardar"><i class="icon-save bigger-130"> </i></a>';
+    $('#tablaRRHHResponsabilidadesProveedor').DataTable({
+        "ajax"         : function (data, callback, settings) {
+            callback ( { data: dataSetRRHHResponsabilidadesProveedor } );
+           },
+        "ordering"   : false,
+        "paging"     : false,
+        "autoWidth"  : true,
+        "pageLength" : 10,
+        "searching"  : false,
+        "bInfo"      : false, 
+        "language"   : {
+                            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+                       },
+        "columns"  : [
+                        { "data": "id", "visible":false},
+                        { "data": "descripcion"},
+                        { "data": "descripcionDetalleRol"},
+                        { "data": "cantidad"},
+                        { "data": null}
+                ],
+        "columnDefs" : [
+                        {                       
+                            "targets": -1,
+                            "data": null,
+                            "defaultContent": opcionesRRHHResponsabilidadesProveedor}                     
+                ]
+    });
+    
+    $('#tablaRRHHResponsabilidadesProveedor tbody').on( 'click', '#actualizarRRHHResponsabilidadesProveedor', function () {
+        var indice = $(this).parents('tr').index();                     
+        $('#modalActualizarTipoRolProveedorResponsabilidad').attr('data-attr-index',indice);
+        $('#modalActualizarTipoRolProveedorResponsabilidad').modal('show');
+        var responsabilidadProveedor =dataSetRRHHResponsabilidadesProveedor[indice];
+        $("#idRolProveedor").val(responsabilidadProveedor.descripcion);
+        $("#idCantidadProveedor").val(responsabilidadProveedor.cantidad);
+        $("#idDescripcionProveedor").val(responsabilidadProveedor.descripcionDetalleRol);
+ 
+    } );
+    
+    $('#modalActualizarTipoRolProveedorResponsabilidad').on('click', '#confirmarActualizarTipoRolProveedorResponsabilidad', function(){
+        actualizarDescripcionTipoRolProveedor();     
+    });
+    
+    var opcionesRRHHResponsabilidadesCliente = '<a id="actualizarRRHHResponsabilidadesCliente" class="blue tooltip-error" data-rel="tooltip" title="Guardar"><i class="icon-save bigger-130"> </i></a>';
+    $('#tablaRRHHResponsabilidadesCliente').DataTable({
+        "ajax"         : function (data, callback, settings) {
+            callback ( { data: dataSetRRHHResponsabilidadesCliente } );
+           },
+        "ordering"   : false,
+        "paging"     : false,
+        "autoWidth"  : true,
+        "pageLength" : 10,
+        "searching"  : false,
+        "bInfo"      : false, 
+        "language"   : {
+                            "url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+                       },
+        "columns"  : [
+                        { "data": "id", "visible":false},
+                        { "data": "descripcion"},
+                        { "data": "descripcionDetalleRol"},
+                        { "data": "cantidad"},
+                        { "data": null}
+                ],
+        "columnDefs" : [
+                        {                       
+                            "targets": -1,
+                            "data": null,
+                            "defaultContent": opcionesRRHHResponsabilidadesCliente}                     
+                ]
+    }); 
+    
+    $('#tablaRRHHResponsabilidadesCliente tbody').on( 'click', '#actualizarRRHHResponsabilidadesCliente', function () {
+        var indice = $(this).parents('tr').index();        
+        $('#modalActualizarTipoRolClienteResponsabilidad').attr('data-attr-index',indice);
+        $('#modalActualizarTipoRolClienteResponsabilidad').modal('show');
+        var responsabilidadCliente =dataSetRRHHResponsabilidadesCliente[indice];
+        $("#idRolCliente").val(responsabilidadCliente.descripcion);
+        $("#idCantidadCliente").val(responsabilidadCliente.cantidad);
+        $("#idDescripcionCliente").val(responsabilidadCliente.descripcionDetalleRol);
+ 
+    } );
+    
+    $('#modalActualizarTipoRolClienteResponsabilidad').on('click', '#confirmarActualizarTipoRolClienteResponsabilidad', function(){
+        actualizarDescripcionTipoRolCliente();     
+    });
     /* FIN - TAB RECURSOS HUMANOS  */
     	
-	mostrarGrillas();	
+    /* listarRRHHResponsabilidades(); */
+	mostrarGrillas();    
 });/* FIN - READY */
 
 /* INI - DESCRIPCION DEL PRODUCTO */
@@ -1140,12 +1231,8 @@ function guardarRolProveedor(){
     detalleRolProyecto.idtiporol = form.idTipoRolProveedor;
     detalleRolProyecto.descripcion = $('#idTipoRolProveedor option:selected').text();
     detalleRolProyecto.cantidad = form.idCantidadTipoRolProveedor;
- 
- 
- 
     detalleRolProyecto.idProyecto = $("#codigoPy").val(); 
-    
- 
+     
     $.postJSON('${pageContext.request.contextPath}/planificacion/guardarRolProveedor.htm',detalleRolProyecto, function(data) {
         if(data.respuesta == 'ERROR'){
             $.gritter.add({
@@ -1167,6 +1254,8 @@ function guardarRolProveedor(){
             detalleRolProyecto.id = data.idTipoRolProveedor;
             dataSetRolProveedor.push(detalleRolProyecto);
             t.ajax.reload();
+            
+            actualizarRolProveedorResponsabilidad();
             
         }
     });
@@ -1200,6 +1289,8 @@ function deleteTipoRolProveedor(){
             
             dataSetRolProveedor.splice(id,1);
             t.ajax.reload();
+            
+            actualizarRolProveedorResponsabilidad();
         }
     });
 }
@@ -1235,6 +1326,7 @@ function guardarRolCliente(){
             dataSetRolCliente.push(detalleRolProyecto);
             t.ajax.reload();
             
+            actualizarRolClienteResponsabilidad();
         }
     });
 }
@@ -1267,9 +1359,144 @@ function deleteTipoRolCliente(){
             
             dataSetRolCliente.splice(id,1);
             t.ajax.reload();
+            
+            actualizarRolClienteResponsabilidad();
         }
     });
 }
+
+function actualizarDescripcionTipoRolProveedor(){
+    var t = $('#tablaRRHHResponsabilidadesProveedor').DataTable();
+    var id =$('#modalActualizarTipoRolProveedorResponsabilidad').attr('data-attr-index');
+    var idDetalle = t.row(id).data().id;    
+    $('#modalActualizarTipoRolProveedorResponsabilidad').modal('hide');
+    var detalleRolProyecto = {};    
+    detalleRolProyecto.id = idDetalle;
+    detalleRolProyecto.descripcion = $("#idRolProveedor").val();
+    detalleRolProyecto.cantidad = $("#idCantidadProveedor").val();
+    detalleRolProyecto.descripcionDetalleRol = $("#idDescripcionProveedor").val();
+    
+    $.postJSON('${pageContext.request.contextPath}/planificacion/actualizarDescripcionTipoRol.htm',detalleRolProyecto, function(data) {
+        if(data.respuesta == 'ERROR'){
+            $.gritter.add({
+                title: 'Error!',
+                text: 'Ocurrió un error al guardar los datos',
+                sticky: false,
+                time: '1200',
+                class_name: 'gritter-error'
+            });
+        }else{
+            $.gritter.add({
+                title: 'Info!',
+                text: 'Se guardó correctamente la descripción.',
+                sticky: false,
+                time: '1200',
+                class_name: 'gritter-info gritter-light'
+            }); 
+            
+            dataSetRRHHResponsabilidadesProveedor[id]=detalleRolProyecto;
+            t.ajax.reload();         
+        	
+        }
+    });
+}
+
+function actualizarDescripcionTipoRolCliente(){
+    var t = $('#tablaRRHHResponsabilidadesCliente').DataTable();
+    var id =$('#modalActualizarTipoRolClienteResponsabilidad').attr('data-attr-index');
+    var idDetalle = t.row(id).data().id;    
+    $('#modalActualizarTipoRolClienteResponsabilidad').modal('hide');
+    var detalleRolProyecto = {};
+    detalleRolProyecto.id = idDetalle;
+    detalleRolProyecto.descripcion = $("#idRolCliente").val();
+    detalleRolProyecto.cantidad = $("#idCantidadCliente").val();
+    detalleRolProyecto.descripcionDetalleRol = $("#idDescripcionCliente").val();
+    
+    $.postJSON('${pageContext.request.contextPath}/planificacion/actualizarDescripcionTipoRol.htm',detalleRolProyecto, function(data) {
+        if(data.respuesta == 'ERROR'){
+            $.gritter.add({
+                title: 'Error!',
+                text: 'Ocurrió un error al guardar los datos',
+                sticky: false,
+                time: '1200',
+                class_name: 'gritter-error'
+            });
+        }else{
+            $.gritter.add({
+                title: 'Info!',
+                text: 'Se guardó correctamente la descripción.',
+                sticky: false,
+                time: '1200',
+                class_name: 'gritter-info gritter-light'
+            }); 
+            
+            dataSetRRHHResponsabilidadesCliente[id]=detalleRolProyecto;
+            t.ajax.reload();         
+        	
+        }
+    });
+}
+
+function actualizarRolProveedorResponsabilidad(){
+    var t = $('#tablaRRHHResponsabilidadesProveedor').DataTable();    
+    var detalleRolProyecto = {};
+    detalleRolProyecto.idProyecto =  $('#codigoPy').val();
+    
+    $.postJSON('${pageContext.request.contextPath}/planificacion/actualizarRolProveedorResponsabilidad.htm',detalleRolProyecto, function(data) {
+        if(data == 'ERROR'){
+            $.gritter.add({
+                title: 'Error!',
+                text: 'Ocurrió un error al cargar los datos responsabilidad proveedor',
+                sticky: false,
+                time: '1200',
+                class_name: 'gritter-error'
+            });
+        }else{
+            $.gritter.add({
+                title: 'Info!',
+                text: 'Se cargó correctamente los datos responsabilidad proveedor.',
+                sticky: false,
+                time: '1200',
+                class_name: 'gritter-info gritter-light'
+            }); 
+            
+            dataSetRRHHResponsabilidadesProveedor=data;
+            t.ajax.reload();         
+        	
+        }
+    });
+}
+
+function actualizarRolClienteResponsabilidad(){
+    var t = $('#tablaRRHHResponsabilidadesCliente').DataTable();    
+    var detalleRolProyecto = {};
+    detalleRolProyecto.idProyecto =  $('#codigoPy').val();
+    
+    $.postJSON('${pageContext.request.contextPath}/planificacion/actualizarRolClienteResponsabilidad.htm',detalleRolProyecto, function(data) {
+        if(data == 'ERROR'){
+            $.gritter.add({
+                title: 'Error!',
+                text: 'Ocurrió un error al cargar los datos responsabilidad cliente',
+                sticky: false,
+                time: '1200',
+                class_name: 'gritter-error'
+            });
+        }else{
+            $.gritter.add({
+                title: 'Info!',
+                text: 'Se cargó correctamente los datos responsabilidad cliente.',
+                sticky: false,
+                time: '1200',
+                class_name: 'gritter-info gritter-light'
+            }); 
+            
+            dataSetRRHHResponsabilidadesCliente=data;
+            t.ajax.reload();         
+        	
+        }
+    });
+}
+
 /* *************************** FIN - TAB RECURSOS HUMANOS *************************** */
  
 function mostrarGrillas(){
@@ -1309,6 +1536,14 @@ function mostrarGrillas(){
     
     if(datosGrillas.listaDetalleRolProyectoClienteBD){
         dataSetRolCliente=JSON.parse(datosGrillas.listaDetalleRolProyectoClienteBD);
+    }
+    
+    if(datosGrillas.listaDetalleRolProyectoProveedorResponsabilidadBD){
+    	dataSetRRHHResponsabilidadesProveedor=JSON.parse(datosGrillas.listaDetalleRolProyectoProveedorResponsabilidadBD);
+    }
+    
+    if(datosGrillas.listaDetalleRolProyectoClienteResponsabilidadBD){
+    	dataSetRRHHResponsabilidadesCliente=JSON.parse(datosGrillas.listaDetalleRolProyectoClienteResponsabilidadBD);
     }
 	/* tablaInteresado.ajax.reload(); */		
 	
