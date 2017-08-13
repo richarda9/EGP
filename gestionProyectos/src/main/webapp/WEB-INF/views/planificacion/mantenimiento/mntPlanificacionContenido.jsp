@@ -16,7 +16,7 @@
                 <div class="row-fluid">
                     <div class="span12">
                         <div class="span3" style="float: left;">
-                            <a class="btn btn-small btn-info span12" onclick = "ejecutarProyecto()">
+                            <a class="btn btn-small btn-info span12" onclick = "validacionEjecutarProyecto()">
                                 <i class="icon-save"></i>
                                 Ejecutar Proyecto
                             </a>
@@ -1667,6 +1667,46 @@
     </div>
     <!-- FIN - MODAL GUARDAR DESCRIPCION TIPO ROL CLIENTE -->
     
+    <!-- INI - MODAL EJECUTAR - FECHA APROBACIÓN -->
+    <div id="modalEjecutarFechaAprobacion" class="modal hide fade form-horizontal" tabindex="-1" data-attr-index="" >
+        <div class="modal-header">
+            <!-- <div class="table-header"> -->
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="blue bigger">Ejecución del Proyecto</h4>
+            <!-- </div> -->
+        </div>
+ 
+        <div class="modal-body padding">            
+			<div class="row-fluid">
+				<div class="span12">					
+					<div class="control-group">
+					
+						<label class="control-label" for="fechaAprobacion">Fecha de Aprobación</label>	
+						<div class="controls">
+							<div class="row-fluid input-append">
+								<input id="fechaAprobacion" name="fechaAprobacion" type="text" data-date-format="dd-mm-yyyy" />
+								<span class="add-on">
+								<i class="icon-calendar"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+ 
+        <div class="modal-footer">
+            <a id ="ejecutarProyecto" class="btn btn-small btn-primary" onclick="ejecutarEjecucion()">
+                <i class="icon-ok"></i> Ejecutar
+            </a>
+            <a class="btn btn-small btn-light" data-dismiss="modal">
+                <i class="icon-remove"></i> Salir
+            </a>
+        </div>
+ 
+    </div>
+    <!-- FIN - MODAL EJECUTAR - FECHA APROBACIÓN -->
+    
 <script type="text/javascript">
 	var datosGrillas={};
 	datosGrillas = {"listaTipoRequisitoBD":'${model.listaTipoRequisitoBD}',
@@ -1684,7 +1724,5 @@
 	        "listaDetalleRolProyectoProveedorResponsabilidadBD":'${model.listaDetalleRolProyectoProveedorResponsabilidadBD}',
 	        "listaDetalleRolProyectoClienteResponsabilidadBD":'${model.listaDetalleRolProyectoClienteResponsabilidadBD}'};
 </script>
-
-	
 
 </div>	

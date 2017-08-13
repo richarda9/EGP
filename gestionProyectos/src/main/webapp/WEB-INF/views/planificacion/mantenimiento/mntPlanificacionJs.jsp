@@ -32,6 +32,15 @@ $(document).ready(function() {/* INI - READY */
         //onchange:''
         //
     });
+    
+	$('#fechaAprobacion').datepicker({
+		language: 'es',
+		format: 'dd/mm/yyyy'
+	});
+	$('#fechaAprobacion').datepicker().next().on('click', function(){ 
+		$(this).prev().focus();
+	});
+
 	
 	$('#fechaContacto').datepicker({
 		language: 'es',
@@ -1499,6 +1508,77 @@ function actualizarRolClienteResponsabilidad(){
 
 /* *************************** FIN - TAB RECURSOS HUMANOS *************************** */
  
+/* **************************** INI - BOTON EJECUTAR PROYECTO ****************************** */
+function validacionEjecutarProyecto(){
+	
+	var idProyecto = $('#codigoPy').val();
+	
+/* 	$.postJSON('${pageContext.request.contextPath}/planificacion/validacionEjecutarProyecto.htm',idProyecto, function(data) {	
+		if(data == 'ERROR'){
+			$.gritter.add({
+				title: 'Error!',
+				text: 'Ocurrio un error al ejecutar el proyecto',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-error'
+			});
+		}else if(data != ""){
+			$.gritter.add({
+				title: 'Error!',
+				text: data,
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-error'
+			});
+			
+		}else{			
+			mostrarConfirmacionEjecucion();								
+		}
+		
+	}); */
+	mostrarConfirmacionEjecucion();		
+} 
+
+function mostrarConfirmacionEjecucion(){		
+	$('#modalEjecutarFechaAprobacion').modal('show');	
+}
+
+function ejecutarEjecucion(){
+	
+	var ejecucionModel = {};
+	ejecucionModel.idProyecto = $('#codigoPy').val();
+	ejecucionModel.fechaAprobacion = $('#fechaAprobacion').val();
+	
+	$.postJSON('${pageContext.request.contextPath}/planificacion/ejecutarEjecucion.htm',ejecucionModel, function(data) {	
+		$('#modalEjecutarFechaAprobacion').modal('hide');	
+		if(data == 'ERROR'){
+			/* $("body").fadeOut(); */
+			$.gritter.add({
+				title: 'Error!',
+				text: 'Ocurrio un error al ejecutar el proyecto',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-error'
+			});
+		}else {
+			$.gritter.add({
+				title: 'Info!',
+				text: 'Se ejecutó correctamente el proyecto.',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-info gritter-light'
+			});
+			setTimeout(function(){
+				window.location = '${pageContext.request.contextPath}/planificacion/planificacion.htm';						
+			},1500);
+			
+		}
+	});
+	
+}
+
+/* **************************** FIN - BOTON EJECUTAR PROYECTO ****************************** */
+
 function mostrarGrillas(){
 	
 	/* var t = $('#tablaInteresadoEmpresa').DataTable(); */

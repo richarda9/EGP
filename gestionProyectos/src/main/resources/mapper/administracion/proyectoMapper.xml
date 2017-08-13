@@ -704,6 +704,34 @@
         	"ESTADO" = #{estado}
         where "ID_DETALLE_ROL_PROYECTO" = #{id};
     </insert>
+    
+    <select id="validacionejecutarproyecto" parameterType="Long" resultType="String">
+		SELECT "PLANIFICAR_PROYECTO".validacionejecutarproyecto(#{idProyecto}::bigint);
+	</select>    
+	
+	<insert id="actualizarDetalleEstadoProyectoByIdProyecto" parameterType="DetalleEstadoProyecto">
+        update "CREAR_PROYECTO"."DETALLE_ESTADO_PROYECTO" 
+        set "ESTADO" = #{estado}	
+        where "ID_PROYECTO" = #{idProyecto};
+    </insert>
+    
+	<insert id="ejecutarEjecucion" parameterType="Map">     
+        insert into "CREAR_PROYECTO"."DETALLE_ESTADO_PROYECTO" 
+        ("ID_DETALLE_ESTADO_PROYECTO", 
+        "ID_ESTADO_PROYECTO",
+        "ID_PROYECTO",
+        "FECHA_CREACION",
+        "FECHA_APROBACION",
+        "ESTADO")
+        values
+        (nextval('"CREAR_PROYECTO".sq_detalle_estado_proyecto'),  
+        #{idEstadoProyecto},
+        #{idProyecto},
+        #{fechaCreacion},
+        #{fechaAprobacion},
+        #{estado});            
+    </insert>
+	
     <!-- FIN - PLANIFICACION -->
     
 	<!-- [INI] EJECUCION -->

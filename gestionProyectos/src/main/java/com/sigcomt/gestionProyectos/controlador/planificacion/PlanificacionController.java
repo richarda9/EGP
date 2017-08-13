@@ -1,7 +1,10 @@
 package com.sigcomt.gestionProyectos.controlador.planificacion;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -444,5 +447,49 @@ public class PlanificacionController
         return respuesta;   
     } 
 //  FIN - RECURSOS HUMANOS
+    
+//  INI - BTN EJECUTAR
+    @RequestMapping(value = "/validacionEjecutarProyecto.htm", method = RequestMethod.POST)
+    public @ResponseBody String validacionEjecutarProyecto(@RequestBody Long idProyecto, HttpServletRequest request) {
+        logger.info("INI - PlanificacionController.validacionEjecutarProyecto");
+        String respuesta = "";
+        Gson gSon = new Gson();
+         
+        try {
+        	String respuestaString = planificacionService.validacionejecutarproyecto(idProyecto);        	
+            respuesta = gSon.toJson(respuestaString);            
+        	
+        } catch (Exception e) {
+            logger.error("ERROR - PlanificacionController.validacionEjecutarProyecto", e);            
+            respuesta = gSon.toJson("ERROR");
+        }
+        
+        logger.info("FIN - PlanificacionController.validacionEjecutarProyecto");
+        return respuesta;   
+    }    
+    
+    @RequestMapping(value = "/ejecutarEjecucion.htm", method = RequestMethod.POST)
+    public @ResponseBody String ejecutarEjecucion(@RequestBody Map ejecucionModel, HttpServletRequest request) {
+        logger.info("INI - PlanificacionController.ejecutarEjecucion");
+        String respuesta = "ERROR";
+        Gson gSon = new Gson();
+        
+        try {
+        	Long idProyecto = Long.parseLong(ejecucionModel.get("idProyecto").toString());        	        	
+        	SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+			Date fechaAprobacion = formatter.parse(ejecucionModel.get("fechaAprobacion").toString());			
+        	planificacionService.ejecutarEjecucion(idProyecto, fechaAprobacion);        	
+            respuesta = gSon.toJson("OK");
+        	
+        } catch (Exception e) {
+            logger.error("ERROR - PlanificacionController.ejecutarEjecucion", e);
+            respuesta = gSon.toJson("ERROR");
+        }
+        
+        logger.info("FIN - PlanificacionController.ejecutarEjecucion");
+        return respuesta;   
+    }         
+    
+//  FIN - BTN EJECUTAR
 	
 }

@@ -1,5 +1,6 @@
 package com.sigcomt.gestionProyectos.servicio.planificacion.imp;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sigcomt.gestionProyectos.common.enumerations.EstadoProyectoEnum;
+import com.sigcomt.gestionProyectos.dominio.administracion.DetalleEstadoProyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.Entregable;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAdquisicionProyecto;
@@ -151,6 +154,31 @@ public class PlanificacionServiceImp implements PlanificacionService{
 	public void actualizarDescripcionTipoRol(
 			DetalleRolProyecto detalleRolProyecto) {
 		proyectoDao.actualizarDescripcionTipoRol(detalleRolProyecto);
+	}
+
+	public String validacionejecutarproyecto(Long idProyecto) {
+		String respuesta = "";
+		respuesta = proyectoDao.validacionejecutarproyecto(idProyecto); 
+		return respuesta;
+	}
+
+	@Transactional
+	public void ejecutarEjecucion(Long idProyecto, Date fechaAprobacion) {
+		
+		DetalleEstadoProyecto detalleEstadoProyectoAntepy = new DetalleEstadoProyecto();
+		detalleEstadoProyectoAntepy.setEstado(0);
+		detalleEstadoProyectoAntepy.setIdProyecto(idProyecto);	
+//		detalleEstadoProyectoAntepy.setFechaCreacion(new Date());
+		proyectoDao.actualizarDetalleEstadoProyectoByIdProyecto(detalleEstadoProyectoAntepy);
+		
+		Map params = new HashMap<String, Object>();
+        params.put("idProyecto", idProyecto);
+        params.put("idEstadoProyecto", Long.parseLong(EstadoProyectoEnum.EN_EJECUCION.getCodigo()));
+        params.put("fechaCreacion", new Date());
+        params.put("fechaAprobacion", fechaAprobacion);
+        params.put("estado", 1);
+		proyectoDao.ejecutarEjecucion(params);
+		
 	}
 		
 }

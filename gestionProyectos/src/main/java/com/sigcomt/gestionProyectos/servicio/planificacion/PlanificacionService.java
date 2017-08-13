@@ -1,6 +1,8 @@
 package com.sigcomt.gestionProyectos.servicio.planificacion;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.sigcomt.gestionProyectos.dominio.administracion.Entregable;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
@@ -33,4 +35,8 @@ public interface PlanificacionService {
     public List<DetalleRolProyecto> listarDetalleRolProyectoByIdProyectoByTipoRolResponsabilidad(Long idProyecto, Long tipoRol);   
     public void actualizarDescripcionTipoRol(DetalleRolProyecto detalleRolProyecto);
 //  FIN - RECURSOS HUMANOS
+    
+    public String validacionejecutarproyecto(Long idProyecto);
+    public void ejecutarEjecucion(Long idProyecto, Date fechaAprobacion);
+    
 }

@@ -1,5 +1,6 @@
 package com.sigcomt.gestionProyectos.repositorio.anteproyecto;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -110,6 +111,9 @@ public interface ProyectoDao {
     public List<DetalleRolProyecto> listarDetalleRolProyectoByIdProyectoByTipoRol(Map<String, Object> params);
     public List<DetalleRolProyecto> listarDetalleRolProyectoByIdProyectoByTipoRolResponsabilidad(Map<String, Object> params);   
     public void actualizarDescripcionTipoRol(DetalleRolProyecto detalleRolProyecto);
+    public String validacionejecutarproyecto(Long idProyecto);
+    public void actualizarDetalleEstadoProyectoByIdProyecto(DetalleEstadoProyecto detalleEstadoProyecto);
+    public void ejecutarEjecucion(Map<String, Object> params);
 //  FIN - PLANIFICACION
     
 }
