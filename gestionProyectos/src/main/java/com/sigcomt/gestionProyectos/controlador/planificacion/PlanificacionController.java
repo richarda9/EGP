@@ -24,11 +24,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.sigcomt.gestionProyectos.common.Constantes;
 import com.sigcomt.gestionProyectos.common.enumerations.EstadoProyectoEnum;
 import com.sigcomt.gestionProyectos.common.enumerations.RolEnum;
 import com.sigcomt.gestionProyectos.dominio.administracion.CategoriaAdquisicion;
 import com.sigcomt.gestionProyectos.dominio.administracion.Entregable;
 import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
+import com.sigcomt.gestionProyectos.dominio.administracion.TipoCostoOperativo;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoRol;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAdquisicionProyecto;
@@ -36,9 +38,11 @@ import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleRolProyecto;
 import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
+import com.sigcomt.gestionProyectos.model.anteproyecto.AgregarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.BuscarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DependenciaPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.DetalleCostoOperativoModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DetalleRiesgosModel;
 import com.sigcomt.gestionProyectos.model.planificacion.ExclusionPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.FactorExitoPlanificacionModel;
@@ -117,11 +121,14 @@ public class PlanificacionController
 		List<DetalleAdquisicionProyecto> detalleAdquisicionList = planificacionService.listarDetalleAdquisicionIdProyecto(idProyecto);
 		List<TipoRol> listTipoRolProveedor = proyectoService.listarTipoRolByTipoRol(TIPO_ROL_PROVEEDOR);
         List<TipoRol> listTipoRolCliente= proyectoService.listarTipoRolByTipoRol(TIPO_ROL_CLIENTE);               
+		List<TipoCostoOperativo> tipoCostoOperativoList = administracionService.listarCostoOperativo();
+		List<DetalleCostoOperativoModel> detalleCostoOperativoList = planificacionService.listarDetalleCostoOperativoIdProyecto(idProyecto);
 		
 		Gson gSon = new Gson();
 		String listaDetalleFormaPagoString = gSon.toJson(formaPagoDetalleList);
 		String listaDetalleRiesgoString = gSon.toJson(riesgoDetalleList);
 		String listaDetalleAdquisicionString = gSon.toJson(detalleAdquisicionList);
+		String listaDetalleCostoOperativoString = gSon.toJson(detalleCostoOperativoList);
 		 
 		myModel.put("codigoPy", index);		
 		myModel.put("listaTipoRequisito", tipoReqPy);
@@ -135,6 +142,10 @@ public class PlanificacionController
 		myModel.put("listaDetalleRiesgoBD", listaDetalleRiesgoString);
 		myModel.put("listaCategoriaAdquisicion", categoriaAdquisicionList);
 		myModel.put("listaDetalleAdquisicionBD", listaDetalleAdquisicionString);
+		myModel.put("listaTipoCostoOperativo", tipoCostoOperativoList);
+		myModel.put("listaDetalleCostoOperativoBD", listaDetalleCostoOperativoString);
+		myModel.put("listaTipoRolProveedor", listTipoRolProveedor);
+        myModel.put("listaTipoRolCliente", listTipoRolCliente);
 				
 //      INI - ALCANCE - CARGA DATA
         List<RequisitoProyectoPlanificacionModel> listaTipoRequisito = new ArrayList<RequisitoProyectoPlanificacionModel>();
@@ -491,5 +502,41 @@ public class PlanificacionController
     }         
     
 //  FIN - BTN EJECUTAR
+
+@RequestMapping(value = "/guardarDetalleCostoOperativo.htm", method = RequestMethod.POST)
+	public @ResponseBody Map<String, String> guardarDetalleCostoOperativo(@RequestBody DetalleCostoOperativoModel detalleCostoOperativoModel, HttpServletRequest request) {
+		logger.info("INI - PlanificacionController.guardarDetalleCostoOperativo");
+		Map<String, String> respuesta =  new HashMap<String, String>();
+		respuesta.put("respuesta", "OK");			
+		detalleCostoOperativoModel.setEstado(ESTADO_ACTIVO);
+		
+		try {
+			planificacionService.guardarDetalleCostoOperativo(detalleCostoOperativoModel);			
+			respuesta.put("idCostoOperativo", detalleCostoOperativoModel.getIdCostoOperativo().toString());			
+		} catch (Exception e) {
+			logger.error("ERROR - PlanificacionController.guardarDetalleCostoOperativo", e);
+			respuesta.put("respuesta", "ERROR");
+		}
+		
+		logger.info("FIN - PlanificacionController.guardarDetalleCostoOperativo");
+		return respuesta;	
+	}
+	
+	@RequestMapping(value = "/eliminarDetalleCostoOperativo.htm", method = RequestMethod.POST)
+	public @ResponseBody Map<String, String> eliminarDetalleCostoOperativo(@RequestBody DetalleCostoOperativoModel detalleCostoOperativoModel, HttpServletRequest request) {		
+		logger.info("INI - PlanificacionController.eliminarDetalleCostoOperativo");
+		Map<String, String> respuesta =  new HashMap<String, String>();
+		respuesta.put("respuesta", "OK");
+		
+		try {
+			planificacionService.eliminarDetalleCostoOperativo(detalleCostoOperativoModel);						
+		} catch (Exception e) {
+			logger.error("ERROR - PlanificacionController.eliminarDetalleCostoOperativo", e);
+			respuesta.put("respuesta", "ERROR");
+		}
+		
+		logger.info("FIN - PlanificacionController.eliminarDetalleCostoOperativo");
+		return respuesta;	
+	}
 	
 }

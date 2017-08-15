@@ -503,6 +503,48 @@
 			and pago."ID_PROYECTO" = #{idProyecto};
 	</select>
 	
+	<insert id="guardarDetalleCostoOperativo" parameterType="detalleCostoOperativoModel">
+        <selectKey keyProperty="idCostoOperativo" resultType="Long" order="BEFORE">
+            select NEXTVAL('"PLANIFICAR_PROYECTO".sq_detalle_costo_operativo_proyecto')
+        </selectKey>
+        INSERT INTO "PLANIFICAR_PROYECTO"."DETALLE_COSTO_OPERATIVO_PROYECTO"(
+            "ID_DETALLE_COSTO_OPERATIVO_PROYECTO", 
+            "ID_PROYECTO", 
+            "ID_COSTO_OPERATIVO", 
+            "DESCRIPCION", 
+            "FECHA", 
+            "MONTO", 
+            "ESTADO")   	
+        values(
+        	#{idCostoOperativo},
+        	#{idProyecto}, 
+        	#{idTipoCosto},        
+        	#{descripcionCosto},
+        	to_date(#{fecha}, 'DD/MM/YYYY'),        	
+        	#{monto},
+        	#{estado}
+        	);  
+    </insert>
+    
+    <delete id="eliminarDetalleCostoOperativo" parameterType="detalleCostoOperativoModel">      
+       DELETE FROM "PLANIFICAR_PROYECTO"."DETALLE_COSTO_OPERATIVO_PROYECTO"
+ 		WHERE "ID_DETALLE_COSTO_OPERATIVO_PROYECTO" = #{idCostoOperativo} ;
+    </delete>
+    
+    <select id="listarDetalleCostoOperativoIdProyecto" parameterType= "java.lang.Long" resultType="detalleCostoOperativoModel">
+		SELECT "ID_DETALLE_COSTO_OPERATIVO_PROYECTO" as idCostoOperativo, 
+				"ID_PROYECTO" as idProyecto, 
+				"ID_COSTO_OPERATIVO" as idTipoCosto,
+				(select "DESCRIPCION" from "PLANIFICAR_PROYECTO"."TIPO_COSTO_OPERATIVO" 
+						where "ID_TIPO_COSTO_OPERATIVO" = "ID_COSTO_OPERATIVO") as valTipoCosto, 
+       			"DESCRIPCION" as descripcionCosto, 
+       			to_char("FECHA", 'DD/MM/YYYY') as fecha, 
+       			"MONTO" as monto, 
+       			"ESTADO" as estado
+  			FROM "PLANIFICAR_PROYECTO"."DETALLE_COSTO_OPERATIVO_PROYECTO"			
+			WHERE "ID_PROYECTO" = #{idProyecto};
+	</select>
+	
 	<insert id="guardarDetalleRiesgos" parameterType="detalleRiesgosModel">
         <selectKey keyProperty="idDetalleRiesgos" resultType="Long" order="BEFORE">
             select NEXTVAL('"PLANIFICAR_PROYECTO".sq_detalle_riesgos_proyecto')

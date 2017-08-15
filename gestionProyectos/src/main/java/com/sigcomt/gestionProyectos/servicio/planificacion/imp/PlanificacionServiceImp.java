@@ -17,6 +17,7 @@ import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAdquisicionProyecto
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleRolProyecto;
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DependenciaPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.DetalleCostoOperativoModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DetalleRiesgosModel;
 import com.sigcomt.gestionProyectos.model.planificacion.ExclusionPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.FactorExitoPlanificacionModel;
@@ -179,6 +180,21 @@ public class PlanificacionServiceImp implements PlanificacionService{
         params.put("estado", 1);
 		proyectoDao.ejecutarEjecucion(params);
 		
+	}
+
+    @Transactional
+	public void guardarDetalleCostoOperativo(DetalleCostoOperativoModel detalleCostoOperativoModel) {
+		proyectoDao.guardarDetalleCostoOperativo(detalleCostoOperativoModel);		
+	}
+    
+    @Transactional
+	public void eliminarDetalleCostoOperativo(DetalleCostoOperativoModel detalleCostoOperativoModel) {
+		proyectoDao.eliminarDetalleCostoOperativo(detalleCostoOperativoModel);		
+	}
+    
+    @Transactional
+	public List<DetalleCostoOperativoModel> listarDetalleCostoOperativoIdProyecto(Long idProyecto) {	
+		return proyectoDao.listarDetalleCostoOperativoIdProyecto(idProyecto);
 	}
 		
 }

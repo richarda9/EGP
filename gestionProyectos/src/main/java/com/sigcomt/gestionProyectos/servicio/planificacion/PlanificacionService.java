@@ -9,6 +9,7 @@ import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAdquisicionProyecto;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleRolProyecto;
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.DetalleCostoOperativoModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DetalleRiesgosModel;
 import com.sigcomt.gestionProyectos.model.planificacion.FormasPagoModel;
 
@@ -27,6 +28,10 @@ public interface PlanificacionService {
     public List<DetalleRiesgosModel> listarDetalleRiesgosIdProyecto(Long idProyecto);
     
     public List<DetalleAdquisicionProyecto> listarDetalleAdquisicionIdProyecto(Long idProyecto);
+    
+    public void guardarDetalleCostoOperativo(DetalleCostoOperativoModel detalleCostoOperativoModel);
+    public void eliminarDetalleCostoOperativo(DetalleCostoOperativoModel detalleCostoOperativoModel);
+    public List<DetalleCostoOperativoModel> listarDetalleCostoOperativoIdProyecto(Long idProyecto);
     
 //  INI - RECURSOS HUMANOS
     public void guardarDetalleRolProyecto(DetalleRolProyecto detalleRolProyecto);

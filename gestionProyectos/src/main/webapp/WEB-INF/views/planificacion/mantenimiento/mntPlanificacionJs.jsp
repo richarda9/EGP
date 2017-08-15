@@ -14,6 +14,7 @@ var dataSetDetalleRiesgo = [];
 var dataSetDetalleAdquisicion = [];
 var dataSetRolProveedor = [];
 var dataSetRolCliente = [];
+var dataSetDetalleCostoOperativo = [];
 var dataSetRRHHResponsabilidadesProveedor = [];
 var dataSetRRHHResponsabilidadesCliente = [];
 
@@ -71,6 +72,22 @@ $(document).ready(function() {/* INI - READY */
 		format: 'dd/mm/yyyy'
 	});
 	$('#fechaAdquirirAD').datepicker().next().on('click', function(){ 
+		$(this).prev().focus();
+	});
+	
+	$('#fechaCostoOP').datepicker({
+		language: 'es',
+		format: 'dd/mm/yyyy'
+	});
+	$('#fechaCostoOP').datepicker().next().on('click', function(){ 
+		$(this).prev().focus();
+	});
+	
+	$('#fechaProgramadaET').datepicker({
+		language: 'es',
+		format: 'dd/mm/yyyy'
+	});
+	$('#fechaProgramadaET').datepicker().next().on('click', function(){ 
 		$(this).prev().focus();
 	});
 	
@@ -489,6 +506,72 @@ $(document).ready(function() {/* INI - READY */
 			{   "targets": -1,
 				"data": null,
 				"defaultContent": opcionesEliminarAdquisicion}	         			
+						]
+
+	});
+	
+	/* INICIO - DETALLE COSTOS OPERATIVOS */
+	$('#tablaCostosOperativo tbody').on( 'click', '#deleteDetalleCostosOperativo', function () {
+		var indice = $(this).parents('tr').index();		
+		$('#modalEliminarDetalleCostoOperativo').attr('data-attr-index',indice);
+		$('#modalEliminarDetalleCostoOperativo').modal('show');
+	} );
+	
+	$('#modalEliminarDetalleCostoOperativo').on('click', '#confirmarEliminarDetalleCostoOperativo', function(){
+		deleteDetalleCostosOperativos();		
+	});	
+	
+	var opcionesEliminarCostosOperativo= '<a id="deleteDetalleCostosOperativo" class="red tooltip-error" data-rel="tooltip" title="Eliminar"><i class="icon-trash bigger-130"> </i></a>';
+	$('#tablaCostosOperativo').DataTable({
+		"ajax"		 : function (data, callback, settings) {
+						callback ( { data: dataSetDetalleCostoOperativo } );
+		   				},
+		"ordering"   : false,
+		"paging"     : false,
+		"autoWidth"  : true,
+		"pageLength" : 10,
+		"searching"  : false,
+		"bInfo"      : false, 		
+		"language"   : {
+							"url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+					   },
+		"columns"	 : [
+			{ "data": "idCostoOperativo", "visible":false},
+			{ "data": "valTipoCosto"},
+			{ "data": "descripcionCosto"},
+			{ "data": "fecha"},
+			{ "data": "monto"},					
+			{ "data": null}
+						],
+		"columnDefs" : [
+			{   "targets": -1,
+				"data": null,
+				"defaultContent": opcionesEliminarCostosOperativo}	         			
+						]
+
+	});
+	
+	$('#tablaProductoEntregable').DataTable({
+		"ajax"		 : function (data, callback, settings) {
+						callback ( { data: dataSetDetalleCostoOperativo } );
+					   },	
+	    "ordering"   : false,
+		"paging"     : false,
+		"autoWidth"  : true,
+		"pageLength" : 10,
+		"searching"  : false,
+		"bInfo"      : false, 		
+		"language"   : {
+							"url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+					   },
+	   "columns"	 : [
+			{ "data": "idCostoOperativo", "visible":false},							
+			{ "data": null}
+						],
+		"columnDefs" : [
+			{   "targets": -1,
+				"data": null,
+				"defaultContent": opcionesEliminarCostosOperativo}	         			
 						]
 
 	});
@@ -1232,6 +1315,79 @@ function deleteDetalleAdquisicion(){
 	});
 }
 
+function guardarDetalleCostosOperativos(){
+	var t = $('#tablaCostosOperativo').DataTable();
+	var form=$('#formCostoOperativo').serializeObject();	
+	var agregarDetalleCostoOP = {};
+	agregarDetalleCostoOP.descripcionCosto = form.valDescripcionOP;
+	agregarDetalleCostoOP.idTipoCosto = form.idTipoCostoOP;
+	agregarDetalleCostoOP.valTipoCosto = $('#idTipoCostoOP option:selected').text();
+	agregarDetalleCostoOP.fecha = form.fechaCostoOP;
+	agregarDetalleCostoOP.monto = form.valMontoOP; 	
+	agregarDetalleCostoOP.idProyecto = $("#codigoPy").val(); 
+	
+	
+	$.postJSON('${pageContext.request.contextPath}/planificacion/guardarDetalleCostoOperativo.htm',agregarDetalleCostoOP, function(data) {
+		if(data.respuesta == 'ERROR'){
+			$.gritter.add({
+				title: 'Error!',
+				text: 'Ocurrió un error al guardar los datos',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-error'
+			});
+		}else{
+			$.gritter.add({
+				title: 'Info!',
+				text: 'Se guardó correctamente los datos.',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-info gritter-light'
+			});
+			
+			agregarDetalleCostoOP.idCostoOperativo = data.idCostoOperativo;
+			dataSetDetalleCostoOperativo.push(agregarDetalleCostoOP);
+			t.ajax.reload();			
+		}
+	});
+}
+
+function deleteDetalleCostosOperativos(){
+	var t = $('#tablaCostosOperativo').DataTable();
+	var id =$('#modalEliminarDetalleCostoOperativo').attr('data-attr-index');
+	var idDetalle = t.row(id).data().id;	
+	$('#modalEliminarDetalleCostoOperativo').modal('hide');
+	var eliminarDetalleCostoOP = {};
+	eliminarDetalleCostoOP.idCostoOperativo = idDetalle;
+	
+	$.postJSON('${pageContext.request.contextPath}/planificacion/eliminarDetalleCostoOperativo.htm',eliminarDetalleCostoOP, function(data) {
+		if(data.respuesta == 'ERROR'){
+			$.gritter.add({
+				title: 'Error!',
+				text: 'Ocurrió un error al guardar los datos',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-error'
+			});
+		}else{
+			$.gritter.add({
+				title: 'Info!',
+				text: 'Se elimino correctamente los datos.',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-info gritter-light'
+			});	
+			
+			dataSetDetalleCostoOperativo.splice(id,1);
+			t.ajax.reload();
+		}
+	});
+}
+
+function showEntregableAgregar(){
+	$('#modal-Entregable').modal('show');
+}
+
 /* *************************** INI - TAB RECURSOS HUMANOS *************************** */
 function guardarRolProveedor(){
     var t = $('#tablaTipoRolProveedor').DataTable();
@@ -1608,6 +1764,10 @@ function mostrarGrillas(){
 	
 	if(datosGrillas.listaDetalleAdquisicionBD){
 		dataSetDetalleAdquisicion=JSON.parse(datosGrillas.listaDetalleAdquisicionBD);
+	}
+	
+	if(datosGrillas.listaDetalleCostoOperativoBD){
+		dataSetDetalleCostoOperativo=JSON.parse(datosGrillas.listaDetalleCostoOperativoBD);
 	}
 	
 	if(datosGrillas.listaDetalleRolProyectoProveedorBD){

@@ -736,13 +736,14 @@
 							<div class="span12">
 								<div class="span9">Entregables del Proyecto</div>
 								<div class="span3">
-									<button class="btn btn-info span12">
+									<button class="btn btn-info span12" onclick="showEntregableAgregar()">
 										<i class="icon-plus bigger-125"></i>
 										Agregar Entregable
 									</button>
 								</div>
 							</div>
 						</div>
+						
 						<div class="space-20"></div>
 						<div class="row-fluid">
 							<table id="tablaEntregableProyecto" class="table table-striped table-bordered table-hover">
@@ -766,6 +767,84 @@
 								</tbody>
 							</table>
 						</div>
+						
+					<form id="registrarEntregables">
+					<div id="modal-Entregable" class="modal hide" tabindex="-1">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="blue bigger">Entregables del Proyecto</h4>
+					</div>
+					
+					<div class="modal-body overflow-visible" style="height: auto; overflow: auto;">
+						<div class="control-group row-fluid">
+							<div class="control-label span3">Entregable:</div>
+							<div class="span9"><input type="text" class="span12" id="valorET" name="valorET"/></div>
+						</div>
+						
+						<div class="control-group row-fluid">
+							<div class="span3">Descripci&oacute;n</div>
+							<div class="span9"><textarea class="span12" id="valDescripcionET" name="valDescripcionET"></textarea></div>
+						</div>						
+						
+						<div class="control-group row-fluid">
+							<div class="control-label span3">Fecha Programada:</div>
+							<div class="span9">
+								<input id="fechaProgramadaET" name="fechaProgramadaET" type="text" class="span8" data-date-format="dd-mm-yyyy" />
+								<span class="add-on"><i class="icon-calendar"></i></span>
+							</div>						
+						</div>
+						
+						<div class="control-group row-fluid">
+							<div class="control-label span3">Producto:</div>
+							<div class="span9"><input type="text" class="span8" id="valProductoET" name="valProductoET"/></div>
+						</div>
+						
+						<div class="row-fluid">
+							<div class="span6"></div>
+							<div class="span6">
+							<div class="span6"></div>
+							<div class="span6">
+								<a id="btnAgregarContactoCliente" class="btn btn-small btn-primary">
+									<i class="icon-plus"></i>
+									Producto
+								</a>
+							</div>
+							</div>
+						</div>
+						
+						<div class="space-20"></div>
+						<div class="row-fluid">
+							<div class="table-header">Tabla Productos</div>
+							<table id="tablaProductoEntregable" class="table table-striped table-bordered table-hover" style="width: 100%;">
+								<thead>
+									<tr>
+										<th>Producto</th>										
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td></td>																				
+									</tr>
+								</tbody>
+							</table>
+					</div>								
+					</div>
+					
+					<div class="modal-footer">
+						<button class="btn btn-small" data-dismiss="modal">
+							<i class="icon-remove"></i>
+							Cancelar
+						</button>
+			
+						<button type="submit" class="btn btn-small btn-primary">
+							<i class="icon-save"></i>
+							Guardar
+						</button>
+					</div>
+					
+					</div>
+					
+					</form>
 					</div>
 
 					<div id="riesgos" class="tab-pane">	
@@ -1098,20 +1177,91 @@
 					<div id="costosOperativos" class="tab-pane">
 						<div class="row-fluid">
 							<div class="span12">
-								<div class="span8">Costos Operativos</div>
-								<div class="span4">
-									<button class="btn btn-info span12">
-										<i class="icon-plus bigger-125"></i>
-										Agregar Costo operativo
-									</button>
+								<div class="page-header position-relative"><h1>Costos Operativos</h1></div>
+							</div>
+						</div>
+						
+						<div class="row-fluid">
+							<div class="span12">
+								<div class="span9"></div>
+								<div class="span3" style="float:left;">
+									<a class="btn btn-small btn-info span12" onclick="guardarDetalleCostosOperativos()">
+										<i class="icon-save bigger-125"></i>
+										Guardar
+									</a>
+								</div>
+							</div>
+						</div>	
+						<div class="space-10"></div>
+							
+					<form  name="formCostoOperativo" id="formCostoOperativo" method="post">
+						<div class="row-fluid">
+							<div class="span12">								
+								<div class="span6">
+								<div class="control-group">
+									<label class="control-label" for="idTipoCostoOP">Tipo:</label>
+									<div class="controls">
+										<div class="span6">
+											<select id="idTipoCostoOP" name="idTipoCostoOP" >
+											<option value="">Seleccionar</option>
+											<c:forEach var="listTipoCostoOP" items="${model.listaTipoCostoOperativo}" varStatus="contador">
+												<option value="${listTipoCostoOP.id}">${listTipoCostoOP.descripcion}</option>
+											</c:forEach>
+											</select>
+										</div> 
+									</div>
+								</div>
+								</div>
+								
+								<div class="span6">
+								<div class="control-group">
+									<label class="control-label" for="valDescripcionOP">Descripci&oacute;n:</label>
+										<div class="controls">
+											<div class="span6">
+												<input type="text" class="span12" id="valDescripcionOP" name="valDescripcionOP" />
+											</div>
+										</div>
+								</div>
+								</div>																
+							</div>
+							</div>
+							
+							<div class="row-fluid">
+								<div class="span12">
+								<div class="span6">
+								<div class="control-group">
+									<label class="control-label" for="fechaCostoOP">Fecha:</label>
+									<div class="controls">
+										<div class="row-fluid input-append">
+											<input id="fechaCostoOP" name="fechaCostoOP" type="text" data-date-format="dd-mm-yyyy" />
+											<span class="add-on">
+											<i class="icon-calendar"></i>
+											</span>
+										</div>
+									</div>
+								</div>
+								</div>
+				
+								<div class="span6">
+								<div class="control-group">
+									<label class="control-label" for="valMontoOP">Monto:</label>
+										<div class="controls">
+											<div class="span6">
+												<input type="text" class="span12" id="valMontoOP" name="valMontoOP"  />
+											</div>
+										</div>
+								</div>
 								</div>
 							</div>
 						</div>
+						</form>		
+								
 						<div class="space-20"></div>
 						<div class="row-fluid">
-							<table id="tablaCostosProyecto" class="table table-striped table-bordered table-hover">
+							<table id="tablaCostosOperativo" class="table table-striped table-bordered table-hover" style = "width : 100%">
 								<thead>
 									<tr>
+										<th>Id</th>
 										<th>Tipo</th>
 										<th>Descripci&oacute;n</th>
 										<th>Fecha</th>
@@ -1125,6 +1275,7 @@
 										<td></td>
 										<td></td>	
 										<td></td>	
+										<td></td>												
 										<td></td>												
 									</tr>
 								</tbody>
@@ -1415,6 +1566,29 @@
 		</div>
 	</div>	
 	<!-- FIN - MODAL DETALLE ADQUISICION -->	
+	
+	<!-- INICIO - MODAL DETALLE COSTO OPERATIVO -->
+	<div id="modalEliminarDetalleCostoOperativo" class="modal hide fade" tabindex="-1" data-attr-index="" >
+		<div class="modal-header no-padding">
+			<div class="table-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+		</div>
+
+		<div class="modal-body padding">
+			<b style="text-align: center">¿Est&aacute; seguro que desea eliminar Costo Operativo?</b> 	
+		</div>
+
+		<div class="modal-footer">
+			<a id ="confirmarEliminarDetalleCostoOperativo" class="btn btn-small btn-primary">
+				<i class="icon-ok"></i> Confirmar
+			</a>
+			<a class="btn btn-small btn-light" data-dismiss="modal">
+				<i class="icon-remove"></i> Salir
+			</a>
+		</div>
+	</div>	
+	<!-- FIN - MODAL DETALLE COSTO OPERATIVO -->	
 	
 	<!-- INI - MODAL ELIMINAR EXCLUSIONES TABLA-->
 	<div id="modalEliminarExclusiones" class="modal hide fade" tabindex="-1" data-attr-index="" >
@@ -1717,6 +1891,7 @@
 			"listaDetalleFormaPagoBD":'${model.listaDetalleFormaPagoBD}',
 		 	"listaDetalleRiesgoBD":'${model.listaDetalleRiesgoBD}',
 		 	"listaDetalleAdquisicionBD":'${model.listaDetalleAdquisicionBD}',
+		 	"listaDetalleCostoOperativoBD":'${model.listaDetalleCostoOperativoBD}',
 		 	"listaTipoRolProveedorBD":'${model.listaTipoRolProveedorBD}',
 	        "listaTipoRolClienteBD":'${model.listaTipoRolClienteBD}',
 	        "listaDetalleRolProyectoProveedorBD":'${model.listaDetalleRolProyectoProveedorBD}',

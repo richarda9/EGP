@@ -29,6 +29,7 @@ import com.sigcomt.gestionProyectos.model.ejecucion.BuscarEjecucionModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.LstProyectoEjecucionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DependenciaPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.DetalleCostoOperativoModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DetalleRiesgosModel;
 import com.sigcomt.gestionProyectos.model.planificacion.ExclusionPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.FactorExitoPlanificacionModel;
@@ -114,6 +115,11 @@ public interface ProyectoDao {
     public String validacionejecutarproyecto(Long idProyecto);
     public void actualizarDetalleEstadoProyectoByIdProyecto(DetalleEstadoProyecto detalleEstadoProyecto);
     public void ejecutarEjecucion(Map<String, Object> params);
+
+    public void guardarDetalleCostoOperativo(DetalleCostoOperativoModel detalleCostoOperativoModel);
+    public void eliminarDetalleCostoOperativo(DetalleCostoOperativoModel detalleCostoOperativoModel);
+    public List<DetalleCostoOperativoModel> listarDetalleCostoOperativoIdProyecto(Long idProyecto);
+    
 //  FIN - PLANIFICACION
     
 }
