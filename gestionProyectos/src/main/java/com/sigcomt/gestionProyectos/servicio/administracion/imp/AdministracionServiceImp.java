@@ -27,6 +27,7 @@ import com.sigcomt.gestionProyectos.dominio.administracion.TipoRequisito;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoRol;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoSupuesto;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.Complejidad;
+import com.sigcomt.gestionProyectos.dominio.ejecucion.EstadoTarea;
 import com.sigcomt.gestionProyectos.model.administracion.ContactoEmpresaModel;
 import com.sigcomt.gestionProyectos.model.administracion.MntEmpresaModel;
 import com.sigcomt.gestionProyectos.model.administracion.RecursosModel;
@@ -69,6 +70,10 @@ public class AdministracionServiceImp implements AdministracionService
 	public void eliminarTipoProyecto(Integer param) {
 		administracionDao.eliminarTipoProyecto(param);
 	}
+	
+	public TipoProyecto buscarTipoProyectoById(Long id){
+		return administracionDao.buscarTipoProyectoById(id);
+	}
 	//[FIN] TIPO PROYECTO
 
 	//[INI] ESTADO PROYECTO
@@ -89,6 +94,10 @@ public class AdministracionServiceImp implements AdministracionService
 	
 	public void eliminarEstadoProyecto(Integer param) {
 		administracionDao.eliminarEstadoProyecto(param);
+	}
+	
+	public EstadoProyecto buscarEstadoProyectoById(Long id){
+		return administracionDao.buscarEstadoProyectoById(id);
 	}
 	//[FIN] ESTADO PROYECTO
 
@@ -446,5 +455,10 @@ public class AdministracionServiceImp implements AdministracionService
 		return administracionDao.listarTipoAvance();
 	}
 //	[FIN] - TIPO AVANCE
+	
+	//
+	public EstadoTarea buscarEstadoTareaByID(Long id){
+		return administracionDao.buscarEstadoTareaByID(id);
+	}
 }
 

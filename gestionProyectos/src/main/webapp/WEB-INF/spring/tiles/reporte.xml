@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC  
+    "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"  
+    "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+	
+	<definition name="reportesProyecto" extends="templateSistema">
+		<put-attribute name="css2" value="/WEB-INF/views/reportes/reporteCss.jsp" />
+		<put-attribute name="contenido" value="/WEB-INF/views/reportes/reporteContenido.jsp" />
+		<put-attribute name="js2" value="/WEB-INF/views/reportes/reporteJs.jsp" />
+	</definition>
+
+</tiles-definitions>

@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptEntregablesxProyecto" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6189024a-e69a-4efd-9254-b8e39ea036bb">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idproyecto" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idestadoentregable" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ROOT_DIR" class="java.lang.String"/>
+	<parameter name="usuario" class="java.lang.String"/>
+	<parameter name="dscestadoentregable" class="java.lang.String"/>
+	<parameter name="dscproyecto" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT p."NOMBRE_PROYECTO" nomproyecto,
+       e."NOMBRE_ENTREGABLE" nomentregable,
+       to_char(e."FECHA_PROGRAMADA", 'DD/MM/YYYY') fechaprogramada,
+       (SELECT ee."DESCRIPCION" FROM "PLANIFICAR_PROYECTO"."ESTADO_ENTREGABLE" ee
+        WHERE ee."ID_ESTADO_ENTREGABLE" = e."ID_ESTADO_ENTREGABLE") estadoentregable,
+       to_char(e."FECHA_ENVIO", 'DD/MM/YYYY') fechaenvio,
+       to_char(e."FECHA_APROBACION", 'DD/MM/YYYY') fechaaprobacion,
+       (SELECT pe."NOMBRE_PERSONA"|| ' ' || pe."APELLIDO_PERSONA"
+	FROM   "CREAR_PROYECTO"."PROYECTO" p,
+	       "CREAR_PROYECTO"."DETALLE_PROYECTO_USER_ROL" dpur,
+	       seguridad.security_rol_user sru,
+	       seguridad.security_user su,
+	       "CREAR_PROYECTO"."PERSONA" pe
+	WHERE p."ID_RESPONSABLE_PROYECTO" = dpur.id_detalle_proyecto_user
+	AND   dpur."ID_USER_ROL" = sru.id_detalle
+	AND   sru.id_user = su.id_user
+	AND   su."ID_PERSONA" = pe."ID_PERSONA"
+	AND   p."ID_PROYECTO" = dep."ID_PROYECTO") nombreresponentregable,
+       (SELECT pe."NOMBRE_PERSONA"||' '||pe."APELLIDO_PERSONA" FROM "CREAR_PROYECTO"."PERSONA" pe
+        WHERE pe."ID_PERSONA" = e."ID_PER_ASIGNADO_CERTIFICACION") certificador
+       --,e."OBSERVACIONES"
+FROM "CREAR_PROYECTO"."PROYECTO" p,
+     "PLANIFICAR_PROYECTO"."DETALLE_ENTREGABLE_PRODUCTO" dep,
+     "PLANIFICAR_PROYECTO"."ENTREGABLE" e
+WHERE p."ID_PROYECTO" = dep."ID_PROYECTO"
+AND   dep."ID_ENTREGABLE" = e."ID_ENTREGABLE"
+AND   p."ID_PROYECTO" = (SELECT CASE WHEN $P{idproyecto} = 0 THEN p."ID_PROYECTO"
+			 ELSE $P{idproyecto} END)
+AND   e."ID_ESTADO_ENTREGABLE" = (SELECT CASE WHEN $P{idestadoentregable} = 0 THEN e."ID_ESTADO_ENTREGABLE"
+				  ELSE $P{idestadoentregable} END)
+AND   dep."ESTADO" = 1
+AND   e."ESTADO" = 1;]]>
+	</queryString>
+	<field name="nomproyecto" class="java.lang.String"/>
+	<field name="nomentregable" class="java.lang.String"/>
+	<field name="fechaprogramada" class="java.lang.String"/>
+	<field name="estadoentregable" class="java.lang.String"/>
+	<field name="fechaenvio" class="java.lang.String"/>
+	<field name="fechaaprobacion" class="java.lang.String"/>
+	<field name="nombreresponentregable" class="java.lang.String"/>
+	<field name="certificador" class="java.lang.String"/>
+	<group name="monproyectogroup">
+		<groupExpression><![CDATA[$F{nomproyecto}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="134" height="20" forecolor="#FFFFFF" backcolor="#FF6600" uuid="cc2d7899-da46-46e9-8b10-b580b020da37"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+					<text><![CDATA[ NOMBRE DE PROYECTO]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="140" y="0" width="415" height="20" uuid="9cee7ede-bddb-4a08-a540-c32d708e55e2"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{nomproyecto}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="134" y="0" width="6" height="20" forecolor="#FFFFFF" backcolor="#FF6600" uuid="11c80f96-c114-46cf-9a9f-a90189222c5e"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineColor="#FF6600"/>
+						<bottomPen lineWidth="0.5" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+					<text><![CDATA[:]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="193" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="110" height="55" uuid="20c04157-1ec9-4b69-a7d8-5d1aa0831bbe"/>
+				<imageExpression><![CDATA[$P{ROOT_DIR} + "firmaSigcomt.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="140" y="0" width="262" height="50" uuid="c408641a-a6d6-4d5e-9d80-fb8af9a8c46a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE ENTREGABLES POR PROYECTOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="449" y="45" width="38" height="20" uuid="5dfee7ea-05fe-406e-b86a-7f3e1120619b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Hora :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="449" y="25" width="38" height="20" uuid="b64d9f14-eae0-4365-87c7-61c766723f40"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="427" y="5" width="60" height="20" uuid="15e85e9c-7e8e-47d0-a544-cebce89926c4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página: "]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="487" y="25" width="68" height="20" uuid="2af86a5d-065a-4cdb-bddf-d3562490026f"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm a">
+				<reportElement x="487" y="45" width="68" height="20" uuid="002fb40a-645f-4fc8-91f5-bd7ad38d0ebd"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="487" y="5" width="31" height="20" uuid="854b416b-58f8-4a98-9679-f95d6c238962"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" de "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="487" y="65" width="68" height="20" uuid="423327b0-da24-4b6f-a778-f1926e3e12b6"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{usuario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="449" y="65" width="38" height="20" uuid="5991f335-a333-482a-b2ce-a10f2b7bccc4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Usuario :]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="518" y="5" width="37" height="20" uuid="c9657062-0499-4929-93d6-ff5f3795fa56"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["" + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="116" y="149" width="280" height="20" uuid="ee01b97b-ff08-4002-ae9b-f7bb400abc8c"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{dscestadoentregable}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="149" width="100" height="20" uuid="53a4124a-7322-43cb-99ac-f02b0d0fa425"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[Estado Entregable]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="129" width="100" height="20" uuid="397d6e07-a001-466b-9bdd-097058fc8956"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[Proyecto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="129" width="6" height="20" uuid="a0ae7a30-a3cf-481a-9846-5386f8f0ce37"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="109" width="386" height="20" uuid="3d543b44-1fe7-410e-801a-fb4f1f13240e"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[Se genero el reporte de entregables por proyecto bajo los siguientes filtros:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="116" y="129" width="280" height="20" uuid="6b392779-4c65-4bcd-938b-dfebe763cb5b"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{dscproyecto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="110" y="149" width="6" height="20" uuid="9889837e-a7d1-4ded-9a26-409490c756c0"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="152" y="0" width="76" height="30" forecolor="#FFFFFF" backcolor="#FF6600" uuid="5b213794-5795-4445-ab20-f78129d8ad08"/>
+				<box>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[ESTADO ENTREGABLE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="228" y="0" width="60" height="30" forecolor="#FFFFFF" backcolor="#FF6600" uuid="85f1989d-c526-4641-8e78-2e0d1c2ba884"/>
+				<box>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[FECHA ENVIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="74" height="30" forecolor="#FFFFFF" backcolor="#FF6600" uuid="250c5dd7-3f42-4f22-942f-212de4ec7923"/>
+				<box>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[NOMBRE ENTREGABLE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="367" y="0" width="96" height="30" forecolor="#FFFFFF" backcolor="#FF6600" uuid="c164695b-1547-4e64-8c4e-8b2ced9b8219"/>
+				<box>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[NOMBRE RESPONSABLE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="288" y="0" width="79" height="30" forecolor="#FFFFFF" backcolor="#FF6600" uuid="b6d99f02-6d44-4b37-88c3-1ebfbd80e800"/>
+				<box>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[FECHA APROBACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="463" y="0" width="92" height="30" forecolor="#FFFFFF" backcolor="#FF6600" uuid="71ed59a3-a557-47de-961b-8e4a06a1bb9e"/>
+				<box>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[NOMBRE CERTIFICADOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="74" y="0" width="78" height="30" forecolor="#FFFFFF" backcolor="#FF6600" uuid="dce2f82b-e30b-4573-ad25-59aaf5eb3d9b"/>
+				<box>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[FECHA PROGRAMADA]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="74" height="40" isPrintWhenDetailOverflows="true" uuid="f405965f-1173-4965-adc2-fa9e66548d17"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nomentregable}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="74" y="0" width="78" height="40" isPrintWhenDetailOverflows="true" uuid="45248978-986c-4530-83a2-c5bbe02c0f3f"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fechaprogramada}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="152" y="0" width="76" height="40" isPrintWhenDetailOverflows="true" uuid="131b83ca-5635-4f7b-a75e-175d2354ca1e"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{estadoentregable}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="228" y="0" width="60" height="40" isPrintWhenDetailOverflows="true" uuid="7b339bd2-5067-45f9-8f3c-983366b938a2"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fechaenvio}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="288" y="0" width="79" height="40" isPrintWhenDetailOverflows="true" uuid="36610965-4a1b-4cff-8727-c9b996d0cd3d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fechaaprobacion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="367" y="0" width="96" height="40" isPrintWhenDetailOverflows="true" uuid="540727c9-6c90-435e-805d-ee56c16de589"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombreresponentregable}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="463" y="0" width="92" height="40" isPrintWhenDetailOverflows="true" uuid="75127dc2-c950-4487-9e24-a323ab622d21"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{certificador}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

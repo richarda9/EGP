@@ -99,7 +99,7 @@ public class EjecucionServiceImp implements EjecucionService
 		DetalleRolProyecto detalle = ejecucionDao.obtCantidadRecursobyRol(dato);
 		int cantActual = ejecucionDao.obtCantidadActualRecursobyRol(detalle);
 		
-		if(cantActual < detalle.getCantidad().intValue()){
+		if(cantActual < detalle.getCantidad()){
 			DetalleAsignacionResponsable deta = new DetalleAsignacionResponsable();
 			
 			deta.setIddetrolproyecto(detalle.getId());
@@ -308,7 +308,7 @@ public class EjecucionServiceImp implements EjecucionService
         DriverManagerDataSource dataSource =(DriverManagerDataSource)ctx.getBean("dataSource");
         Connection cnn = dataSource.getConnection();
         JasperPrint jasperPrint;
-        String rutaCompleta = ruta + "WEB-INF\\views\\reportes\\" + "InformeAvance.jasper";
+        String rutaCompleta = ruta + "WEB-INF\\views\\jasper\\" + "InformeAvance.jasper";
         String fileName = "InformeAvance-" + parser.format(new Date())+".pdf";
 		
         dato.setEnvioCorreo(Constantes.ESTADO_ACTIVO);
@@ -318,7 +318,7 @@ public class EjecucionServiceImp implements EjecucionService
         Map<String,Object> parameterMap = new HashMap<String,Object>();		 
         parameterMap.put("idproyecto", dato.getIdProyecto());
         parameterMap.put("idinformeavance", dato.getId());
-        parameterMap.put("ROOT_DIR", ruta + "WEB-INF\\views\\reportes\\");
+        parameterMap.put("ROOT_DIR", ruta + "WEB-INF\\views\\jasper\\");
         
         jasperPrint  = JasperFillManager.fillReport(rutaCompleta, parameterMap, cnn);
         JasperExportManager.exportReportToPdfFile(jasperPrint, ruta + "WEB-INF\\temp\\"+ fileName);

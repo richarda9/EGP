@@ -88,7 +88,6 @@ function regresar()
 		break;
 	}
 	case "perfil.htm": {
-// 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
 		$("#divBtnRegresar").hide();
 		break;
 	}
@@ -97,14 +96,12 @@ function regresar()
 		break;
 	}
 	case "configuracion.htm": {
-// 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
 		$("#divBtnRegresar").hide();
 		break;
 	}
 
 	// GESTION DE PROYECTOS
 	case "anteproyecto.htm": {
-// 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
 		$("#divBtnRegresar").hide();
 		break;
 	}
@@ -120,7 +117,6 @@ function regresar()
 	}
 	
 	case "planificacion.htm": {
-// 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
 		$("#divBtnRegresar").hide();
 		break;
 	}
@@ -131,7 +127,6 @@ function regresar()
 	}
 	
 	case "ejecucion.htm": {
-// 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
 		$("#divBtnRegresar").hide();
 		break;
 	}
@@ -142,7 +137,6 @@ function regresar()
 	}
 		
 	case "cierre.htm": {
-// 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
 		$("#divBtnRegresar").hide();
 		break;
 	}
@@ -154,37 +148,36 @@ function regresar()
 		
 	//ADMINISTRACION DE PROYECTOS
 	case "empresa.htm": {
-// 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
 		$("#divBtnRegresar").hide();
 		break;
 	}
 	
 	case "recursos.htm": {
-// 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
 		$("#divBtnRegresar").hide();
 		break;
 	}
 	
 	case "organigrama.htm":{
-// 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
 		$("#divBtnRegresar").hide();
 		break;
 	}
 	
 	case "asociadoProyecto.htm": {
-// 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
 		$("#divBtnRegresar").hide();
 		break;
 	}
 	
 	case "asociadoEntregable.htm": {
-// 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
 		$("#divBtnRegresar").hide();
 		break;
 	}
 	
 	case "tipoCambio.htm": {
-// 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/"+url2[3]);
+		$("#divBtnRegresar").hide();
+		break;
+	}
+	
+	case "reportesProyecto.htm": {
 		$("#divBtnRegresar").hide();
 		break;
 	}

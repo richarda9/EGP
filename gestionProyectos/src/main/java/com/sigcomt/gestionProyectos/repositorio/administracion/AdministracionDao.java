@@ -17,6 +17,7 @@ import com.sigcomt.gestionProyectos.dominio.administracion.TipoRequisito;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoRol;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoSupuesto;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.Complejidad;
+import com.sigcomt.gestionProyectos.dominio.ejecucion.EstadoTarea;
 import com.sigcomt.gestionProyectos.model.administracion.ContactoEmpresaModel;
 import com.sigcomt.gestionProyectos.model.administracion.RecursosModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
@@ -31,6 +32,7 @@ public interface AdministracionDao
 	public List<TipoProyecto> listarTipoProyectoByEsado(int estado);
 	public void eliminarTipoProyecto(Integer id);
 	public int buscarTipoProyecto(TipoProyecto param);
+	public TipoProyecto buscarTipoProyectoById(Long id);
 	//[FIN] TIPO PROYECTO
 	
 	//[INI] ESTADO PROYECTO
@@ -38,6 +40,7 @@ public interface AdministracionDao
 	public List<EstadoProyecto> listarEstadoProyecto();
 	public void eliminarEstadoProyecto(Integer id);
 	public int buscarEstadoProyecto(EstadoProyecto param);
+	public EstadoProyecto buscarEstadoProyectoById(Long id);
 	//[FIN] ESTADO PROYECTO
 		
 	//[INI] TIPO REQUISITO
@@ -121,5 +124,8 @@ public interface AdministracionDao
 //  FIN - ORGANIGRAMA
 	
 	public List<TipoAvance> listarTipoAvance();
+	
+	//
+	public EstadoTarea buscarEstadoTareaByID(Long id);
 	
 }

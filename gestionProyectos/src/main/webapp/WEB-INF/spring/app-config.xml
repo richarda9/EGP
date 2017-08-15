@@ -45,6 +45,7 @@
 					<value>/WEB-INF/spring/tiles/home.xml</value>
 					<value>/WEB-INF/spring/tiles/administracion.xml</value>
 					<value>/WEB-INF/spring/tiles/gestion.xml</value>
+					<value>/WEB-INF/spring/tiles/reporte.xml</value>
 					<!--<value>/WEB-INF/spring/tiles/logistica.xml</value>
 					<value>/WEB-INF/spring/tiles/produccion.xml</value>
 					<value>/WEB-INF/spring/tiles/costos.xml</value>

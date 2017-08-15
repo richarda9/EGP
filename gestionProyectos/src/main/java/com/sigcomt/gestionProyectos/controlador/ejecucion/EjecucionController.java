@@ -358,7 +358,7 @@ public class EjecucionController
 	@RequestMapping(value = "/descargar_InformeAvance.htm", method = RequestMethod.GET)
 	public ModelAndView descargarInformeAvance(@RequestParam Long idParam1,@RequestParam Long idParam2, HttpServletRequest request) 
 	{
-	  	String path = request.getSession().getServletContext().getRealPath("/WEB-INF/views/reportes/");
+	  	String path = request.getSession().getServletContext().getRealPath("/WEB-INF/views/jasper/");
         Map<String,Object> parameterMap = new HashMap<String,Object>();		        
         parameterMap.put("idproyecto", idParam1);
         parameterMap.put("idinformeavance", idParam2);

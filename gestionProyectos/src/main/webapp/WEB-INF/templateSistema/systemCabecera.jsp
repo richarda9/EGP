@@ -12,7 +12,7 @@ border: 0px solid #000000;">
 </a>
 
 <ul class="nav ace-nav pull-right">
-	<li class="green">
+	<!--<li class="green">
 		<a data-toggle="dropdown" class="dropdown-toggle" href="#"> 
 			<i class="icon-envelope icon-animated-vertical"></i> 
 			<span class="badge badge-success">5</span>
@@ -74,7 +74,7 @@ border: 0px solid #000000;">
 				</a>
 			</li>
 		</ul>
-	</li>
+	</li> -->
 
 	<li class="light-blue">
 		<a data-toggle="dropdown" href="#" class="dropdown-toggle"> 

@@ -160,6 +160,14 @@ $(document).ready(function() {
 		break;
 	}
 	
+	case "reportesProyecto.htm": {
+		module = "#gestionReportes";
+		item = "#idReportesProyecto";
+		document.getElementById("moduloSistema").innerHTML = " Gesti&oacute;n de Reportes";
+		document.getElementById("itemSistema").innerHTML = "Reportes";
+		break;
+	}
+	
 	default:
 		break;
 	}

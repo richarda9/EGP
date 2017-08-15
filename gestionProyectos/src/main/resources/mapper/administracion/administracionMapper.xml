@@ -29,6 +29,12 @@
 		where "DESCRIPCION_TIPO_PROYECTO" = #{descripcion}
 		and "ESTADO" = #{estado};
 	</select>
+	
+	<select id="buscarTipoProyectoById" resultType="TipoProyecto" parameterType="long">
+		select  "ID_TIPO_PROYECTO" as id, "DESCRIPCION_TIPO_PROYECTO" as descripcion, "ESTADO" as estado
+		from "CREAR_PROYECTO"."TIPO_PROYECTO"
+		where "ID_TIPO_PROYECTO" = #{id};
+	</select>
 	<!-- [FIN] TIPO PROYECTO -->
 	
 	<!-- [INI] ESTADO PROYECTO -->
@@ -51,6 +57,12 @@
 		from "CREAR_PROYECTO"."ESTADO_PROYECTO"
 		where "DESCRIPCION_ESTADO_PROYECTO" = #{descripcion}
 		and "ESTADO" = #{estado};
+	</select>
+	
+	<select id="buscarEstadoProyectoById" resultType="EstadoProyecto" parameterType="long">
+		select "ID_ESTADO_PROYECTO" as id, "DESCRIPCION_ESTADO_PROYECTO" as descripcion, "ESTADO" as estado
+		from "CREAR_PROYECTO"."ESTADO_PROYECTO"
+		where "ID_ESTADO_PROYECTO" = #{id};
 	</select>
 	<!-- [FIN] ESTADO PROYECTO -->
 	
@@ -484,4 +496,12 @@
 		       "ESTADO" estado
 	    FROM "PLANIFICAR_PROYECTO"."TIPO_AVANCE";
 	</select>
+	
+	<!-- [INI] TAREA -->
+	<select id="buscarEstadoTareaByID" parameterType="long" resultType="estadoTarea">
+		SELECT "ID_ESTADO_TAREA" id, "DESCRIPCION_ESTADO_TAREA" descripcion, "ESTADO"
+		FROM "PLANIFICAR_PROYECTO"."ESTADO_TAREA"
+		WHERE "ID_ESTADO_TAREA" = #{id};
+	</select>
+	<!-- [FIN] TAREA -->
 </mapper>
