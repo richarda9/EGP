@@ -1,5 +1,6 @@
 package com.sigcomt.gestionProyectos.repositorio.anteproyecto;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,9 @@ import com.sigcomt.gestionProyectos.dominio.administracion.DetalleProyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.Entregable;
 import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
+import com.sigcomt.gestionProyectos.dominio.administracion.TipoRol;
+import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAdquisicionProyecto;
+import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleRolProyecto;
 import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
@@ -97,6 +101,19 @@ public interface ProyectoDao {
     public void guardarDetalleRiesgos(DetalleRiesgosModel detalleRiesgosModel);
     public void eliminarDetalleRiesgos(DetalleRiesgosModel detalleRiesgosModel);
     public List<DetalleRiesgosModel> listarDetalleRiesgosIdProyecto(Long idProyecto);
+    
+    public List<DetalleAdquisicionProyecto> listarDetalleAdquisicionIdProyecto(Long idProyecto);
+    
+    public List<TipoRol> listarTipoRolByTipoRol(int tipoRol);
+    
+    public void guardarDetalleRolProyecto(DetalleRolProyecto detalleRolProyecto);
+    public void eliminarDetalleRolProyecto(DetalleRolProyecto detalleRolProyecto);    
+    public List<DetalleRolProyecto> listarDetalleRolProyectoByIdProyectoByTipoRol(Map<String, Object> params);
+    public List<DetalleRolProyecto> listarDetalleRolProyectoByIdProyectoByTipoRolResponsabilidad(Map<String, Object> params);   
+    public void actualizarDescripcionTipoRol(DetalleRolProyecto detalleRolProyecto);
+    public String validacionejecutarproyecto(Long idProyecto);
+    public void actualizarDetalleEstadoProyectoByIdProyecto(DetalleEstadoProyecto detalleEstadoProyecto);
+    public void ejecutarEjecucion(Map<String, Object> params);
 //  FIN - PLANIFICACION
     
 }

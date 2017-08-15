@@ -1,94 +1,135 @@
 <%@ include file="/WEB-INF/views/include.jsp"%>
 <div>
 	<div class="row-fluid">
+        <div class="span12">
+            <div class="span5">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="span12 " style="float: left;">
+                            <b><h4 id="idHeaderCodigoPy" class="smaller lighter blue">${model.codigoProyecto} - ${model.nombreProyecto}</h4></b>
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+            <div class="span7">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="span3" style="float: left;">
+                            <a class="btn btn-small btn-info span12" onclick = "validacionEjecutarProyecto()">
+                                <i class="icon-save"></i>
+                                Ejecutar Proyecto
+                            </a>
+                        </div>
+                        <div class="span3" style="float: left;">
+                            <button class="btn btn-small btn-info span12">
+                                <i class="icon-print"></i>
+                                Imprimir
+                            </button>
+                        </div>
+                        <div class="span3" style="float: left;">
+                            <a class="btn btn-small btn-info span12" href="#modalCancelarProyecto" data-toggle="modal">
+                                <i class="icon-remove-sign"></i>
+                                Cancelar
+                            </a>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="space-20"></div>
+        <div class="space-20"></div>
+    </div>
+	<div class="row-fluid">
 		<div class="span12">
 			<div class="tabbable tabs-left">
 				<ul class="nav nav-tabs" id="myTab3">
-					<li class="active">
-						<a data-toggle="tab" href="#dscProducto">
-							<i class="pink icon-dashboard bigger-110"></i>
-							Descripci&oacute;n del Producto
-							<input id = "codigoPy" type="hidden" value="${model.codigoPy}"/>
-						</a>
-					</li>
-
-					<li>
-						<a data-toggle="tab" href="#alcance">
-							<i class="blue icon-user bigger-110"></i>
-							Alcance
-						</a>
-					</li>
-
-					<li>
-						<a data-toggle="tab" href="#recursoHumanos">
-							<i class="icon-rocket"></i>
-							Recursos Humanos
-						</a>
-					</li>
-
-					<li>
-						<a data-toggle="tab" href="#cronograma">
-							<i class="icon-rocket"></i>
-							Cronograma
-						</a>
-					</li>
-
-					<li>
-						<a data-toggle="tab" href="#entregable">
-							<i class="icon-rocket"></i>
-							Entregables
-						</a>
-					</li>
-
-					<li>
-						<a data-toggle="tab" href="#riesgos">
-							<i class="icon-rocket"></i>
-							Riesgos
-						</a>
-					</li>
-
-					<li>
-						<a data-toggle="tab" href="#adquisiciones">
-							<i class="icon-rocket"></i>
-							Adquisiciones
-						</a>
-					</li>
-
-					<li>
-						<a data-toggle="tab" href="#costos">
-							<i class="icon-rocket"></i>
-							Costos
-						</a>
-					</li>
-
-					<li>
-						<a data-toggle="tab" href="#costosOperativos">
-							<i class="icon-rocket"></i>
-							Costos Operativos
-						</a>
-					</li>
-
-					<li>
-						<a data-toggle="tab" href="#presupuesto">
-							<i class="icon-rocket"></i>
-							Presupuesto
-						</a>
-					</li>
-
-					<li>
-						<a data-toggle="tab" href="#formasdePago">
-							<i class="icon-rocket"></i>
-							Formas de Pago
-						</a>
-					</li>
-
-					<li>
-						<a data-toggle="tab" href="#contrato">
-							<i class="icon-rocket"></i>
-							Contrato
-						</a>
-					</li>
-				</ul>
+                    <li class="active">
+                        <a data-toggle="tab" href="#dscProducto">
+                            <i class="red icon-lightbulb bigger-110"></i>
+                            Descripci&oacute;n del Producto
+                            <input id = "codigoPy" type="hidden" value="${model.codigoPy}"/>
+                        </a>
+                    </li>
+ 
+                    <li>
+                        <a data-toggle="tab" href="#alcance">
+                            <i class="blue icon-rocket bigger-110"></i>
+                            Alcance
+                        </a>
+                    </li>
+ 
+                    <li>
+                        <a data-toggle="tab" href="#recursoHumanos">
+                            <i class="orange icon-group"></i>
+                            Recursos Humanos
+                        </a>
+                    </li>
+ 
+                    <li>
+                        <a data-toggle="tab" href="#cronograma">
+                            <i class="blue icon-calendar"></i>
+                            Cronograma
+                        </a>
+                    </li>
+ 
+                    <li>
+                        <a data-toggle="tab" href="#entregable">
+                            <i class="pink icon-bookmark"></i>
+                            Entregables
+                        </a>
+                    </li>
+ 
+                    <li>
+                        <a data-toggle="tab" href="#riesgos">
+                            <i class="red icon-bolt"></i>
+                            Riesgos
+                        </a>
+                    </li>
+ 
+                    <li>
+                        <a data-toggle="tab" href="#adquisiciones">
+                            <i class="purple icon-gift "></i>
+                            Adquisiciones
+                        </a>
+                    </li>
+ 
+                    <li>
+                        <a data-toggle="tab" href="#costos">
+                            <i class="green icon-asterisk"></i>
+                            Costos
+                        </a>
+                    </li>
+ 
+                    <li>
+                        <a data-toggle="tab" href="#costosOperativos">
+                            <i class="grey icon-laptop"></i>
+                            Costos Operativos
+                        </a>
+                    </li>
+ 
+                    <li>
+                        <a data-toggle="tab" href="#presupuesto">
+                            <i class="pink icon-bar-chart"></i>
+                            Presupuesto
+                        </a>
+                    </li>
+ 
+                    <li>
+                        <a data-toggle="tab" href="#formasdePago">
+                            <i class="blue icon-credit-card"></i>
+                            Formas de Pago
+                        </a>
+                    </li>
+ 
+                    <li>
+                        <a data-toggle="tab" href="#contrato">
+                            <i class="brown icon-book"></i>
+                            Contrato
+                        </a>
+                    </li>
+                </ul>
 				
 				<div class="tab-content">
 					<!-- INI - PLANIFICACION - DESCRIPCION PRODUCTO  -->
@@ -477,46 +518,149 @@
 					<!-- FIN - PLANIFICACION - ALCANCE  -->
 
 					<div id="recursoHumanos" class="tab-pane">
-						<div id="accordion3" class="accordion">
-							<div class="accordion-group">
-								<div class="accordion-heading">
-									<a href="#OrgEquipo" data-parent="#accordion3" data-toggle="collapse" class="accordion-toggle collapsed">
-										Organigrama del Equipo
-									</a>
-								</div>
-
-								<div class="accordion-body in collapse" id="OrgEquipo">
-									<div class="accordion-inner">
-										<p><b style="font-size: 9px;">**Haga click derecho sobre el puesto para desplegar el menu</b></p>
-										<div class="row-fluid">
-											<div class="span12">
-												<div class="widget-box span6">
-													<div class="widget-header header-color-blue2">
-														<h4 class="lighter smaller">Proveedor</h4>
-													</div>
-				
-													<div class="widget-body">
-														<div class="widget-main padding-8">
-															<div id="arbolProveedor" class="tree"></div>
-														</div>
-													</div>
-												</div>
-												<div class="widget-box span6">
-													<div class="widget-header header-color-blue2">
-														<h4 class="lighter smaller">Cliente</h4>
-													</div>
-				
-													<div class="widget-body">
-														<div class="widget-main padding-8">
-															<div id="arbolCliente" class="tree"></div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>										
-									</div>
-								</div>
-							</div>
+                        <div id="accordion3" class="accordion">
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <a href="#OrgEquipo" data-parent="#accordion3" data-toggle="collapse" class="accordion-toggle collapsed">
+                                        Equipos
+                                    </a>
+                                </div>
+ 
+                                <div class="accordion-body in collapse" id="OrgEquipo">
+                                    <div class="accordion-inner">
+                                        <form  name="formTipoRolProveedor" id="formTipoRolProveedor" method="post">
+                                        <div class="row-fluid">
+                                            <div class="span12">                                                
+                                                <h4 class="lighter smaller" style = "color: #2679b5 !important">Proveedor</h4>  
+                                                <hr width="100%" style = "border-bottom: 1px dotted #e2e2e2">                                                                                             
+                                                <div class="row-fluid">
+                                                    <div class="span12">
+                                                        <div class="span6">
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="tipoRolProveedor">Tipo de Rol</label> 
+                                                                <div class="controls">
+                                                                    <select id="idTipoRolProveedor" name="idTipoRolProveedor" title="tipoRolProveedor">
+                                                                        <option value="">Seleccionar</option>
+                                                                        <c:forEach var="tipoRol" items="${model.listaTipoRolProveedor}" varStatus="contador">
+                                                                           <option value="${tipoRol.id}">${tipoRol.nombreRol}</option>
+                                                                        </c:forEach>
+                                                                    </select>
+                                                                </div>
+                                                            </div>                                                            
+                                                        </div>
+                                                        <div class="span6">
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="cantidadTipoRolProveedor">Cantidad</label>    
+                                                                <div class="controls">
+                                                                    <input type="text" id="idCantidadTipoRolProveedor" name="idCantidadTipoRolProveedor" class="span12" placeholder="Cantidad"/>                                                            
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>                                                            
+                                                <div class="row-fluid">
+                                                    <div class="span9"></div>
+                                                    <div class="span3">
+                                                        <a class="btn btn-small btn-info span12" onclick="guardarRolProveedor()">
+                                                            <i class="icon-save bigger-125"></i>
+                                                            Guardar Rol Proveedor
+                                                        </a>
+                                                    </div>                                        
+                                                </div>
+                                                <br>
+                                                <table id="tablaTipoRolProveedor" class="table table-striped table-bordered table-hover" style = "width : 100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Id</th>     
+                                                            <th>Rol Proveedor</th>
+                                                            <th>Cantidad</th>
+                                                            <th>Opciones</th>
+                                                        </tr>
+                                                    </thead>
+                        
+                                                    <tbody>
+                                                        <!-- <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>                                                   
+                                                        </tr> -->
+                                                    </tbody>
+                                                </table>                                                                                                                           
+                                            </div>
+                                        </div>    
+                                        </form>
+                                        <hr width="100%" style = "border-bottom: 1px dotted #e2e2e2">
+                                        <hr width="100%" style = "border-bottom: 1px dotted #e2e2e2"> 
+                                        <form  name="formTipoRolCliente" id="formTipoRolCliente" method="post">                                     
+                                        <div class="row-fluid">
+                                            <div class="span12">                                                
+                                                <h4 class="lighter smaller" style = "color: #2679b5 !important">Cliente</h4>    
+                                                <hr width="100%" style = "border-bottom: 1px dotted #e2e2e2">                                                                                             
+                                                <div class="row-fluid">
+                                                    <div class="span12">
+                                                        <div class="span6">
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="tipoRolCliente">Tipo de Rol</label>   
+                                                                <div class="controls">
+                                                                    <select id="idTipoRolCliente" name="idTipoRolCliente" title="tipoRolCliente">
+                                                                        <option value="">Seleccionar</option>
+                                                                        <c:forEach var="tipoRol" items="${model.listaTipoRolCliente}" varStatus="contador">
+                                                                           <option value="${tipoRol.id}">${tipoRol.nombreRol}</option>
+                                                                        </c:forEach>
+                                                                    </select>
+                                                                </div>
+                                                            </div>                                                            
+                                                        </div>
+                                                        <div class="span6">
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="cantidadTipoRolCliente">Cantidad</label>  
+                                                                <div class="controls">
+                                                                    <input type="text" id="idCantidadTipoRolCliente" name="idCantidadTipoRolCliente" class="span12" placeholder="Cantidad"/>                                                            
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>                                                            
+                                                <div class="row-fluid">
+                                                    <div class="span9"></div>
+                                                    <div class="span3">
+                                                        <a class="btn btn-small btn-info span12" onclick="guardarRolCliente()">
+                                                            <i class="icon-save bigger-125"></i>
+                                                            Guardar Rol Cliente
+                                                        </a>
+                                                    </div>                                        
+                                                </div>
+                                                <br>
+                                                <table id="tablaTipoRolCliente" class="table table-striped table-bordered table-hover" style = "width : 100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Id</th>     
+                                                            <th>Rol Cliente</th>
+                                                            <th>Cantidad</th>
+                                                            <th>Opciones</th>
+                                                        </tr>
+                                                    </thead>
+                        
+                                                    <tbody>
+                                                        <!-- <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>                                                   
+                                                        </tr> -->
+                                                    </tbody>
+                                                </table>                                                                                                                                                                  
+                                            </div>
+                                        </div>    
+                                        </form>                                                                   
+                                    </div>
+                                </div>
+                            </div>
 							
 							<div class="accordion-group">
 								<div class="accordion-heading">
@@ -527,23 +671,55 @@
 								<div class="accordion-body collapse" id="responsabilidades">
 									<div class="accordion-inner">
 										<br>
-										<table id="tablafactExitoProyecto" class="table table-striped table-bordered table-hover">
-											<thead>
-												<tr>
-													<th>Codigo</th>
-													<th>Descripci&oacute;n</th>
-													<th>Opciones</th>
-												</tr>
-											</thead>
-				
-											<tbody>
-												<tr>
-													<td></td>
-													<td></td>
-													<td></td>													
-												</tr>
-											</tbody>
-										</table>
+										<h4 class="lighter smaller" style = "color: #2679b5 !important">PROVEEDOR</h4>    
+                                        <hr width="100%" style = "border-bottom: 1px dotted #e2e2e2">
+										<table id="tablaRRHHResponsabilidadesProveedor" class="table table-striped table-bordered table-hover" style = "width : 100%">
+                                             <thead>
+                                                 <tr>
+                                                     <th>Id</th>     
+                                                     <th>ROL</th>
+                                                     <th>DESCRIPCIÓN</th>
+                                                     <th>CANTIDAD</th>
+                                                     <th>OPCIONES</th>
+                                                 </tr>
+                                             </thead>
+                 
+                                             <tbody>
+                                                 <!-- <tr>
+                                                     <td></td>
+                                                     <td></td>
+                                                     <td></td>
+                                                     <td></td>
+                                                     <td></td>
+                                                     <td></td>                                                   
+                                                 </tr> -->
+                                             </tbody>
+                                         </table>  
+                                         <br>
+										 <h4 class="lighter smaller" style = "color: #2679b5 !important">CLIENTE</h4>    
+                                         <hr width="100%" style = "border-bottom: 1px dotted #e2e2e2">
+										 <table id="tablaRRHHResponsabilidadesCliente" class="table table-striped table-bordered table-hover" style = "width : 100%">
+                                             <thead>
+                                                 <tr>
+                                                     <th>Id</th>     
+                                                     <th>ROL</th>
+                                                     <th>DESCRIPCIÓN</th>
+                                                     <th>CANTIDAD</th>
+                                                     <th>OPCIONES</th>
+                                                 </tr>
+                                             </thead>
+                 
+                                             <tbody>
+                                                 <!-- <tr>
+                                                     <td></td>
+                                                     <td></td>
+                                                     <td></td>
+                                                     <td></td>
+                                                     <td></td>
+                                                     <td></td>                                                   
+                                                 </tr> -->
+                                             </tbody>
+                                         </table>
 									</div>
 								</div>
 							</div>
@@ -756,22 +932,114 @@
 					</div>
 
 					<div id="adquisiciones" class="tab-pane">
+					<div class="row-fluid">
+							<div class="span12">
+								<div class="page-header position-relative"><h1>Adquisiciones para el Proyecto</h1></div>
+							</div>
+						</div>						
+										
+					<div class="row-fluid">
+						<div class="span12">
+							<div class="span9"></div>
+								<div class="span3" style="float:left;">
+									<a class="btn btn-small btn-info span12" onclick="guardarDetalleAdquisicion()">
+										<i class="icon-save bigger-125"></i>
+										Guardar
+									</a>
+								</div>
+						</div>
+					</div>
+					<div class="space-10"></div>
+					
+					<form  name="formDetalleAdquisicion" id="formDetalleAdquisicion" method="post">						
 						<div class="row-fluid">
 							<div class="span12">
-								<div class="span9">Adquisiciones para el Proyecto</div>
-								<div class="span3">
-									<button class="btn btn-info span12">
-										<i class="icon-plus bigger-125"></i>
-										Agregar Adquisici&oacute;n
-									</button>
+								<div class="span6">
+								<div class="control-group">
+									<label class="control-label" for="valProductoAD">Producto:</label>
+									<div class="controls">
+									<div class="span6">
+										<input type="text" class="span12" id="valProductoAD" name="valProductoAD" />
+									</div>
+									</div>
+								</div>	
+								</div>
+				
+								<div class="span6">
+								<div class="control-group">
+									<label class="control-label" for="idCategoriaAD">Categor&iacute;a:</label>
+									<div class="controls">
+										<div class="span6">
+											<select id="idCategoriaAD" name="idCategoriaAD" >
+											<option value="">Seleccionar</option>
+											<c:forEach var="listCategoriaAdqui" items="${model.listaCategoriaAdquisicion}" varStatus="pago">
+												<option value="${listCategoriaAdqui.id}">${listCategoriaAdqui.descripcion}</option>
+											</c:forEach>
+											</select>
+										</div> 
+									</div>
+								</div>
+								</div>
 								</div>
 							</div>
+							
+						<div class="row-fluid">
+							<div class="span12">
+							<div class="span6">
+							<div class="control-group">
+								<label class="control-label" for="valCantidadAD">Cantidad:</label>
+								<div class="controls">
+									<div class="span6">
+										<input type="text" class="span12" id="valCantidadAD" name="valCantidadAD"  />
+									</div>
+								</div>
+							</div>
+							</div>
+				
+							<div class="span6">
+							<div class="control-group">
+								<label class="control-label" for="valCostoUnitAD">Costo Unitario:</label>
+								<div class="controls">
+									<div class="span6">
+										<input type="text" class="span12" id="valCostoUnitAD" name="valCostoUnitAD"  />
+									</div>
+								</div>
+							</div>							
+							</div>
+							</div>
 						</div>
+						
+						<div class="row-fluid">
+							<div class="span12">
+								<div class="span6">
+								<div class="control-group">
+									<label class="control-label" for="fechaAdquirirAD">Fecha Adquisici&oacute;n:</label>
+									<div class="controls">
+										<div class="row-fluid input-append">
+											<input id="fechaAdquirirAD" name="fechaAdquirirAD" type="text" data-date-format="dd-mm-yyyy" />
+											<span class="add-on">
+											<i class="icon-calendar"></i>
+											</span>
+										</div>
+									</div>
+								</div>
+								</div>
+				
+								<div class="span6">								
+								</div>
+								</div>
+						</div>
+					</form>
+						
+						
+						
+						
 						<div class="space-20"></div>
 						<div class="row-fluid">
-							<table id="tablaAdquisicionesProyecto" class="table table-striped table-bordered table-hover">
+							<table id="tablaAdquisicionesProyecto" class="table table-striped table-bordered table-hover" style = "width : 100%">
 								<thead>
 									<tr>
+										<th>Id</th>
 										<th>Producto</th>
 										<th>Categor&iacute;a</th>
 										<th>Cantidad</th>
@@ -782,6 +1050,7 @@
 								</thead>	
 								<tbody>
 									<tr>
+										<td></td>
 										<td></td>
 										<td></td>
 										<td></td>	
@@ -1006,9 +1275,47 @@
 					</div>
 
 					<div id="contrato" class="tab-pane">
-						<p>"contrato".</p>
-						<p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
-					</div>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <div class="page-header position-relative"><h1>Propuesta de Servicio</h1></div>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <div class="span9"></div>
+                                <div class="span3" style="float:left;">
+                                    <a class="btn btn-small btn-info span12" onclick="generarPDFPropuesta()">
+                                        <i class="icon-save bigger-125"></i>
+                                        Generar PDF
+                                    </a>
+                                </div>                                
+                            </div>
+                        </div>
+                        <hr width="100%" style = "border-bottom: 1px dotted #e2e2e2">
+                        <form  name="formPropuestaServicio" id="formPropuestaServicio" method="post">
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <label class="control-label" for="fechaInicio">Contrato del Proyecto:</label>
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <input type="file" id="archContrato" />
+                                        </div>
+                                    </div>                                                                
+                                </div>    
+                                </div>
+                            <div class="row-fluid"> 
+                                <div class="span12">
+                                    <div class="span9"></div>
+                                    <div class="span3">
+                                        <a class="btn btn-small btn-info span12" onclick="guardarContrato()">
+                                            <i class="icon-save bigger-125"></i>
+                                                Guardar contrato
+                                        </a>
+                                    </div>                                
+                                </div>            
+                            </div>                            
+                        </form>
+                    </div>
 				</div>
 			</div>
 		</div>
@@ -1084,7 +1391,30 @@
 			</a>
 		</div>
 	</div>
-	<!-- FIN - MODAL DETALLE RIESGO -->	
+	<!-- FIN - MODAL DETALLE RIESGO -->
+	
+	<!-- INICIO - MODAL DETALLE ADQUISICION -->
+	<div id="modalEliminarDetalleAdquisicion" class="modal hide fade" tabindex="-1" data-attr-index="" >
+		<div class="modal-header no-padding">
+			<div class="table-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+		</div>
+
+		<div class="modal-body padding">
+			<b style="text-align: center">¿Est&aacute; seguro que desea eliminar Adquisición?</b> 	
+		</div>
+
+		<div class="modal-footer">
+			<a id ="confirmarEliminarDetalleAdquisicion" class="btn btn-small btn-primary">
+				<i class="icon-ok"></i> Confirmar
+			</a>
+			<a class="btn btn-small btn-light" data-dismiss="modal">
+				<i class="icon-remove"></i> Salir
+			</a>
+		</div>
+	</div>	
+	<!-- FIN - MODAL DETALLE ADQUISICION -->	
 	
 	<!-- INI - MODAL ELIMINAR EXCLUSIONES TABLA-->
 	<div id="modalEliminarExclusiones" class="modal hide fade" tabindex="-1" data-attr-index="" >
@@ -1177,11 +1507,206 @@
 			<a class="btn btn-small btn-light" data-dismiss="modal">
 				<i class="icon-remove"></i> Salir
 			</a>
-		</div>
-		<!-- FIN - MODAL ELIMINAR FACTOR EXITO TABLA-->	
-
+		</div>		
 	</div>
+	<!-- FIN - MODAL ELIMINAR FACTOR EXITO TABLA-->	
 	
+	<!-- INI - MODAL ELIMINAR TIPO ROL PROVEEDOR -->
+    <div id="modalEliminarTipoRolProveedor" class="modal hide fade" tabindex="-1" data-attr-index="" >
+        <div class="modal-header no-padding">
+            <div class="table-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+        </div>
+ 
+        <div class="modal-body padding">
+            <b style="text-align: center">¿Est&aacute; seguro que desea eliminar tipo de rol?</b>     
+        </div>
+ 
+        <div class="modal-footer">
+            <a id ="confirmarEliminarTipoRolProveedor" class="btn btn-small btn-primary">
+                <i class="icon-ok"></i> Confirmar
+            </a>
+            <a class="btn btn-small btn-light" data-dismiss="modal">
+                <i class="icon-remove"></i> Salir
+            </a>
+        </div>
+ 
+    </div>
+    <!-- FIN - MODAL ELIMINAR TIPO ROL PROVEEDOR -->
+    
+    <!-- INI - MODAL ELIMINAR TIPO ROL CLIENTE -->
+    <div id="modalEliminarTipoRolCliente" class="modal hide fade" tabindex="-1" data-attr-index="" >
+        <div class="modal-header no-padding">
+            <div class="table-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+        </div>
+ 
+        <div class="modal-body padding">
+            <b style="text-align: center">¿Est&aacute; seguro que desea eliminar tipo de rol?</b>     
+        </div>
+ 
+        <div class="modal-footer">
+            <a id ="confirmarEliminarTipoRolCliente" class="btn btn-small btn-primary">
+                <i class="icon-ok"></i> Confirmar
+            </a>
+            <a class="btn btn-small btn-light" data-dismiss="modal">
+                <i class="icon-remove"></i> Salir
+            </a>
+        </div>
+ 
+    </div>
+    <!-- FIN - MODAL ELIMINAR TIPO ROL CLIENTE --> 
+    
+    <!-- INI - MODAL GUARDAR DESCRIPCION TIPO ROL PROVEEDOR -->
+    <div id="modalActualizarTipoRolProveedorResponsabilidad" class="modal hide fade" tabindex="-1" data-attr-index="" >
+        <div class="modal-header">
+            <!-- <div class="table-header"> -->
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="blue bigger">Proveedor - Guardar Descripción</h4>
+            <!-- </div> -->
+        </div>
+ 
+        <div class="modal-body padding">
+            <div class="row-fluid">
+				<div class="span12">
+					<div class="span6">
+						<div class="control-group">
+							<label class="control-label" for="rolProveedor">ROL</label>	
+							<div class="controls">
+								<input type="text" id="idRolProveedor" class="span12" disabled/>															
+							</div>
+						</div>
+					</div>
+					<div class="span6">
+						<div class="control-group">
+							<label class="control-label" for="cantidadProveedor">CANTIDAD</label>	
+							<div class="controls">
+								<input type="text" id="idCantidadProveedor" class="span12" disabled/>															
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span12">					
+					<div class="control-group">
+						<label class="control-label" for="descripcionProveedor">DESCRIPCIÓN</label>	
+						<div class="controls">
+							<input type="text" id="idDescripcionProveedor" class="span12" />															
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+ 
+        <div class="modal-footer">
+            <a id ="confirmarActualizarTipoRolProveedorResponsabilidad" class="btn btn-small btn-primary">
+                <i class="icon-ok"></i> Guardar
+            </a>
+            <a class="btn btn-small btn-light" data-dismiss="modal">
+                <i class="icon-remove"></i> Salir
+            </a>
+        </div>
+ 
+    </div>
+    <!-- FIN - MODAL GUARDAR DESCRIPCION TIPO ROL PROVEEDOR -->
+	
+	<!-- INI - MODAL GUARDAR DESCRIPCION TIPO ROL CLIENTE -->
+    <div id="modalActualizarTipoRolClienteResponsabilidad" class="modal hide fade" tabindex="-1" data-attr-index="" >
+        <div class="modal-header">
+            <!-- <div class="table-header"> -->
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="blue bigger">Cliente - Guardar Descripción</h4>
+            <!-- </div> -->
+        </div>
+ 
+        <div class="modal-body padding">
+            <div class="row-fluid">
+				<div class="span12">
+					<div class="span6">
+						<div class="control-group">
+							<label class="control-label" for="rolCliente">ROL</label>	
+							<div class="controls">
+								<input type="text" id="idRolCliente" class="span12" disabled/>															
+							</div>
+						</div>
+					</div>
+					<div class="span6">
+						<div class="control-group">
+							<label class="control-label" for="cantidadCliente">CANTIDAD</label>	
+							<div class="controls">
+								<input type="text" id="idCantidadCliente" class="span12" disabled/>															
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span12">					
+					<div class="control-group">
+						<label class="control-label" for="descripcionCliente">DESCRIPCIÓN</label>	
+						<div class="controls">
+							<input type="text" id="idDescripcionCliente" class="span12" />															
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+ 
+        <div class="modal-footer">
+            <a id ="confirmarActualizarTipoRolClienteResponsabilidad" class="btn btn-small btn-primary">
+                <i class="icon-ok"></i> Guardar
+            </a>
+            <a class="btn btn-small btn-light" data-dismiss="modal">
+                <i class="icon-remove"></i> Salir
+            </a>
+        </div>
+ 
+    </div>
+    <!-- FIN - MODAL GUARDAR DESCRIPCION TIPO ROL CLIENTE -->
+    
+    <!-- INI - MODAL EJECUTAR - FECHA APROBACIÓN -->
+    <div id="modalEjecutarFechaAprobacion" class="modal hide fade form-horizontal" tabindex="-1" data-attr-index="" >
+        <div class="modal-header">
+            <!-- <div class="table-header"> -->
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="blue bigger">Ejecución del Proyecto</h4>
+            <!-- </div> -->
+        </div>
+ 
+        <div class="modal-body padding">            
+			<div class="row-fluid">
+				<div class="span12">					
+					<div class="control-group">
+					
+						<label class="control-label" for="fechaAprobacion">Fecha de Aprobación</label>	
+						<div class="controls">
+							<div class="row-fluid input-append">
+								<input id="fechaAprobacion" name="fechaAprobacion" type="text" data-date-format="dd-mm-yyyy" />
+								<span class="add-on">
+								<i class="icon-calendar"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+ 
+        <div class="modal-footer">
+            <a id ="ejecutarProyecto" class="btn btn-small btn-primary" onclick="ejecutarEjecucion()">
+                <i class="icon-ok"></i> Ejecutar
+            </a>
+            <a class="btn btn-small btn-light" data-dismiss="modal">
+                <i class="icon-remove"></i> Salir
+            </a>
+        </div>
+ 
+    </div>
+    <!-- FIN - MODAL EJECUTAR - FECHA APROBACIÓN -->
+    
 <script type="text/javascript">
 	var datosGrillas={};
 	datosGrillas = {"listaTipoRequisitoBD":'${model.listaTipoRequisitoBD}',
@@ -1190,9 +1715,14 @@
 			"listaDependenciaBD":'${model.listaDependenciaBD}',
 			"listaFactorExitoBD":'${model.listaFactorExitoBD}',
 			"listaDetalleFormaPagoBD":'${model.listaDetalleFormaPagoBD}',
-		 	"listaDetalleRiesgoBD":'${model.listaDetalleRiesgoBD}'};
+		 	"listaDetalleRiesgoBD":'${model.listaDetalleRiesgoBD}',
+		 	"listaDetalleAdquisicionBD":'${model.listaDetalleAdquisicionBD}',
+		 	"listaTipoRolProveedorBD":'${model.listaTipoRolProveedorBD}',
+	        "listaTipoRolClienteBD":'${model.listaTipoRolClienteBD}',
+	        "listaDetalleRolProyectoProveedorBD":'${model.listaDetalleRolProyectoProveedorBD}',
+	        "listaDetalleRolProyectoClienteBD":'${model.listaDetalleRolProyectoClienteBD}',
+	        "listaDetalleRolProyectoProveedorResponsabilidadBD":'${model.listaDetalleRolProyectoProveedorResponsabilidadBD}',
+	        "listaDetalleRolProyectoClienteResponsabilidadBD":'${model.listaDetalleRolProyectoClienteResponsabilidadBD}'};
 </script>
-
-	
 
 </div>	

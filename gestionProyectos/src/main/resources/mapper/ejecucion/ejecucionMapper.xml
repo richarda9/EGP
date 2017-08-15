@@ -285,11 +285,23 @@
 	</select>
 	
 	<insert id="mntAdquisiciones" parameterType="detalleAdquisicionProyecto">
-		INSERT INTO "PLANIFICAR_PROYECTO"."DETALLE_ADQUISICION_PROYECTO"("ID_DETALLE_ADQUISICION_PROYECTO", "ID_PROYECTO", "ID_CATEGORIA_ADQUISICION", "PRODUCTO", 
-								 "CANTIDAD", "COSTO_UNITARIO", "FECHA_ADQUISICION", "ESTADO", "ID_ESTADO_ADQUISICION", "ID_PERSONA")
-	     VALUES (nextval('"PLANIFICAR_PROYECTO".sq_detalle_adquisicion_proyecto'), #{idproyecto}, #{idcatadquisicion}, #{producto}, 
-	             #{cantidad}, #{costoUnitario}, to_date(#{fechaAdquisicion}, 'DD/MM/YYYY'), #{estado}, #{idestadoadquisicion}, #{idresponsable});
-	</insert>
+        <selectKey keyProperty="id" resultType="Long" order="BEFORE">
+            select NEXTVAL('"PLANIFICAR_PROYECTO".sq_detalle_adquisicion_proyecto')
+        </selectKey>
+        
+        INSERT INTO "PLANIFICAR_PROYECTO"."DETALLE_ADQUISICION_PROYECTO"("ID_DETALLE_ADQUISICION_PROYECTO", "ID_PROYECTO", "ID_CATEGORIA_ADQUISICION", "PRODUCTO", 
+                                 "CANTIDAD", "COSTO_UNITARIO", "FECHA_ADQUISICION", "ESTADO", "ID_ESTADO_ADQUISICION", "ID_PERSONA")
+         VALUES (#{id}, 
+                #{idproyecto}, 
+                #{idcatadquisicion}, 
+                #{producto}, 
+                #{cantidad}, 
+                #{costoUnitario},
+                to_date(#{fechaAdquisicion}, 'DD/MM/YYYY'), 
+                #{estado}, 
+                #{idestadoadquisicion}, 
+                #{idresponsable});
+    </insert>
 	
 	<update id="actualizarAdquisiciones" parameterType="detalleAdquisicionProyecto" >
 		UPDATE "PLANIFICAR_PROYECTO"."DETALLE_ADQUISICION_PROYECTO"

@@ -3,6 +3,7 @@ package com.sigcomt.gestionProyectos.servicio.anteproyecto;
 import java.util.List;
 
 import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
+import com.sigcomt.gestionProyectos.dominio.administracion.TipoRol;
 import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
@@ -45,6 +46,8 @@ public interface ProyectoService {
     public List<SupuestoPlanificacionModel> listarSupuestoByIdProyecto(Long idPy);
     public List<DependenciaPlanificacionModel> listarDependenciaByIdProyecto(Long idPy);
     public List<FactorExitoPlanificacionModel> listarFactorCriticoByIdProyecto(Long idPy);
+    
+    public List<TipoRol> listarTipoRolByTipoRol(int tipoRol);
 //	FIN - PLANIFICACION
 	
 }

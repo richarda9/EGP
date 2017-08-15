@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
+import com.sigcomt.gestionProyectos.dominio.administracion.TipoRol;
 import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
@@ -135,6 +136,10 @@ public class ProyectoServiceImp implements ProyectoService {
 	public List<FactorExitoPlanificacionModel> listarFactorCriticoByIdProyecto(
 			Long idPy) {
 		return proyectoDao.listarFactorCriticoByIdProyecto(idPy);
+	}
+
+	public List<TipoRol> listarTipoRolByTipoRol(int tipoRol) {
+		return proyectoDao.listarTipoRolByTipoRol(tipoRol);
 	}
 
 }

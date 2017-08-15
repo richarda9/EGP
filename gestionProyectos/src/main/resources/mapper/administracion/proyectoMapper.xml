@@ -141,7 +141,8 @@
        select py."CODIGO_PROYECTO" as codigoProyecto,
        			py."ID_TIPO_PROYECTO" as idTipoProyecto,
        			py."DESCRIPCION_PRODUCTO_PROYECTO" as descripcionProductoProyecto,
-       			py."ALCANCE_PROYECTO" as alcanceProyecto
+       			py."ALCANCE_PROYECTO" as alcanceProyecto, 
+                py."NOMBRE_PROYECTO" as nombreProyecto
        from "CREAR_PROYECTO"."PROYECTO" py
        where py."ID_PROYECTO" = #{idPy}   
     </select>
@@ -534,6 +535,57 @@
  		WHERE  "ID_DETALLE_RIESGOS_PROYECTO" = #{idDetalleRiesgos} ;
     </delete>
     
+    <insert id="guardarDetalleRolProyecto" parameterType="detalleRolProyecto">
+        <selectKey keyProperty="id" resultType="Long" order="BEFORE">
+            select NEXTVAL('"PLANIFICAR_PROYECTO".sq_detalle_rol_proyecto')
+        </selectKey>
+        INSERT INTO "PLANIFICAR_PROYECTO"."DETALLE_ROL_PROYECTO"(
+            "ID_DETALLE_ROL_PROYECTO", 
+            "ID_PROYECTO", 
+            "ID_TIPO_ROL", 
+            "CANTIDAD", 
+            "ESTADO")     
+        values(
+            #{id},
+            #{idProyecto}, 
+            #{idtiporol},        
+            #{cantidad},
+            #{estado}
+            );  
+    </insert>
+    
+    <delete id="eliminarDetalleRolProyecto" parameterType="detalleRolProyecto">      
+       DELETE FROM "PLANIFICAR_PROYECTO"."DETALLE_ROL_PROYECTO"
+        WHERE "ID_DETALLE_ROL_PROYECTO" = #{id} ;
+    </delete>
+    
+    <select id="listarDetalleRolProyectoByIdProyectoByTipoRol" parameterType= "Map" resultType="detalleRolProyecto">
+        SELECT DETROLPY."ID_DETALLE_ROL_PROYECTO" as id, 
+            TIPOROL."NOMBRE_TIPOROL" as descripcion,
+            DETROLPY."CANTIDAD" as cantidad,          
+            DETROLPY."ID_PROYECTO" as idProyecto
+         FROM "PLANIFICAR_PROYECTO"."DETALLE_ROL_PROYECTO" DETROLPY
+         INNER JOIN "PLANIFICAR_PROYECTO"."TIPO_ROL" TIPOROL
+         ON DETROLPY."ID_TIPO_ROL" = TIPOROL."ID_TIPO_ROL"
+         where DETROLPY."ID_PROYECTO" = #{idProyecto}
+                and TIPOROL."TIPO_ROL" = #{tipoRol};
+    </select>
+    
+    <select id="listarDetalleRolProyectoByIdProyectoByTipoRolResponsabilidad" parameterType= "Map" resultType="detalleRolProyecto">
+         SELECT DETROLPY."ID_DETALLE_ROL_PROYECTO" as id, 
+            TIPOROL."NOMBRE_TIPOROL" as descripcion,
+            DETROLPY."CANTIDAD" as cantidad,          
+            DETROLPY."ID_PROYECTO" as idProyecto,
+            CASE WHEN DETROLPY."DESCRIPCION" IS NOT NULL THEN DETROLPY."DESCRIPCION"            
+            	ELSE TIPOROL."DESCRIPCION_ROL"
+	        END as descripcionDetalleRol             
+         FROM "PLANIFICAR_PROYECTO"."DETALLE_ROL_PROYECTO" DETROLPY
+         INNER JOIN "PLANIFICAR_PROYECTO"."TIPO_ROL" TIPOROL
+         ON DETROLPY."ID_TIPO_ROL" = TIPOROL."ID_TIPO_ROL"
+         where DETROLPY."ID_PROYECTO" = #{idProyecto}
+         		and TIPOROL."TIPO_ROL" = #{tipoRol};              
+    </select>
+    
     <select id="listarDetalleRiesgosIdProyecto" parameterType= "java.lang.Long" resultType="detalleRiesgosModel">
 		SELECT "ID_DETALLE_RIESGOS_PROYECTO" as idDetalleRiesgos, 
 				"ID_PROYECTO" as idProyecto, 
@@ -547,6 +599,24 @@
   		FROM "PLANIFICAR_PROYECTO"."DETALLE_RIESGOS_PROYECTO"
   		WHERE "ID_PROYECTO" = #{idProyecto};			
 	</select>
+	
+	<select id="listarDetalleAdquisicionIdProyecto" parameterType= "java.lang.Long" resultType="detalleAdquisicionProyecto">
+        SELECT dap."ID_DETALLE_ADQUISICION_PROYECTO" id, 
+               dap."ID_PROYECTO" idproyecto, 
+               dap."ID_CATEGORIA_ADQUISICION" idcatadquisicion, 
+               (SELECT "DESCRIPCION"
+                FROM "PLANIFICAR_PROYECTO"."CATEGORIA_ADQUISICION" ca
+                WHERE ca."ID_CATEGORIA_ADQUISICION" = dap."ID_CATEGORIA_ADQUISICION") categoriaDescripcion,
+               dap."PRODUCTO" producto, 
+               dap."CANTIDAD" cantidad, 
+               dap."COSTO_UNITARIO" costoUnitario, 
+               to_char(dap."FECHA_ADQUISICION", 'DD/MM/YYYY') fechaAdquisicion, 
+               dap."ESTADO" estado, 
+               dap."ID_ESTADO_ADQUISICION" idestadoadquisicion,              
+               dap."ID_PERSONA" idResponsable            
+        FROM "PLANIFICAR_PROYECTO"."DETALLE_ADQUISICION_PROYECTO" dap           
+        WHERE dap."ID_PROYECTO" = #{idProyecto};                  
+    </select>
 	
 	<!-- LISTAR TIPO REQUISITO PARA EDITAR -->
     <select id="listarTipoRequisitoByIdProyecto"  parameterType="java.lang.Long" resultType="RequisitoProyectoPlanificacionModel">
@@ -619,7 +689,49 @@
     <delete id="eliminarDetalleFactorCriticoByIdPy" parameterType="Long">
       delete FROM "PLANIFICAR_PROYECTO"."DETALLE_FACTOR_EXITO" DETFACCRI 
       where "ID_PROYECTO" = #{idPy};
-    </delete>       	
+    </delete>     
+    
+    <select id="listarTipoRolByTipoRol" parameterType="int" resultType="tipoRol">
+        SELECT "ID_TIPO_ROL" as id, 
+                "NOMBRE_TIPOROL" as nombreRol
+          FROM "PLANIFICAR_PROYECTO"."TIPO_ROL" 
+        WHERE "TIPO_ROL" = #{tipoRol};
+    </select>  	
+    
+    <insert id="actualizarDescripcionTipoRol" parameterType="DetalleEstadoProyecto">
+        update "PLANIFICAR_PROYECTO"."DETALLE_ROL_PROYECTO" 
+        set "DESCRIPCION" = #{descripcionDetalleRol},
+        	"ESTADO" = #{estado}
+        where "ID_DETALLE_ROL_PROYECTO" = #{id};
+    </insert>
+    
+    <select id="validacionejecutarproyecto" parameterType="Long" resultType="String">
+		SELECT "PLANIFICAR_PROYECTO".validacionejecutarproyecto(#{idProyecto}::bigint);
+	</select>    
+	
+	<insert id="actualizarDetalleEstadoProyectoByIdProyecto" parameterType="DetalleEstadoProyecto">
+        update "CREAR_PROYECTO"."DETALLE_ESTADO_PROYECTO" 
+        set "ESTADO" = #{estado}	
+        where "ID_PROYECTO" = #{idProyecto};
+    </insert>
+    
+	<insert id="ejecutarEjecucion" parameterType="Map">     
+        insert into "CREAR_PROYECTO"."DETALLE_ESTADO_PROYECTO" 
+        ("ID_DETALLE_ESTADO_PROYECTO", 
+        "ID_ESTADO_PROYECTO",
+        "ID_PROYECTO",
+        "FECHA_CREACION",
+        "FECHA_APROBACION",
+        "ESTADO")
+        values
+        (nextval('"CREAR_PROYECTO".sq_detalle_estado_proyecto'),  
+        #{idEstadoProyecto},
+        #{idProyecto},
+        #{fechaCreacion},
+        #{fechaAprobacion},
+        #{estado});            
+    </insert>
+	
     <!-- FIN - PLANIFICACION -->
     
 	<!-- [INI] EJECUCION -->

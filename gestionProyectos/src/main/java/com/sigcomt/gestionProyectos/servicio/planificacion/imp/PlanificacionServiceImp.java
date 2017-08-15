@@ -1,13 +1,20 @@
 package com.sigcomt.gestionProyectos.servicio.planificacion.imp;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sigcomt.gestionProyectos.common.enumerations.EstadoProyectoEnum;
+import com.sigcomt.gestionProyectos.dominio.administracion.DetalleEstadoProyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.Entregable;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
+import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAdquisicionProyecto;
+import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleRolProyecto;
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DependenciaPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DetalleRiesgosModel;
@@ -80,10 +87,12 @@ public class PlanificacionServiceImp implements PlanificacionService{
     	return proyectoDao.listarEntregablesProyectoId(idProyecto);
     }
 
+    @Transactional
 	public void guardarFormaPago(FormasPagoModel formasPagoModel) {
 		proyectoDao.guardarFormaPago(formasPagoModel);		
 	}
 	
+    @Transactional
 	public void eliminarFormaPago(FormasPagoModel formasPagoModel) {
 		proyectoDao.eliminarFormaPago(formasPagoModel);		
 	}
@@ -92,10 +101,12 @@ public class PlanificacionServiceImp implements PlanificacionService{
 		return proyectoDao.listarFormaPagoIdProyecto(idProyecto);
 	}
 
+	@Transactional
 	public void guardarDetalleRiesgos(DetalleRiesgosModel detalleRiesgosModel) {
 		proyectoDao.guardarDetalleRiesgos(detalleRiesgosModel);			
 	}
 
+	@Transactional
 	public void eliminarDetalleRiesgos(DetalleRiesgosModel detalleRiesgosModel) {
 		proyectoDao.eliminarDetalleRiesgos(detalleRiesgosModel);			
 	}
@@ -103,7 +114,71 @@ public class PlanificacionServiceImp implements PlanificacionService{
 	public List<DetalleRiesgosModel> listarDetalleRiesgosIdProyecto(Long idProyecto) {
 		return proyectoDao.listarDetalleRiesgosIdProyecto(idProyecto);
 	}
-	
-	
 
+	public List<DetalleAdquisicionProyecto> listarDetalleAdquisicionIdProyecto(Long idProyecto) {		
+		return proyectoDao.listarDetalleAdquisicionIdProyecto(idProyecto);
+	}
+	
+	@Transactional
+    public void guardarDetalleRolProyecto(DetalleRolProyecto detalleRolProyecto) {
+        proyectoDao.guardarDetalleRolProyecto(detalleRolProyecto);  
+        
+    }
+ 
+    @Transactional
+    public void eliminarDetalleRolProyecto(DetalleRolProyecto detalleRolProyecto) {
+        proyectoDao.eliminarDetalleRolProyecto(detalleRolProyecto); 
+        
+    }
+ 
+    public List<DetalleRolProyecto> listarDetalleRolProyectoByIdProyectoByTipoRol(
+            Long idProyecto, Long tipoRol) {
+        
+        Map params = new HashMap<String, Object>();
+        params.put("idProyecto", idProyecto);
+        params.put("tipoRol", tipoRol);
+        
+        return proyectoDao.listarDetalleRolProyectoByIdProyectoByTipoRol(params);
+        
+    }
+
+	public List<DetalleRolProyecto> listarDetalleRolProyectoByIdProyectoByTipoRolResponsabilidad(
+			Long idProyecto, Long tipoRol) {
+		
+		Map params = new HashMap<String, Object>();
+        params.put("idProyecto", idProyecto);
+        params.put("tipoRol", tipoRol);
+		return proyectoDao.listarDetalleRolProyectoByIdProyectoByTipoRolResponsabilidad(params);
+	}
+
+	public void actualizarDescripcionTipoRol(
+			DetalleRolProyecto detalleRolProyecto) {
+		proyectoDao.actualizarDescripcionTipoRol(detalleRolProyecto);
+	}
+
+	public String validacionejecutarproyecto(Long idProyecto) {
+		String respuesta = "";
+		respuesta = proyectoDao.validacionejecutarproyecto(idProyecto); 
+		return respuesta;
+	}
+
+	@Transactional
+	public void ejecutarEjecucion(Long idProyecto, Date fechaAprobacion) {
+		
+		DetalleEstadoProyecto detalleEstadoProyectoAntepy = new DetalleEstadoProyecto();
+		detalleEstadoProyectoAntepy.setEstado(0);
+		detalleEstadoProyectoAntepy.setIdProyecto(idProyecto);	
+//		detalleEstadoProyectoAntepy.setFechaCreacion(new Date());
+		proyectoDao.actualizarDetalleEstadoProyectoByIdProyecto(detalleEstadoProyectoAntepy);
+		
+		Map params = new HashMap<String, Object>();
+        params.put("idProyecto", idProyecto);
+        params.put("idEstadoProyecto", Long.parseLong(EstadoProyectoEnum.EN_EJECUCION.getCodigo()));
+        params.put("fechaCreacion", new Date());
+        params.put("fechaAprobacion", fechaAprobacion);
+        params.put("estado", 1);
+		proyectoDao.ejecutarEjecucion(params);
+		
+	}
+		
 }
