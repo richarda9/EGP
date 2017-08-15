@@ -17,6 +17,8 @@ var dataSetRolCliente = [];
 var dataSetDetalleCostoOperativo = [];
 var dataSetRRHHResponsabilidadesProveedor = [];
 var dataSetRRHHResponsabilidadesCliente = [];
+var dataSetCostosProyecto = [];
+var dataSetCostosProyecto = eval('${model.listaDetalleCostoProyectoBD}');
 
 $(document).ready(function() {/* INI - READY */
 	
@@ -576,7 +578,7 @@ $(document).ready(function() {/* INI - READY */
 
 	});
 	
-	$('#tablaCostosProyecto').DataTable({
+	/* $('#tablaCostosProyecto').DataTable({
 		"paging"     : true,
 		"autoWidth"  : true,
 		"pageLength" : 10,
@@ -587,7 +589,7 @@ $(document).ready(function() {/* INI - READY */
 							"url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
 				       }
 	});	
-	
+	 */
 	/* INI - DESCRIPCION DEL PRODUCTO */
 	$('#formPlanDescripcion').validate({
 		errorClass: 'help-block',
@@ -841,7 +843,87 @@ $(document).ready(function() {/* INI - READY */
         actualizarDescripcionTipoRolCliente();     
     });
     /* FIN - TAB RECURSOS HUMANOS  */
-    	
+
+    /* INI - TAB COSTOS  */
+    var opcionesCostoProyecto = '<a id="guardarCostoProyecto" class="blue tooltip-error" data-rel="tooltip" title="Guardar"><i class="icon-save bigger-130"> </i></a>';
+	$('#tablaCostosProyecto').DataTable({
+		"ajax"		 : function (data, callback, settings) {
+			callback ( { data: dataSetCostosProyecto } );
+		   },
+		"ordering"   : false,
+		"paging"     : false,
+		"autoWidth"  : true,
+		"pageLength" : 10,
+		"searching"  : false,
+		"bInfo"      : false, 
+		//"bLengthChange": false,
+		"language"   : {
+							"url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+				       },
+        "columns"	 : [
+		            	{ "data": "idDetalleCostoProyecto", "visible":false},
+		            	{ "data": "descripcionRol"},
+		            	{ "data": "descripcionTipo"},
+		            	{ "data": "descripcionBandaSalarial"},
+		            	{ "data": "costo"},
+		            	{ "data": null}
+		        ],
+        "columnDefs" : [
+                        {        				
+	         				"targets": -1,
+	         				"data": null,
+	         				"defaultContent": opcionesCostoProyecto}	         			
+        		]
+	});
+	
+	$('#tablaCostosProyecto tbody').on( 'click', '#guardarCostoProyecto', function () {
+        var indice = $(this).parents('tr').index();        
+        $('#modalCostoProyecto').attr('data-attr-index',indice);
+        $('#modalCostoProyecto').modal('show');
+        var costoProyectoPorRol =dataSetCostosProyecto[indice];
+        $("#idCostoPyRol").html(costoProyectoPorRol.descripcionRol);
+        
+        $("#idTipoNivel").empty();
+		$("#idTipoNivel").append('<option value="">Seleccionar</option>');
+		$.postJSON('${pageContext.request.contextPath}/planificacion/cboTipoNivel.htm','', function(data) {
+			 $.each(data, function (key, value) {
+	             $("#idTipoNivel").append("<option value=" + value.idTipoNivel + ">" + value.descripcion + "</option>");
+	         });
+		});
+ 
+    } );
+	/* FIN - TAB COSTOS  */
+
+    
+    /* INI - TAB PRESUPUESTO  */
+	/* $('#tablaPresupuestoCostoRRHH').DataTable({
+		"ajax"		 : function (data, callback, settings) {
+			callback ( { data: dataSetRequisitoProyecto } );
+		   },
+		"ordering"   : false,
+		"paging"     : false,
+		"autoWidth"  : true,
+		"pageLength" : 10,
+		"searching"  : false,
+		"bInfo"      : false, 
+		//"bLengthChange": false,
+		"language"   : {
+							"url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+				       },
+        "columns"	 : [
+		            	{ "data": "PRUEBA"},
+		            	{ "data": "PRUEBA"}		            	
+		        ],
+        "columnDefs" : [
+                        {        				
+	         				"targets": -1,
+	         				"data": null,
+	         				"defaultContent": opcionesTipoRequisito}	         			
+        		]
+	});	 */
+	/* FIN - TAB PRESUPUESTO  */
+
+	
     /* listarRRHHResponsabilidades(); */
 	mostrarGrillas();    
 });/* FIN - READY */
@@ -1735,6 +1817,26 @@ function ejecutarEjecucion(){
 
 /* **************************** FIN - BOTON EJECUTAR PROYECTO ****************************** */
 
+/* INI - COSTOS DEL PROYECTO */
+function cargarBandaSalarial(obj)
+{
+	var bandaSalarialModel = {};	
+	var tipoNivel = obj.value;
+
+	bandaSalarialModel.idTipoNivel = tipoNivel;
+	
+	if(tipoNivel!= null && tipoNivel != ''){
+		$("#idBandaSalarial").empty();
+		$("#idBandaSalarial").append('<option value="">Seleccionar</option>');
+		$.postJSON('${pageContext.request.contextPath}/planificacion/cboBandaSalarial.htm',bandaSalarialModel, function(data) {
+			 $.each(data, function (key, value) {
+	             $("#idBandaSalarial").append("<option value=" + value.idBandaSalarial + ">" + value.descripcion + "</option>");
+	         });
+		});
+	}
+}
+/* FIN - COSTOS DEL PROYECTO */
+
 function mostrarGrillas(){
 	
 	/* var t = $('#tablaInteresadoEmpresa').DataTable(); */
@@ -1785,6 +1887,10 @@ function mostrarGrillas(){
     if(datosGrillas.listaDetalleRolProyectoClienteResponsabilidadBD){
     	dataSetRRHHResponsabilidadesCliente=JSON.parse(datosGrillas.listaDetalleRolProyectoClienteResponsabilidadBD);
     }
+    
+    /* if(datosGrillas.listaDetalleCostoProyectoBD){
+    	dataSetCostosProyecto=JSON.parse(datosGrillas.listaDetalleCostoProyectoBD);
+    } */
 	/* tablaInteresado.ajax.reload(); */		
 	
 }

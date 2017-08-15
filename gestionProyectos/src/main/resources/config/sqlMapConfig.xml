@@ -74,6 +74,9 @@
         <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.FactorExitoPlanificacionModel" alias="FactorExitoPlanificacionModel"/>
         <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.DetalleRiesgosModel" alias="detalleRiesgosModel"/>   
         <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.DetalleCostoOperativoModel" alias="detalleCostoOperativoModel"/>
+        <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.DetalleCostoProyecto" alias="detalleCostoProyecto"/>
+        <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.TipoNivelModel" alias="tipoNivelModel"/>        
+        <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.BandaSalarialModel" alias="bandaSalarialModel"/>        
         <!-- FIN - PLANIFICACION -->
 	</typeAliases>
 	
