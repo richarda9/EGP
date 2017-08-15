@@ -72,7 +72,8 @@
         <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.SupuestoPlanificacionModel" alias="SupuestoPlanificacionModel"/>
         <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.DependenciaPlanificacionModel" alias="DependenciaPlanificacionModel"/>
         <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.FactorExitoPlanificacionModel" alias="FactorExitoPlanificacionModel"/>
-        <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.DetalleRiesgosModel" alias="detalleRiesgosModel"/>        
+        <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.DetalleRiesgosModel" alias="detalleRiesgosModel"/>   
+        <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.DetalleCostoOperativoModel" alias="detalleCostoOperativoModel"/>
         <!-- FIN - PLANIFICACION -->
 	</typeAliases>
 	
