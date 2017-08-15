@@ -301,24 +301,24 @@
 					<div id="rptEntregablexProyecto" class="tab-pane">
 						<div class="row-fluid">
 							<div class="span12">
-								<form id="formRptTareasxProyectos" class="form-horizontal">									
+								<form id="formRptEntregablesxProyectos" class="form-horizontal">									
 									<div class="control-group">
-										<label class="control-label" for="idcliente">Proyecto</label>	
+										<label class="control-label" for="idProyectoEntregable">Proyecto</label>	
 										<div class="controls">
-											<select id="idcliente" name="idCliente" title="cliente">
+											<select id="idProyectoEntregable" name="idProyecto" title="Proyecto">
 													<option value="">Seleccionar</option>
-													<c:forEach var="lista" items="${model.listaProyecto}" varStatus="contador">
+													<c:forEach var="lista" items="${model.listaProyecto}">
 													   <option value="${lista.idProyecto}">${lista.nombreProyecto}</option>
 													</c:forEach>
 											</select>	
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label" for="idTipoProyecto">Estado Entregable</label>	
+										<label class="control-label" for="idEstadoEntregable">Estado Entregable</label>	
 										<div class="controls">
-											<select id="idTipoProyecto" name="idTipoProyecto">
+											<select id="idEstadoEntregable" name="idEstadoEntregable">
 												<option value="">Seleccionar</option>
-												<c:forEach var="lista" items="${model.listaTipoProyecto}">
+												<c:forEach var="lista" items="${model.listaEstadoEntregable}">
 												   <option value="${lista.id}">${lista.descripcion}</option>
 												</c:forEach>
 											</select>	
@@ -351,7 +351,7 @@
 									<div class="row-fluid">
 										<div class="span12">
 											<div class="span2" >
-												<a onclick="descargarRptTareasxProyectoPDF();" class="btn btn-small btn-primary" style="float: right;">
+												<a onclick="descargarRptEntregablesxProyectoPDF();" class="btn btn-small btn-primary" style="float: right;">
 													<i class="icon-download-alt"></i>
 													Exportar PDF
 												</a>

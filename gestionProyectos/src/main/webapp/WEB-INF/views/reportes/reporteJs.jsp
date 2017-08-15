@@ -70,4 +70,11 @@ function descargarRptTareasxProyectoPDF(){
 			   objeto.idEstadoTarea + '&idparam3=' + objeto.fechaInicio + '&idparam4=' + 
                objeto.fechaFin);
 }
+
+function descargarRptEntregablesxProyectoPDF(){	
+	var objeto = $("#formRptEntregablesxProyectos").serializeObject();
+	
+	window.open('${pageContext.request.contextPath}/reportes/emitirRptPdfEntregablesxProyecto.htm?idparam1=' + objeto.idProyecto + '&idparam2=' + 
+			   objeto.idEstadoEntregable);
+}
 </script>

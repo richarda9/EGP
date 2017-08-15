@@ -403,6 +403,10 @@ public class AdministracionServiceImp implements AdministracionService
 	public List<EstadoEntregable> listarEstadoEntregableSeguimiento(){
 		return administracionDao.listarEstadoEntregableSeguimiento();
 	}
+	
+	public EstadoEntregable buscarEstadoEntregableByID(Long id){
+		return administracionDao.buscarEstadoEntregableByID(id);
+	}
 //  FIN - ENTREGABLE
 
 	public int registrarEstadoEntregable(EstadoEntregable dato) {

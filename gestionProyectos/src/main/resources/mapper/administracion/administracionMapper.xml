@@ -432,6 +432,14 @@
 		FROM "PLANIFICAR_PROYECTO"."ESTADO_ENTREGABLE" ee
 		WHERE ee."DESCRIPCION" LIKE '%APROBADO%';
 	</select>
+	
+	<select id="buscarEstadoEntregableByID" parameterType="long" resultType="entregable">
+		SELECT "ID_ESTADO_ENTREGABLE" id, 
+		       "DESCRIPCION" descripcion, 
+		       "ESTADO" estado
+		  FROM "PLANIFICAR_PROYECTO"."ESTADO_ENTREGABLE"
+		WHERE "ID_ESTADO_ENTREGABLE" = #{id};
+	</select>
 	<!-- [FIN] ENTREGABLE -->
 	
 	<select id="listarTipoDocumento" resultType="tipoDocumento">

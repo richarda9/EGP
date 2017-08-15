@@ -110,6 +110,7 @@ public interface AdministracionDao
 	public List<EstadoEntregable> listarEstadoEntregable(int dato);
 	public void eliminarEstadoEntregable(Integer id);
 	public List<EstadoEntregable> listarEstadoEntregableSeguimiento();
+	public EstadoEntregable buscarEstadoEntregableByID(Long id);
 //  FIN - ENTREGABLE
 	
 	public List<TipoDocumento> listarTipoDocumento();

@@ -1,28 +1,24 @@
 package com.sigcomt.gestionProyectos.controlador.reportes;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sigcomt.gestionProyectos.common.Constantes;
 import com.sigcomt.gestionProyectos.common.enumerations.EstadoProyectoEnum;
-import com.sigcomt.gestionProyectos.model.reporte.ReporteProyectoModel;
+import com.sigcomt.gestionProyectos.dominio.seguridad.CustomerUser;
 import com.sigcomt.gestionProyectos.servicio.administracion.AdministracionService;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.AnteproyectoService;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.ProyectoService;
@@ -60,6 +56,7 @@ public class ReporteController {
 		myModel.put("listaEstadoTarea", this.ejecucionService.listarEstadoTarea(Constantes.ESTADO_ACTIVO));
 		myModel.put("listaTipoProyecto", this.administracionService.listarTipoProyectoByEsado(Constantes.ESTADO_ACTIVO));
 		myModel.put("listaProyecto", this.proyectoService.listarProyectoByDetalleEstadoProyectoByEstado(Constantes.ESTADO_ACTIVO, Long.parseLong(EstadoProyectoEnum.EN_EJECUCION.getCodigo())));
+		myModel.put("listaEstadoEntregable", this.administracionService.listarEstadoEntregable(Constantes.ESTADO_ACTIVO));
 		
 		return new ModelAndView("reportesProyecto", "model", myModel);
 	}
@@ -80,6 +77,7 @@ public class ReporteController {
 	  public ModelAndView emitirRptPdfProyecto(@RequestParam Long idparam1, @RequestParam Long idparam2, 
 	  										   @RequestParam Long idparam3, @RequestParam Integer idparam4,
 	  										   @RequestParam String idparam5, @RequestParam String idparam6,
+	  										   Authentication auth,
 	                                           HttpServletRequest request)  
 	{		
 		String path = request.getSession().getServletContext().getRealPath("/WEB-INF/views/jasper/");
@@ -97,7 +95,7 @@ public class ReporteController {
         parameterMap.put("dscestadoproyecto", idparam3 != null ? 
         			this.administracionService.buscarEstadoProyectoById(idparam3).getDescripcion() : "TODOS");
         parameterMap.put("dscestadoregistro", idparam4.intValue() == 1 ? "ACTIVO": idparam4.intValue() == 0 ? "INACTIVO" : "TODOS");
-        parameterMap.put("usuario", "TODOS");        
+        parameterMap.put("usuario", ((CustomerUser)auth.getPrincipal()).getUsername());        
         parameterMap.put("ROOT_DIR", path + "/");
         
         return new ModelAndView("rptProyectosPDF",parameterMap);
@@ -106,19 +104,37 @@ public class ReporteController {
 	@RequestMapping(value="/emitirRptPdfTareasxProyecto.htm" , method = RequestMethod.GET)
 	  public ModelAndView emitirRptPdfTareasxProyecto(@RequestParam Long idparam1, @RequestParam Long idparam2,
 		  											  @RequestParam String idparam3, @RequestParam String idparam4,
+		  											  Authentication auth,
 		                                              HttpServletRequest request) throws Exception  
-	{		
+	{
 		String path = request.getSession().getServletContext().getRealPath("/WEB-INF/views/jasper/");
-      Map<String,Object> parameterMap = new HashMap<String,Object>();		        
-      parameterMap.put("idproyecto", idparam1 != null ? idparam1 : new Long(0));
-      parameterMap.put("idestadotarea", idparam2 != null ? idparam2 : new Long(0));
-      parameterMap.put("fechainicio", idparam3);
-      parameterMap.put("fechafin", idparam4);
-      parameterMap.put("dscproyecto", idparam1 != null ? this.anteproyectoService.buscarProyectoById(idparam1).getTituloProyecto() : "TODOS");
-      parameterMap.put("dscestadotarea", idparam2 != null ? this.administracionService.buscarEstadoTareaByID(idparam2).getDescripcion() : "TODOS");
-      parameterMap.put("usuario", "TODOS");        
-      parameterMap.put("ROOT_DIR", path + "/");
+		Map<String,Object> parameterMap = new HashMap<String,Object>();		        
+		parameterMap.put("idproyecto", idparam1 != null ? idparam1 : new Long(0));
+		parameterMap.put("idestadotarea", idparam2 != null ? idparam2 : new Long(0));
+		parameterMap.put("fechainicio", idparam3);
+		parameterMap.put("fechafin", idparam4);
+		parameterMap.put("dscproyecto", idparam1 != null ? this.anteproyectoService.buscarProyectoById(idparam1).getTituloProyecto() : "TODOS");
+		parameterMap.put("dscestadotarea", idparam2 != null ? this.administracionService.buscarEstadoTareaByID(idparam2).getDescripcion() : "TODOS");
+		parameterMap.put("usuario", ((CustomerUser)auth.getPrincipal()).getUsername());        
+		parameterMap.put("ROOT_DIR", path + "/");
       
-      return new ModelAndView("rptTareasxProyectoPDF",parameterMap);
+		return new ModelAndView("rptTareasxProyectoPDF",parameterMap);
+	}
+	
+	@RequestMapping(value="/emitirRptPdfEntregablesxProyecto.htm" , method = RequestMethod.GET)
+	  public ModelAndView emitirRptPdfEntregablesxProyecto(@RequestParam Long idparam1, @RequestParam Long idparam2,
+			  											  Authentication auth,
+			                                              HttpServletRequest request) throws Exception  
+	{
+		String path = request.getSession().getServletContext().getRealPath("/WEB-INF/views/jasper/");
+		Map<String,Object> parameterMap = new HashMap<String,Object>();		        
+		parameterMap.put("idproyecto", idparam1 != null ? idparam1 : new Long(0));
+		parameterMap.put("idestadoentregable", idparam2 != null ? idparam2 : new Long(0));
+		parameterMap.put("dscproyecto", idparam1 != null ? this.anteproyectoService.buscarProyectoById(idparam1).getTituloProyecto() : "TODOS");
+		parameterMap.put("dscestadoentregable", idparam2 != null ? this.administracionService.buscarEstadoEntregableByID(idparam2).getDescripcion() : "TODOS");
+		parameterMap.put("usuario", ((CustomerUser)auth.getPrincipal()).getUsername());        
+		parameterMap.put("ROOT_DIR", path + "/");
+      
+		return new ModelAndView("rptTareasxProyectoPDF",parameterMap);
 	}
 }
