@@ -161,7 +161,7 @@ AND   e."ESTADO" = 1;]]>
 				<textFieldExpression><![CDATA[$P{usuario}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="449" y="65" width="38" height="20" uuid="5991f335-a333-482a-b2ce-a10f2b7bccc4"/>
+				<reportElement x="442" y="65" width="45" height="20" uuid="5991f335-a333-482a-b2ce-a10f2b7bccc4"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>

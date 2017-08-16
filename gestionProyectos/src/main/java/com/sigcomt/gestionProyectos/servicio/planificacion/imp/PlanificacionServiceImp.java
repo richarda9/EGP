@@ -9,21 +9,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sigcomt.gestionProyectos.common.Constantes;
+import com.sigcomt.gestionProyectos.common.enumerations.EstadoEntregableEnum;
 import com.sigcomt.gestionProyectos.common.enumerations.EstadoProyectoEnum;
 import com.sigcomt.gestionProyectos.dominio.administracion.DetalleEstadoProyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.Entregable;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAdquisicionProyecto;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleRolProyecto;
+import com.sigcomt.gestionProyectos.dominio.planificacion.DetalleEntregableProyecto;
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.BandaSalarialModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DependenciaPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DetalleCostoOperativoModel;
+import com.sigcomt.gestionProyectos.model.planificacion.DetalleCostoProyecto;
 import com.sigcomt.gestionProyectos.model.planificacion.DetalleRiesgosModel;
+import com.sigcomt.gestionProyectos.model.planificacion.EntregableModel;
 import com.sigcomt.gestionProyectos.model.planificacion.ExclusionPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.FactorExitoPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.FormasPagoModel;
 import com.sigcomt.gestionProyectos.model.planificacion.RequisitoProyectoPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.SupuestoPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.TipoNivelModel;
 import com.sigcomt.gestionProyectos.repositorio.anteproyecto.ProyectoDao;
 import com.sigcomt.gestionProyectos.servicio.planificacion.PlanificacionService;
 
@@ -124,15 +131,33 @@ public class PlanificacionServiceImp implements PlanificacionService{
     public void guardarDetalleRolProyecto(DetalleRolProyecto detalleRolProyecto) {
         proyectoDao.guardarDetalleRolProyecto(detalleRolProyecto);  
         
+//      INI - GRABAR DETALLE_COSTO_PROYECTO, ROL UNO POR UNO
+        for (int i = 0; i < detalleRolProyecto.getCantidad(); i++) {
+        	DetalleCostoProyecto detalleCostoProyecto = new DetalleCostoProyecto();
+        	detalleCostoProyecto.setIdDetalleRolProyecto(detalleRolProyecto.getId());
+        	detalleCostoProyecto.setIdProyecto(detalleRolProyecto.getIdProyecto());
+        	detalleCostoProyecto.setEstado(1);
+        	proyectoDao.guardarDetalleCostoProyecto(detalleCostoProyecto);
+		}
+//      FIN - GRABAR DETALLE_COSTO_PROYECTO, ROL UNO POR UNO
+        
     }
  
     @Transactional
     public void eliminarDetalleRolProyecto(DetalleRolProyecto detalleRolProyecto) {
-        proyectoDao.eliminarDetalleRolProyecto(detalleRolProyecto); 
+        
+//    	INI - ELIMINAR DETALLE COSTO PROYECTO, POR ID ROL
+    	DetalleCostoProyecto detalleCostoProyecto = new DetalleCostoProyecto();
+        detalleCostoProyecto.setIdDetalleRolProyecto(detalleRolProyecto.getId());
+        proyectoDao.eliminarDetalleCostoProyecto(detalleCostoProyecto);
+//    	FIN - ELIMINAR DETALLE COSTO PROYECTO, POR ID ROL
+        
+    	proyectoDao.eliminarDetalleRolProyecto(detalleRolProyecto); 
         
     }
  
-    public List<DetalleRolProyecto> listarDetalleRolProyectoByIdProyectoByTipoRol(
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public List<DetalleRolProyecto> listarDetalleRolProyectoByIdProyectoByTipoRol(
             Long idProyecto, Long tipoRol) {
         
         Map params = new HashMap<String, Object>();
@@ -143,6 +168,7 @@ public class PlanificacionServiceImp implements PlanificacionService{
         
     }
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<DetalleRolProyecto> listarDetalleRolProyectoByIdProyectoByTipoRolResponsabilidad(
 			Long idProyecto, Long tipoRol) {
 		
@@ -163,6 +189,7 @@ public class PlanificacionServiceImp implements PlanificacionService{
 		return respuesta;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Transactional
 	public void ejecutarEjecucion(Long idProyecto, Date fechaAprobacion) {
 		
@@ -195,6 +222,24 @@ public class PlanificacionServiceImp implements PlanificacionService{
     @Transactional
 	public List<DetalleCostoOperativoModel> listarDetalleCostoOperativoIdProyecto(Long idProyecto) {	
 		return proyectoDao.listarDetalleCostoOperativoIdProyecto(idProyecto);
+	}
+
+    @Transactional
+	public List<DetalleCostoProyecto> listarDetalleCostoProyectoByIdProyecto(
+			Long idProyecto) {
+		return proyectoDao.listarDetalleCostoProyectoByIdProyecto(idProyecto);
+	}
+
+	public List<TipoNivelModel> listarTipoNivel() {
+		Map params = new HashMap<String, Object>();
+        params.put("estado", 1);
+		        
+		return proyectoDao.listarTipoNivel(params);
+	}
+
+	public List<BandaSalarialModel> listarBandaSalarial(
+			BandaSalarialModel bandaSalarialModel) {
+		return proyectoDao.listarBandaSalarial(bandaSalarialModel);
 	}
 		
 }

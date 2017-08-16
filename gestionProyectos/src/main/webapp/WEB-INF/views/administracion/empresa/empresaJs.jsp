@@ -249,7 +249,6 @@ function EliminarContactoCliente(){
 				time: '1200',
 				class_name: 'gritter-warning gritter-light'
 		});
-
 	}
 }
 

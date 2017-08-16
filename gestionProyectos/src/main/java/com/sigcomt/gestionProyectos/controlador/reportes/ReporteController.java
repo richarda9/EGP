@@ -60,18 +60,6 @@ public class ReporteController {
 		
 		return new ModelAndView("reportesProyecto", "model", myModel);
 	}
-		
-	/*@RequestMapping(value="/emitirRptPdfProyecto.htm" , method = RequestMethod.POST)
-	  public @ResponseBody String generarDataSourceReport(@RequestBody ReporteProyectoModel reporte,
-			  											  HttpServletRequest request)  
-	{
-		String ruta = request.getSession().getServletContext().getRealPath("/")+System.getProperty("file.separator");
-              
-        String resultado = reporteService.generarRptProyectos(ruta, reporte);
-        
-        return "{\"ruta\":\""+ resultado +"\"}";
-	  }*/
-	
 	
 	@RequestMapping(value="/emitirRptPdfProyecto.htm" , method = RequestMethod.GET)
 	  public ModelAndView emitirRptPdfProyecto(@RequestParam Long idparam1, @RequestParam Long idparam2, 
@@ -135,6 +123,6 @@ public class ReporteController {
 		parameterMap.put("usuario", ((CustomerUser)auth.getPrincipal()).getUsername());        
 		parameterMap.put("ROOT_DIR", path + "/");
       
-		return new ModelAndView("rptTareasxProyectoPDF",parameterMap);
+		return new ModelAndView("rptEntregablesxProyectoPDF",parameterMap);
 	}
 }

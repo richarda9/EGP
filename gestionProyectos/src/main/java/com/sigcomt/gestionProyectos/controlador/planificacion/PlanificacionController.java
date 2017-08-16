@@ -1,7 +1,6 @@
 package com.sigcomt.gestionProyectos.controlador.planificacion;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,16 +14,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.sigcomt.gestionProyectos.common.Constantes;
 import com.sigcomt.gestionProyectos.common.enumerations.EstadoProyectoEnum;
 import com.sigcomt.gestionProyectos.common.enumerations.RolEnum;
 import com.sigcomt.gestionProyectos.dominio.administracion.CategoriaAdquisicion;
@@ -35,20 +36,23 @@ import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoRol;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAdquisicionProyecto;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleRolProyecto;
+import com.sigcomt.gestionProyectos.dominio.planificacion.DetalleEntregableProyecto;
+import com.sigcomt.gestionProyectos.model.administracion.MntEmpresaModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
-import com.sigcomt.gestionProyectos.model.anteproyecto.AgregarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.BuscarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DependenciaPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DetalleCostoOperativoModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DetalleRiesgosModel;
+import com.sigcomt.gestionProyectos.model.planificacion.EntregableModel;
 import com.sigcomt.gestionProyectos.model.planificacion.ExclusionPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.FactorExitoPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.FormasPagoModel;
 import com.sigcomt.gestionProyectos.model.planificacion.RequisitoProyectoPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.SupuestoPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.TipoNivelModel;
 import com.sigcomt.gestionProyectos.servicio.administracion.AdministracionService;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.PersonaService;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.ProyectoService;
@@ -104,6 +108,8 @@ public class PlanificacionController
 	public ModelAndView mntPlanificacion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		HashMap<String, Object> myModel = new HashMap<String, Object>();
+		ObjectMapper mapper = new ObjectMapper();
+		
 		String index = request.getParameter("idPlanificacion");
 		Proyecto py = proyectoService.buscarPyByIdPy(Long.parseLong(index));
 		myModel.put("codigoProyecto", py.getCodigoProyecto());
@@ -189,7 +195,23 @@ public class PlanificacionController
         String listaDetalleRolProyectoClienteResponsabilidadString = gSon.toJson(listaDetalleRolProyectoClienteResponsabilidad);
         myModel.put("listaDetalleRolProyectoClienteResponsabilidadBD", listaDetalleRolProyectoClienteResponsabilidadString);        
 //      FIN - RECURSOS HUMANOS - CARGA DATA   
+        
+//      INI - COSTOS DEL PROYECTO - CARGA DATA
+        List<DetalleCostoProyecto> listaDetalleCostoProyecto = planificacionService.listarDetalleCostoProyectoByIdProyecto(idProyecto);
+        ObjectMapper mapper = new ObjectMapper();
+//        String listaDetalleCostoProyectoString = gSon.toJson(listaDetalleCostoProyecto);
+        myModel.put("listaDetalleCostoProyectoBD",  mapper.writeValueAsString(listaDetalleCostoProyecto));
+//        myModel.put("listaDetalleCostoProyectoBD", listaDetalleCostoProyectoString);        
+//      FIN - COSTOS DEL PROYECTO - CARGA DATA
 		return new ModelAndView("mntPlanificacion", "model", myModel);
+
+		
+
+        
+        
+        //[INI] ENTREGABLES
+        myModel.put("listaEntregableProyecto",  mapper.writeValueAsString(entregableList));                
+        //[FIN] ENTREGABLES
 	}
 	
 	@RequestMapping(value = "/buscarPlanificacion.htm", method = RequestMethod.POST)
@@ -479,7 +501,8 @@ public class PlanificacionController
         return respuesta;   
     }    
     
-    @RequestMapping(value = "/ejecutarEjecucion.htm", method = RequestMethod.POST)
+    @SuppressWarnings("rawtypes")
+	@RequestMapping(value = "/ejecutarEjecucion.htm", method = RequestMethod.POST)
     public @ResponseBody String ejecutarEjecucion(@RequestBody Map ejecucionModel, HttpServletRequest request) {
         logger.info("INI - PlanificacionController.ejecutarEjecucion");
         String respuesta = "ERROR";
@@ -539,4 +562,34 @@ public class PlanificacionController
 		return respuesta;	
 	}
 	
+//	INI - COSTO DEL PROYECTO
+	@RequestMapping(value = "/cboTipoNivel.htm", method = RequestMethod.POST)
+	public @ResponseBody List<TipoNivelModel> cboTipoNivel(@RequestBody String valor, HttpServletRequest request) {		
+		logger.info("INI - PlanificacionController.cboTipoNivel");
+		List<TipoNivelModel> tipoNivel = new ArrayList<TipoNivelModel>();
+		try {
+			tipoNivel = planificacionService.listarTipoNivel();					
+		} catch (Exception e) {
+			logger.error("ERROR - PlanificacionController.cboTipoNivel", e);
+		}
+		
+		logger.info("FIN - PlanificacionController.cboTipoNivel");
+		return tipoNivel;	
+	}
+	
+	@RequestMapping(value = "/cboBandaSalarial.htm", method = RequestMethod.POST)
+	public @ResponseBody List<BandaSalarialModel> cboBandaSalarial(@RequestBody BandaSalarialModel bandaSalarialModel, HttpServletRequest request) {		
+		logger.info("INI - PlanificacionController.cboTipoNivel");
+		List<BandaSalarialModel> bandaSalarial = new ArrayList<BandaSalarialModel>();
+		try {
+			bandaSalarialModel.setEstado(1);
+			bandaSalarial = planificacionService.listarBandaSalarial(bandaSalarialModel);					
+		} catch (Exception e) {
+			logger.error("ERROR - PlanificacionController.cboBandaSalarial.htm'", e);
+		}
+		
+		logger.info("FIN - PlanificacionController.cboBandaSalarial.htm'");
+		return bandaSalarial;	
+	}
+//	FIN - COSTO DEL PROYECTO	
 }

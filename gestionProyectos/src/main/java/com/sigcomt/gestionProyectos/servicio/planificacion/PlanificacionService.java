@@ -2,16 +2,20 @@ package com.sigcomt.gestionProyectos.servicio.planificacion;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import com.sigcomt.gestionProyectos.dominio.administracion.Entregable;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAdquisicionProyecto;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleRolProyecto;
+import com.sigcomt.gestionProyectos.dominio.planificacion.DetalleEntregableProyecto;
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.BandaSalarialModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DetalleCostoOperativoModel;
+import com.sigcomt.gestionProyectos.model.planificacion.DetalleCostoProyecto;
 import com.sigcomt.gestionProyectos.model.planificacion.DetalleRiesgosModel;
+import com.sigcomt.gestionProyectos.model.planificacion.EntregableModel;
 import com.sigcomt.gestionProyectos.model.planificacion.FormasPagoModel;
+import com.sigcomt.gestionProyectos.model.planificacion.TipoNivelModel;
 
 public interface PlanificacionService {
 	
@@ -43,5 +47,11 @@ public interface PlanificacionService {
     
     public String validacionejecutarproyecto(Long idProyecto);
     public void ejecutarEjecucion(Long idProyecto, Date fechaAprobacion);
+    
+//  INI - COSTOS DEL PROYECTO
+    public List<DetalleCostoProyecto> listarDetalleCostoProyectoByIdProyecto(Long idProyecto);   
+    public List<TipoNivelModel> listarTipoNivel();
+    public List<BandaSalarialModel> listarBandaSalarial(BandaSalarialModel bandaSalarialModel);  
+//  FIN - COSTOS DEL PROYECTO
     
 }

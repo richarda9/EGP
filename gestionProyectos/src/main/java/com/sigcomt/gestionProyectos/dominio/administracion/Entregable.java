@@ -7,10 +7,11 @@ public class Entregable implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	private Long identregable;
+	private Long idProyecto;
 	private String nombre;
 	private String descripcion;
 	private String fechaProgramada;
-	private int estado;
+	private Integer estado;
 	private Long idestadoEntregable;
 	private String fechaEnvio;
 	private String fechaAprobacion;
@@ -49,11 +50,11 @@ public class Entregable implements Serializable
 		this.fechaProgramada = fechaProgramada;
 	}
 	
-	public int getEstado() {
+	public Integer getEstado() {
 		return estado;
 	}
 	
-	public void setEstado(int estado) {
+	public void setEstado(Integer estado) {
 		this.estado = estado;
 	}
 	
@@ -105,5 +106,13 @@ public class Entregable implements Serializable
 
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
+	}
+
+	public Long getIdProyecto() {
+		return idProyecto;
+	}
+
+	public void setIdProyecto(Long idProyecto) {
+		this.idProyecto = idProyecto;
 	}
 }

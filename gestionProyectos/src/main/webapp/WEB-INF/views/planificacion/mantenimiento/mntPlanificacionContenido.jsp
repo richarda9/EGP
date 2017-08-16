@@ -736,8 +736,8 @@
 							<div class="span12">
 								<div class="span9">Entregables del Proyecto</div>
 								<div class="span3">
-									<button class="btn btn-info span12" onclick="showEntregableAgregar()">
-										<i class="icon-plus bigger-125"></i>
+									<button class="btn btn-small btn-primary" onclick="showEntregableAgregar()">
+										<i class="icon-plus"></i>
 										Agregar Entregable
 									</button>
 								</div>
@@ -746,105 +746,20 @@
 						
 						<div class="space-20"></div>
 						<div class="row-fluid">
-							<table id="tablaEntregableProyecto" class="table table-striped table-bordered table-hover">
+							<div class="table-header">Lista Entregables del Proyecto</div>
+							<table id="tablaEntregableProyecto" class="table table-striped table-bordered table-hover"  style="width: 100%;">
 								<thead>
 									<tr>
 										<th>Entregable</th>
-										<th>Fecha</th>
 										<th>Descripci&oacute;n</th>
-										<th>Productos</th>
+										<th>Fecha de Entrega</th>
 										<th>Opciones</th>
 									</tr>
 								</thead>	
 								<tbody>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>	
-										<td></td>
-										<td></td>												
-									</tr>
 								</tbody>
 							</table>
 						</div>
-						
-					<form id="registrarEntregables">
-					<div id="modal-Entregable" class="modal hide" tabindex="-1">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="blue bigger">Entregables del Proyecto</h4>
-					</div>
-					
-					<div class="modal-body overflow-visible" style="height: auto; overflow: auto;">
-						<div class="control-group row-fluid">
-							<div class="control-label span3">Entregable:</div>
-							<div class="span9"><input type="text" class="span12" id="valorET" name="valorET"/></div>
-						</div>
-						
-						<div class="control-group row-fluid">
-							<div class="span3">Descripci&oacute;n</div>
-							<div class="span9"><textarea class="span12" id="valDescripcionET" name="valDescripcionET"></textarea></div>
-						</div>						
-						
-						<div class="control-group row-fluid">
-							<div class="control-label span3">Fecha Programada:</div>
-							<div class="span9">
-								<input id="fechaProgramadaET" name="fechaProgramadaET" type="text" class="span8" data-date-format="dd-mm-yyyy" />
-								<span class="add-on"><i class="icon-calendar"></i></span>
-							</div>						
-						</div>
-						
-						<div class="control-group row-fluid">
-							<div class="control-label span3">Producto:</div>
-							<div class="span9"><input type="text" class="span8" id="valProductoET" name="valProductoET"/></div>
-						</div>
-						
-						<div class="row-fluid">
-							<div class="span6"></div>
-							<div class="span6">
-							<div class="span6"></div>
-							<div class="span6">
-								<a id="btnAgregarContactoCliente" class="btn btn-small btn-primary">
-									<i class="icon-plus"></i>
-									Producto
-								</a>
-							</div>
-							</div>
-						</div>
-						
-						<div class="space-20"></div>
-						<div class="row-fluid">
-							<div class="table-header">Tabla Productos</div>
-							<table id="tablaProductoEntregable" class="table table-striped table-bordered table-hover" style="width: 100%;">
-								<thead>
-									<tr>
-										<th>Producto</th>										
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td></td>																				
-									</tr>
-								</tbody>
-							</table>
-					</div>								
-					</div>
-					
-					<div class="modal-footer">
-						<button class="btn btn-small" data-dismiss="modal">
-							<i class="icon-remove"></i>
-							Cancelar
-						</button>
-			
-						<button type="submit" class="btn btn-small btn-primary">
-							<i class="icon-save"></i>
-							Guardar
-						</button>
-					</div>
-					
-					</div>
-					
-					</form>
 					</div>
 
 					<div id="riesgos" class="tab-pane">	
@@ -1145,33 +1060,34 @@
 					<div id="costos" class="tab-pane">
 						<div class="row-fluid">
 							<div class="span12">
-								<div class="span9">Costos del Proyecto</div>
-								<div class="span3">
-									<label>TOTAL COSTOS: S/. xxx.xx</label>
+								<div class="page-header position-relative"><h1>Costos del Proyecto</h1></div>
+							</div>
+						</div>
+						<div class="row-fluid">
+							<div class="span12">
+								<div class="span9"></div>
+								<div class="span3" style="float:left;">
+									<label class="control-label" for="totalCostos">Total Costos: ${model.totalCostos}</label>
 								</div>
 							</div>
 						</div>
+												
 						<div class="space-20"></div>
-						<div class="row-fluid">
-							<table id="tablaCostosProyecto" class="table table-striped table-bordered table-hover">
-								<thead>
-									<tr>
-										<th>Rol</th>
-										<th>Tipo</th>
-										<th>Banda Salarial</th>
-										<th>Costo</th>
-									</tr>
-								</thead>	
-								<tbody>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>	
-										<td></td>												
-									</tr>
-								</tbody>
-							</table>
-						</div>
+                        <table id="tablaCostosProyecto" class="table table-striped table-bordered table-hover" style = "width : 100%">
+                             <thead>
+                                 <tr>
+                                     <th>Id</th>     
+                                     <th>ROL</th>
+                                     <th>TIPO</th>
+                                     <th>BANDA SALARIAL</th>
+                                     <th>COSTO</th>
+                                     <th>OPCIONES</th>
+                                 </tr>
+                             </thead>
+ 
+                             <tbody>
+                             </tbody>
+                         </table>   
 					</div>
 
 					<div id="costosOperativos" class="tab-pane">
@@ -1284,8 +1200,43 @@
 					</div>
 
 					<div id="presupuesto" class="tab-pane">
-						<p>"presupuesto"	.</p>
-						<p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
+						<div class="row-fluid">
+							<div class="span12">
+								<div class="page-header position-relative"><h1>Presupuesto</h1></div>
+							</div>
+						</div>
+						
+						<div class="row-fluid">
+							<div class="span12">
+								<div class="span9"></div>
+								<div class="span3" style="float:left;">
+									<a class="btn btn-small btn-info span12" onclick="guardarPresupuesto()">
+										<i class="icon-save bigger-125"></i>
+										Guardar
+									</a>
+								</div>
+							</div>
+						</div>	
+						<div class="space-20"></div>
+						<form  name="formPresupuesto" id="formPresupuesto" method="post">
+	                        <div class="row-fluid">
+	                            <div class="span12">                                                
+	                                <h4 class="lighter smaller" style = "color: #2679b5 !important">Costos RRHH</h4>  
+	                                <hr width="100%" style = "border-bottom: 1px dotted #e2e2e2">                                                                                             	                                                                                           
+	                                <table id="tablaPresupuestoCostoRRHH" class="table table-striped table-bordered table-hover" style = "width : 100%">
+	                                    <thead>
+	                                        <tr>
+	                                            <th>Rol</th>     
+	                                            <th>S/.</th>	                                            
+	                                        </tr>
+	                                    </thead>
+	        
+	                                    <tbody>
+	                                    </tbody>
+	                                </table>                                                                                                                           
+	                            </div>
+	                        </div>    
+	                    </form>
 					</div>
 
 					<div id="formasdePago" class="tab-pane">
@@ -1305,7 +1256,7 @@
 									</a>
 								</div>
 							</div>
-						</div>	
+						</div>													
 						<div class="space-20"></div>
 						
 					<form  name="formFormasPago" id="formFormasPago" method="post">						
@@ -1880,6 +1831,69 @@
  
     </div>
     <!-- FIN - MODAL EJECUTAR - FECHA APROBACIÓN -->
+    <!-- [INI] MODAL ENTREGABLE -->
+    <%@ include file="/WEB-INF/views/ventanasEmergentes/planificacion/registrarEntregable.jsp"%>
+    <!-- [FIN] MODAL ENTREGABLE -->
+    
+    <!-- INI - MODAL COSTO DEL PROYECTO -->
+    <div id="modalCostoProyecto" class="modal hide fade form-horizontal" tabindex="-1" data-attr-index="" >
+        <div class="modal-header">
+            <!-- <div class="table-header"> -->
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 id ="idCostoPyRol" class="blue bigger"></h4>
+            <!-- </div> -->
+        </div>
+ 
+        <div class="modal-body padding">            
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="control-group">
+						<label class="control-label" for="tipo">Tipo</label>	
+						<div class="controls">
+							<select id="idTipoNivel" title="tipo" onchange="cargarBandaSalarial(this)">								
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="span6">
+						<div class="control-group">
+							<label class="control-label" for="tipo">Banda Salarial</label>	
+							<div class="controls">
+								<select id="idBandaSalarial" title="bandaSalarial">									
+								</select>
+							</div>
+						</div>
+					</div>					
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span12">					
+					<div class="span6">
+						<div class="control-group">
+							<label class="control-label" for="costo">Costo</label>	
+							<div class="controls">
+								<label class="control-label" for="costo">XXX</label>	
+							</div>							
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+ 
+        <div class="modal-footer">
+            <a id ="ejecutarProyecto" class="btn btn-small btn-primary" onclick="ejecutarEjecucion()">
+                <i class="icon-ok"></i> Ejecutar
+            </a>
+            <a class="btn btn-small btn-light" data-dismiss="modal">
+                <i class="icon-remove"></i> Salir
+            </a>
+        </div>
+ 
+    </div>
+    <!-- FIN - MODAL COSTO DEL PROYECTO -->
     
 <script type="text/javascript">
 	var datosGrillas={};
@@ -1897,7 +1911,8 @@
 	        "listaDetalleRolProyectoProveedorBD":'${model.listaDetalleRolProyectoProveedorBD}',
 	        "listaDetalleRolProyectoClienteBD":'${model.listaDetalleRolProyectoClienteBD}',
 	        "listaDetalleRolProyectoProveedorResponsabilidadBD":'${model.listaDetalleRolProyectoProveedorResponsabilidadBD}',
-	        "listaDetalleRolProyectoClienteResponsabilidadBD":'${model.listaDetalleRolProyectoClienteResponsabilidadBD}'};
+	        "listaDetalleRolProyectoClienteResponsabilidadBD":'${model.listaDetalleRolProyectoClienteResponsabilidadBD}',
+	        "listaDetalleCostoProyectoBD":'${model.listaDetalleCostoProyectoBD}'};
 </script>
 
 </div>	

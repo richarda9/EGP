@@ -1,4 +1,4 @@
-package com.sigcomt.gestionProyectos.dominio;
+package com.sigcomt.gestionProyectos.dominio.planificacion;
 
 import java.io.Serializable;
 

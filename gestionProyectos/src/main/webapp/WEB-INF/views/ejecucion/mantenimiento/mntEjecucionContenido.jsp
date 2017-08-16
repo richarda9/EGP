@@ -330,103 +330,9 @@
 															<th>Codigo Recursos</th>
 															<th>Tarea Predecesora</th>
 															<th>Codigo Responsable</th>
-<!-- 															<th>Opciones</th> -->
 														</tr>
 													</thead>	
 													<tbody>
-<!-- 														<tr> -->
-<!-- 															<td>1</td> -->
-<!-- 															<td>sdsdsdssdsd</td> -->
-<!-- 															<td>sdsdsds</td> -->
-<!-- 															<td>sddsdsd</td> -->
-<!-- 															<td>sdsds</td> -->
-<!-- 															<td>weeweewe</td> -->
-<!-- 															<td>wewewewew</td> -->
-<!-- 															<td>sdsdsdsdsd</td> -->
-<!-- 															<td class="td-actions"> -->
-<!-- 																[INI] BOTON EDITAR -->
-<!-- 																<div class="hidden-phone visible-desktop action-buttons"> -->
-<%-- 																	<a class="abrir-eliminarTproyecto blue tooltip-info" href="#modal-Tarea" data-toggle="modal" data-id="${tipoProyecto.id}"  --%>
-<!-- 																	   data-rel="tooltip" title="Editar"> -->
-<!-- 																		<i class="icon-edit bigger-130"></i> -->
-<!-- 																	</a> -->
-<!-- 																</div> -->
-					
-<!-- 																<div class="hidden-desktop visible-phone"> -->
-<!-- 																	<div class="inline position-relative"> -->
-<!-- 																		<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown"> -->
-<!-- 																			<i class="icon-caret-down icon-only bigger-120"></i> -->
-<!-- 																		</button> -->
-					
-<!-- 																		<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close"> -->
-<!-- 																			<li> -->
-<!-- 																				<a href="#modal-Tarea" class="abrir-eliminarTproyecto tooltip-info"   -->
-<%-- 																					data-rel="tooltip" title="Editar" data-toggle="modal" data-id="${tipoProyecto.id}"> --%>
-<!-- 																					<span class="blue"> -->
-<!-- 																						<i class="icon-edit bigger-120"></i> -->
-<!-- 																					</span> -->
-<!-- 																				</a> -->
-<!-- 																			</li> -->
-<!-- 																		</ul> -->
-<!-- 																	</div> -->
-<!-- 																</div> -->
-<!-- 																[FIN] BOTON EDITAR -->
-<!-- 																[INI] BOTON HACER/RESPONDER -->
-<!-- 																<div class="hidden-phone visible-desktop action-buttons"> -->
-<%-- 																	<a class="abrir-eliminarTproyecto blue tooltip-info" href="#modal-HacerResponder" data-toggle="modal" data-id="${tipoProyecto.id}"  --%>
-<!-- 																	   data-rel="tooltip" title="Hacer/Responder"> -->
-<!-- 																		<i class="icon-comments bigger-130"></i> -->
-<!-- 																	</a> -->
-<!-- 																</div> -->
-					
-<!-- 																<div class="hidden-desktop visible-phone"> -->
-<!-- 																	<div class="inline position-relative"> -->
-<!-- 																		<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown"> -->
-<!-- 																			<i class="icon-caret-down icon-only bigger-120"></i> -->
-<!-- 																		</button> -->
-					
-<!-- 																		<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close"> -->
-<!-- 																			<li> -->
-<!-- 																				<a href="#modal-HacerResponder" class="abrir-eliminarTproyecto tooltip-info"   -->
-<%-- 																					data-rel="tooltip" title="Hacer/Responder" data-toggle="modal" data-id="${tipoProyecto.id}"> --%>
-<!-- 																					<span class="blue"> -->
-<!-- 																						<i class="icon-comments bigger-120"></i> -->
-<!-- 																					</span> -->
-<!-- 																				</a> -->
-<!-- 																			</li> -->
-<!-- 																		</ul> -->
-<!-- 																	</div> -->
-<!-- 																</div> -->
-<!-- 																[FIN] BOTON HACER/RESPONDER -->
-<!-- 																[INI] BOTON ELIMINAR -->
-<!-- 																<div class="hidden-phone visible-desktop action-buttons"> -->
-<%-- 																	<a id="btnEliminarTarea" class="abrir-eliminarTproyecto red tooltip-error" href="#" data-toggle="modal" data-id="${tipoProyecto.id}"  --%>
-<!-- 																	   data-rel="tooltip" title="Eliminar"> -->
-<!-- 																		<i class="icon-trash bigger-130"></i> -->
-<!-- 																	</a> -->
-<!-- 																</div> -->
-					
-<!-- 																<div class="hidden-desktop visible-phone"> -->
-<!-- 																	<div class="inline position-relative"> -->
-<!-- 																		<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown"> -->
-<!-- 																			<i class="icon-caret-down icon-only bigger-120"></i> -->
-<!-- 																		</button> -->
-					
-<!-- 																		<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close"> -->
-<!-- 																			<li> -->
-<!-- 																				<a id="btnEliminarTarea" href="#" class="abrir-eliminarTproyecto tooltip-error"   -->
-<%-- 																					data-rel="tooltip" title="Eliminar" data-toggle="modal" data-id="${tipoProyecto.id}"> --%>
-<!-- 																					<span class="red"> -->
-<!-- 																						<i class="icon-trash bigger-120"></i> -->
-<!-- 																					</span> -->
-<!-- 																				</a> -->
-<!-- 																			</li> -->
-<!-- 																		</ul> -->
-<!-- 																	</div> -->
-<!-- 																</div> -->
-<!-- 																[FIN] BOTON ELIMINAR -->
-<!-- 															</td> -->
-<!-- 														</tr> -->
 													</tbody>
 												</table>
 											</div>										
@@ -496,47 +402,47 @@
 											<th>Opciones</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td class="td-actions">
-												<!-- [INI] BOTON ENVIAR PARA APROBACION -->
-												<div class="hidden-phone visible-desktop action-buttons">
-													<a class="abrir-eliminarTproyecto blue tooltip-info" href="#modal-EnviarAprobacion" data-toggle="modal" data-id="${tipoProyecto.id}" 
-													   data-rel="tooltip" title="Enviar para Aprobaci&oacute;n">
-														<i class="icon-envelope bigger-130"></i>
-													</a>
-												</div>
+<!-- 									<tbody> -->
+<!-- 										<tr> -->
+<!-- 											<td></td> -->
+<!-- 											<td></td> -->
+<!-- 											<td></td> -->
+<!-- 											<td></td> -->
+<!-- 											<td></td> -->
+<!-- 											<td></td> -->
+<!-- 											<td></td> -->
+<!-- 											<td></td> -->
+<!-- 											<td class="td-actions"> -->
+<!-- 												[INI] BOTON ENVIAR PARA APROBACION -->
+<!-- 												<div class="hidden-phone visible-desktop action-buttons"> -->
+<%-- 													<a class="abrir-eliminarTproyecto blue tooltip-info" href="#modal-EnviarAprobacion" data-toggle="modal" data-id="${tipoProyecto.id}"  --%>
+<!-- 													   data-rel="tooltip" title="Enviar para Aprobaci&oacute;n"> -->
+<!-- 														<i class="icon-envelope bigger-130"></i> -->
+<!-- 													</a> -->
+<!-- 												</div> -->
 	
-												<div class="hidden-desktop visible-phone">
-													<div class="inline position-relative">
-														<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
-															<i class="icon-caret-down icon-only bigger-120"></i>
-														</button>
+<!-- 												<div class="hidden-desktop visible-phone"> -->
+<!-- 													<div class="inline position-relative"> -->
+<!-- 														<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown"> -->
+<!-- 															<i class="icon-caret-down icon-only bigger-120"></i> -->
+<!-- 														</button> -->
 	
-														<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
-															<li>
-																<a href="#modal-EnviarAprobacion" class="abrir-eliminarTproyecto tooltip-info" data-rel="tooltip" 
-																	title="Enviar para Aprobaci&oacute;n" data-toggle="modal" data-id="${tipoProyecto.id}">
-																	<span class="blue">
-																		<i class="icon-envelope bigger-120"></i>
-																	</span>
-																</a>
-															</li>
-														</ul>
-													</div>
-												</div>
-												<!-- [FIN] BOTON ENVIAR PARA APROBACION -->
-											</td>
-										</tr>
-									</tbody>
+<!-- 														<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close"> -->
+<!-- 															<li> -->
+<!-- 																<a href="#modal-EnviarAprobacion" class="abrir-eliminarTproyecto tooltip-info" data-rel="tooltip"  -->
+<%-- 																	title="Enviar para Aprobaci&oacute;n" data-toggle="modal" data-id="${tipoProyecto.id}"> --%>
+<!-- 																	<span class="blue"> -->
+<!-- 																		<i class="icon-envelope bigger-120"></i> -->
+<!-- 																	</span> -->
+<!-- 																</a> -->
+<!-- 															</li> -->
+<!-- 														</ul> -->
+<!-- 													</div> -->
+<!-- 												</div> -->
+<!-- 												[FIN] BOTON ENVIAR PARA APROBACION -->
+<!-- 											</td> -->
+<!-- 										</tr> -->
+<!-- 									</tbody> -->
 								</table>
 							</div>										
 						</div>

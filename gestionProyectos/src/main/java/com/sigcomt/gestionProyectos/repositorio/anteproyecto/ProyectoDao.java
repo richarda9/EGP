@@ -1,6 +1,5 @@
 package com.sigcomt.gestionProyectos.repositorio.anteproyecto;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +13,7 @@ import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoRol;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAdquisicionProyecto;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleRolProyecto;
+import com.sigcomt.gestionProyectos.dominio.planificacion.DetalleEntregableProyecto;
 import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
@@ -28,14 +28,18 @@ import com.sigcomt.gestionProyectos.model.cierre.LstProyectoCierreModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.BuscarEjecucionModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.LstProyectoEjecucionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.BandaSalarialModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DependenciaPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DetalleCostoOperativoModel;
+import com.sigcomt.gestionProyectos.model.planificacion.DetalleCostoProyecto;
 import com.sigcomt.gestionProyectos.model.planificacion.DetalleRiesgosModel;
+import com.sigcomt.gestionProyectos.model.planificacion.EntregableModel;
 import com.sigcomt.gestionProyectos.model.planificacion.ExclusionPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.FactorExitoPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.FormasPagoModel;
 import com.sigcomt.gestionProyectos.model.planificacion.RequisitoProyectoPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.SupuestoPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.TipoNivelModel;
 
 public interface ProyectoDao {
 	
@@ -120,6 +124,12 @@ public interface ProyectoDao {
     public void eliminarDetalleCostoOperativo(DetalleCostoOperativoModel detalleCostoOperativoModel);
     public List<DetalleCostoOperativoModel> listarDetalleCostoOperativoIdProyecto(Long idProyecto);
     
+    public void guardarDetalleCostoProyecto(DetalleCostoProyecto detalleCostoProyecto);
+    public void eliminarDetalleCostoProyecto(DetalleCostoProyecto detalleCostoProyecto);
+    
+    public List<DetalleCostoProyecto> listarDetalleCostoProyectoByIdProyecto(Long idProyecto);   
+    public List<TipoNivelModel> listarTipoNivel(Map<String, Object> params);
+    public List<BandaSalarialModel> listarBandaSalarial(BandaSalarialModel bandaSalarialModel);    
 //  FIN - PLANIFICACION
     
 }
