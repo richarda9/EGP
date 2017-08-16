@@ -979,4 +979,87 @@
 	</update>
 	<!-- [FIN] CIERRE -->
 	
+	<!-- [INI] ENTREGABLE -->
+	<insert id="insertarEntregable" parameterType="entregableModel">
+	<selectKey keyProperty="idEntregableProyecto" resultType="Long" order="BEFORE">
+            select nextval('"PLANIFICAR_PROYECTO".sq_entregable')
+        </selectKey>
+		INSERT INTO "PLANIFICAR_PROYECTO"."ENTREGABLE"("ID_ENTREGABLE", "NOMBRE_ENTREGABLE", "DESCRIPCION_ENTREGABLE","FECHA_PROGRAMADA", 
+                                               "ESTADO", "ID_ESTADO_ENTREGABLE")
+	    VALUES (#{idEntregableProyecto}, #{valorET}, #{valDescripcionET}, to_date(#{fechaProgramadaET}, 'DD/MM/YYYY'), 
+	            1, #{idEstadoEntregable});
+	</insert>
+	
+	<insert id="insertarDetalleEntregableProducto" parameterType="detalleEntregableProyecto">
+		INSERT INTO "PLANIFICAR_PROYECTO"."DETALLE_ENTREGABLE_PRODUCTO"("ID_DETALLE_ENTREGABLE_PRODUCTO", "ID_PROYECTO", "ID_ENTREGABLE", 
+            "PRODUCTO", "ESTADO")
+	    VALUES (nextval('"PLANIFICAR_PROYECTO".sq_detalle_entregable_producto'), #{idproyecto}, #{identregable}, 
+	            #{producto}, #{estado});
+	</insert>
+	
+	<update id="actualizarEntregable" parameterType="entregableModel">
+		UPDATE "PLANIFICAR_PROYECTO"."ENTREGABLE"
+		   SET "NOMBRE_ENTREGABLE" = COALESCE(#{valorET}, "NOMBRE_ENTREGABLE"),
+		       "DESCRIPCION_ENTREGABLE" = COALESCE(#{valDescripcionET}, "DESCRIPCION_ENTREGABLE"),
+		       "FECHA_PROGRAMADA" = COALESCE(to_date(#{fechaProgramadaET}, 'DD/MM/YYYY'), "FECHA_PROGRAMADA")
+		 WHERE "ID_ENTREGABLE" = #{idEntregableProyecto};		
+	</update>
+	
+	<update id="actualizarDetalleEntregableProducto"  parameterType="detalleEntregableProyecto">
+		UPDATE "PLANIFICAR_PROYECTO"."DETALLE_ENTREGABLE_PRODUCTO"
+		   SET "PRODUCTO" = COALESCE(#{producto}, "PRODUCTO"),
+		       "ESTADO" = COALESCE(#{estado}, "ESTADO")
+		 WHERE "ID_DETALLE_ENTREGABLE_PRODUCTO" = #{id};
+	</update>
+	
+	<select id="listardetalleEntregableProyecto" parameterType="int" resultType="detalleEntregableProyecto">
+		SELECT dep."ID_DETALLE_ENTREGABLE_PRODUCTO" id, 
+		       dep."ID_PROYECTO" idproyecto, 
+		       dep."ID_ENTREGABLE" identregable, 
+		       dep."PRODUCTO" producto, 
+		       dep."ESTADO" estado
+		  FROM "PLANIFICAR_PROYECTO"."DETALLE_ENTREGABLE_PRODUCTO" dep
+		  WHERE dep."ID_ENTREGABLE" = #{identregable};
+	</select>
+	
+	<delete id="eliminarDetalleEntregableProducto" parameterType="detalleEntregableProyecto">
+		DELETE  FROM "PLANIFICAR_PROYECTO"."DETALLE_ENTREGABLE_PRODUCTO" dep
+		WHERE dep."ID_DETALLE_ENTREGABLE_PRODUCTO" = #{id};
+	</delete>
+	
+	<delete id="eliminarEntregable" parameterType="int">
+		DELETE FROM "PLANIFICAR_PROYECTO"."ENTREGABLE"
+		WHERE "ID_ENTREGABLE" = #{dato};
+	</delete>
+	
+	<select id="buscarEntregableProyecto" parameterType="entregable" resultType="entregable">
+		SELECT DISTINCT general."ID_ENTREGABLE" as identregable, 
+					   general."NOMBRE_ENTREGABLE" as nombre,
+					   general."DESCRIPCION_ENTREGABLE" descripcion, 
+				       to_char(general."FECHA_PROGRAMADA", 'DD/MM/YYYY') fechaProgramada, 
+				       general."ESTADO" estado, 
+				       general."ID_ESTADO_ENTREGABLE" idestadoEntregable, 
+				       to_char(general."FECHA_ENVIO", 'DD/MM/YYYY') fechaEnvio, 
+				       to_char(general."FECHA_APROBACION", 'DD/MM/YYYY') fechaAprobacion 
+  		FROM "PLANIFICAR_PROYECTO"."ENTREGABLE" general 
+  		inner join "PLANIFICAR_PROYECTO"."DETALLE_ENTREGABLE_PRODUCTO" detalle
+  		on detalle."ID_ENTREGABLE" = general."ID_ENTREGABLE"
+  		WHERE detalle."ID_PROYECTO" = #{idProyecto}
+  		AND general."ID_ENTREGABLE" = #{identregable}
+  		and general."ESTADO"  = 1;
+	</select>
+	
+	<select id="listarProductoEntregable" parameterType="entregable" resultType="detalleEntregableProyecto">
+		SELECT dep."ID_DETALLE_ENTREGABLE_PRODUCTO" id, 
+		       dep."ID_PROYECTO" idproyecto, 
+		       dep."ID_ENTREGABLE" identregable, 
+		       dep."PRODUCTO" producto, 
+		       dep."ESTADO" estado
+		  FROM "PLANIFICAR_PROYECTO"."DETALLE_ENTREGABLE_PRODUCTO" dep
+		  WHERE dep."ID_ENTREGABLE" = #{identregable}
+		  AND   dep."ID_PROYECTO" = #{idProyecto}
+		  AND   dep."ESTADO" = 1;
+	</select>
+	<!-- [FIN] ENTREGABLE -->
+	
 </mapper>

@@ -54,4 +54,12 @@ public interface PlanificacionService {
     public List<BandaSalarialModel> listarBandaSalarial(BandaSalarialModel bandaSalarialModel);  
 //  FIN - COSTOS DEL PROYECTO
     
+   //[INI] ENTREGABLES
+   public void mntEntregable(EntregableModel dato);
+   public void eliminarEntregable(Integer dato);
+   public Entregable buscarEntregableProyecto(Entregable objeto);
+   public List<DetalleEntregableProyecto> listarProductoEntregable(Entregable objeto);
+   public void eliminarDetalleEntregableProducto(DetalleEntregableProyecto objeto);
+   //[FIN] ENTREGABLES
+    
 }

@@ -14,17 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.google.gson.Gson;
 import com.sigcomt.gestionProyectos.common.enumerations.EstadoProyectoEnum;
 import com.sigcomt.gestionProyectos.common.enumerations.RolEnum;
@@ -37,7 +36,6 @@ import com.sigcomt.gestionProyectos.dominio.administracion.TipoRol;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleAdquisicionProyecto;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.DetalleRolProyecto;
 import com.sigcomt.gestionProyectos.dominio.planificacion.DetalleEntregableProyecto;
-import com.sigcomt.gestionProyectos.model.administracion.MntEmpresaModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
@@ -200,20 +198,16 @@ public class PlanificacionController
         
 //      INI - COSTOS DEL PROYECTO - CARGA DATA
         List<DetalleCostoProyecto> listaDetalleCostoProyecto = planificacionService.listarDetalleCostoProyectoByIdProyecto(idProyecto);
-        ObjectMapper mapper = new ObjectMapper();
 //        String listaDetalleCostoProyectoString = gSon.toJson(listaDetalleCostoProyecto);
         myModel.put("listaDetalleCostoProyectoBD",  mapper.writeValueAsString(listaDetalleCostoProyecto));
 //        myModel.put("listaDetalleCostoProyectoBD", listaDetalleCostoProyectoString);        
 //      FIN - COSTOS DEL PROYECTO - CARGA DATA
-		return new ModelAndView("mntPlanificacion", "model", myModel);
-
-		
-
-        
         
         //[INI] ENTREGABLES
         myModel.put("listaEntregableProyecto",  mapper.writeValueAsString(entregableList));                
         //[FIN] ENTREGABLES
+        
+		return new ModelAndView("mntPlanificacion", "model", myModel);
 	}
 	
 	@RequestMapping(value = "/buscarPlanificacion.htm", method = RequestMethod.POST)
@@ -594,4 +588,57 @@ public class PlanificacionController
 		return bandaSalarial;	
 	}
 //	FIN - COSTO DEL PROYECTO	
+	//[INI] ENTREGABLES
+
+	//myModel.put("listaProductoEntregableProyecto",  mapper.writeValueAsString(planificacionService.));
+
+	@RequestMapping(value = "/mnt_Entregable.htm", method = RequestMethod.POST)
+	public @ResponseBody String mntEmpresa(@RequestBody EntregableModel dato)  
+	{		
+		try{			
+			planificacionService.mntEntregable(dato);
+		
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return "0";
+		}
+		
+		return "1";	
+	}
+
+	@RequestMapping(value = "/eliminar_Entregable.htm", method = RequestMethod.POST)
+	public @ResponseBody int eliminarEntregable(@RequestBody Integer dato) 
+	{
+		planificacionService.eliminarEntregable(dato); 
+		return 0;
+	}
+
+	@RequestMapping(value = "/listar_Entregables.htm", method = RequestMethod.POST)
+	public @ResponseBody String listarEntregables(@RequestBody Integer dato) throws JsonGenerationException, JsonMappingException, IOException 
+	{
+		ObjectMapper mapper = new ObjectMapper();		 
+		return mapper.writeValueAsString(planificacionService.listarEntregablesProyectoId(new Long(dato)));
+	}	
+		
+	@RequestMapping(value = "/obtener_Entregable.htm", method = RequestMethod.POST)
+	public @ResponseBody String obtenerEntregable(@RequestBody Entregable objeto) throws JsonGenerationException, JsonMappingException, IOException 
+	{
+		ObjectMapper mapper = new ObjectMapper();		 
+		return mapper.writeValueAsString(planificacionService.buscarEntregableProyecto(objeto));
+	}
+
+	@RequestMapping(value = "/listar_ProductoEntregable.htm", method = RequestMethod.POST)
+	public @ResponseBody String listarProductoEntregable(@RequestBody Entregable objeto) throws JsonGenerationException, JsonMappingException, IOException 
+	{
+		ObjectMapper mapper = new ObjectMapper();		 
+		return mapper.writeValueAsString(planificacionService.listarProductoEntregable(objeto));
+	}	
+
+	@RequestMapping(value = "/eliminar_EntregableProducto.htm", method = RequestMethod.POST)
+	public @ResponseBody int eliminarEntregableProducto(@RequestBody DetalleEntregableProyecto dato) 
+	{
+		planificacionService.eliminarDetalleEntregableProducto(dato); 
+		return 0;
+	}
+	//[FIN] ENTREGABLES
 }

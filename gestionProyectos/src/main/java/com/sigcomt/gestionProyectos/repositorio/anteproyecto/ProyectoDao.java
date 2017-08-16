@@ -129,7 +129,17 @@ public interface ProyectoDao {
     
     public List<DetalleCostoProyecto> listarDetalleCostoProyectoByIdProyecto(Long idProyecto);   
     public List<TipoNivelModel> listarTipoNivel(Map<String, Object> params);
-    public List<BandaSalarialModel> listarBandaSalarial(BandaSalarialModel bandaSalarialModel);    
+    public List<BandaSalarialModel> listarBandaSalarial(BandaSalarialModel bandaSalarialModel);   
+    
+    public void insertarEntregable(EntregableModel dato);
+    public void insertarDetalleEntregableProducto(DetalleEntregableProyecto detalle);
+    public void actualizarEntregable(EntregableModel dato);
+    public void actualizarDetalleEntregableProducto(DetalleEntregableProyecto detalle);
+    public List<DetalleEntregableProyecto> listardetalleEntregableProyecto(Integer dato);
+    public void eliminarDetalleEntregableProducto(DetalleEntregableProyecto objeto);
+    public void eliminarEntregable(Integer dato);
+    public Entregable buscarEntregableProyecto(Entregable dato);
+    public List<DetalleEntregableProyecto> listarProductoEntregable(Entregable objeto); 
 //  FIN - PLANIFICACION
     
 }

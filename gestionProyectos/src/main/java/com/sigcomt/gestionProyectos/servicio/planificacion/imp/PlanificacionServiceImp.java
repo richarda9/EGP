@@ -230,6 +230,7 @@ public class PlanificacionServiceImp implements PlanificacionService{
 		return proyectoDao.listarDetalleCostoProyectoByIdProyecto(idProyecto);
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<TipoNivelModel> listarTipoNivel() {
 		Map params = new HashMap<String, Object>();
         params.put("estado", 1);
@@ -241,5 +242,61 @@ public class PlanificacionServiceImp implements PlanificacionService{
 			BandaSalarialModel bandaSalarialModel) {
 		return proyectoDao.listarBandaSalarial(bandaSalarialModel);
 	}
+
+    //[INI] ENTREGABLE
+    @Transactional
+    public void mntEntregable(EntregableModel dato){
+    	if(dato.getIdEntregableProyecto() == null){
+    		dato.setIdEstadoEntregable(new Long(EstadoEntregableEnum.PENDIENTE.getCodigo()));
+    		proyectoDao.insertarEntregable(dato);
+    		
+    		for (DetalleEntregableProyecto detalle : dato.getProducto()) {
+    			detalle.setEstado(Constantes.ESTADO_ACTIVO);
+    			detalle.setIdentregable(dato.getIdEntregableProyecto());
+    			detalle.setIdproyecto(dato.getIdProyecto());
+    			proyectoDao.insertarDetalleEntregableProducto(detalle);				
+			}    		
+    	}else{
+    		proyectoDao.actualizarEntregable(dato);
+    		
+    		for (DetalleEntregableProyecto detalle : dato.getProducto()) {
+    			detalle.setIdentregable(dato.getIdEntregableProyecto());
+    			detalle.setIdproyecto(dato.getIdProyecto());
+    			
+    			if(detalle.getId() == null){
+    				detalle.setEstado(Constantes.ESTADO_ACTIVO);
+    				proyectoDao.insertarDetalleEntregableProducto(detalle);
+    			}else
+    				proyectoDao.actualizarDetalleEntregableProducto(detalle);				
+			}     		
+    	}
+    }
+    
+    public void eliminarEntregable(Integer dato){
+    	List<DetalleEntregableProyecto> lista = proyectoDao.listardetalleEntregableProyecto(dato);
+    	
+    	if(lista != null && lista.size() > 0){
+    		for (DetalleEntregableProyecto objeto : lista) {
+    			proyectoDao.eliminarDetalleEntregableProducto(objeto);				
+			}
+    		
+    		proyectoDao.eliminarEntregable(dato);
+    	}else{
+    		proyectoDao.eliminarEntregable(dato);
+    	}
+    }
+    
+    public Entregable buscarEntregableProyecto(Entregable objeto){
+    	return proyectoDao.buscarEntregableProyecto(objeto);
+    }
+    
+    public List<DetalleEntregableProyecto> listarProductoEntregable(Entregable objeto){
+    	return proyectoDao.listarProductoEntregable(objeto);
+    }
+    
+    public void eliminarDetalleEntregableProducto(DetalleEntregableProyecto objeto){
+    	proyectoDao.eliminarDetalleEntregableProducto(objeto);
+    }
+    //[INI] ENTREGABLE
 		
 }

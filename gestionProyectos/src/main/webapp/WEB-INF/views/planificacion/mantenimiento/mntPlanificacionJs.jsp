@@ -1902,6 +1902,219 @@ function cargarBandaSalarial(obj)
 	}
 }
 /* FIN - COSTOS DEL PROYECTO */
+/* **************************** INI - TAB ENTREGABLE  ************************************** */
+$('#registrarEntregables').validate({
+	errorClass: 'help-block',
+	rules: {
+		valorET: {
+			required: true
+		},
+		valDescripcionET: {
+			required: true,
+			maxlength : 100
+		},
+
+		fechaProgramadaET: {
+			required: true
+		},
+		estado: {
+			required: true
+		}
+	},
+
+	highlight: function (e) {
+		$(e).closest('.control-group').removeClass('info').addClass('error');
+	},
+
+	success: function (e) {
+		$(e).closest('.control-group').removeClass('error');
+		$(e).remove();
+	},
+	
+	submitHandler: function (form) {
+		registrarEntregables();
+	}
+});
+
+function registrarEntregables(){
+	var data = $("#tablaProductoEntregable").DataTable().rows().data();
+	var objeto = $("#registrarEntregables").serializeObject();
+		objeto.idProyecto = $("#codigoPy").val();
+
+	if (data.length > 0){
+		$('#modal-Entregable').modal('hide');
+		loadModalCargando();
+		objeto["producto"] =  obtenerProductoJson();
+		$.postJSON('${pageContext.request.contextPath}/planificacion/mnt_Entregable.htm', objeto,
+			function(data) {
+				listarEntregables();
+				closeModalCargando();			
+				
+				$.gritter.add({
+					title: 'Info!',
+					text: 'Se realizo la operaci&oacute;n con &eacute;xito.',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-info gritter-light'
+				});
+			}
+		);
+	}else{
+		$.gritter.add({
+			title: 'Advertencia!',
+			text: 'Debe agregar al menos un detalle de producto.',
+			sticky: false,
+			time: '1200',
+			class_name: 'gritter-warning gritter-light'
+		});
+	}
+}
+
+function obtenerProductoJson() {
+	var jsonObjTareas = [];		
+	var data = $("#tablaProductoEntregable").DataTable().rows().data();
+
+	if (data.length > 0){
+		$.each( data, function( i, l ){
+			jsonObjTareas.push(l);	
+		});
+	}
+	
+	return jsonObjTareas;
+}
+
+function listarEntregables(){	
+	var t = $("#tablaEntregableProyecto").DataTable();
+	t.clear().draw();
+	var dato = $("#codigoPy").val();
+	$.postJSON('${pageContext.request.contextPath}/planificacion/listar_Entregables.htm', dato,
+		function(data) {
+		dataEntregable = eval(data);
+		$("#tablaEntregableProyecto").DataTable().ajax.reload();	
+		$('[data-rel=tooltip]').tooltip();	
+	});
+
+}
+
+function agregarProductoEntregable(){
+	var form = $("#registrarEntregables");
+	 if(form.valid() && $("#valProductoET").val().length > 0)
+    {
+    	var t = $("#tablaProductoEntregable").DataTable();
+		var objeto = $("#registrarEntregables").serializeObject();
+
+		t.row.add({
+					   "id" : objeto.idDetProductoProyecto,
+			           "producto" : objeto.valProductoET
+			}).draw();
+
+		$("#valProductoET").val("");
+    }else{
+		$.gritter.add({
+			title: 'Advertencia!',
+			text: 'El campo producto debe estar lleno.',
+			sticky: false,
+			time: '1200',
+			class_name: 'gritter-warning gritter-light'
+		});
+
+    }
+}
+
+function editarEntregable(id){
+	var objeto = new Object();
+	objeto.idProyecto = $("#codigoPy").val();
+	objeto.identregable = id;
+	loadModalCargando();
+	$.postJSON('${pageContext.request.contextPath}/planificacion/obtener_Entregable.htm', objeto,
+			function(data) {
+				$("#idEntregableProyecto").val(data.identregable);
+				$("#valorET").val(data.nombre);
+				$("#valDescripcionET").val(data.descripcion);
+				$("#fechaProgramadaET").val(data.fechaProgramada);
+				
+				$.postJSON('${pageContext.request.contextPath}/planificacion/listar_ProductoEntregable.htm', objeto,
+						function(data) {
+							dataProductoEntregable = eval(data);
+							$("#tablaProductoEntregable").DataTable().ajax.reload();
+							closeModalCargando();
+							$('#modal-Entregable').modal('show');
+						}
+				);
+			}
+	);
+
+}
+
+function eliminarEntregable(id){
+	bootbox.setLocale('es');
+	bootbox.confirm("Esta seguro de eliminar la fila seleccionada?", function(result) {
+				if(result) {
+					loadModalCargando();
+					$.postJSON('${pageContext.request.contextPath}/planificacion/eliminar_Entregable.htm',id, function(data) {
+						listarEntregables();
+						closeModalCargando();
+						
+						$.gritter.add({
+							title: 'Info!',
+							text: 'Se elimin&oacute; correctamente.',
+							sticky: false,
+							time: '1200',
+							class_name: 'gritter-info gritter-light'
+						});
+					}).fail(function() {
+						closeModalCargando();
+						$.gritter.add({
+							title: 'Error!',
+							text: 'Ocurrio un error al tratar de eliminar el registro',
+							sticky: false,
+							time: '1200',
+							class_name: 'gritter-error'
+						});				
+					});
+				}
+			}
+	);
+
+}
+
+function eliminarProductoEntregable(){
+	var datos = $("#tablaProductoEntregable").DataTable().row('.selected').length;
+
+	if(datos > 0){
+		var objeto = $("#tablaProductoEntregable").DataTable().row('.selected').data(); //.remove().draw(false);
+		console.log(objeto);
+		$.postJSON('${pageContext.request.contextPath}/planificacion/eliminar_EntregableProducto.htm',objeto, function(data) {
+			$("#tablaProductoEntregable").DataTable().row('.selected').remove().draw(false);
+			$.gritter.add({
+				title: 'Info!',
+				text: 'Se realizo la operaci&oacute;n con &eacute;xito.',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-info gritter-light'
+			});
+		});
+	}else{
+		$.gritter.add({
+				title: 'Advertencia!',
+				text: 'Seleccione un registro.',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-warning gritter-light'
+		});
+	}
+}
+
+function limpiarMntEntregable(){	
+	$("#registrarEntregables").validate().resetForm();
+	$('#registrarEntregables .control-group').removeClass('error');
+	document.getElementById("registrarEntregables").reset();
+	$("#idEntregableProyecto").val("");
+	$("#idDetProductoProyecto").val("");
+	var t = $("#tablaProductoEntregable").DataTable();
+	t.clear().draw();
+}
+/* **************************** FIN - TAB ENTREGABLE  ************************************** */
 
 function mostrarGrillas(){
 	
