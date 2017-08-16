@@ -43,8 +43,10 @@ import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoMo
 import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.BuscarAnteproyectoModel;
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.BandaSalarialModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DependenciaPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DetalleCostoOperativoModel;
+import com.sigcomt.gestionProyectos.model.planificacion.DetalleCostoProyecto;
 import com.sigcomt.gestionProyectos.model.planificacion.DetalleRiesgosModel;
 import com.sigcomt.gestionProyectos.model.planificacion.EntregableModel;
 import com.sigcomt.gestionProyectos.model.planificacion.ExclusionPlanificacionModel;

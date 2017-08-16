@@ -596,9 +596,31 @@
             );  
     </insert>
     
+    <insert id="guardarDetalleCostoProyecto" parameterType="detalleCostoProyecto">
+        <selectKey keyProperty="idDetalleCostoProyecto" resultType="Long" order="BEFORE">
+            select NEXTVAL('"PLANIFICAR_PROYECTO".sq_detalle_costo_proyecto')
+        </selectKey>
+        INSERT INTO "PLANIFICAR_PROYECTO"."DETALLE_COSTO_PROYECTO"(
+            "ID_DETALLE_COSTO_PROYECTO", 
+            "ID_DETALLE_ROL_PROYECTO",
+            "ID_PROYECTO",
+            "ESTADO")     
+        values(
+            #{idDetalleCostoProyecto},
+            #{idDetalleRolProyecto},
+            #{idProyecto},
+            #{estado}
+            );  
+    </insert>
+    
     <delete id="eliminarDetalleRolProyecto" parameterType="detalleRolProyecto">      
        DELETE FROM "PLANIFICAR_PROYECTO"."DETALLE_ROL_PROYECTO"
         WHERE "ID_DETALLE_ROL_PROYECTO" = #{id} ;
+    </delete>
+    
+    <delete id="eliminarDetalleCostoProyecto" parameterType="detalleCostoProyecto">      
+       DELETE FROM "PLANIFICAR_PROYECTO"."DETALLE_COSTO_PROYECTO"
+        WHERE "ID_DETALLE_ROL_PROYECTO" = #{idDetalleRolProyecto} ;
     </delete>
     
     <select id="listarDetalleRolProyectoByIdProyectoByTipoRol" parameterType= "Map" resultType="detalleRolProyecto">
@@ -773,7 +795,49 @@
         #{fechaAprobacion},
         #{estado});            
     </insert>
+    
+    <select id="listarDetalleCostoProyectoByIdProyecto" parameterType="Long" resultType="detalleCostoProyecto">	
+		SELECT DCP."ID_DETALLE_COSTO_PROYECTO" as idDetalleCostoProyecto, 
+				DCP."ID_DETALLE_ROL_PROYECTO" as idDetalleRolProyecto,
+				DCP."ID_BANDA_SALARIAL" as idBandaSalarial,
+				DCP."COSTO" as costo,
+				DCP."ID_TIPO_NIVEL" as idTipoNivel,
+				DCP."ID_PROYECTO" as idProyecto,
+				TIPOROL."NOMBRE_TIPOROL" as descripcionRol,				
+				(SELECT BANDASALARIAL."DESCRIPCION" 
+					FROM "PLANIFICAR_PROYECTO"."BANDA_SALARIAL" BANDASALARIAL
+				WHERE BANDASALARIAL."ID_BANDA_SALARIAL" = (SELECT DISTINCT DETBANDASALARIAL."ID_BANDA_SALARIAL" 
+										FROM "PLANIFICAR_PROYECTO"."DETALLE_BANDA_SALARIAL" DETBANDASALARIAL 
+										WHERE DETBANDASALARIAL."ID_DETALLE_BANDA_SALARIAL" = DCP."ID_BANDA_SALARIAL")
+				) as descripcionBandaSalarial,
+				(SELECT TIPONIVEL."DESCRIPCION_TIPO_NIVEL" 
+					FROM "PLANIFICAR_PROYECTO"."TIPO_NIVEL" TIPONIVEL
+				WHERE TIPONIVEL."ID_TIPO_NIVEL" = DCP."ID_TIPO_NIVEL") as descripcionTipo
+				FROM "PLANIFICAR_PROYECTO"."DETALLE_COSTO_PROYECTO" DCP
+		  INNER JOIN "PLANIFICAR_PROYECTO"."DETALLE_ROL_PROYECTO" DETROLPY
+		  ON DETROLPY."ID_DETALLE_ROL_PROYECTO" = DCP."ID_DETALLE_ROL_PROYECTO" 
+		  INNER JOIN "PLANIFICAR_PROYECTO"."TIPO_ROL" TIPOROL
+		  ON TIPOROL."ID_TIPO_ROL" = DETROLPY."ID_TIPO_ROL"
+		WHERE DCP."ID_PROYECTO" = #{idProyecto};
+	</select>		
 	
+	<select id="listarTipoNivel" parameterType="Map" resultType="tipoNivelModel">
+		SELECT "ID_TIPO_NIVEL" as idTipoNivel, 
+				"DESCRIPCION_TIPO_NIVEL" as descripcion,
+				"ESTADO" as estado
+		  FROM "PLANIFICAR_PROYECTO"."TIPO_NIVEL" 
+		WHERE "ESTADO" = #{estado};
+	</select>
+	
+	<select id="listarBandaSalarial" parameterType="Long" resultType="bandaSalarialModel">
+		SELECT "ID_BANDA_SALARIAL" as idBandaSalarial, 
+				"DESCRIPCION" as descripcion,
+				"ID_TIPO_NIVEL" as idTipoNivel,
+				"ESTADO" as estado
+		  FROM "PLANIFICAR_PROYECTO"."BANDA_SALARIAL" 
+		WHERE "ESTADO" = #{estado}
+			AND "ID_TIPO_NIVEL" = #{idTipoNivel};
+	</select>
     <!-- FIN - PLANIFICACION -->
     
 	<!-- [INI] EJECUCION -->
