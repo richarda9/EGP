@@ -36,6 +36,7 @@ import com.sigcomt.gestionProyectos.model.ejecucion.BuscarEjecucionModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.EnvioCertificacionModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.LstAsignarResponsableModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.LstCtrolCambiosModel;
+import com.sigcomt.gestionProyectos.model.ejecucion.LstDetalleCronogramaModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.LstProyectoEjecucionModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.MntAsignarResponsableModel;
 import com.sigcomt.gestionProyectos.model.ejecucion.MntCtrolCambiosModel;
@@ -144,6 +145,7 @@ public class EjecucionController
 	@RequestMapping(value = "/listar_proyectoEjecucion.htm", method = RequestMethod.POST)
 	public @ResponseBody List<LstProyectoEjecucionModel> listarProyectoEjecucion(@RequestBody BuscarEjecucionModel bsqProyectoEjecucion)  
 	{
+		bsqProyectoEjecucion.setEstado(Integer.parseInt(EstadoProyectoEnum.EN_EJECUCION.getCodigo()));
 		return proyectoService.listaProyectoByEstadoEjecucion(bsqProyectoEjecucion);
 	}
 	
@@ -233,6 +235,15 @@ public class EjecucionController
 					
 		return mapper.writeValueAsString(ejecucionService.obtListaTareaProyectobyProyecto(dato.getIdProyecto()));
 			
+	}
+	
+	@RequestMapping(value = "/eliminar_TareaCronograma.htm", method = RequestMethod.POST)
+	public @ResponseBody int eliminarTareaCronograma(@RequestBody LstDetalleCronogramaModel dato) throws JsonGenerationException, JsonMappingException, IOException 
+	{
+		ObjectMapper mapper = new ObjectMapper();
+		
+		ejecucionService.eliminarTareaCronograma(dato); 
+		return 0;
 	}
 	//--------------------------------- [FIN] SEGUIMIENTO DE TAREAS ------------------------------------
 	//--------------------------------- [INI] ENVIO CERTIFICACION ------------------------------------

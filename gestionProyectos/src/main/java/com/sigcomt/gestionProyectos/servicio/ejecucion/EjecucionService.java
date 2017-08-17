@@ -39,6 +39,7 @@ public interface EjecucionService {
 	
 	public List<LstDetalleCronogramaModel> obtListaTareaProyectobyProyecto(Long idProyecto);
 	public void mntTareasProyecto(MntTareaCtrolCambioModel dato);
+	public void eliminarTareaCronograma(LstDetalleCronogramaModel dato);
 	
 	public void mntEnvioCertificacion(MultipartFile multipartFile, EnvioCertificacionModel objeto, String ruta);
 	

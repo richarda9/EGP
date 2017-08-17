@@ -442,8 +442,14 @@
 	</select>
 	
 	<select id="listarEntregablesProyectoId" parameterType="long" resultType="entregable">
-		SELECT general."ID_ENTREGABLE" as identregable, 
-				general."NOMBRE_ENTREGABLE" as nombre
+		SELECT DISTINCT general."ID_ENTREGABLE" as identregable, 
+					   general."NOMBRE_ENTREGABLE" as nombre,
+					   general."DESCRIPCION_ENTREGABLE" descripcion, 
+				       to_char(general."FECHA_PROGRAMADA", 'DD/MM/YYYY') fechaProgramada, 
+				       general."ESTADO" estado, 
+				       general."ID_ESTADO_ENTREGABLE" idestadoEntregable, 
+				       to_char(general."FECHA_ENVIO", 'DD/MM/YYYY') fechaEnvio, 
+				       to_char(general."FECHA_APROBACION", 'DD/MM/YYYY') fechaAprobacion 
   		FROM "PLANIFICAR_PROYECTO"."ENTREGABLE" general 
   		inner join "PLANIFICAR_PROYECTO"."DETALLE_ENTREGABLE_PRODUCTO" detalle
   		on detalle."ID_ENTREGABLE" = general."ID_ENTREGABLE"
@@ -838,6 +844,32 @@
 		WHERE "ESTADO" = #{estado}
 			AND "ID_TIPO_NIVEL" = #{idTipoNivel};
 	</select>
+	
+	<select id="obtenerDetalleBandaSalarialByIdBandaSalarial" parameterType="Long" resultType="detalleBandaSalarialModel">
+		SELECT "ID_DETALLE_BANDA_SALARIAL" as idDetalleBandaSalarial, 
+				"COSTO_BANDA_SALARIAL" as costoBandaSalarial,
+				"ID_TIPO_ROL" as idTipoRol,
+				"ID_BANDA_SALARIAL" as idBandaSalarial,
+				"ESTADO" as estado
+		  FROM "PLANIFICAR_PROYECTO"."DETALLE_BANDA_SALARIAL" 
+		WHERE "ESTADO" = #{estado}
+			AND "ID_DETALLE_BANDA_SALARIAL" = #{idDetalleBandaSalarial};
+	</select>
+	
+	<insert id="actualizarCostoProyectoByIdDetalleCostoProyecto" parameterType="detalleCostoProyecto">
+        update "PLANIFICAR_PROYECTO"."DETALLE_COSTO_PROYECTO" 
+        set "ID_BANDA_SALARIAL" = #{idBandaSalarial},
+        	"COSTO" = #{costo},
+        	"ID_TIPO_NIVEL" = #{idTipoNivel}
+        where "ID_DETALLE_COSTO_PROYECTO" = #{idDetalleCostoProyecto};
+    </insert>    
+    
+    <select id="obtenerCostosProyectoByIdProyecto" parameterType="Long" resultType="Long">
+		select sum("COSTO") as costo
+		from "PLANIFICAR_PROYECTO"."DETALLE_COSTO_PROYECTO"
+		where "ID_PROYECTO" = #{idProyecto};
+	</select>
+    
     <!-- FIN - PLANIFICACION -->
     
 	<!-- [INI] EJECUCION -->

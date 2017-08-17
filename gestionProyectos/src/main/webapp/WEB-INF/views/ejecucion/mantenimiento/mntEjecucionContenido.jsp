@@ -256,11 +256,11 @@
 											Seguimiento
 										</a>
 									</li>
-									<li>
-										<a data-toggle="tab" href="#gantTareas"> 
-											Gantt
-										</a>
-									</li>
+<!-- 									<li> -->
+<!-- 										<a data-toggle="tab" href="#gantTareas">  -->
+<!-- 											Gantt -->
+<!-- 										</a> -->
+<!-- 									</li> -->
 								</ul>
 								
 								<div class="tab-content no-border padding-24">
@@ -299,13 +299,13 @@
 														</div>
 													</div>
 													<div class="span3">
-														<div class="row-fluid">
-															<div class="span12">
-																<a href="#modal-HacerResponder" id="btnResponderTarea" role="button" class="btn btn-small btn-primary" data-toggle="modal">
-																	<i class="icon-comments"></i>Hacer/Responder 
-																</a>															
-															</div>
-														</div>
+<!-- 														<div class="row-fluid"> -->
+<!-- 															<div class="span12"> -->
+<!-- 																<a href="#modal-HacerResponder" id="btnResponderTarea" role="button" class="btn btn-small btn-primary" data-toggle="modal"> -->
+<!-- 																	<i class="icon-comments"></i>Hacer/Responder  -->
+<!-- 																</a>															 -->
+<!-- 															</div> -->
+<!-- 														</div> -->
 													</div>
 												</div>
 											</div>
@@ -339,11 +339,11 @@
 										</div>
 									</div>
 									
-									<div id="gantTareas" class="tab-pane">
-										<div class="row-fluid">
-											xD
-										</div>
-									</div>
+<!-- 									<div id="gantTareas" class="tab-pane"> -->
+<!-- 										<div class="row-fluid"> -->
+<!-- 											xD -->
+<!-- 										</div> -->
+<!-- 									</div> -->
 								</div>
 							</div>
 						</div>

@@ -41,9 +41,9 @@ $('document').ready(function(){
 			recursoTarea: {
 				required: true
 			},
-//			idResponsableTarea: {
-//				required: true
-//			},
+			idResponsableTarea: {
+				required: true
+			},
 			idComplejidadTarea: {
 				required: true
 			},
@@ -180,7 +180,6 @@ $('document').ready(function(){
 			$("#idTarea").val(data.id);
 
 			$('#modal-Tarea').modal('show');
-
 		}
 	}
 
@@ -190,21 +189,26 @@ $('document').ready(function(){
 	});
 
 	function EliminarTarea(){
-		//var tabla = $("#tablaSegTareas").DataTable();
 		var datos = $("#tablaSegTareas").DataTable().row('.selected').length;
+		var data = $("#tablaSegTareas").DataTable().row('.selected').data();
+		var objeto = new Object();
+			objeto.id = data.id;
+			objeto.idProyecto = $("#idProyectoGeneral").val(); 
 
 		if(datos > 0){
 			bootbox.setLocale('es');
 			bootbox.confirm("Esta seguro de eliminar la fila seleccionada?", function(result) {
 						if(result) {
-							$("#tablaSegTareas").DataTable().row('.selected').remove().draw(false);
+							$.postJSON('eliminar_TareaCronograma.htm', objeto, function(data) {
+								$("#tablaSegTareas").DataTable().row('.selected').remove().draw(false);
 
-							$.gritter.add({
-								title: 'Info!',
-								text: 'Se realizo la operaci&oacute;n con &eacute;xito.',
-								sticky: false,
-								time: '1200',
-								class_name: 'gritter-info gritter-light'
+								$.gritter.add({
+									title: 'Info!',
+									text: 'Se realizo la operaci&oacute;n con &eacute;xito.',
+									sticky: false,
+									time: '1200',
+									class_name: 'gritter-info gritter-light'
+								});
 							});
 						}
 			});
@@ -216,7 +220,6 @@ $('document').ready(function(){
 					time: '1200',
 					class_name: 'gritter-warning gritter-light'
 			});
-
 		}
 	}
 
@@ -249,14 +252,13 @@ $('document').ready(function(){
 			});
 
 		}
-
 	}
 	
 	//Control de Cambios
 	$('#form-GuardarCtrolTarea').validate({
 		errorClass: 'help-block',
 		rules: {
-			ctrolCambiosTarea: {
+			idCtrolCambioTarea: {
 				required: true
 			}
 		},

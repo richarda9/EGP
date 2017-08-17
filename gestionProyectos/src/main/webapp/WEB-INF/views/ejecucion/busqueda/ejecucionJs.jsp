@@ -36,19 +36,10 @@ $(function()
 	{
 		loadModalCargando();
 		var objeto = $("#formBsqEjecucion").serializeObject();
-			objeto.estado = 14;
+			//objeto.estado = 14;
 		console.log(objeto);
 		
-// 		var bsqProyectoEjecucion = {};
-// 		bsqProyectoEjecucion.idProyecto = objeto.idProyecto;
-// 		bsqProyectoEjecucion.idCliente = objeto.idcliente;
-// 		bsqProyectoEjecucion.idTipoProyecto = objeto.idTipoProyecto;
-// 		bsqProyectoEjecucion.idResponsableProyecto = objeto.idResponsableProyecto;
-// 		bsqProyectoEjecucion.fechaInicio = objeto.fechaInicio;
-// 		bsqProyectoEjecucion.fechaFin = objeto.fechaFin;
-// 		bsqProyectoEjecucion.estado = objeto.estado;
-// 		console.log(bsqProyectoEjecucion);
-		$.postJSON('${pageContext.request.contextPath}/ejecucion/listar_proyectoEjecucion.htm', objeto /*bsqProyectoEjecucion*/, function(data) {
+		$.postJSON('${pageContext.request.contextPath}/ejecucion/listar_proyectoEjecucion.htm', objeto, function(data) {
 			console.log("data: " + data); 
 
 			var t = $("#tablaProyectoEjecucion").DataTable();
