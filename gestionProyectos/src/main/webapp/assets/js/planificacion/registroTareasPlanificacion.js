@@ -75,29 +75,18 @@ $('document').ready(function(){
 			
 		if($("#tipoOperacion").val() == "AGREGAR"){
 			objeto.estadoTarea = 1;
-			
-			/*var tmprecursos = objeto.recursoTarea.split(";");
-			var recursos = "";
-			for(var i = 0; i < tmprecursos.length; i++){
-				recursos += tmprecursos[i].split("-")[1].substring(0, tmprecursos[i].split("-")[1].length - 1) + ";";
-			};
-	
-			recursos = recursos.substring(0, recursos.length - 1); */
-	
+				
 			tabla.row.add({ 
-			                "codigo" 		: ++tamanio, 
 			                "descripcion"   : objeto.descripcionTarea, 
 			                "fechaInicio"	: objeto.fecIniTarea, 
 			                "fechaFin"		: objeto.fecFinTarea, 
 			                "dscComplejidad": $("#complejidadTarea option:selected").text(), 
 				            "horas"			: objeto.duracion, 
-				            "dscEstado"		: $("#estadoTarea option:selected").text(), 
+				            "dscEstado"		: objeto.dscEstadoTarea, 
 				            "justificacion" : objeto.justificacionTarea, 
 				            "idEstado"		: objeto.idEstadoTarea, 
-				            "idComplejidad" : objeto.idComplejidadTarea, 
-				            "dscRecursos"	: objeto.recursoTarea, 
+				            "idComplejidad" : objeto.idComplejidadTarea,  
 				            "precede"		: objeto.idTareaPredecesora,
-				            "idResponsable" : objeto.idResponsableTarea,
 				            "id"			: objeto.idTarea,
 				            "estadoTarea"	: objeto.estadoTarea
 			}).draw();
@@ -108,7 +97,7 @@ $('document').ready(function(){
 			objetoSelec.cell('.selected', 3).data(objeto.fecFinTarea);
 			objetoSelec.cell('.selected', 4).data($("#complejidadTarea option:selected").text());
 			objetoSelec.cell('.selected', 5).data(objeto.duracion);
-			objetoSelec.cell('.selected', 6).data($("#estadoTarea option:selected").text());
+			objetoSelec.cell('.selected', 6).data(objeto.dscEstadoTarea);
 			objetoSelec.cell('.selected', 7).data(objeto.justificacionTarea);
 			objetoSelec.cell('.selected', 8).data(objeto.idEstadoTarea);
 			objetoSelec.cell('.selected', 9).data(objeto.idComplejidadTarea);
@@ -191,11 +180,12 @@ $('document').ready(function(){
 	function EliminarTarea(){
 		var datos = $("#tablaSegTareas").DataTable().row('.selected').length;
 		var data = $("#tablaSegTareas").DataTable().row('.selected').data();
-		var objeto = new Object();
+		
+		if(datos > 0){
+			var objeto = new Object();
 			objeto.id = data.id;
 			objeto.idProyecto = $("#idProyectoGeneral").val(); 
 
-		if(datos > 0){
 			bootbox.setLocale('es');
 			bootbox.confirm("Esta seguro de eliminar la fila seleccionada?", function(result) {
 						if(result) {
@@ -232,16 +222,8 @@ $('document').ready(function(){
 		var datos = $("#tablaSegTareas").DataTable().data().length;
 
 		if(datos > 0){
-			bootbox.setLocale('ys');
-			bootbox.confirm("Esta asociado a un control de cambios?", function(result) {
-						if(result) {
-							//Mostrar modal para seleccionar el control de cambios
-							$('#modal-mostrarCtrolCambio').modal('show');
-						}else{
-							//Se guarda sin seleccionar el control de cambios
-							mantenimientoRegistroTareasCtrolCambios(2);
-						}
-			});
+			//Se guarda sin seleccionar el control de cambios
+			mantenimientoRegistroTareasCtrolCambios();
 		}else{
 			$.gritter.add({
 					title: 'Advertencia!',
@@ -253,79 +235,19 @@ $('document').ready(function(){
 
 		}
 	}
-	
-	//Control de Cambios
-	$('#form-GuardarCtrolTarea').validate({
-		errorClass: 'help-block',
-		rules: {
-			idCtrolCambioTarea: {
-				required: true
-			}
-		},
 
-		highlight: function (e) {
-			$(e).closest('.control-group').removeClass('info').addClass('error');
-		},
-
-		success: function (e) {
-			$(e).closest('.control-group').removeClass('error');
-			$(e).remove();
-		},
-		
-		submitHandler: function (form) {
-			mantenimientoRegistroTareasCtrolCambios(1);
-		}
-	});
-	
 	//Almacena en BD
-	function mantenimientoRegistroTareasCtrolCambios(ind)
+	function mantenimientoRegistroTareasCtrolCambios()
 	{
-		loadModalCargando();
-		$('#modal-mostrarCtrolCambio').modal('hide');
 		var objetoCtrol = null;
-		if(ind == 1){
-			objetoCtrol = $('#form-GuardarCtrolTarea').serializeObject();
-			objetoCtrol["lista"] =  obtenerTareaJson();
-			objetoCtrol.idProyecto = $("#idProyectoGeneral").val();
-			
-			$.postJSON('mantenimiento_TareasctrolCambio.htm', objetoCtrol, function(data) {
-				if(data){
-										
-					dataTarea = eval(data);
-					$("#tablaSegTareas").DataTable().ajax.reload();
-					
-					closeModalCargando();
-					$.gritter.add({
-						title: 'Info!',
-						text: 'Se realizo la operaci&oacute;n con &eacute;xito.',
-						sticky: false,
-						time: '1200',
-						class_name: 'gritter-info gritter-light'
-					});
-					
-				}
-			}).fail(function() {
-				$.gritter.add({
-					title: 'Error!',
-					text: 'Ocurrio un error al tratar de realizar la operaci&oacute;n',
-					sticky: false,
-					time: '1200',
-					class_name: 'gritter-error'
-				});
-			});
-		
-		}else{
 			objetoCtrol = new Object();
 			objetoCtrol["lista"] =  obtenerTareaJson();
-			objetoCtrol.idProyecto = $("#idProyectoGeneral").val();
+			objetoCtrol.idProyecto = $("#codigoPy").val();
 			
 			$.postJSON('mantenimiento_TareasctrolCambio.htm', objetoCtrol, function(data) {
 				if(data){
-					
-					//$('#modal-mostrarCtrolCambio').modal('hide');
 					dataTarea = eval(data);
 					$("#tablaSegTareas").DataTable().ajax.reload();
-					closeModalCargando();
 					
 					$.gritter.add({
 						title: 'Info!',
@@ -337,7 +259,6 @@ $('document').ready(function(){
 					
 				}
 			}).fail(function() {
-				closeModalCargando();
 				$.gritter.add({
 					title: 'Error!',
 					text: 'Ocurrio un error al tratar de realizar la operaci&oacute;n',
@@ -346,7 +267,6 @@ $('document').ready(function(){
 					class_name: 'gritter-error'
 				});
 			});
-		}		
 	}
 	
 	function obtenerTareaJson() {

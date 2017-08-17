@@ -70,12 +70,13 @@ public class EjecucionController
 	private CierreService cierreService;
 
 	@RequestMapping(value = "/ejecucion.htm")
-	public ModelAndView ejecucion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	public ModelAndView ejecucion(HttpServletRequest request, HttpServletResponse response) throws NumberFormatException, Exception 
 	{
 		HashMap<String, Object> myModel = new HashMap<String, Object>();
 		myModel.put("listaTipoProyecto", this.administracionService.listarTipoProyectoByEsado(Constantes.ESTADO_ACTIVO));
 		myModel.put("listaProyecto", this.proyectoService.listarProyectoByEstado(Constantes.ESTADO_ACTIVO));
 		myModel.put("listaCliente", this.administracionService.listarEmpresaByEstado(Constantes.ESTADO_ACTIVO));
+		myModel.put("listaResponsableProyecto", this.personaService.listarEjecutivoResponsableByEstadoByRol(Constantes.ESTADO_ACTIVO, Long.parseLong(RolEnum.RESPONSABLE_PROYECTO.getCodigo())));
 		
 		//myModel.put("listaAsociadoProyecto", this.proyectoService.listarProyectoByDetalleEstadoProyectoByEstado(ESTADO_ACTIVO, Long.parseLong(EstadoProyectoEnum.EN_PLANIFICACION.getCodigo())));
 		
@@ -239,9 +240,7 @@ public class EjecucionController
 	
 	@RequestMapping(value = "/eliminar_TareaCronograma.htm", method = RequestMethod.POST)
 	public @ResponseBody int eliminarTareaCronograma(@RequestBody LstDetalleCronogramaModel dato) throws JsonGenerationException, JsonMappingException, IOException 
-	{
-		ObjectMapper mapper = new ObjectMapper();
-		
+	{		
 		ejecucionService.eliminarTareaCronograma(dato); 
 		return 0;
 	}

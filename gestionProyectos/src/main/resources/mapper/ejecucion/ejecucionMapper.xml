@@ -224,20 +224,20 @@
 	
 	<update id="actualizaTareaProyecto" parameterType="detalleCronograma">
 		UPDATE "PLANIFICAR_PROYECTO"."DETALLE_CRONOGRAMA"
-		   SET "NOMBRE" = #{nombre}, 
-		       "DURACION" = #{duracion}, 
-		       "FECHA_INICIO" = to_date(#{fechaInicio}, 'DD/MM/YYYY'), 
-		       "FECHA_FIN" = to_date(#{fechaFin}, 'DD/MM/YYYY'), 
-		       "PRECEDE" = #{precede}, 
-		       "RECURSOS" = #{recursos}, 
-		       "ID_PROYECTO" = #{idproyecto}, 
-		       "ESTADO" = #{estado}, 
-		       "ID_COMPLEJIDAD" = #{idcomplejidad}, 
-		       "ID_ESTADO_TAREA" = #{idestado}, 
-		       "JUSTIFICACION" = #{justificacion}, 
-		       "ID_CONTROL_CAMBIOS" = #{idcontrolcambios}, 
-		       "ID_PERSONA" = #{idpersona}, 
-		       "COD_DETALLE_CRONOGRAMA" = #{coddetallecronograma}
+		   SET "NOMBRE" = COALESCE(#{nombre}, "NOMBRE"),
+		       "DURACION" = COALESCE(#{duracion}, "DURACION"),
+		       "FECHA_INICIO" = COALESCE(to_date(#{fechaInicio}, 'DD/MM/YYYY'), "FECHA_INICIO"),
+		       "FECHA_FIN" = COALESCE(to_date(#{fechaFin}, 'DD/MM/YYYY'), "FECHA_FIN"),
+		       "PRECEDE" = COALESCE(#{precede}, "PRECEDE"),
+		       "RECURSOS" = COALESCE(#{recursos}, "RECURSOS"),
+		       "ID_PROYECTO" = COALESCE(#{idproyecto}, "ID_PROYECTO"),
+		       "ESTADO" = COALESCE(#{estado}, "ESTADO"),
+		       "ID_COMPLEJIDAD" = COALESCE(#{idcomplejidad}, "ID_COMPLEJIDAD"),
+		       "ID_ESTADO_TAREA" = COALESCE(#{idestado}, "ID_ESTADO_TAREA"),
+		       "JUSTIFICACION" = COALESCE(#{justificacion}, "JUSTIFICACION"),
+		       "ID_CONTROL_CAMBIOS" = COALESCE(#{idcontrolcambios}, "ID_CONTROL_CAMBIOS"),
+		       "ID_PERSONA" = COALESCE(#{idpersona}, "ID_PERSONA"),
+		       "COD_DETALLE_CRONOGRAMA" = COALESCE(#{coddetallecronograma}, "COD_DETALLE_CRONOGRAMA")
 		 WHERE "ID_DETALLE_CRONOGRAMA" = #{id};
 	</update>
 	<!-- [FIN] TAREAS -->
@@ -337,8 +337,8 @@
 	</select>
 	
 	<select id="listarEnvioCertificacionbyProyecto" parameterType="long" resultType="lstEnvioCertificacionModel">
-		SELECT e."ID_ENTREGABLE" identregable, 
-		       dep."ID_DETALLE_ENTREGABLE_PRODUCTO" id,
+		SELECT DISTINCT e."ID_ENTREGABLE" identregable, 
+		      -- dep."ID_DETALLE_ENTREGABLE_PRODUCTO" id,
 		       e."ID_ESTADO_ENTREGABLE" idestadoentregable,
 		       (SELECT ee."DESCRIPCION" FROM "PLANIFICAR_PROYECTO"."ESTADO_ENTREGABLE" ee
 		        WHERE ee."ID_ESTADO_ENTREGABLE" = e."ID_ESTADO_ENTREGABLE") dscestadoentregable,
@@ -452,8 +452,8 @@
 	
 	<!-- [INI] SEGUIMIENTO ENTREGABLE -->
 	<select id="listarSeguimientoCertificacionbyProyecto" parameterType="long" resultType="lstEnvioCertificacionModel">
-		SELECT e."ID_ENTREGABLE" identregable, 
-		       dep."ID_DETALLE_ENTREGABLE_PRODUCTO" id,
+		SELECT DISTINCT e."ID_ENTREGABLE" identregable, 
+		       --dep."ID_DETALLE_ENTREGABLE_PRODUCTO" id,
 		       e."ID_ESTADO_ENTREGABLE" idestadoentregable,
 		       (SELECT ee."DESCRIPCION" FROM "PLANIFICAR_PROYECTO"."ESTADO_ENTREGABLE" ee
 		        WHERE ee."ID_ESTADO_ENTREGABLE" = e."ID_ESTADO_ENTREGABLE") dscestadoentregable,

@@ -95,12 +95,12 @@
                         </a>
                     </li>
  
-                    <li>
+                    <!-- <li>
                         <a data-toggle="tab" href="#costos">
                             <i class="green icon-asterisk"></i>
                             Costos
                         </a>
-                    </li>
+                    </li> -->
  
                     <li>
                         <a data-toggle="tab" href="#costosOperativos">
@@ -109,12 +109,12 @@
                         </a>
                     </li>
  
-                    <li>
+                    <!-- <li>
                         <a data-toggle="tab" href="#presupuesto">
                             <i class="pink icon-bar-chart"></i>
                             Presupuesto
                         </a>
-                    </li>
+                    </li> -->
  
                     <li>
                         <a data-toggle="tab" href="#formasdePago">
@@ -727,8 +727,66 @@
 					</div>
 
 					<div id="cronograma" class="tab-pane">
-						<p>Cronograma.</p>
-						<p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
+						<div class="row-fluid">
+							<div class="page-header position-relative">
+								<h1>Cronograma</h1>
+							</div>
+						</div>
+						<div class="row-fluid">
+							<div class="row-fluid">
+								<div class="span12">
+									<div class="span6"></div>
+									<div class="span6">
+										<div class="row-fluid">
+											<div class="span3">
+												<a id="btnGuardarTarea" class="btn btn-small btn-primary">
+													<i class="icon-save"></i>Guardar 
+												</a>															
+											</div>
+											<div class="span3">
+												<a href="#modal-Tarea" id="btnAgregarTarea" role="button" class="btn btn-small btn-primary" data-toggle="modal">
+													<i class="icon-plus"></i>Agregar 
+												</a>
+											</div>
+											<div class="span3">
+												<a id="btnEditarTarea" class="btn btn-small btn-primary">
+													<i class="icon-edit"></i>Editar &nbsp;&nbsp; 
+												</a>
+											</div>
+											<div class="span3">
+												<a id="btnEliminarTarea" class="btn btn-small btn-primary">
+													<i class="icon-trash"></i>Eliminar 
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="space-20"></div>
+							<div class="row-fluid">
+								<div class="table-header">Lista Cronograma</div>
+								<table id="tablaSegTareas" class="table table-striped table-bordered table-hover" style="width: 100%;">
+									<thead>
+										<tr>
+											<th>Id</th>
+											<th>Descripci&oacute;n</th>
+											<th>Fecha Inicio</th>
+											<th>Fecha Fin</th>
+											<th>Complejidad</th>
+											<th>Horas</th>
+											<th>Estado</th>
+											<th>Justificaci&oacute;n</th>
+											<!-- Campos Ocultos-->
+											<th>Codigo Estado</th>
+											<th>Codigo Complejidad</th>
+											<th>Tarea Predecesora</th>
+										</tr>
+									</thead>	
+									<tbody>
+									</tbody>
+								</table>
+							</div>										
+						</div>
 					</div>
 
 					<div id="entregable" class="tab-pane">
@@ -1833,6 +1891,7 @@
     <!-- FIN - MODAL EJECUTAR - FECHA APROBACIÓN -->
     <!-- [INI] MODAL ENTREGABLE -->
     <%@ include file="/WEB-INF/views/ventanasEmergentes/planificacion/registrarEntregable.jsp"%>
+    <%@ include file="/WEB-INF/views/ventanasEmergentes/planificacion/registroTareasPlanificacion.jsp"%>
     <!-- [FIN] MODAL ENTREGABLE -->
     
     <!-- INI - MODAL COSTO DEL PROYECTO -->

@@ -35,11 +35,11 @@
 						</a>
 					</li>
 
-					<li>
-						<a data-toggle="tab" href="#agenda">
-							Agenda
-						</a>
-					</li>
+<!-- 					<li> -->
+<!-- 						<a data-toggle="tab" href="#agenda"> -->
+<!-- 							Agenda -->
+<!-- 						</a> -->
+<!-- 					</li> -->
 
 					<li>
 						<a data-toggle="tab" href="#crtlCambios">
@@ -489,9 +489,9 @@
 						</div>
 					</div>
 
-					<div id="agenda" class="tab-pane">
-						falta agenda
-					</div>
+<!-- 					<div id="agenda" class="tab-pane"> -->
+<!-- 						falta agenda -->
+<!-- 					</div> -->
 
 					<div id="crtlCambios" class="tab-pane">
 						<div class="row-fluid">

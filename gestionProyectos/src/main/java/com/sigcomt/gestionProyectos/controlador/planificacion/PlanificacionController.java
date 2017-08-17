@@ -24,7 +24,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.google.gson.Gson;
+import com.sigcomt.gestionProyectos.common.Constantes;
 import com.sigcomt.gestionProyectos.common.enumerations.EstadoProyectoEnum;
 import com.sigcomt.gestionProyectos.common.enumerations.RolEnum;
 import com.sigcomt.gestionProyectos.dominio.administracion.CategoriaAdquisicion;
@@ -40,6 +42,8 @@ import com.sigcomt.gestionProyectos.model.administracion.TipoDependenciaProyecto
 import com.sigcomt.gestionProyectos.model.administracion.TipoRequisitoProyectoModel;
 import com.sigcomt.gestionProyectos.model.administracion.TipoSupuestoProyectoModel;
 import com.sigcomt.gestionProyectos.model.anteproyecto.BuscarAnteproyectoModel;
+import com.sigcomt.gestionProyectos.model.ejecucion.LstDetalleCronogramaModel;
+import com.sigcomt.gestionProyectos.model.ejecucion.MntTareaCtrolCambioModel;
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.BandaSalarialModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DependenciaPlanificacionModel;
@@ -207,6 +211,11 @@ public class PlanificacionController
         //[INI] ENTREGABLES
         myModel.put("listaEntregableProyecto",  mapper.writeValueAsString(entregableList));                
         //[FIN] ENTREGABLES
+        
+        //[INI] TAREAS
+        myModel.put("listaComplejidad", this.ejecucionService.listarComplejidad(Constantes.ESTADO_ACTIVO));
+        myModel.put("listaTareas", mapper.writeValueAsString(ejecucionService.obtListaTareaProyectobyProyecto(new Long(idProyecto))));
+        //[FIN] TAREAS
         
 		return new ModelAndView("mntPlanificacion", "model", myModel);
 	}
@@ -685,4 +694,26 @@ public class PlanificacionController
 		return 0;
 	}
 	//[FIN] ENTREGABLES
+	//[INI] TAREAS
+
+	
+	@RequestMapping(value = "/mantenimiento_TareasctrolCambio.htm", method = RequestMethod.POST)
+	public @ResponseBody String mntTareasProyecto(@RequestBody MntTareaCtrolCambioModel dato) throws JsonGenerationException, JsonMappingException, IOException 
+	{
+		ObjectMapper mapper = new ObjectMapper();
+					
+		ejecucionService.mntTareasProyecto(dato);
+		System.out.println("DATO:      " +dato.toString());			
+					
+		return mapper.writeValueAsString(ejecucionService.obtListaTareaProyectobyProyecto(dato.getIdProyecto()));
+			
+	}
+	
+	@RequestMapping(value = "/eliminar_TareaCronograma.htm", method = RequestMethod.POST)
+	public @ResponseBody int eliminarTareaCronograma(@RequestBody LstDetalleCronogramaModel dato) throws JsonGenerationException, JsonMappingException, IOException 
+	{		
+		ejecucionService.eliminarTareaCronograma(dato); 
+		return 0;
+	}
+	//[FIN] TAREAS
 }

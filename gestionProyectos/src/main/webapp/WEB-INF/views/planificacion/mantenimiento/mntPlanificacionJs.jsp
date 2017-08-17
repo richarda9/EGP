@@ -3,6 +3,7 @@
 <script src="../assets/js/fuelux/data/fuelux.tree-sampledata.js"></script>
 <script src="../assets/js/fuelux/fuelux.tree.min.js"></script>
 <script src="../assets/js/bootbox.min.js"></script>
+<script src="../assets/js/planificacion/registroTareasPlanificacion.js"></script>
 
 <script>
 var dataSetRequisitoProyecto = [];
@@ -22,6 +23,7 @@ var dataSetRRHHResponsabilidadesProveedor = [];
 var dataSetRRHHResponsabilidadesCliente = [];
 var dataSetCostosProyecto = [];
 var dataSetCostosProyecto = eval('${model.listaDetalleCostoProyectoBD}');
+var dataTarea = eval('${model.listaTareas}');
 
 $(document).ready(function() {/* INI - READY */
 	
@@ -1025,6 +1027,71 @@ function guardarDescripcion(){
 	});
 }	
 /* FIN - DESCRIPCION DEL PRODUCTO */
+/*[INI] CRONOGRAMA */
+	var tablaSegTareas = $('#tablaSegTareas').DataTable({
+		"ajax"		 : function (data, callback, settings) {
+			callback ( { data: dataTarea } );
+		   },				        
+		"paging"     : true,
+		"autoWidth"  : true,
+		"pageLength" : 10,
+		"searching"  : false,
+		"bInfo"      : false, 
+		"columnDefs"		:
+	    	[
+		    	{	"targets": [ 8 ], "visible": false, "searchable": false, "width": "0%"},
+		        {	"targets": [ 9 ], "visible": false, "searchable": false, "width": "0%"},
+		        {	"targets": [ 10 ], "visible": false, "searchable": false, "width": "0%"},
+		        {	"targets": [ 11 ], "visible": false, "searchable": false, "width": "0%"},
+		        {	"targets": [ 12 ], "visible": false, "searchable": false, "width": "0%"}
+	    	],
+	    "columns"		: [
+	             		   //{"data": "codigo"},
+			     		   {"data": null, render: function ( data, type, row ) {
+			     			   return '';
+			     		   	}
+			     		   },   
+	             		   {"data": "descripcion"},  
+					       {"data": "fechaInicio"},                      
+					       {"data": "fechaFin"},                  
+					       {"data": "dscComplejidad"},    
+					       {"data": "horas"},  
+					       {"data": "dscEstado"},  
+					       {"data": "justificacion"},
+					       {"data": "idEstado"},
+					       {"data": "idComplejidad"},
+					       {"data": "precede"},
+					       {"data": "id"},
+					       {"data": "estadoTarea"}
+						  ],
+	    "destroy"		: true,
+		"language"   : {
+							"url": "../assets/plugins/DataTables-1.10.12/extensions/internalization/spanish.txt" 
+				       }
+	});
+
+	$('#tablaSegTareas tbody').on( 'click', 'tr', function () {
+		var texto = this.innerText; 
+		
+		//alert(tablaSegTareas.cell( this ).data());
+		
+		if(!texto.endsWith("dato disponible en esta tabla")){
+	        if ( $(this).hasClass('selected') ) {
+	            $(this).removeClass('selected');
+	        }
+	        else {
+	        	tablaSegTareas.$('tr.selected').removeClass('selected');
+	            $(this).addClass('selected');
+	        }
+    	}
+    });
+
+	tablaSegTareas.on( 'order.dt search.dt', function () {
+		tablaSegTareas.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+	        cell.innerHTML = i+1;
+	    } );
+	}).draw();
+/*[FIN] CRONOGRAMA */
 
 /* *************************** INI - TAB ALCANCE *************************** */ 
 /* INI - ALCANCE - REQUISITO PROYECTO */
@@ -1572,7 +1639,7 @@ function guardarRolProveedor(){
             dataSetRolProveedor.push(detalleRolProyecto);
             t.ajax.reload();
             
-            cargarCostosProyecto();
+            /* cargarCostosProyecto(); */
             
             actualizarRolProveedorResponsabilidad();
             
@@ -1610,7 +1677,7 @@ function deleteTipoRolProveedor(){
             t.ajax.reload();
             
             actualizarRolProveedorResponsabilidad();
-            cargarCostosProyecto();
+            /* cargarCostosProyecto(); */
         }
     });
 }
