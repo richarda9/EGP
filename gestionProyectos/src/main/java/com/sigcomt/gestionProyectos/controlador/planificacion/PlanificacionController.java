@@ -200,6 +200,7 @@ public class PlanificacionController
         List<DetalleCostoProyecto> listaDetalleCostoProyecto = planificacionService.listarDetalleCostoProyectoByIdProyecto(idProyecto);
 //        String listaDetalleCostoProyectoString = gSon.toJson(listaDetalleCostoProyecto);
         myModel.put("listaDetalleCostoProyectoBD",  mapper.writeValueAsString(listaDetalleCostoProyecto));
+        myModel.put("totalCostos",  planificacionService.obtenerCostosProyectoByIdProyecto(idProyecto));        
 //        myModel.put("listaDetalleCostoProyectoBD", listaDetalleCostoProyectoString);        
 //      FIN - COSTOS DEL PROYECTO - CARGA DATA
         
@@ -587,6 +588,49 @@ public class PlanificacionController
 		logger.info("FIN - PlanificacionController.cboBandaSalarial.htm'");
 		return bandaSalarial;	
 	}
+	
+    @RequestMapping(value = "/guardarCostoProyecto.htm", method = RequestMethod.POST)
+    public @ResponseBody Map<String, String> guardarCostoProyecto(@RequestBody DetalleCostoProyecto detalleCostoProyecto, HttpServletRequest request) {
+        logger.info("INI - PlanificacionController.guardarCostoProyecto");
+        Map<String, String> respuesta =  new HashMap<String, String>();
+        respuesta.put("respuesta", "OK");
+        detalleCostoProyecto.setEstado(ESTADO_ACTIVO);
+         
+        try {
+        	Map<String, Object> costos =  new HashMap<String, Object>();
+        	costos = planificacionService.guardarCostoProyecto(detalleCostoProyecto);
+        	
+        	respuesta.put("costoPy", costos.get("costoPy").toString());
+    		respuesta.put("costoPorRol", costos.get("costoPorRol").toString());
+        	
+        } catch (Exception e) {
+            logger.error("ERROR - PlanificacionController.guardarCostoProyecto", e);
+            respuesta.put("respuesta", "ERROR");
+        }
+        
+        logger.info("FIN - PlanificacionController.guardarCostoProyecto");
+        return respuesta;   
+    }
+    
+    @RequestMapping(value = "/cargarCostosProyecto.htm", method = RequestMethod.POST)
+    public @ResponseBody Map<String, String> cargarCostosProyecto(@RequestBody DetalleRolProyecto detalleRolProyecto, HttpServletRequest request) {
+        logger.info("INI - PlanificacionController.cargarCostosProyecto");
+        Map<String, String> respuesta = new HashMap<String, String>();
+         
+        try {
+        	ObjectMapper mapper = new ObjectMapper();
+        	List<DetalleCostoProyecto> listaDetalleCostoProyecto = planificacionService.listarDetalleCostoProyectoByIdProyecto(detalleRolProyecto.getIdProyecto());
+            respuesta.put("listaDetalleCostoProyectoBD", mapper.writeValueAsString(listaDetalleCostoProyecto));
+            respuesta.put("totalCostos", planificacionService.obtenerCostosProyectoByIdProyecto(detalleRolProyecto.getIdProyecto())!=null?planificacionService.obtenerCostosProyectoByIdProyecto(detalleRolProyecto.getIdProyecto()).toString():"");
+            
+        } catch (Exception e) {
+            logger.error("ERROR - PlanificacionController.cargarCostosProyecto", e);
+            respuesta.put("error", "ERROR");
+        }
+        
+        logger.info("FIN - PlanificacionController.cargarCostosProyecto");
+        return respuesta;   
+    }  
 //	FIN - COSTO DEL PROYECTO	
 	//[INI] ENTREGABLES
 

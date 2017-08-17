@@ -957,6 +957,10 @@ $(document).ready(function() {/* INI - READY */
 		});
  
     } );
+    
+    $('#modalCostoProyecto').on('click', '#guardarCostoProyecto', function(){
+    	guardarCostoProyecto();     
+    });
 	/* FIN - TAB COSTOS  */
 
     
@@ -1568,6 +1572,8 @@ function guardarRolProveedor(){
             dataSetRolProveedor.push(detalleRolProyecto);
             t.ajax.reload();
             
+            cargarCostosProyecto();
+            
             actualizarRolProveedorResponsabilidad();
             
         }
@@ -1604,6 +1610,7 @@ function deleteTipoRolProveedor(){
             t.ajax.reload();
             
             actualizarRolProveedorResponsabilidad();
+            cargarCostosProyecto();
         }
     });
 }
@@ -1901,6 +1908,78 @@ function cargarBandaSalarial(obj)
 		});
 	}
 }
+
+function guardarCostoProyecto(){
+    var t = $('#tablaCostosProyecto').DataTable();
+    var id =$('#modalCostoProyecto').attr('data-attr-index');
+    var idDetalle = t.row(id).data().idDetalleCostoProyecto;;
+    var descripcionRol = t.row(id).data().descripcionRol;    
+    $('#modalCostoProyecto').modal('hide');
+    var detalleCostoProyecto = {};
+    detalleCostoProyecto.idDetalleCostoProyecto = idDetalle;
+    detalleCostoProyecto.idBandaSalarial = $("#idBandaSalarial").val();
+    detalleCostoProyecto.idTipoNivel = $("#idTipoNivel").val();
+    detalleCostoProyecto.idProyecto = $('#codigoPy').val();
+    detalleCostoProyecto.descripcionBandaSalarial = $('#idBandaSalarial option:selected').text();
+    detalleCostoProyecto.descripcionTipo = $('#idTipoNivel option:selected').text();
+    detalleCostoProyecto.descripcionRol = descripcionRol;
+    
+    $.postJSON('${pageContext.request.contextPath}/planificacion/guardarCostoProyecto.htm',detalleCostoProyecto, function(data) {
+        if(data.respuesta == 'ERROR'){
+            $.gritter.add({
+                title: 'Error!',
+                text: 'Ocurrió un error al guardar costo',
+                sticky: false,
+                time: '1200',
+                class_name: 'gritter-error'
+            });
+        }else{
+            $.gritter.add({
+                title: 'Info!',
+                text: 'Se guardó correctamente el costo.',
+                sticky: false,
+                time: '1200',
+                class_name: 'gritter-info gritter-light'
+            }); 
+            detalleCostoProyecto.costo = data.costoPorRol;
+            $("#totalCostos").html(data.costoPy);
+            dataSetCostosProyecto[id]=detalleCostoProyecto;
+            t.ajax.reload();         
+        	
+        }
+    });
+}
+
+function cargarCostosProyecto(){
+    var t = $('#tablaCostosProyecto').DataTable();    
+    var detalleRolProyecto = {};
+    detalleRolProyecto.idProyecto =  $('#codigoPy').val();
+    
+    $.postJSON('${pageContext.request.contextPath}/planificacion/cargarCostosProyecto.htm',detalleRolProyecto, function(data) {
+        if(data.error == 'ERROR'){
+            $.gritter.add({
+                title: 'Error!',
+                text: 'Ocurrió un error al cargar los costos del proyecto.',
+                sticky: false,
+                time: '1200',
+                class_name: 'gritter-error'
+            });
+        }else{
+            $.gritter.add({
+                title: 'Info!',
+                text: 'Se cargó correctamente los costos del proyecto.',
+                sticky: false,
+                time: '1200',
+                class_name: 'gritter-info gritter-light'
+            }); 
+            
+            dataSetCostosProyecto=eval(data.listaDetalleCostoProyectoBD);
+            t.ajax.reload();         
+            $("#totalCostos").html(data.totalCostos);
+        }
+    });
+}
+
 /* FIN - COSTOS DEL PROYECTO */
 /* **************************** INI - TAB ENTREGABLE  ************************************** */
 $('#registrarEntregables').validate({

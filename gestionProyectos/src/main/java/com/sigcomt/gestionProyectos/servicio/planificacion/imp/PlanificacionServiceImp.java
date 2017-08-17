@@ -21,6 +21,7 @@ import com.sigcomt.gestionProyectos.dominio.planificacion.DetalleEntregableProye
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.BandaSalarialModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DependenciaPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.DetalleBandaSalarialModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DetalleCostoOperativoModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DetalleCostoProyecto;
 import com.sigcomt.gestionProyectos.model.planificacion.DetalleRiesgosModel;
@@ -241,6 +242,33 @@ public class PlanificacionServiceImp implements PlanificacionService{
 	public List<BandaSalarialModel> listarBandaSalarial(
 			BandaSalarialModel bandaSalarialModel) {
 		return proyectoDao.listarBandaSalarial(bandaSalarialModel);
+	}
+
+        @Transactional
+	public Map<String, Object> guardarCostoProyecto(DetalleCostoProyecto detalleCostoProyecto) {
+
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		DetalleBandaSalarialModel detalleBandaSalarialModel = new DetalleBandaSalarialModel();
+		detalleBandaSalarialModel.setEstado(1);
+		detalleBandaSalarialModel.setIdDetalleBandaSalarial(detalleCostoProyecto.getIdBandaSalarial());
+		detalleBandaSalarialModel = proyectoDao.obtenerDetalleBandaSalarialByIdBandaSalarial(detalleBandaSalarialModel);
+		
+		detalleCostoProyecto.setCosto(detalleBandaSalarialModel.getCostoBandaSalarial());
+		detalleCostoProyecto.setIdBandaSalarial(detalleBandaSalarialModel.getIdDetalleBandaSalarial());
+		proyectoDao.actualizarCostoProyectoByIdDetalleCostoProyecto(detalleCostoProyecto);
+		
+		Long costoPy = proyectoDao.obtenerCostosProyectoByIdProyecto(detalleCostoProyecto.getIdProyecto());
+		String costoPorRol = String.valueOf(detalleBandaSalarialModel.getCostoBandaSalarial());
+		
+		respuesta.put("costoPy", costoPy);
+		respuesta.put("costoPorRol", costoPorRol);
+		return respuesta;
+	}
+
+	public Long obtenerCostosProyectoByIdProyecto(Long idProyecto) {
+		
+		Long costoPy = proyectoDao.obtenerCostosProyectoByIdProyecto(idProyecto);
+		return costoPy;
 	}
 
     //[INI] ENTREGABLE
