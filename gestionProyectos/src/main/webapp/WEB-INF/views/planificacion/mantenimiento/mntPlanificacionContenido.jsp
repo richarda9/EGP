@@ -20,13 +20,7 @@
                                 <i class="icon-save"></i>
                                 Ejecutar Proyecto
                             </a>
-                        </div>
-                        <div class="span3" style="float: left;">
-                            <button class="btn btn-small btn-info span12">
-                                <i class="icon-print"></i>
-                                Imprimir
-                            </button>
-                        </div>
+                        </div>                        
                         <div class="span3" style="float: left;">
                             <a class="btn btn-small btn-info span12" href="#modalCancelarProyecto" data-toggle="modal">
                                 <i class="icon-remove-sign"></i>
@@ -123,12 +117,12 @@
                         </a>
                     </li>
  
-                    <li>
+                    <!-- <li>
                         <a data-toggle="tab" href="#contrato">
                             <i class="brown icon-book"></i>
                             Contrato
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
 				
 				<div class="tab-content">
