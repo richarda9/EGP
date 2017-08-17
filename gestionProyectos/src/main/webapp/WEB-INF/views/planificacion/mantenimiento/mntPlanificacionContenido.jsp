@@ -95,12 +95,12 @@
                         </a>
                     </li>
  
-                    <li>
+                    <!-- <li>
                         <a data-toggle="tab" href="#costos">
                             <i class="green icon-asterisk"></i>
                             Costos
                         </a>
-                    </li>
+                    </li> -->
  
                     <li>
                         <a data-toggle="tab" href="#costosOperativos">
@@ -109,12 +109,12 @@
                         </a>
                     </li>
  
-                    <li>
+                    <!-- <li>
                         <a data-toggle="tab" href="#presupuesto">
                             <i class="pink icon-bar-chart"></i>
                             Presupuesto
                         </a>
-                    </li>
+                    </li> -->
  
                     <li>
                         <a data-toggle="tab" href="#formasdePago">

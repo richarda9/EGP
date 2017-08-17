@@ -13,10 +13,10 @@
 			<ul class="submenu">
 				<li id="inicio_bienvenida">
 					<a href="../home/bienvenida.htm">
-						<i class="icon-double-angle-right"></i> Bienvenida 
+						<i class="icon-double-angle-right"></i> Bienvenido
 					</a>
 				</li>
-				<li id="inicio_perfil">
+				<!-- <li id="inicio_perfil">
 					<a href="../home/perfil.htm">
 						<i class="icon-double-angle-right"></i> Perfil 
 					</a>
@@ -25,7 +25,7 @@
 					<a href="../home/configuracion.htm">
 						<i class="icon-double-angle-right"></i> Configuraci&oacute;n 
 					</a>
-				</li>
+				</li> -->
 			</ul>
 		</li>
 

@@ -13,7 +13,7 @@ $(document).ready(function() {
 		module = "#inicio";
 		item = "#inicio_bienvenida";
 		document.getElementById("moduloSistema").innerHTML = " Inicio";
-		document.getElementById("itemSistema").innerHTML = "Bienvenida";
+		document.getElementById("itemSistema").innerHTML = "Bienvenido";
 		break;
 	}
 	case "perfil.htm": {
@@ -56,6 +56,14 @@ $(document).ready(function() {
 	}
 	
 	case "mntAnteproyectoAgregar.htm": {
+		module = "#gestionProyectos";
+		item = "#idAnteproyecto";
+		document.getElementById("moduloSistema").innerHTML = " Gesti&oacute;n de Proyectos";
+		document.getElementById("itemSistema").innerHTML = "Anteproyectos";
+		break;
+	}
+	
+	case "mntAnteproyectoEdit.htm": {
 		module = "#gestionProyectos";
 		item = "#idAnteproyecto";
 		document.getElementById("moduloSistema").innerHTML = " Gesti&oacute;n de Proyectos";

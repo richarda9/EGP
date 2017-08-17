@@ -33,6 +33,7 @@ $(document).ready(function() {
 
 function buscarAnteproyecto(){
 		
+	loadModalCargando();
 	var t = $('#tablaBuscarAnteproyecto').DataTable();
 	t.clear().draw();
 		
@@ -44,10 +45,11 @@ function buscarAnteproyecto(){
 	buscarAnteproyectoModel.idResponsableProyecto = form.idResponsableProyecto;
 	buscarAnteproyectoModel.fechaInicio = form.fechaInicio;
 	buscarAnteproyectoModel.fechaFin = form.fechaFin;
-	
+		
 	$.postJSON('${pageContext.request.contextPath}/anteproyecto/buscarAnteproyecto.htm',buscarAnteproyectoModel, function(data) { 
 			console.log(data);
 			/* var t = $('#tablaBuscarAnteproyecto').DataTable(); */
+			closeModalCargando();
 			for(i in data)
 			{			
 				var nombreProyecto = data[i].nombreProyecto;
@@ -92,7 +94,16 @@ function buscarAnteproyecto(){
 
 			}
 			return false;
-		});
+		}).fail(function() {
+			closeModalCargando();
+			$.gritter.add({
+				title: 'Error!',
+				text: 'Ocurrio un error al tratar de realizar la operaci&oacute;n solicitada',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-error'
+			});
+		});;
 	 
 	
 }

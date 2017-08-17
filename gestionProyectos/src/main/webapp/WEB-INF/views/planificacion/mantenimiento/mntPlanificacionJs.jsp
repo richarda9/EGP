@@ -1572,7 +1572,7 @@ function guardarRolProveedor(){
             dataSetRolProveedor.push(detalleRolProyecto);
             t.ajax.reload();
             
-            cargarCostosProyecto();
+            /* cargarCostosProyecto(); */
             
             actualizarRolProveedorResponsabilidad();
             
@@ -1610,7 +1610,7 @@ function deleteTipoRolProveedor(){
             t.ajax.reload();
             
             actualizarRolProveedorResponsabilidad();
-            cargarCostosProyecto();
+            /* cargarCostosProyecto(); */
         }
     });
 }
