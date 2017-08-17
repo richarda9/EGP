@@ -2,7 +2,7 @@
 	prefix="security"%>
 <div class="page-header position-relative">
 	<h1>
-		Bienvenida
+		Bienvenido
 		<!-- small> <i class="icon-double-angle-right"></i> Reporte de Tickets
 		</small -->
 	</h1>
@@ -19,15 +19,14 @@
 				<i class="icon-remove"></i>
 			</button>
 
-			<i class="icon-ok green"></i> Bienvenido al <strong class="green">Sistema Integral de la Universidad
-				Nacional de Trujillo</strong> , y no olvides cambiar tu contraseña para mayor seguridad <a href="configuracion.htm">Cambiar</a>.
+			<i class="icon-ok green"></i> Bienvenido al <strong class="green">Sistema de Gestión de Proyectos </strong> <security:authentication property="principal.nombres" /></a>.
 		</div>
 		<!-- ------------- FIN ALERTA ------------- -->
 
 
 
 		<!-- --------------- ACCESOS DIRECTOS ---------------- -->
-		<div class="row-fluid">
+		<%-- <div class="row-fluid">
 
 			<div class="span2 center" style="padding: 10px;">
 				<a href="editarperfil.htm"> <img alt="Editar Perfil" src="../assets/img/icons/Edit-Male-User64.png"><br />Editar
@@ -50,7 +49,7 @@
 
 
 
-		</div>
+		</div> --%>
 
 		<!--/row-->
 		<!-- ------------- FIN ACCESOS DIRECTOS ------------- -->

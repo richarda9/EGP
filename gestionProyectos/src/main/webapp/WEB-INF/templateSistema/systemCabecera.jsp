@@ -78,15 +78,14 @@ border: 0px solid #000000;">
 
 	<li class="light-blue">
 		<a data-toggle="dropdown" href="#" class="dropdown-toggle"> 
-			<img class="nav-user-photo" src="../assets/avatars/user.jpg" alt="Jason's Photo" /> 
-			<span class="user-info"> 
-				<small>Bienvenido,</small>	<%-- <security:authentication property="principal.nombre" /> --%>
+			<span class="user-info" style="max-width: 500px!important"> 
+				<small>Bienvenido,</small>	<security:authentication property="principal.username" />
 			</span> 
 			<i class="icon-caret-down"></i>
 		</a>
 
 		<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
-			<li>
+			<%-- <li>
 				<a href="<c:out value="../home/configuracion.htm" />"> 
 					<i class="icon-cog"></i> Configuración
 				</a>
@@ -98,7 +97,7 @@ border: 0px solid #000000;">
 				</a>
 			</li>
 
-			<li class="divider"></li>
+			<li class="divider"></li> --%>
 
 			<li>
 				<a href="#cerrar" data-toggle="modal"> 

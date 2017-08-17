@@ -152,10 +152,10 @@
 
 											<div class="toolbar clearfix">
 												<div>
-													<a href="#" onclick="show_box('forgot-box'); return false;"
+													<!-- <a href="#" onclick="show_box('forgot-box'); return false;"
 														class="forgot-password-link"> <i
 														class="icon-arrow-left"></i> Olvidaste tu contraseña?
-													</a>
+													</a> -->
 												</div>
 
 

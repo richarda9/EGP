@@ -91,22 +91,21 @@
 				</div>
 				</form>				
 				<div class="row-fluid">
-					<div class="span12">
-						<div class="span6"></div>
-						<div class="span2" style="float: left;">
-							<button class="btn btn-info span12" onclick="buscarAnteproyecto()">
-								<i class="icon-search bigger-125"></i>
+					<div class="span12">							
+						<div class="span2" >
+							<button class="btn btn-small btn-primary" onclick="buscarAnteproyecto()" style="float: right;">
+								<i class="icon-search"></i>
 								Buscar
 							</button>
 						</div>
-						<div class="span2" style="float: left;">
+						<!-- <div class="span2" style="float: left;">
 							<button class="btn btn-info span12">
 								<i class=" icon-download-alt bigger-125"></i>
 								Exportar
 							</button>
-						</div>
-						<div class="span2" style="float: left;">
-							<a class="btn btn-info span12" href="../anteproyecto/mntAnteproyectoAgregar.htm" data-toggle="modal" title="Editar">
+						</div> -->
+						<div class="span2">
+							<a class="btn btn-small btn-primary " href="../anteproyecto/mntAnteproyectoAgregar.htm" data-toggle="modal" title="Editar" style="float: left;">
 								<i class="icon-file bigger-125"></i>
 								Agregar
 							</a>
