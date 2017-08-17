@@ -125,7 +125,7 @@ $(document).ready(function() {/* INI - READY */
 				       },
        	"columns"	 : [
 		            	{ "data": "observacion" },
-		            	{ "data": "archivo" },
+		            	/* { "data": "archivo" }, */
 		            	{ "data": null }
 		        ],
         "columnDefs" : [{
@@ -165,7 +165,7 @@ $(document).ready(function() {/* INI - READY */
 				       },
         "columns"	 : [
 		            	{ "data": "anexo" },
-		            	{ "data": "archivo" },
+		            	/* { "data": "archivo" }, */
 		            	{ "data": null }
 		        ],
         "columnDefs" : [{
@@ -250,18 +250,19 @@ function deleteInteresado(){
 
 /* INI - TAB OBSERVACION */
 function agregarObservacion(){
-	if($('#dscObservacion').val()!= null && $('#dscObservacion').val()!= "" && $('#archObservacion').val()!= null && $('#archObservacion').val()!= ""){
+	/* if($('#dscObservacion').val()!= null && $('#dscObservacion').val()!= "" && $('#archObservacion').val()!= null && $('#archObservacion').val()!= ""){ */
+		if($('#dscObservacion').val()!= null && $('#dscObservacion').val()!= ""){
 		$('#dscObservacion').parent().parent().removeClass('error');
-		$('#archObservacion').parent().parent().parent().removeClass('error');
+		/* $('#archObservacion').parent().parent().parent().removeClass('error'); */
 		var t = $('#tablaObservacion').DataTable();
 		var observaciones = {};
 		observaciones.observacion = $('#dscObservacion').val();
-		observaciones.archivo = document.getElementById('archObservacion').files[0].name;
-		var archivos = $('#archObservacion').data('ace_input_files'); //document.getElementById('archObservacion').files[0];
-		var oMyForm = new FormData();
+		/* observaciones.archivo = document.getElementById('archObservacion').files[0].name; */
+		/* var archivos = $('#archObservacion').data('ace_input_files'); //document.getElementById('archObservacion').files[0]; */
+		/* var oMyForm = new FormData();
 		oMyForm.append("file", archivos[0]);
 		observaciones.archivosContenido =  oMyForm;
-		observaciones.rutaArchivo = document.getElementById('archObservacion').value;
+		observaciones.rutaArchivo = document.getElementById('archObservacion').value; */
 		dataSetObservacion.push(observaciones);	
 		/* var reader = new FileReader();
 		
@@ -282,11 +283,11 @@ function agregarObservacion(){
 		}else{
 			$('#dscObservacion').parent().parent().removeClass('error');
 		}
-		if($('#archObservacion').val()== null || $('#archObservacion').val()== ""){
+		/* if($('#archObservacion').val()== null || $('#archObservacion').val()== ""){
 			$('#archObservacion').parent().parent().parent().addClass('error');
 		}else{
 			$('#archObservacion').parent().parent().parent().removeClass('error');
-		}
+		} */
 	}	 
 }
 
@@ -302,14 +303,15 @@ function deleteObservacion(){
 
 /* INI - TAB ANEXO */
 function agregarAnexos(){
-	if($('#dscAnexo').val()!= null && $('#dscAnexo').val()!= "" && $('#archAnexo').val()!= null && $('#archAnexo').val()!= ""){
+	/* if($('#dscAnexo').val()!= null && $('#dscAnexo').val()!= "" && $('#archAnexo').val()!= null && $('#archAnexo').val()!= ""){ */
+		if($('#dscAnexo').val()!= null && $('#dscAnexo').val()!= ""){
 		$('#dscAnexo').parent().parent().removeClass('error');
-		$('#archAnexo').parent().parent().parent().removeClass('error');
+		/* $('#archAnexo').parent().parent().parent().removeClass('error'); */
 		var t = $('#tablaAnexo').DataTable();
 		var anexos = {};
 		anexos.anexo = $('#dscAnexo').val();
-		anexos.archivo = document.getElementById('archAnexo').files[0].name;
-		anexos.rutaArchivo = document.getElementById('archAnexo').value;
+		/* anexos.archivo = document.getElementById('archAnexo').files[0].name;
+		anexos.rutaArchivo = document.getElementById('archAnexo').value; */
 		dataSetAnexos.push(anexos);	
 		t.ajax.reload();
 	}else{		
@@ -318,11 +320,11 @@ function agregarAnexos(){
 		}else{
 			$('#dscAnexo').parent().parent().removeClass('error');
 		}
-		if($('#archAnexo').val()== null || $('#archAnexo').val()== ""){
+		/* if($('#archAnexo').val()== null || $('#archAnexo').val()== ""){
 			$('#archAnexo').parent().parent().parent().addClass('error');
 		}else{
 			$('#archAnexo').parent().parent().parent().removeClass('error');
-		}
+		} */
 				
 		/* $.gritter.add({
 			title: 'Advertencia!',
@@ -350,6 +352,7 @@ function guardarAnteproyecto(){
 /* 	form.validate(); */
 	
 	if(form.valid()){
+		loadModalCargando();
 		var form=$('#formAgregarAnteproyecto').serializeObject();		
 		form.listaInteresados = dataSetInteresados;
 		form.listaObservaciones = dataSetObservacion;
@@ -359,6 +362,7 @@ function guardarAnteproyecto(){
 		$.postJSON('${pageContext.request.contextPath}/anteproyecto/agregarAnteproyecto.htm',form, function(data) {
 			/* console.log("qwqw");
 			alert(data); */
+			closeModalCargando();
 			if(data.codigoPy == 'ERROR'){
 				$.gritter.add({
 					title: 'Error!',
@@ -384,11 +388,13 @@ function guardarAnteproyecto(){
 }
 
 function planificarAnteproyecto(){
-	$("body").fadeIn();
+	
 	var form = $( "#formAgregarAnteproyecto" );
 /* 	form.validate(); */
 	
 	if(form.valid() && dataSetInteresados!= null && dataSetInteresados.length >0){
+		loadModalCargando();
+		
 		var form=$('#formAgregarAnteproyecto').serializeObject();
 		form.correoResponsable = $("#idResponsableProyecto option:selected").attr("data-correo");
 		form.nombreResponsable = $("#idResponsableProyecto option:selected").attr("data-nombre");
@@ -398,10 +404,9 @@ function planificarAnteproyecto(){
 		form.idEmpresa = $('#empresa').val();
 		
 		$.postJSON('${pageContext.request.contextPath}/anteproyecto/planificarAnteproyecto.htm',form, function(data) {
-			/* console.log("qwqw");
-			alert(data); */
+			
 			if(data.codigoPy == 'ERROR'){
-				$("body").fadeOut();
+				closeModalCargando();
 				$.gritter.add({
 					title: 'Error!',
 					text: 'Ocurrio un error al planificar el proyecto',
@@ -410,8 +415,8 @@ function planificarAnteproyecto(){
 					class_name: 'gritter-error'
 				});
 			}else{
-				$("body").fadeOut();
 				$("#idCodigoPy").val(data.codigoPy);
+				closeModalCargando();
 				/* AL SER CORRECTO DEBE REDIRECCIONAR A LA PANTALLA DE BUSQUEDA DE ANTEPROYECTO */
 				$.gritter.add({
 					title: 'Info!',
@@ -419,14 +424,13 @@ function planificarAnteproyecto(){
 					sticky: false,
 					time: '1200',
 					class_name: 'gritter-info gritter-light'
-				});
-				
+				});				
 				window.location = '${pageContext.request.contextPath}/anteproyecto/anteproyecto.htm';
 			}
 			
 		});
 	}else{
-		$("body").fadeOut();
+		closeModalCargando();
 		if(dataSetInteresados == null || dataSetInteresados.length == 0){
 			$.gritter.add({
 				title: 'Error!',

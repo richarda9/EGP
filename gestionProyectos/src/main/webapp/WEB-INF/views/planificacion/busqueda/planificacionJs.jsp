@@ -33,6 +33,7 @@ $(document).ready(function() {
 
 function buscarPlanificacion(){
 		
+	loadModalCargando();
 	var t = $('#tablaBuscarPlanificacion').DataTable();
 	t.clear().draw();
 		
@@ -46,7 +47,7 @@ function buscarPlanificacion(){
 	buscarAnteproyectoModel.fechaFin = form.fechaFin;
 	
 	$.postJSON('${pageContext.request.contextPath}/planificacion/buscarPlanificacion.htm',buscarAnteproyectoModel, function(data) { 
-			console.log(data);
+			closeModalCargando();
 			/* var t = $('#tablaBuscarAnteproyecto').DataTable(); */
 			for(i in data)
 			{			
@@ -90,6 +91,15 @@ function buscarPlanificacion(){
 
 			}
 			return false;
+		}).fail(function() {
+			closeModalCargando();
+			$.gritter.add({
+				title: 'Error!',
+				text: 'Ocurrio un error al tratar de realizar la operaci&oacute;n solicitada',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-error'
+			});
 		});
 	 
 	

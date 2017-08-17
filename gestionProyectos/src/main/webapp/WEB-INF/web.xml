@@ -55,6 +55,10 @@
 	<error-code>405</error-code>
 	<location>/noFound.htm</location>
   </error-page>
+  <error-page>
+	<error-code>500</error-code>
+	<location>/noFound.htm</location>
+  </error-page>
   <session-config>
 	<session-timeout>60</session-timeout>
   </session-config>

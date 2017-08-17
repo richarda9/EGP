@@ -92,19 +92,12 @@
 				</form>
 				<div class="row-fluid">
 					<div class="span12">
-						<div class="span6"></div>
 						<div class="span2" style="float: left;">
-							<button class="btn btn-info span12" onclick="buscarPlanificacion()">
+							<button class="btn btn-small btn-primary span12" onclick="buscarPlanificacion()">
 								<i class="icon-search bigger-125"></i>
 								Buscar
 							</button>
-						</div>
-						<div class="span2" style="float: left;">
-							<button class="btn btn-info span12">
-								<i class=" icon-download-alt bigger-125"></i>
-								Exportar
-							</button>
-						</div>
+						</div>						
 					</div>							
 				</div>	
 				</br>		

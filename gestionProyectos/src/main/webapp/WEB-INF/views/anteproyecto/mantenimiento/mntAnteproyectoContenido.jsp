@@ -16,25 +16,19 @@
 				<div class="row-fluid">
 					<div class="span12">
 						<div class="span3" style="float: left;">
-							<a class="btn btn-small btn-info span12" onclick = "planificarAnteproyecto()">
+							<a class="btn btn-small btn-primary span12" onclick = "planificarAnteproyecto()">
 								<i class="icon-save"></i>
 								Planificar
 							</a>
-						</div>
+						</div>						
 						<div class="span3" style="float: left;">
-							<button class="btn btn-small btn-info span12">
-								<i class="icon-print"></i>
-								Imprimir
-							</button>
-						</div>
-						<div class="span3" style="float: left;">
-							<a class="btn btn-small btn-info span12" href="#modalCancelarProyecto" data-toggle="modal">
+							<a class="btn btn-small btn-primary span12" href="#modalCancelarProyecto" data-toggle="modal">
 								<i class="icon-remove-sign"></i>
 								Cancelar
 							</a>
 						</div>
 						<div class="span2" style="float: left;">
-							<a class="btn btn-small btn-info span12" onclick = "guardarAnteproyecto()">
+							<a class="btn btn-small btn-primary span12" onclick = "guardarAnteproyecto()">
 								<i class="icon-save"></i>
 								Guardar
 							</a>
@@ -88,7 +82,7 @@
 							<!-- <form id="registrarTipoProyecto"> -->
 							<div class="row-fluid">
 								<div class="span12">								
-									<div class="span4">
+									<%-- <div class="span4">
 										<div class="control-group">
 											<label class="control-label" for="dscAsocProyecto">Asociado a Proyecto</label>
 											<div class="controls">
@@ -100,7 +94,20 @@
 												</select>
 											</div>
 										</div>							    
-									</div>				
+									</div>	 --%>
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="idTipoProyecto">Tipo de Proyecto</label>
+											<div class="controls">
+												<select id="idTipoProyecto" name="idTipoProyecto">
+													<option value="">Seleccionar</option>
+													<c:forEach var="tipoProyecto" items="${model.listaTipoProyecto}" varStatus="contador" >
+													   <option value="${tipoProyecto.id}" ${model.modoEdicion and (model.datosPy.idTipoProyecto eq tipoProyecto.id)?'selected':''}>${tipoProyecto.descripcion}</option>
+													</c:forEach>
+												</select>	
+											</div>
+										</div>							    
+									</div>			
 									<div class="span4">
 										<div class="control-group">
 											<label class="control-label" for="fechaContacto">Fecha de Contacto</label>
@@ -117,20 +124,7 @@
 								</div>
 								</div>
 								<div class="row-fluid">
-									<div class="span12">								
-										<div class="span4">
-											<div class="control-group">
-												<label class="control-label" for="idTipoProyecto">Tipo de Proyecto</label>
-												<div class="controls">
-													<select id="idTipoProyecto" name="idTipoProyecto">
-														<option value="">Seleccionar</option>
-														<c:forEach var="tipoProyecto" items="${model.listaTipoProyecto}" varStatus="contador" >
-														   <option value="${tipoProyecto.id}" ${model.modoEdicion and (model.datosPy.idTipoProyecto eq tipoProyecto.id)?'selected':''}>${tipoProyecto.descripcion}</option>
-														</c:forEach>
-													</select>	
-												</div>
-											</div>							    
-										</div>										
+									<div class="span12">																											
 										<div class="span4">
 											<div class="control-group">
 												<label class="control-label" for="dscEjecutivoCuenta">Ejecutivo de Cuenta</label>
@@ -241,7 +235,7 @@
 											</div>
 										</div>
 										<div class="span3">
-											<a class="btn btn-small btn-info span12" onclick="agregarInteresados()">
+											<a class="btn btn-small btn-primary span12" onclick="agregarInteresados()">
 												<i class="icon-plus-sign bigger-125"></i>
 												Agregar interesados
 											</a>
@@ -281,14 +275,14 @@
 						<div class="row-fluid">
 							<div class="span12">
 								<div class="span6">
-									<div class="control-group">
+									<!-- <div class="control-group">
 										<div class="controls">
 											<input type="file" id="archObservacion" />
 										</div>
-									</div>
+									</div> -->
 								</div>
 								<div class="span6">
-									<a class="btn btn-small btn-info span12" onclick="agregarObservacion()">
+									<a class="btn btn-small btn-primary span12" onclick="agregarObservacion()">
 										<i class="icon-plus-sign bigger-125"></i>
 											Agregar observaci&oacute;n
 									</a>
@@ -302,7 +296,7 @@
 								<thead>
 									<tr>
 										<th>Observaci&oacute;n</th>
-										<th>Archivo</th>
+										<!-- <th>Archivo</th> -->
 										<th>Opciones</th>
 									</tr>
 								</thead>
@@ -325,14 +319,14 @@
 						<div class="row-fluid">
 							<div class="span12">
 								<div class="span6">
-									<div class="control-group">
+									<!-- <div class="control-group">
 										<div class="controls">
 											<input type="file" id="archAnexo" />											
 										</div>
-									</div>
+									</div> -->
 								</div>
 								<div class="span6">
-									<a class="btn btn-small btn-info span12" onclick="agregarAnexos()">
+									<a class="btn btn-small btn-primary span12" onclick="agregarAnexos()">
 										<i class="icon-plus-sign bigger-125"></i>
 											Agregar anexo
 									</a>
@@ -346,7 +340,7 @@
 								<thead>
 									<tr>
 										<th>Anexo</th>
-										<th>Archivo</th>
+										<!-- <th>Archivo</th> -->
 										<th>Opciones</th>
 									</tr>
 								</thead>

@@ -103,8 +103,6 @@ function buscarAnteproyecto(){
 				time: '1200',
 				class_name: 'gritter-error'
 			});
-		});;
-	 
-	
+		});
 }
 </script>

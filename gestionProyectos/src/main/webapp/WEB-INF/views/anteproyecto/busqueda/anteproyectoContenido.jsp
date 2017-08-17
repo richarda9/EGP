@@ -93,8 +93,8 @@
 				<div class="row-fluid">
 					<div class="span12">							
 						<div class="span2" >
-							<button class="btn btn-small btn-primary" onclick="buscarAnteproyecto()" style="float: right;">
-								<i class="icon-search"></i>
+							<button class="btn btn-small btn-primary span12" onclick="buscarAnteproyecto()" style="float: right;">
+								<i class="icon-search bigger-125"></i>
 								Buscar
 							</button>
 						</div>
@@ -105,7 +105,7 @@
 							</button>
 						</div> -->
 						<div class="span2">
-							<a class="btn btn-small btn-primary " href="../anteproyecto/mntAnteproyectoAgregar.htm" data-toggle="modal" title="Editar" style="float: left;">
+							<a class="btn btn-small btn-primary span12" href="../anteproyecto/mntAnteproyectoAgregar.htm" data-toggle="modal" title="Editar" style="float: left;">
 								<i class="icon-file bigger-125"></i>
 								Agregar
 							</a>
