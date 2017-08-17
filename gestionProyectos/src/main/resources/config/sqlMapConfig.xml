@@ -77,6 +77,7 @@
         <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.DetalleCostoProyecto" alias="detalleCostoProyecto"/>
         <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.TipoNivelModel" alias="tipoNivelModel"/>        
         <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.BandaSalarialModel" alias="bandaSalarialModel"/>  
+        <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.DetalleBandaSalarialModel" alias="detalleBandaSalarialModel"/>          
         <typeAlias type="com.sigcomt.gestionProyectos.model.planificacion.EntregableModel" alias="entregableModel"/>
         <typeAlias type="com.sigcomt.gestionProyectos.dominio.planificacion.DetalleEntregableProyecto" alias="detalleEntregableProyecto"/>      
         <!-- FIN - PLANIFICACION -->

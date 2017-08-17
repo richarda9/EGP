@@ -1067,7 +1067,7 @@
 							<div class="span12">
 								<div class="span9"></div>
 								<div class="span3" style="float:left;">
-									<label class="control-label" for="totalCostos">Total Costos: ${model.totalCostos}</label>
+									<label class="control-label" for="totalCostos">Total Costos: <label id ="totalCostos">${model.totalCostos}</label></label>
 								</div>
 							</div>
 						</div>
@@ -1869,7 +1869,7 @@
 					</div>					
 				</div>
 			</div>
-			<div class="row-fluid">
+			<!-- <div class="row-fluid">
 				<div class="span12">					
 					<div class="span6">
 						<div class="control-group">
@@ -1880,72 +1880,12 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
         </div>
  
         <div class="modal-footer">
-            <a id ="ejecutarProyecto" class="btn btn-small btn-primary" onclick="ejecutarEjecucion()">
-                <i class="icon-ok"></i> Ejecutar
-            </a>
-            <a class="btn btn-small btn-light" data-dismiss="modal">
-                <i class="icon-remove"></i> Salir
-            </a>
-        </div>
- 
-    </div>
-    <!-- FIN - MODAL COSTO DEL PROYECTO -->
-    
-    <!-- INI - MODAL COSTO DEL PROYECTO -->
-    <div id="modalCostoProyecto" class="modal hide fade form-horizontal" tabindex="-1" data-attr-index="" >
-        <div class="modal-header">
-            <!-- <div class="table-header"> -->
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 id ="idCostoPyRol" class="blue bigger"></h4>
-            <!-- </div> -->
-        </div>
- 
-        <div class="modal-body padding">            
-			<div class="row-fluid">
-				<div class="span12">
-					<div class="control-group">
-						<label class="control-label" for="tipo">Tipo</label>	
-						<div class="controls">
-							<select id="idTipoNivel" title="tipo" onchange="cargarBandaSalarial(this)">								
-							</select>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span12">
-					<div class="span6">
-						<div class="control-group">
-							<label class="control-label" for="tipo">Banda Salarial</label>	
-							<div class="controls">
-								<select id="idBandaSalarial" title="bandaSalarial">									
-								</select>
-							</div>
-						</div>
-					</div>					
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span12">					
-					<div class="span6">
-						<div class="control-group">
-							<label class="control-label" for="costo">Costo</label>	
-							<div class="controls">
-								<label class="control-label" for="costo">XXX</label>	
-							</div>							
-						</div>
-					</div>
-				</div>
-			</div>
-        </div>
- 
-        <div class="modal-footer">
-            <a id ="ejecutarProyecto" class="btn btn-small btn-primary" onclick="ejecutarEjecucion()">
-                <i class="icon-ok"></i> Ejecutar
+            <a id ="guardarCostoProyecto" class="btn btn-small btn-primary">
+                <i class="icon-ok"></i> Guardar
             </a>
             <a class="btn btn-small btn-light" data-dismiss="modal">
                 <i class="icon-remove"></i> Salir

@@ -838,6 +838,32 @@
 		WHERE "ESTADO" = #{estado}
 			AND "ID_TIPO_NIVEL" = #{idTipoNivel};
 	</select>
+	
+	<select id="obtenerDetalleBandaSalarialByIdBandaSalarial" parameterType="Long" resultType="detalleBandaSalarialModel">
+		SELECT "ID_DETALLE_BANDA_SALARIAL" as idDetalleBandaSalarial, 
+				"COSTO_BANDA_SALARIAL" as costoBandaSalarial,
+				"ID_TIPO_ROL" as idTipoRol,
+				"ID_BANDA_SALARIAL" as idBandaSalarial,
+				"ESTADO" as estado
+		  FROM "PLANIFICAR_PROYECTO"."DETALLE_BANDA_SALARIAL" 
+		WHERE "ESTADO" = #{estado}
+			AND "ID_DETALLE_BANDA_SALARIAL" = #{idDetalleBandaSalarial};
+	</select>
+	
+	<insert id="actualizarCostoProyectoByIdDetalleCostoProyecto" parameterType="detalleCostoProyecto">
+        update "PLANIFICAR_PROYECTO"."DETALLE_COSTO_PROYECTO" 
+        set "ID_BANDA_SALARIAL" = #{idBandaSalarial},
+        	"COSTO" = #{costo},
+        	"ID_TIPO_NIVEL" = #{idTipoNivel}
+        where "ID_DETALLE_COSTO_PROYECTO" = #{idDetalleCostoProyecto};
+    </insert>    
+    
+    <select id="obtenerCostosProyectoByIdProyecto" parameterType="Long" resultType="Long">
+		select sum("COSTO") as costo
+		from "PLANIFICAR_PROYECTO"."DETALLE_COSTO_PROYECTO"
+		where "ID_PROYECTO" = #{idProyecto};
+	</select>
+    
     <!-- FIN - PLANIFICACION -->
     
 	<!-- [INI] EJECUCION -->

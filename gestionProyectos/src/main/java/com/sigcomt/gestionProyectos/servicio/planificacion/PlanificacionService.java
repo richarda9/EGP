@@ -2,6 +2,7 @@ package com.sigcomt.gestionProyectos.servicio.planificacion;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.sigcomt.gestionProyectos.dominio.administracion.Entregable;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoFormaPago;
@@ -52,6 +53,8 @@ public interface PlanificacionService {
     public List<DetalleCostoProyecto> listarDetalleCostoProyectoByIdProyecto(Long idProyecto);   
     public List<TipoNivelModel> listarTipoNivel();
     public List<BandaSalarialModel> listarBandaSalarial(BandaSalarialModel bandaSalarialModel);  
+    public Map<String, Object> guardarCostoProyecto(DetalleCostoProyecto detalleCostoProyecto);    
+    public Long obtenerCostosProyectoByIdProyecto(Long idProyecto);
 //  FIN - COSTOS DEL PROYECTO
     
    //[INI] ENTREGABLES

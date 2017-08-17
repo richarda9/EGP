@@ -1,5 +1,6 @@
 package com.sigcomt.gestionProyectos.repositorio.anteproyecto;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +31,7 @@ import com.sigcomt.gestionProyectos.model.ejecucion.LstProyectoEjecucionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.AgregarPlanificacionModel;
 import com.sigcomt.gestionProyectos.model.planificacion.BandaSalarialModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DependenciaPlanificacionModel;
+import com.sigcomt.gestionProyectos.model.planificacion.DetalleBandaSalarialModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DetalleCostoOperativoModel;
 import com.sigcomt.gestionProyectos.model.planificacion.DetalleCostoProyecto;
 import com.sigcomt.gestionProyectos.model.planificacion.DetalleRiesgosModel;
@@ -130,7 +132,9 @@ public interface ProyectoDao {
     public List<DetalleCostoProyecto> listarDetalleCostoProyectoByIdProyecto(Long idProyecto);   
     public List<TipoNivelModel> listarTipoNivel(Map<String, Object> params);
     public List<BandaSalarialModel> listarBandaSalarial(BandaSalarialModel bandaSalarialModel);   
-    
+    public DetalleBandaSalarialModel obtenerDetalleBandaSalarialByIdBandaSalarial(DetalleBandaSalarialModel detalleBandaSalarialModel);
+    public void actualizarCostoProyectoByIdDetalleCostoProyecto(DetalleCostoProyecto detalleCostoProyecto);
+    public Long obtenerCostosProyectoByIdProyecto(Long idProyecto);
     public void insertarEntregable(EntregableModel dato);
     public void insertarDetalleEntregableProducto(DetalleEntregableProyecto detalle);
     public void actualizarEntregable(EntregableModel dato);
