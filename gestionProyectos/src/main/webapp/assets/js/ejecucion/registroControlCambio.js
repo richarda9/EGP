@@ -100,6 +100,9 @@ $('document').ready(function(){
 		$.postJSON('listar_CtrolCambios.htm',objeto,
 			function(data) {
 				console.log(data);
+				$("#ctrolCambiosTarea").empty();
+				$("#ctrolCambiosTarea").append('<option value="">Seleccionar</option>');
+				
 				for (i in data) {
 					var accion = '<td class="td-actions">'+
 									'<!-- [INI] BOTON EDITAR -->'+
@@ -147,6 +150,8 @@ $('document').ready(function(){
 
 					t.row.add([data[i].codctrolcambios, data[i].descripcionCtrolCambios, data[i].fecSolCtrolCambios, data[i].dscSolicitante, 
 							data[i].dscComplejidad, data[i].horasEstimadas, data[i].comentarios, accion ]).draw();
+
+					$("#ctrolCambiosTarea").append("<option value=" + data[i].idCtrolCambios + ">" + data[i].descripcionCtrolCambios + "</option>");
 				}
 		});
 	};

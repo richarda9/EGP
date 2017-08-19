@@ -71,6 +71,7 @@ public class ProyectoServiceImp implements ProyectoService {
 		return proyectoDao.listarInteresadosByIdProyecto(idProyecto);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<ObservacionesAnteproyectoModel> listarObservacionesByIdProyecto(
 			Long idProyecto, Long idTipoArch) {
 		Map params = new HashMap<String, Object>();
@@ -80,6 +81,7 @@ public class ProyectoServiceImp implements ProyectoService {
 		return proyectoDao.listarObservacionesByIdProyecto(params);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<AnexosAnteproyectoModel> listarAnexosByIdProyecto(
 			Long idProyecto, Long idTipoArch) {
 		Map params = new HashMap<String, Object>();
@@ -141,5 +143,4 @@ public class ProyectoServiceImp implements ProyectoService {
 	public List<TipoRol> listarTipoRolByTipoRol(int tipoRol) {
 		return proyectoDao.listarTipoRolByTipoRol(tipoRol);
 	}
-
 }

@@ -79,7 +79,7 @@
 					<div class="span12">
 						<div class="span1"></div>
 						<div class="span2">
-							<button class="btn btn-small btn-primary" type="submit">
+							<button class="btn btn-small btn-primary span12" type="submit">
 								<i class="icon-search"></i>
 								Buscar
 							</button>

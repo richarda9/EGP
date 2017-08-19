@@ -3,6 +3,14 @@
 var dataRecursos = eval('${model.listaRecursos}');
 $(function() 
 {
+
+	
+	jQuery.validator.addMethod("formatCelular", function(phone_number, element) {
+	    phone_number = phone_number.replace(/\s+/g, "");
+	    return this.optional(element) || phone_number.length == 9 && 
+	    phone_number.match('[0-9]+'); //(/^(\+?1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/);
+	}, "Por favor, especifique un n&uacute;mero de celular v&aacute;lido.");
+
 	$('#tablaRecursosProyecto').DataTable({
 		"ajax"		 : function (data, callback, settings) {
 						callback ( { data: dataRecursos } );
@@ -115,43 +123,67 @@ $('#registrarRecurso').validate({
 			required: true
 		},
 		nroDocumento: {
-			required: true
+			required: true,
+			maxlength: function(element) {	
+				if($("#idTipoDocumento").val() == '1'){
+					return 8;
+				}else if($("#idTipoDocumento").val() == '2'){
+					return 15;
+				}else if($("#idTipoDocumento").val() == '3'){
+					return 15;
+				}else
+				return 15;
+			},
+			/*digits: function(element) {	
+				if($("#idTipoDocumento").val() != '1'){
+					return false;
+				}else 
+				    return true; 
+			}*/
 		},
 
 		nombres: {
-			required: true
+			required: true,
+			maxlength: 100
 		},
 		apellidos: {
-			required: true
+			required: true,
+			maxlength: 100
 		},
 		celular: {
 			required: true,
-			number	: true
+			formatCelular: true
 		},
 		idTipoCargo: {
 			required: true
 		},
 		direccion: {
-			required: true
+			required: true,
+			maxlength: 250
 		},
 		twitterRecurso: {
-			required: false
+			required: false,
+			maxlength: 200
 		},
 		facebookRecurso: {
-			required: false
+			required: false,
+			maxlength: 200
 		},
 		linkedinRecurso: {
-			required: false
+			required: false,
+			maxlength: 200
 		},
 		gmailRecurso: {
-			required: false
+			required: false,
+			maxlength: 200
 		},
 		correo: {
 			required: true,
 			email	: true
 		},
 		dscperfil: {
-			required: false
+			required: false,
+			maxlength: 300
 		},
 		estado: {
 			required: true

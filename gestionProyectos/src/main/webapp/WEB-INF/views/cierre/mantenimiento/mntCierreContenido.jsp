@@ -97,23 +97,23 @@
 											Buscar
 										</button>
 									</div>
-									<div class="span3" >
-										<button class="btn btn-small btn-primary">
-											<i class=" icon-download-alt"></i>
-											Exportar
-										</button>
-									</div>
-									<div class="span3" >
-										<button class="btn btn-small btn-primary">
-											<i class=" icon-print"></i>
-											Imprimir
-										</button>
-									</div>
 									<div class="span3">
 										<a href="#mntLeccionAprendida" id="btnAgregarLecAprendida" role="button" class="btn btn-small btn-primary" data-toggle="modal">
 											<i class="icon-plus"></i>Agregar 
 										</a>
 									</div>
+<!-- 									<div class="span3" > -->
+<!-- 										<button class="btn btn-small btn-primary"> -->
+<!-- 											<i class=" icon-download-alt"></i> -->
+<!-- 											Exportar -->
+<!-- 										</button> -->
+<!-- 									</div> -->
+<!-- 									<div class="span3" > -->
+<!-- 										<button class="btn btn-small btn-primary"> -->
+<!-- 											<i class=" icon-print"></i> -->
+<!-- 											Imprimir -->
+<!-- 										</button> -->
+<!-- 									</div> -->
 								</div>
 							</div>							
 						</div>

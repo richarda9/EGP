@@ -1140,7 +1140,27 @@ $('#btnEnviarInfoAvance').click( function () {
 
 	$.postJSON('${pageContext.request.contextPath}/ejecucion/enviarCorreo_InformeAvance.htm', objeto,
 		function(data) {
-		
+			if(data == 1){
+				listarInformeAvance();
+				closeModalCargando();			
+				
+				$.gritter.add({
+					title: 'Info!',
+					text: 'Se realizo la operaci&oacute;n con &eacute;xito.',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-info gritter-light'
+				});
+			}else{
+				closeModalCargando();
+				$.gritter.add({
+					title: 'Error!',
+					text: 'Ocurrio un error al tratar de enviar por correo el informe de avance',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-error'
+				});		
+			}
 	}).fail(function() {
 		closeModalCargando();
 		$.gritter.add({

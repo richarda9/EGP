@@ -353,15 +353,15 @@ public class EjecucionController
 	}
 	
 	@RequestMapping(value = "/enviarCorreo_InformeAvance.htm", method = RequestMethod.POST)
-	public @ResponseBody String enviarCorreoInformeAvance(@RequestBody InformeAvance dato, HttpServletRequest request) 
+	public @ResponseBody int enviarCorreoInformeAvance(@RequestBody InformeAvance dato, HttpServletRequest request) 
 	{
 		try{
 			String ruta = request.getSession().getServletContext().getRealPath("/")+System.getProperty("file.separator");
-			String resultado = ejecucionService.enviarCorreoInformeAvance(dato, ruta);
+			int resultado = ejecucionService.enviarCorreoInformeAvance(dato, ruta);
 			return resultado;
 		}catch(Exception e){
 			logger.error(e.getMessage());
-			return "";
+			return 0;
 		}		
 	}
 		

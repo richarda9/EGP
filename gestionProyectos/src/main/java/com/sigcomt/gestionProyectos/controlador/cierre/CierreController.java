@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sigcomt.gestionProyectos.common.Constantes;
+import com.sigcomt.gestionProyectos.common.enumerations.EstadoProyectoEnum;
 import com.sigcomt.gestionProyectos.dominio.administracion.EstadoProyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.Sponsor;
@@ -83,6 +84,9 @@ public class CierreController
 	@RequestMapping(value = "/listar_proyectoCierre.htm", method = RequestMethod.POST)
 	public @ResponseBody List<LstProyectoCierreModel> listarProyectoCierre(@RequestBody BuscarCierreModel bsqProyectoCierre)  
 	{
+		bsqProyectoCierre.setEstado1(new Long(EstadoProyectoEnum.EN_ANTEPROYECTO.getCodigo()));
+		bsqProyectoCierre.setEstado2(new Long(EstadoProyectoEnum.EN_PLANIFICACION.getCodigo()));
+		
 		return proyectoService.listaProyectoByEstadoCierre(bsqProyectoCierre);
 	}
 	

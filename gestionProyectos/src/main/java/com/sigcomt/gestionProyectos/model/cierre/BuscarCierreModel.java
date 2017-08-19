@@ -14,6 +14,8 @@ public class BuscarCierreModel implements Serializable
 	private Long estado;
 	private String fechaInicio;
 	private String fechaFin;
+	private Long estado1;
+	private Long estado2;
 	
 	public Long getIdCliente() {
 		return idCliente;
@@ -61,5 +63,21 @@ public class BuscarCierreModel implements Serializable
 				+ ", idTipoProyecto=" + idTipoProyecto + ", estado=" + estado
 				+ ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin
 				+ "]";
+	}
+
+	public Long getEstado1() {
+		return estado1;
+	}
+
+	public void setEstado1(Long estado1) {
+		this.estado1 = estado1;
+	}
+
+	public Long getEstado2() {
+		return estado2;
+	}
+
+	public void setEstado2(Long estado2) {
+		this.estado2 = estado2;
 	}
 }

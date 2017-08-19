@@ -957,6 +957,7 @@
 			and   dep."ID_EMPRESA" = e."ID_EMPRESA"
  		    and   p."ESTADO" = 1
  		    and   dp."ESTADO" = 1
+ 		    and   dp."ID_ESTADO_PROYECTO" not in (#{estado1}, #{estado2})
 	    <if test="idCliente != null and idCliente != ''">
 			and e."ID_EMPRESA" = #{idCliente}
 		</if>

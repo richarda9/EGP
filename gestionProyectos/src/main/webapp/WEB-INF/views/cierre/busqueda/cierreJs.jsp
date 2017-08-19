@@ -33,6 +33,7 @@ $('#fechafin').datepicker().next().on('click', function(){
 //[INI] BUSQUEDA
 $("#formBsqCierre").submit(function() 
 {
+	loadModalCargando();
 	var objeto = $("#formBsqCierre").serializeObject();
 		//objeto.estado = 15;
 	console.log(objeto);
@@ -77,6 +78,8 @@ $("#formBsqCierre").submit(function()
 		}
 	
 		$('[data-rel=tooltip]').tooltip();
+
+		closeModalCargando();
 	});
 	
 	return false;		

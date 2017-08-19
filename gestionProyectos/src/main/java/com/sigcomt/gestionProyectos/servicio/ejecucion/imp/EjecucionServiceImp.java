@@ -305,7 +305,7 @@ public class EjecucionServiceImp implements EjecucionService
 		ejecucionDao.eliminarInformeAvance(info);
 	}
 	
-	public String enviarCorreoInformeAvance(InformeAvance dato, String ruta){
+	public int enviarCorreoInformeAvance(InformeAvance dato, String ruta){
 		try{        
         //ApplicationContext context = new ClassPathXmlApplicationContext("classpath*:/spring/applicationContext.xml");
        // SqlSessionFactoryBean dataSource1 =(SqlSessionFactoryBean)context.getBean("sqlSessionFactory");
@@ -345,7 +345,7 @@ public class EjecucionServiceImp implements EjecucionService
 			throw new RuntimeException(e);
 		}
 		
-		return "";
+		return 1;
 	}
 	
 	public String descargarInformeAvance(InformeAvance dato, String ruta){

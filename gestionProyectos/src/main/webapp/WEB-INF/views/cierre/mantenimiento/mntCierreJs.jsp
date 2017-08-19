@@ -430,7 +430,7 @@ function limpiarActaCierre(){
 
 //-------------------------- [FIN] ACTA DE CIERRE ----------------------------------------
 //-------------------------- [FIN] CIERRE PROYECTO ---------------------------------------
-$('#formCierreProyecto').validate({
+$('#registrarProyectoCierre').validate({
 	errorClass: 'help-block',
 	rules: {
 		fechaCierreProyecto: {

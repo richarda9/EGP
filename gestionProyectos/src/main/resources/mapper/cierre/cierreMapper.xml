@@ -4,7 +4,7 @@
 	
 	<!-- ################################ [INI] LECCION APRENDIDA ################################ -->
 	<select id="listaEntregable" parameterType="int" resultType="entregable">
-	   SELECT e."ID_ENTREGABLE" as identregable, e."NOMBRE_ENTREGABLE" as nombre
+	   SELECT DISTINCT e."ID_ENTREGABLE" as identregable, e."NOMBRE_ENTREGABLE" as nombre
 		FROM "PLANIFICAR_PROYECTO"."DETALLE_ENTREGABLE_PRODUCTO" dep,
 		     "PLANIFICAR_PROYECTO"."ENTREGABLE" e,
 		     "CREAR_PROYECTO"."PROYECTO" p

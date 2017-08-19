@@ -90,7 +90,7 @@
 				<div class="row-fluid">
 					<div class="span12">
 						<div class="span2">
-							<button type="submit" class="btn btn-small btn-primary" style="float: right;">
+							<button type="submit" class="btn btn-small btn-primary span12" style="float: right;">
 								<i class="icon-search"></i>
 								Buscar
 							</button>

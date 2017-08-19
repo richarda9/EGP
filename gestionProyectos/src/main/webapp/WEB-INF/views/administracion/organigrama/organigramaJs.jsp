@@ -84,11 +84,12 @@ $('#registrarOrganigrama').validate({
 	errorClass: 'help-block',
 	rules: {
 		nombreRol: {
-			required: true
+			required: true,
+			maxlength : 150
 		},
 		descripcion: {
 			required: true,
-			maxlength : 100
+			maxlength : 200
 		},
 
 		tipoRol: {

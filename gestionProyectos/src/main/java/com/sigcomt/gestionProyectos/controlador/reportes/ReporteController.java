@@ -2,10 +2,8 @@ package com.sigcomt.gestionProyectos.controlador.reportes;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.sigcomt.gestionProyectos.common.Constantes;
-import com.sigcomt.gestionProyectos.common.enumerations.EstadoProyectoEnum;
 import com.sigcomt.gestionProyectos.dominio.seguridad.CustomerUser;
 import com.sigcomt.gestionProyectos.servicio.administracion.AdministracionService;
 import com.sigcomt.gestionProyectos.servicio.anteproyecto.AnteproyectoService;
@@ -55,7 +51,7 @@ public class ReporteController {
 		myModel.put("listaEmpresa", administracionService.listarEmpresaByEstado(Constantes.ESTADO_ACTIVO));
 		myModel.put("listaEstadoTarea", this.ejecucionService.listarEstadoTarea(Constantes.ESTADO_ACTIVO));
 		myModel.put("listaTipoProyecto", this.administracionService.listarTipoProyectoByEsado(Constantes.ESTADO_ACTIVO));
-		myModel.put("listaProyecto", this.proyectoService.listarProyectoByDetalleEstadoProyectoByEstado(Constantes.ESTADO_ACTIVO, Long.parseLong(EstadoProyectoEnum.EN_EJECUCION.getCodigo())));
+		myModel.put("listaProyecto", this.proyectoService.listarProyectoByEstado(Constantes.ESTADO_ACTIVO));
 		myModel.put("listaEstadoEntregable", this.administracionService.listarEstadoEntregable(Constantes.ESTADO_ACTIVO));
 		
 		return new ModelAndView("reportesProyecto", "model", myModel);
@@ -85,6 +81,8 @@ public class ReporteController {
         parameterMap.put("dscestadoregistro", idparam4.intValue() == 1 ? "ACTIVO": idparam4.intValue() == 0 ? "INACTIVO" : "TODOS");
         parameterMap.put("usuario", ((CustomerUser)auth.getPrincipal()).getUsername());        
         parameterMap.put("ROOT_DIR", path + "/");
+        
+        System.out.println(parameterMap.toString());
         
         return new ModelAndView("rptProyectosPDF",parameterMap);
 	}
