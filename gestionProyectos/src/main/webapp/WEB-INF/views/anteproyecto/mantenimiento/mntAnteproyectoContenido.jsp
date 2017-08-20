@@ -15,19 +15,20 @@
 			<div class="span7">
 				<div class="row-fluid">
 					<div class="span12">
+					<div class="span3"></div>
 						<div class="span3" style="float: left;">
 							<a class="btn btn-small btn-primary span12" onclick = "planificarAnteproyecto()">
 								<i class="icon-save"></i>
 								Planificar
 							</a>
 						</div>						
+<!-- 						<div class="span3" style="float: left;"> -->
+<!-- 							<a class="btn btn-small btn-primary span12" href="#modalCancelarProyecto" data-toggle="modal"> -->
+<!-- 								<i class="icon-remove-sign"></i> -->
+<!-- 								Cancelar -->
+<!-- 							</a> -->
+<!-- 						</div> -->
 						<div class="span3" style="float: left;">
-							<a class="btn btn-small btn-primary span12" href="#modalCancelarProyecto" data-toggle="modal">
-								<i class="icon-remove-sign"></i>
-								Cancelar
-							</a>
-						</div>
-						<div class="span2" style="float: left;">
 							<a class="btn btn-small btn-primary span12" onclick = "guardarAnteproyecto()">
 								<i class="icon-save"></i>
 								Guardar

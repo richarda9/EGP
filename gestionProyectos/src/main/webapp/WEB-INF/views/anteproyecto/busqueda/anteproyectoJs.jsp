@@ -1,3 +1,4 @@
+<script src="../assets/js/cancelarProyecto/cancelarProyecto.js"></script>
 <script>
 $(document).ready(function() {
 	
@@ -58,7 +59,8 @@ function buscarAnteproyecto(){
 				var fechaContacto = data[i].fechaContactoString;
 				var nombreResponsable = data[i].nombreResponsable;
 				var nombreEjecutivo = data[i].nombreEjecutivo;
-				var opciones = '<a href="../anteproyecto/mntAnteproyectoEdit.htm?idAnteproyecto='+data[i].idProyecto+'" class="abrir-eliminarEproyecto tooltip-error" data-rel="tooltip" title="Editar" data-toggle="modal"> <span class="red"> <i class="icon-edit bigger-120"></i> </span> </a>';
+				var opciones = '<a href="../anteproyecto/mntAnteproyectoEdit.htm?idAnteproyecto='+data[i].idProyecto+'" class="abrir-eliminarEproyecto tooltip-error" data-rel="tooltip" title="Editar" data-toggle="modal"> <span class="red"> <i class="icon-edit bigger-120"></i> </span> </a>' +
+						       '<a class="red tooltip-error" onclick = \"cancelarProyecto('+data[i].idProyecto+')\" data-rel="tooltip" title="Cancelar"><i class="icon-remove-sign bigger-130"></i></a>';
 						       
 						       /* <div class="hidden-desktop visible-phone">
 								<div class="inline position-relative">
@@ -104,5 +106,10 @@ function buscarAnteproyecto(){
 				class_name: 'gritter-error'
 			});
 		});
+}
+
+function cancelarProyecto(id){
+	$("#idCancelarProyecto").val(id);
+	$('#modalCancelarProyecto').modal('show');
 }
 </script>

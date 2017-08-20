@@ -21,12 +21,12 @@
                                 Ejecutar Proyecto
                             </a>
                         </div>                        
-                        <div class="span3" style="float: left;">
-                            <a class="btn btn-small btn-primary span12" href="#modalCancelarProyecto" data-toggle="modal">
-                                <i class="icon-remove-sign"></i>
-                                Cancelar
-                            </a>
-                        </div>                        
+<!--                         <div class="span3" style="float: left;"> -->
+<!--                             <a class="btn btn-small btn-primary span12" href="#modalCancelarProyecto" data-toggle="modal"> -->
+<!--                                 <i class="icon-remove-sign"></i> -->
+<!--                                 Cancelar -->
+<!--                             </a> -->
+<!--                         </div>                         -->
                     </div>
                 </div>
             </div>

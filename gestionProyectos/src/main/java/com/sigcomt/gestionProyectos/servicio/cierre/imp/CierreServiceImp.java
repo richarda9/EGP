@@ -91,6 +91,14 @@ public class CierreServiceImp implements CierreService
 		} catch (ParseException e) {
 			proyecto.setFechaCancelacion(new Date());
 		}
+
+		proyectoDao.actualizarProyecto(proyecto);		
+		
+		DetalleProyecto detalle = new DetalleProyecto();
+		detalle.setIdProyecto(dato.getIdproyecto());
+		detalle.setEstado(Constantes.ESTADO_INACTIVO);
+		
+		proyectoDao.actualizarDetalleProyecto(detalle);
 		
 		detalleEstadoProyecto.setIdProyecto(dato.getIdproyecto());
 		detalleEstadoProyecto.setIdEstadoProyecto(new Long(EstadoProyectoEnum.CANCELADO.getCodigo()));
@@ -98,13 +106,6 @@ public class CierreServiceImp implements CierreService
 		detalleEstadoProyecto.setFechaCreacion(proyecto.getFechaCancelacion());		
 		
 		proyectoDao.grabarDetalleEstadoProyectoByEstado(detalleEstadoProyecto);
-		
-		DetalleProyecto detalle = new DetalleProyecto();
-		detalle.setIdProyecto(dato.getIdproyecto());
-		detalle.setEstado(Constantes.ESTADO_INACTIVO);
-		
-		proyectoDao.actualizarDetalleProyecto(detalle);
-		proyectoDao.actualizarProyecto(proyecto);		
 	}
 	
 }
