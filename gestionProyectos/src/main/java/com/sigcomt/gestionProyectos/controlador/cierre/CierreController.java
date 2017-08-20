@@ -30,6 +30,7 @@ import com.sigcomt.gestionProyectos.common.enumerations.EstadoProyectoEnum;
 import com.sigcomt.gestionProyectos.dominio.administracion.EstadoProyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.Sponsor;
+import com.sigcomt.gestionProyectos.model.cancelar.CancelarProyectoModel;
 import com.sigcomt.gestionProyectos.model.cierre.BuscarCierreModel;
 import com.sigcomt.gestionProyectos.model.cierre.LstActaCierreModel;
 import com.sigcomt.gestionProyectos.model.cierre.LstLeccionAprendidaModel;
@@ -172,4 +173,18 @@ public class CierreController
 		binder.registerCustomEditor(Date.class, editor);
 	}
 	//--------------------------------- [FIN] CIERRE PROYECTO --------------------------------------
+	//--------------------------------- [INI] CANCELAR PROYECTO --------------------------------------
+	@RequestMapping(value = "/registrar_cancelarProyecto.htm", method = RequestMethod.POST)
+	public @ResponseBody int cancelarProyecto(@RequestBody CancelarProyectoModel dato)  
+	{
+		try{
+		 cierreService.cancelarProyecto(dato);
+		}catch(Exception e){
+			return 1;
+		}
+		
+		return 0;
+		 
+	}
+	//--------------------------------- [FIN] CANCELAR PROYECTO --------------------------------------
 }

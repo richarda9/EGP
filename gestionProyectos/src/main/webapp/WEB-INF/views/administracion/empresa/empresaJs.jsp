@@ -107,20 +107,42 @@ $(function()
 		onchange:null,
 		thumbnail:false 
 	});	
+
+	$('#registrarEmpresa').validate({
+		errorClass: 'help-block',
+		rules: {
+			razonSocialEmpresa: {
+				required: false
+			}
+		},
+
+		highlight: function (e) {
+			$(e).closest('.control-group').removeClass('info').addClass('error');
+		},
+
+		success: function (e) {
+			$(e).closest('.control-group').removeClass('error');
+			$(e).remove();
+		},
+		
+		submitHandler: function (form) {
+			return false;
+		}
+	});
 });
 
 $('#btnAgregarContactoCliente').click( function () {
 	$("#tipoOperacion").val($("#tipoOperacion").val() == "EDITAR" ? $("#tipoOperacion").val("EDITAR") : "AGREGAR");
-	//agregarValidacionesContCliente();
+	agregarValidacionesContCliente();
 	agregarContactoCliente();
+
 });
 
 function agregarContactoCliente(){
 	
-	if($("#nomContEmpresa").val() != null && $("#nomContEmpresa").val() != "" &&
-	   $("#apeContEmpresa").valid() != null && $("#apeContEmpresa").valid() != "" &&
-	   $("#teleContEmpresa").valid() != null && $("#teleContEmpresa").valid() != "" &&
-	   $("#cargoContEmpresa").valid() != null && $("#cargoContEmpresa").valid() != "")
+	var form = $("#registrarEmpresa");
+
+	if(form.valid())
 	{
 		$('#contactoCliente .control-group').removeClass('error');
 		
@@ -154,38 +176,69 @@ function agregarContactoCliente(){
 			objetoSelec.cell('.selected', 9).data(objeto.idPersona);
 		}
 		
-		//quitarValidacionesContCliente();
+		quitarValidacionesContCliente();
 		limpiarContactoCliente();
-	}else{
-		if($("#nomContEmpresa").val() == null || $("#nomContEmpresa").val() == "")
-			$('#nomContEmpresa').parent().parent().addClass('error');
-		
-		if($("#apeContEmpresa").val() == null || $("#apeContEmpresa").val() == "")
-			$('#apeContEmpresa').parent().parent().addClass('error');
-			
-		if($("#teleContEmpresa").val() == null || $("#teleContEmpresa").val() == "")
-			$('#teleContEmpresa').parent().parent().addClass('error');
-			
-		if($("#cargoContEmpresa").val() == null || $("#cargoContEmpresa").val() == "")
-			$('#cargoContEmpresa').parent().parent().addClass('error');
 	}
 } 
 
-/*
 function agregarValidacionesContCliente(){
 	$( "#nomContEmpresa" ).rules( "add", {required: true});
 	$( "#apeContEmpresa" ).rules( "add", {required: true}); 
-	$( "#teleContEmpresa" ).rules( "add", {required: true});
+	$( "#teleContEmpresa" ).rules( "add", {required: function(element) {	
+			if($("#emailContEmpresa").val() != '')
+				return false;
+			else
+			    return true;
+		}, digits: true, maxlength : 9
+	});
+	
+	$( "#emailContEmpresa" ).rules( "add", {required: function(element) {	
+			if($("#teleContEmpresa").val() != '')
+				return false;
+			else
+			    return true;
+		}, email: true
+	});
 	$( "#cargoContEmpresa" ).rules( "add", {required: true});
+	$( "#areaContEmpresa" ).rules( "add", {required: true});
 }
 
 function quitarValidacionesContCliente(){
 	$( "#nomContEmpresa" ).rules( "add", {required: false});
 	$( "#apeContEmpresa" ).rules( "add", {required: false}); 
 	$( "#teleContEmpresa" ).rules( "add", {required: false});
+	$( "#emailContEmpresa" ).rules( "add", {required: false});
 	$( "#cargoContEmpresa" ).rules( "add", {required: false});
+	$( "#areaContEmpresa" ).rules( "add", {required: false});
 }
-*/
+
+function agregarValidacionesEmpresa(){
+	$("#razonSocialEmpresa").rules( "add", {required: true, maxlength : 100});
+	$("#rucEmpresa").rules( "add", {required: true, digits: true, maxlength : 11, minlength: 11});
+	$("#paisEmpresa").rules( "add", {required: true});
+	$("#teleEmpresa").rules( "add", {required: function(element) {	
+			if($("#correoEmpresa").val() != '')
+				return false;
+			else
+			    return true;
+		}, digits: true, maxlength : 9
+	});
+	$("#correoEmpresa").rules( "add", {required: function(element) {	
+			if($("#teleEmpresa").val() != '')
+				return false;
+			else
+			    return true;
+		}, email: true, maxlength : 100
+	});
+}
+
+function quitarValidacionesEmpresa(){
+	$("#razonSocialEmpresa").rules( "add", {required: false});
+	$("#rucEmpresa").rules( "add", {required: false});
+	$("#paisEmpresa").rules( "add", {required: false});
+	$("#teleEmpresa").rules( "add", {required: false});
+	$("#correoEmpresa").rules( "add", {required: false});
+}
 
 function limpiarContactoCliente(){
 	//$("#registrarEmpresa").validate().resetForm();
@@ -230,17 +283,30 @@ function EditarContactoCliente(){
 
 function EliminarContactoCliente(){
 	var datos = $("#tablaContEmpresaProyecto").DataTable().row('.selected').length;
+	var data = $("#tablaContEmpresaProyecto").DataTable().row('.selected').data();
 
 	if(datos > 0){
-		$("#tablaContEmpresaProyecto").DataTable().row('.selected').remove().draw(false);
+		if(datos == 1){
+			$.gritter.add({
+					title: 'Advertencia!',
+					text: 'No es posible eliminar cuando solo existe un contacto Registrado.',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-warning gritter-light'
+			});
+		}else{
+			$.postJSON('${pageContext.request.contextPath}/administracion/mnt_EliminarContCliente.htm', data, function(data) {
+				$("#tablaContEmpresaProyecto").DataTable().row('.selected').remove().draw(false);
 
-		$.gritter.add({
-			title: 'Info!',
-			text: 'Se realizo la operaci&oacute;n con &eacute;xito.',
-			sticky: false,
-			time: '1200',
-			class_name: 'gritter-info gritter-light'
-		});
+				$.gritter.add({
+					title: 'Info!',
+					text: 'Se realizo la operaci&oacute;n con &eacute;xito.',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-info gritter-light'
+				});
+			});
+		}
 	}else{
 		$.gritter.add({
 				title: 'Advertencia!',
@@ -268,61 +334,77 @@ function limpiarMntEmpresa(){
 
 $('#registrarEmpresa').submit(function()
 {
-	$('#modal-Empresa').modal('hide');
-	loadModalCargando();
+	var form = $("#registrarEmpresa");
+	var datos = $("#tablaContEmpresaProyecto").DataTable().row().length;
 	
-	var objetoEmpresa = $('#registrarEmpresa').serializeObject();
-	objetoEmpresa["lista"] =  obtenerContEmpresaJson();
-	 var data = new FormData();
-	 if($('#logoEmpresa').val() != null && $('#logoEmpresa').val() != "")
-		 data.append("logoEmpresa", $('#logoEmpresa').data('ace_input_files')[0]);
-	 if($('#formatoEmpresa').val() != null && $('#formatoEmpresa').val() != "")
-		 data.append("formatoEmpresa", $('#formatoEmpresa').data('ace_input_files')[0]);
-	 data.append("objeto",JSON.stringify(objetoEmpresa));
-	 	
-	jQuery.ajax({
-        'type': 'POST',
-        'url': '${pageContext.request.contextPath}/administracion/mnt_Empresa.htm',
-        'data': data, 
-        'processData': false, 
-        'contentType':false,
-        'success': function(data) {
-			if(data){
-				if(data == "1"){					
-					listarEmpresa();
-					closeModalCargando();
-					
-					$.gritter.add({
-						title: 'Info!',
-						text: 'Se realizo la operaci&oacute;n con &eacute;xito.',
-						sticky: false,
-						time: '1200',
-						class_name: 'gritter-info gritter-light'
-					});
-				}else{
-					closeModalCargando();
-			    	
-					$.gritter.add({
-						title: 'Error!',
-						text: 'Ocurrio un error al tratar de realizar la operaci&oacute;n',
-						sticky: false,
-						time: '1200',
-						class_name: 'gritter-error'
-					});					
+	agregarValidacionesEmpresa();
+
+	if(form.valid() && datos > 0){
+
+		$('#modal-Empresa').modal('hide');
+		loadModalCargando();
+		
+		var objetoEmpresa = $('#registrarEmpresa').serializeObject();
+		objetoEmpresa["lista"] =  obtenerContEmpresaJson();
+		 var data = new FormData();
+		 if($('#logoEmpresa').val() != null && $('#logoEmpresa').val() != "")
+			 data.append("logoEmpresa", $('#logoEmpresa').data('ace_input_files')[0]);
+		 if($('#formatoEmpresa').val() != null && $('#formatoEmpresa').val() != "")
+			 data.append("formatoEmpresa", $('#formatoEmpresa').data('ace_input_files')[0]);
+		 data.append("objeto",JSON.stringify(objetoEmpresa));
+		 	
+		jQuery.ajax({
+	        'type': 'POST',
+	        'url': '${pageContext.request.contextPath}/administracion/mnt_Empresa.htm',
+	        'data': data, 
+	        'processData': false, 
+	        'contentType':false,
+	        'success': function(data) {
+				if(data){
+					if(data == "1"){					
+						listarEmpresa();
+						closeModalCargando();
+						
+						$.gritter.add({
+							title: 'Info!',
+							text: 'Se realizo la operaci&oacute;n con &eacute;xito.',
+							sticky: false,
+							time: '1200',
+							class_name: 'gritter-info gritter-light'
+						});
+					}else{
+						closeModalCargando();
+				    	
+						$.gritter.add({
+							title: 'Error!',
+							text: 'Ocurrio un error al tratar de realizar la operaci&oacute;n',
+							sticky: false,
+							time: '1200',
+							class_name: 'gritter-error'
+						});					
+					}
 				}
-			}
-        }
-    }).fail(function() {
-    	closeModalCargando();
-    	
+	        }
+	    }).fail(function() {
+	    	closeModalCargando();
+	    	
+			$.gritter.add({
+				title: 'Error!',
+				text: 'Ocurrio un error al tratar de realizar la operaci&oacute;n',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-error'
+			});
+		});
+	}else{
 		$.gritter.add({
-			title: 'Error!',
-			text: 'Ocurrio un error al tratar de realizar la operaci&oacute;n',
+			title: 'Advertencia!',
+			text: 'Falta ingresar algunos campos y/o llenar alg&uacute;n contacto para la empresa, favor de verificar.',
 			sticky: false,
 			time: '1200',
-			class_name: 'gritter-error'
+			class_name: 'gritter-warning gritter-light'
 		});
-	});
+	}
 	
 	return false;
 });

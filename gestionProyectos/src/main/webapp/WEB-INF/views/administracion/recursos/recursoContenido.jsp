@@ -110,13 +110,13 @@
 				</div>				
 				<div class="row-fluid">
 					<div class="span2">Redes Sociales</div>
-					<div class="span5">
+					<div class="control-group span5">
 						<span class="span12 input-icon input-icon-left">
 							<input type="text" class="span12" id="twitterRecurso" name="twitterRecurso"/>
 							<i class="icon-twitter-sign blue"></i>
 						</span>
 					</div>
-					<div class="span5">
+					<div class="control-group span5">
 						<span class="span12 input-icon input-icon-left">
 							<input type="text" class="span12" id="facebookRecurso" name="facebookRecurso"/>
 							<i class="icon-facebook-sign blue"></i>
@@ -125,13 +125,13 @@
 				</div>
 				<div class="row-fluid">
 					<div class="span2"></div>
-					<div class="span5">
+					<div class="control-group span5">
 						<span class="span12 input-icon input-icon-left">
 							<input type="text" class="span12" id="linkedinRecurso" name="linkedinRecurso"/>
 							<i class="icon-linkedin-sign blue"></i>
 						</span>
 					</div>
-					<div class="span5">
+					<div class="control-group span5">
 						<span class="span12 input-icon input-icon-left">
 							<input type="text" class="span12" id="gmailRecurso" name="gmailRecurso"/>
 							<i class="icon-google-plus-sign blue"></i>

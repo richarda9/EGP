@@ -7,30 +7,28 @@
 
 	<div class="modal-body overflow-visible">
 		<div class="row-fluid">
+			<input type="hidden" id="idCancelarProyecto" name="idproyecto">
 			<div class="control-group">
 				<label class="control-label" for="fecCancelacion">Fecha de Cancelaci&oacute;n</label>
 
 				<div class="controls">
-					<div class="row-fluid input-append">
-						<input class="date-picker" id="fecCancelacion" type="text" />
-						<span class="add-on">
-							<i class="icon-calendar"></i>
-						</span>
+					<div class="row-fluid">
+						<input id="fecCancelacion" name="fecCancelacion" type="text" readonly="readonly"/>
 					</div>
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="CancelarJustificacionProyecto">Justificaci&oacute;n</label>
+				<label class="control-label" for="cancelarJustificacionProyecto">Justificaci&oacute;n</label>
 
 				<div class="controls">
-					<textarea rows="5" cols="20" id="CancelarJustificacionProyecto"></textarea>
+					<textarea rows="5" cols="20" id="cancelarJustificacionProyecto" name="cancelarJustificacionProyecto"></textarea>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<div class="modal-footer">
-		<button class="btn btn-small btn-primary">
+		<button class="btn btn-small btn-primary" type="submit">
 			<i class="icon-remove-sign"></i> Cancelar
 		</button>
 		

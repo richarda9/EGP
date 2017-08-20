@@ -344,6 +344,22 @@ public class AdministracionServiceImp implements AdministracionService
 	public int eliminarEmpresa(Long idempresa){
 		return administracionDao.eliminarEmpresa(idempresa);
 	}
+	
+	public int mntEliminarContCliente(ContactoEmpresaModel dato){
+		DetalleEmpresaPersona detalle = new DetalleEmpresaPersona();
+		Persona persona = new Persona();
+		
+		persona.setId(dato.getIdPersona());
+		persona.setEstado(Constantes.ESTADO_INACTIVO);
+		
+		detalle.setId(dato.getIdDetEmpPersona());
+		detalle.setEstado(Constantes.ESTADO_INACTIVO);
+		
+		administracionDao.editarDetEmpresaPersona(detalle);
+		personaDao.editarPersona(persona);
+		
+		return 0;
+	}
 //	FIN - EMPRESA
 	
 //	INI - RECURSOS

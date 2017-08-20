@@ -308,7 +308,8 @@
 		      -- "ESTADO", 
 		       dep."AREA" dscarea
 		FROM "CREAR_PROYECTO"."DETALLE_EMPRESA_PERSONA" dep
-		WHERE "ID_EMPRESA" = #{idEmpresa};
+		WHERE "ID_EMPRESA" = #{idEmpresa}
+		AND  dep."ESTADO" = 1;
 	</select>	
 	
 	<update id="eliminarEmpresa" parameterType="long">

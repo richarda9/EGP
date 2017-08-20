@@ -36,6 +36,7 @@ import com.sigcomt.gestionProyectos.dominio.administracion.TipoRequisito;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoRol;
 import com.sigcomt.gestionProyectos.dominio.administracion.TipoSupuesto;
 import com.sigcomt.gestionProyectos.dominio.ejecucion.Complejidad;
+import com.sigcomt.gestionProyectos.model.administracion.ContactoEmpresaModel;
 import com.sigcomt.gestionProyectos.model.administracion.MntEmpresaModel;
 import com.sigcomt.gestionProyectos.model.administracion.RecursosModel;
 import com.sigcomt.gestionProyectos.servicio.administracion.AdministracionService;
@@ -116,6 +117,12 @@ public class AdministracionController
 	{
 		return this.administracionService.eliminarEmpresa(new Long(dato));
 	}	
+	
+	@RequestMapping(value = "/mnt_EliminarContCliente.htm", method = RequestMethod.POST)
+	public @ResponseBody int mntEliminarContCliente(@RequestBody ContactoEmpresaModel dato) 
+	{
+		return this.administracionService.mntEliminarContCliente(dato);
+	}
 	
 	//----------------------------------------------------------- [FIN] EMPRESA -----------------------------------------------------------
 	//----------------------------------------------------------- [INI] RECURSOS -----------------------------------------------------------

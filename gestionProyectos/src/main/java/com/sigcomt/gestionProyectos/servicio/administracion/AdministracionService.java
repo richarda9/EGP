@@ -87,6 +87,7 @@ public interface AdministracionService
 	public Empresa listarEmpresaById(Long idempresa);
 	public List<ContactoEmpresaModel> listarContactoEmpresaByEmpresa(Long idempresa);
 	public int eliminarEmpresa(Long idempresa);
+	public int mntEliminarContCliente(ContactoEmpresaModel dato);
 //	FIN - EMPRESA
 	
 //	INI - RECURSOS

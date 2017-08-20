@@ -195,5 +195,50 @@ function closeModalCargando(){
 	$("#content-cargando").modal('hide');
 }
 
+function registrarCancelarProyecto(){
+	$('#modalCancelarProyecto').modal('hide');
+	loadModalCargando();
+	var objeto = $("#formCancelarProyecto").serializeObject();
+
+	$.postJSON('${pageContext.request.contextPath}/cierre/registrar_cancelarProyecto.htm', objeto, function(data) { 
+		if(data == 0){
+			closeModalCargando();			
+			
+			$.gritter.add({
+				title: 'Info!',
+				text: 'Se registro con éxito.',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-info gritter-light'
+			});
+			
+			setTimeout(function(){
+				location.reload();						
+			},1500);
+			
+		}else if(data == 1){
+			closeModalCargando();
+		
+			$.gritter.add({
+				title: 'Error!',
+				text: 'Ocurrio un error al tratar de realizar el registro',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-error'
+			});
+		}
+	}).fail(function() {
+		closeModalCargando();
+		
+			$.gritter.add({
+				title: 'Error!',
+				text: 'Ocurrio un error al tratar de realizar el registro',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-error'
+			});
+	});
+}
+
 </script>
 

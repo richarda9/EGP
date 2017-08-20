@@ -5,6 +5,7 @@ import java.util.List;
 import com.sigcomt.gestionProyectos.dominio.administracion.Entregable;
 import com.sigcomt.gestionProyectos.dominio.administracion.Proyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.Sponsor;
+import com.sigcomt.gestionProyectos.model.cancelar.CancelarProyectoModel;
 import com.sigcomt.gestionProyectos.model.cierre.LstActaCierreModel;
 import com.sigcomt.gestionProyectos.model.cierre.LstLeccionAprendidaModel;
 import com.sigcomt.gestionProyectos.model.cierre.MntActaCierreModel;
@@ -20,5 +21,6 @@ public interface CierreService
 	public int mntActaCierre(MntActaCierreModel dato);
 	public List<LstActaCierreModel> listarActaCierre(MntActaCierreModel bsqActaCierre);
 	public void registrarCierreProyecto(Proyecto proyecto);
-		
+	
+	public void cancelarProyecto(CancelarProyectoModel dato);		
 }

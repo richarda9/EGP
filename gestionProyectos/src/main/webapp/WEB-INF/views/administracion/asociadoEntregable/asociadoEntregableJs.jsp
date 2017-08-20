@@ -138,7 +138,8 @@ $('#formComplejidad').validate({
 	errorClass: 'help-block',
 	rules: {
 		descripcion: {
-			required: true
+			required: true,
+			maxlength : 100
 		}
 	},
 
@@ -247,7 +248,8 @@ $('#formEstadoEntregable').validate({
 	errorClass: 'help-block',
 	rules: {
 		descripcion: {
-			required: true
+			required: true,
+			maxlength : 100
 		}
 	},
 

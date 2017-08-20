@@ -19,6 +19,7 @@ $(function()
 		language: 'es',
 		format: 'dd/mm/yyyy'
 	});
+
 	$('#fechaInicio').datepicker().next().on('click', function(){ 
 		$(this).prev().focus();
 	});
@@ -69,8 +70,7 @@ $(function()
 								'</div>'+
 								'<!-- [FIN] BOTON EDITAR --><!-- [INI] BOTON CANCELAR -->'+
 								'<div class="hidden-phone visible-desktop action-buttons">'+
-									'<a class="red tooltip-error" href="#modalCancelarProyecto" data-toggle="modal"'+
-									   'data-id="'+data[i].idProyecto+'" data-rel="tooltip" title="Cancelar">'+
+									'<a class="red tooltip-error" onclick = \"cancelarProyecto('+data[i].idProyecto+')\" data-rel="tooltip" title="Cancelar">'+
 										'<i class="icon-remove-sign bigger-130"></i>'+
 									'</a>'+
 								'</div>'+
@@ -83,8 +83,8 @@ $(function()
 	
 										'<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">'+
 											'<li>'+
-												'<a href="#modalCancelarProyecto" class="tooltip-error" data-rel="tooltip"'+ 
-													'title="Cancelar" data-toggle="modal" data-id="'+data[i].idProyecto+'">'+
+												'<a  class="tooltip-error" data-rel="tooltip"'+ 
+													'title="Cancelar" onclick = \"cancelarProyecto('+data[i].idProyecto+')\">'+
 												   		'<span class="red"><i class="icon-remove-sign bigger-120"></i></span>'+
 												'</a>'+
 											'</li>'+
@@ -105,6 +105,10 @@ $(function()
 		return false;		
 	});
 	//[INI] BUSQUEDA 
-	
 });
+	
+function cancelarProyecto(id){
+	$("#idCancelarProyecto").val(id);
+	$('#modalCancelarProyecto').modal('show');
+}
 </script>
