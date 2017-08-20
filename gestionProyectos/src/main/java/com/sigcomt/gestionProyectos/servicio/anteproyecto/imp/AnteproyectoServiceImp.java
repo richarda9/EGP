@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.sigcomt.gestionProyectos.common.Constantes;
 import com.sigcomt.gestionProyectos.common.enumerations.EstadoProyectoEnum;
 import com.sigcomt.gestionProyectos.dominio.administracion.DetalleEstadoProyecto;
 import com.sigcomt.gestionProyectos.dominio.administracion.DetalleInteresado;
@@ -38,7 +39,7 @@ public class AnteproyectoServiceImp implements AnteproyectoService{
 	ComunService comunService;
 
 	@Transactional
-	public String grabarAnteproyecto(AgregarAnteproyectoModel agregarAnteproyectoModel) throws Exception {
+	public String grabarAnteproyecto(AgregarAnteproyectoModel agregarAnteproyectoModel, String ruta) throws Exception {
 		Proyecto proyecto = new Proyecto();
 		String codigoPy = null;
 //		INI - GRABAR EN TABLA PROYECTO		
@@ -141,12 +142,25 @@ public class AnteproyectoServiceImp implements AnteproyectoService{
 //		}
 		
 //		FIN - GRABANDO ARCHIVOS
+		
+//		INI - ENVIO DE CORREOS
+		String rutaLogo = ruta + "WEB-INF\\temp\\" + Constantes.LOGO_FIRMA_SIGCOMT;
+		EnvioCorreo envioCorreo = new EnvioCorreo();
+		envioCorreo.setCorreoDestino(agregarAnteproyectoModel.getCorreoResponsable());
+		envioCorreo.setAsunto("Proyecto Asignado - "+agregarAnteproyectoModel.getTituloProyecto());
+		String mensaje = "Estimado " + agregarAnteproyectoModel.getNombreResponsable()+
+							" \nTienes asignado el proyecto "+ agregarAnteproyectoModel.getTituloProyecto();
+		envioCorreo.setMensaje(mensaje);
+		envioCorreo.setCorreoCopia("rargomedoc89@gmail.com");
+		envioCorreo.setRutaLogo(rutaLogo);
+		comunService.envioCorreo(envioCorreo);
+//		FIN - ENVIO DE CORREOS
 				
 		return codigoPy;
 	}
 	
 	@Transactional
-	public String planificarAnteproyecto(AgregarAnteproyectoModel agregarAnteproyectoModel) throws Exception {
+	public String planificarAnteproyecto(AgregarAnteproyectoModel agregarAnteproyectoModel, String ruta) throws Exception {
 		Proyecto proyecto = new Proyecto();
 		String codigoPy = null;
 //		INI - GRABAR EN TABLA PROYECTO		
@@ -270,15 +284,23 @@ public class AnteproyectoServiceImp implements AnteproyectoService{
 //		FIN - GRABANDO ARCHIVOS		
 		
 //		INI - ENVIO DE CORREOS
+		String rutaLogo = ruta + "WEB-INF\\temp\\" + Constantes.LOGO_FIRMA_SIGCOMT;
 		EnvioCorreo envioCorreo = new EnvioCorreo();
 		envioCorreo.setCorreoDestino(agregarAnteproyectoModel.getCorreoResponsable());
-		envioCorreo.setAsunto(agregarAnteproyectoModel.getTituloProyecto());
-		String mensaje = agregarAnteproyectoModel.getNombreResponsable()+" \n hola";
+		envioCorreo.setAsunto("Proyecto Asignado - "+agregarAnteproyectoModel.getTituloProyecto());
+		String mensaje = "Estimado " + agregarAnteproyectoModel.getNombreResponsable()+
+							" \n tienes asignado el proyecto "+ agregarAnteproyectoModel.getTituloProyecto();
 		envioCorreo.setMensaje(mensaje);
 		envioCorreo.setCorreoCopia("rargomedoc89@gmail.com");
+		envioCorreo.setRutaLogo(rutaLogo);
 		comunService.envioCorreo(envioCorreo);
 //		FIN - ENVIO DE CORREOS
 		return codigoPy;
+		
+		
+		//
+		
+		
 	}
 
 	private void establecerProyecto(

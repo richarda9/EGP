@@ -165,12 +165,13 @@ public class AnteproyectoController
 	}
 	
 	@RequestMapping(value = "/agregarAnteproyecto.htm", method = RequestMethod.POST)
-	public @ResponseBody AgregarAnteproyectoModel agregarAnteproyecto(@RequestBody AgregarAnteproyectoModel agregarAnteproyectoModel) {
+	public @ResponseBody AgregarAnteproyectoModel agregarAnteproyecto(@RequestBody AgregarAnteproyectoModel agregarAnteproyectoModel, HttpServletRequest request) {
 		
 		logger.info("INI - AnteproyectoController.agregarAnteproyecto");
 		try {
+			String ruta = request.getSession().getServletContext().getRealPath("/")+System.getProperty("file.separator");
 			agregarAnteproyectoModel.setIdEstadoProyecto(Long.parseLong(EstadoProyectoEnum.EN_ANTEPROYECTO.getCodigo()));
-			String codigoPy = anteproyectoService.grabarAnteproyecto(agregarAnteproyectoModel);
+			String codigoPy = anteproyectoService.grabarAnteproyecto(agregarAnteproyectoModel, ruta);
 			agregarAnteproyectoModel.setCodigoPy(codigoPy);
 		} catch (Exception e) {
 			logger.error("ERROR - AnteproyectoController.agregarAnteproyecto", e);
@@ -182,12 +183,13 @@ public class AnteproyectoController
 	}
 	
 	@RequestMapping(value = "/planificarAnteproyecto.htm", method = RequestMethod.POST)
-	public @ResponseBody AgregarAnteproyectoModel planificarAnteproyecto(@RequestBody AgregarAnteproyectoModel agregarAnteproyectoModel) {
+	public @ResponseBody AgregarAnteproyectoModel planificarAnteproyecto(@RequestBody AgregarAnteproyectoModel agregarAnteproyectoModel, HttpServletRequest request) {
 		
 		logger.info("INI - AnteproyectoController.planificarAnteproyecto");
 		try {
+			String ruta = request.getSession().getServletContext().getRealPath("/")+System.getProperty("file.separator");
 			agregarAnteproyectoModel.setIdEstadoProyecto(Long.parseLong(EstadoProyectoEnum.EN_PLANIFICACION.getCodigo()));
-			String codigoPy = anteproyectoService.planificarAnteproyecto(agregarAnteproyectoModel);
+			String codigoPy = anteproyectoService.planificarAnteproyecto(agregarAnteproyectoModel, ruta);
 			agregarAnteproyectoModel.setCodigoPy(codigoPy);
 		} catch (Exception e) {
 			logger.error("ERROR - AnteproyectoController.planificarAnteproyecto", e);

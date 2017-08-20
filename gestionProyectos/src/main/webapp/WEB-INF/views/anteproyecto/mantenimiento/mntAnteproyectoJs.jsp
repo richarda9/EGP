@@ -358,6 +358,8 @@ function guardarAnteproyecto(){
 		form.listaObservaciones = dataSetObservacion;
 		form.listaAnexos = dataSetAnexos;
 		form.idEmpresa = $('#empresa').val();
+		form.correoResponsable = $("#idResponsableProyecto option:selected").attr("data-correo");
+		form.nombreResponsable = $("#idResponsableProyecto option:selected").attr("data-nombre");
 		
 		$.postJSON('${pageContext.request.contextPath}/anteproyecto/agregarAnteproyecto.htm',form, function(data) {
 			/* console.log("qwqw");
