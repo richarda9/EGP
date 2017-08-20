@@ -16,13 +16,13 @@
                 <div class="row-fluid">
                     <div class="span12">
                         <div class="span3" style="float: left;">
-                            <a class="btn btn-small btn-info span12" onclick = "validacionEjecutarProyecto()">
+                            <a class="btn btn-small btn-primary span12" onclick = "validacionEjecutarProyecto()">
                                 <i class="icon-save"></i>
                                 Ejecutar Proyecto
                             </a>
                         </div>                        
                         <div class="span3" style="float: left;">
-                            <a class="btn btn-small btn-info span12" href="#modalCancelarProyecto" data-toggle="modal">
+                            <a class="btn btn-small btn-primary span12" href="#modalCancelarProyecto" data-toggle="modal">
                                 <i class="icon-remove-sign"></i>
                                 Cancelar
                             </a>
@@ -135,19 +135,19 @@
 						</div>
 						<div class="row-fluid">
 							<div class="span12">
-								<div class="span6"></div>
+								<div class="span9"></div>
 								<div class="span3" style="float:left;">
-									<a class="btn btn-small btn-info span12" onclick="guardarDescripcion()">
+									<a class="btn btn-small btn-primary span12" onclick="guardarDescripcion()">
 										<i class="icon-save bigger-125"></i>
 										Guardar
 									</a>
 								</div>
-								<div class="span3" style="float:left;">
+								<!-- <div class="span3" style="float:left;">
 									<button class="btn btn-small btn-info span12">
 										<i class="icon-undo bigger-125"></i>
 										Limpiar
 									</button>
-								</div>
+								</div> -->
 								<!-- <div class="span3" style="float:left;">
 									<button class="btn btn-info span12">
 										<i class="icon-download bigger-125"></i>
@@ -158,12 +158,14 @@
 						</div>
 						<br>
 						<form  name="formPlanDescripcion" id="formPlanDescripcion" method="post">
-							<textarea class="span12" id="descripcion" name="descripcion" >${model.descripcionProductoProyecto}</textarea>
+							<div class="control-group">
+								<textarea class="span12" id="descripcion" name="descripcion" >${model.descripcionProductoProyecto}</textarea>
+							</div>
 						</form>
 					</div>
 					<!-- FIN - PLANIFICACION - DESCRIPCION PRODUCTO  -->
 
-					<!-- INI - PLANIFICACION - ALCANCE  -->
+					<!-- INI - PLANIFICACION - ALCANCE  -->					
 					<div id="alcance" class="tab-pane">
 						<div class="row-fluid">
 							<div class="span12">
@@ -174,7 +176,7 @@
 							<div class="span12">
 								<div class="span9"></div>
 								<div class="span3" style="float:left;">
-									<a class="btn btn-small btn-info span12" onclick="guardarAlcance()">
+									<a class="btn btn-small btn-primary span12" onclick="guardarAlcance()">
 										<i class="icon-save bigger-125"></i>
 										Guardar
 									</a>
@@ -182,8 +184,8 @@
 							</div>
 						</div>
 						<br>
-						<div id="accordion2" class="accordion">
 						<form  name="formPlanAlcance" id="formPlanAlcance" method="post">
+						<div id="accordion2" class="accordion">						
 							<div class="accordion-group">
 								<div class="accordion-heading">
 									<a href="#definicionAlcance" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle collapsed">
@@ -215,7 +217,7 @@
 												<div class="control-group">
 													<label class="control-label" for="tipo">Tipo</label>	
 													<div class="controls">
-														<select id="idTipoRequisito" title="tipo">
+														<select id="idTipoRequisito" name="idTipoRequisito">
 															<option value="">Seleccionar</option>
 															<c:forEach var="tipoRequisito" items="${model.listaTipoRequisito}" varStatus="contador">
 															   <option value="${tipoRequisito.id}">${tipoRequisito.descripcion}</option>
@@ -231,7 +233,7 @@
 													<div class="control-group">
 														<label class="control-label" for="descripcion">Descripción</label>	
 														<div class="controls">
-															<input type="text" id="idDescripcionAlcance" class="span12" placeholder="Descripción"/>															
+															<input type="text" id="idDescripcionAlcance" name="idDescripcionAlcance" class="span12" placeholder="Descripción"/>															
 														</div>
 													</div>
 												</div>
@@ -239,7 +241,7 @@
 													<div class="control-group">
 														<label class="control-label" for="observacion">Observación</label>	
 														<div class="controls">
-															<input type="text" id="idObservacionAlcance" class="span12" placeholder="Observación"/>															
+															<input type="text" id="idObservacionAlcance" name="idObservacionAlcance" class="span12" placeholder="Observación"/>															
 														</div>
 													</div>
 												</div>
@@ -248,7 +250,7 @@
 										<div class="row-fluid">
 											<div class="span9"></div>
 											<div class="span3">
-												<a class="btn btn-small btn-info span12" onclick="agregarPlanificacionRequisito()">
+												<a class="btn btn-small btn-primary span12" onclick="agregarPlanificacionRequisito()">
 													<i class="icon-plus-sign bigger-125"></i>
 													Agregar Requisito
 												</a>
@@ -301,7 +303,7 @@
 										<div class="row-fluid">
 											<div class="span9"></div>
 											<div class="span3">
-												<a class="btn btn-small btn-info span12" onclick="agregarPlanificacionExclusion()">
+												<a class="btn btn-small btn-primary span12" onclick="agregarPlanificacionExclusion()">
 													<i class="icon-plus-sign bigger-125"></i>
 													Agregar Exclusi&oacute;n
 												</a>
@@ -342,7 +344,7 @@
 												<div class="control-group">
 													<label class="control-label" for="tipo">Tipo</label>	
 													<div class="controls">
-														<select id="idTipoSupuesto" title="tipo">
+														<select id="idTipoSupuesto">
 															<option value="">Seleccionar</option>
 															<c:forEach var="tipoSupuesto" items="${model.listaTipoSupuesto}" varStatus="contador">
 															   <option value="${tipoSupuesto.id}">${tipoSupuesto.descripcion}</option>
@@ -365,7 +367,7 @@
 										<div class="row-fluid">
 											<div class="span9"></div>
 											<div class="span3">
-												<a class="btn btn-small btn-info span12" onclick="agregarPlanificacionSupuesto()">
+												<a class="btn btn-small btn-primary span12" onclick="agregarPlanificacionSupuesto()">
 													<i class="icon-plus-sign bigger-125"></i>
 													Agregar Supuesto
 												</a>
@@ -407,7 +409,7 @@
 												<div class="control-group">
 													<label class="control-label" for="tipo">Tipo</label>	
 													<div class="controls">
-														<select id="idTipoDependencia" title="tipo">
+														<select id="idTipoDependencia">
 															<option value="">Seleccionar</option>
 															<c:forEach var="tipoDependencia" items="${model.listaTipoDependencia}" varStatus="contador">
 															   <option value="${tipoDependencia.id}">${tipoDependencia.descripcion}</option>
@@ -430,7 +432,7 @@
 										<div class="row-fluid">
 											<div class="span9"></div>
 											<div class="span3">
-												<a class="btn btn-small btn-info span12" onclick="agregarPlanificacionDependencia()">
+												<a class="btn btn-small btn-primary span12" onclick="agregarPlanificacionDependencia()">
 													<i class="icon-plus-sign bigger-125"></i>
 													Agregar Dependencia
 												</a>
@@ -479,7 +481,7 @@
 										<div class="row-fluid">
 											<div class="span9"></div>
 											<div class="span3">
-												<a class="btn btn-small btn-info span12" onclick="agregarPlanificacionFactorExito()">
+												<a class="btn btn-small btn-primary span12" onclick="agregarPlanificacionFactorExito()">
 													<i class="icon-plus-sign bigger-125"></i>
 													Agregar Factor
 												</a>
@@ -505,10 +507,11 @@
 										</table>
 									</div>
 								</div>
-							</div>
-						</form>
+							</div>						
 						</div>
+						</form>
 					</div>
+					
 					<!-- FIN - PLANIFICACION - ALCANCE  -->
 
 					<div id="recursoHumanos" class="tab-pane">
@@ -533,7 +536,7 @@
                                                             <div class="control-group">
                                                                 <label class="control-label" for="tipoRolProveedor">Tipo de Rol</label> 
                                                                 <div class="controls">
-                                                                    <select id="idTipoRolProveedor" name="idTipoRolProveedor" title="tipoRolProveedor">
+                                                                    <select id="idTipoRolProveedor" name="idTipoRolProveedor">
                                                                         <option value="">Seleccionar</option>
                                                                         <c:forEach var="tipoRol" items="${model.listaTipoRolProveedor}" varStatus="contador">
                                                                            <option value="${tipoRol.id}">${tipoRol.nombreRol}</option>
@@ -555,7 +558,7 @@
                                                 <div class="row-fluid">
                                                     <div class="span9"></div>
                                                     <div class="span3">
-                                                        <a class="btn btn-small btn-info span12" onclick="guardarRolProveedor()">
+                                                        <a class="btn btn-small btn-primary span12" onclick="guardarRolProveedor()">
                                                             <i class="icon-save bigger-125"></i>
                                                             Guardar Rol Proveedor
                                                         </a>
@@ -599,7 +602,7 @@
                                                             <div class="control-group">
                                                                 <label class="control-label" for="tipoRolCliente">Tipo de Rol</label>   
                                                                 <div class="controls">
-                                                                    <select id="idTipoRolCliente" name="idTipoRolCliente" title="tipoRolCliente">
+                                                                    <select id="idTipoRolCliente" name="idTipoRolCliente">
                                                                         <option value="">Seleccionar</option>
                                                                         <c:forEach var="tipoRol" items="${model.listaTipoRolCliente}" varStatus="contador">
                                                                            <option value="${tipoRol.id}">${tipoRol.nombreRol}</option>
@@ -621,7 +624,7 @@
                                                 <div class="row-fluid">
                                                     <div class="span9"></div>
                                                     <div class="span3">
-                                                        <a class="btn btn-small btn-info span12" onclick="guardarRolCliente()">
+                                                        <a class="btn btn-small btn-primary span12" onclick="guardarRolCliente()">
                                                             <i class="icon-save bigger-125"></i>
                                                             Guardar Rol Cliente
                                                         </a>
@@ -733,22 +736,22 @@
 									<div class="span6">
 										<div class="row-fluid">
 											<div class="span3">
-												<a id="btnGuardarTarea" class="btn btn-small btn-primary">
+												<a id="btnGuardarTarea" class="btn btn-small btn-primary span12">
 													<i class="icon-save"></i>Guardar 
 												</a>															
 											</div>
 											<div class="span3">
-												<a href="#modal-Tarea" id="btnAgregarTarea" role="button" class="btn btn-small btn-primary" data-toggle="modal">
+												<a href="#modal-Tarea" id="btnAgregarTarea" role="button" class="btn btn-small btn-primary span12" data-toggle="modal">
 													<i class="icon-plus"></i>Agregar 
 												</a>
 											</div>
 											<div class="span3">
-												<a id="btnEditarTarea" class="btn btn-small btn-primary">
+												<a id="btnEditarTarea" class="btn btn-small btn-primary span12">
 													<i class="icon-edit"></i>Editar &nbsp;&nbsp; 
 												</a>
 											</div>
 											<div class="span3">
-												<a id="btnEliminarTarea" class="btn btn-small btn-primary">
+												<a id="btnEliminarTarea" class="btn btn-small btn-primary span12">
 													<i class="icon-trash"></i>Eliminar 
 												</a>
 											</div>
@@ -758,7 +761,7 @@
 							</div>
 							<div class="space-20"></div>
 							<div class="row-fluid">
-								<div class="table-header">Lista Cronograma</div>
+								<!-- <div class="table-header">Lista Cronograma</div> -->
 								<table id="tablaSegTareas" class="table table-striped table-bordered table-hover" style="width: 100%;">
 									<thead>
 										<tr>
@@ -786,19 +789,23 @@
 					<div id="entregable" class="tab-pane">
 						<div class="row-fluid">
 							<div class="span12">
-								<div class="span9">Entregables del Proyecto</div>
-								<div class="span3">
-									<button class="btn btn-small btn-primary" onclick="showEntregableAgregar()">
-										<i class="icon-plus"></i>
-										Agregar Entregable
-									</button>
-								</div>
+								<div class="page-header position-relative"><h1>Entregables del Proyecto</h1></div>
 							</div>
 						</div>
-						
+						<div class="row-fluid">
+							<div class="span12">
+								<div class="span9"></div>
+								<div class="span3" style="float:left;">
+									<a class="btn btn-small btn-primary span12" onclick="showEntregableAgregar()">
+										<i class="icon-plus bigger-125"></i>
+										Agregar Entregable
+									</a>
+								</div>
+							</div>
+						</div>													
 						<div class="space-20"></div>
 						<div class="row-fluid">
-							<div class="table-header">Lista Entregables del Proyecto</div>
+							<!-- <div class="table-header">Lista Entregables del Proyecto</div> -->
 							<table id="tablaEntregableProyecto" class="table table-striped table-bordered table-hover"  style="width: 100%;">
 								<thead>
 									<tr>
@@ -825,7 +832,7 @@
 						<div class="span12">
 							<div class="span9"></div>
 								<div class="span3" style="float:left;">
-									<a class="btn btn-small btn-info span12" onclick="guardarDetalleRiesgos()">
+									<a class="btn btn-small btn-primary span12" onclick="guardarDetalleRiesgos()">
 										<i class="icon-save bigger-125"></i>
 										Guardar
 									</a>
@@ -839,7 +846,7 @@
 							<div class="span12">
 							<div class="span6">
 							<div class="control-group">
-								<label class="control-label" for="valRiesgo">Riesgo:</label>
+								<label class="control-label" for="valRiesgo">Riesgo</label>
 								<div class="controls">
 									<div class="span6">
 										<input type="text" class="span12" id="valRiesgo" name="valRiesgo"  />
@@ -850,7 +857,7 @@
 				
 							<div class="span6">
 							<div class="control-group">
-								<label class="control-label" for="valResponsable">Responsable:</label>
+								<label class="control-label" for="valResponsable">Responsable</label>
 								<div class="controls">
 									<div class="span6">
 										<input type="text" class="span12" id="valResponsable" name="valResponsable"  />
@@ -865,7 +872,7 @@
 							<div class="span12">
 							<div class="span6">
 							<div class="control-group">
-								<label class="control-label" for="valImpacto">Impacto:</label>
+								<label class="control-label" for="valImpacto">Impacto</label>
 								<div class="controls">
 									<div class="span6">
 										<input type="text" class="span12" id="valImpacto" name="valImpacto"  />
@@ -876,7 +883,7 @@
 				
 							<div class="span6">
 							<div class="control-group">
-								<label class="control-label" for="valProbabilidad">Probabilidad:</label>
+								<label class="control-label" for="valProbabilidad">Probabilidad</label>
 								<div class="controls">
 									<div class="span6">
 										<input type="text" class="span12" id="valProbabilidad" name="valProbabilidad"  />
@@ -891,7 +898,7 @@
 							<div class="span12">
 							<div class="span6">
 							<div class="control-group">
-								<label class="control-label" for="valContigencia">Contigencia:</label>
+								<label class="control-label" for="valContigencia">Contigencia</label>
 								<div class="controls">
 									<div class="span6">
 										<input type="text" class="span12" id="valContigencia" name="valContigencia"  />
@@ -902,7 +909,7 @@
 				
 							<div class="span6">
 							<div class="control-group">
-								<label class="control-label" for="valMitigacion">Mitigaci&oacute;n:</label>
+								<label class="control-label" for="valMitigacion">Mitigaci&oacute;n</label>
 								<div class="controls">
 									<div class="span6">
 										<input type="text" class="span12" id="valMitigacion" name="valMitigacion"  />
@@ -988,7 +995,7 @@
 						<div class="span12">
 							<div class="span9"></div>
 								<div class="span3" style="float:left;">
-									<a class="btn btn-small btn-info span12" onclick="guardarDetalleAdquisicion()">
+									<a class="btn btn-small btn-primary span12" onclick="guardarDetalleAdquisicion()">
 										<i class="icon-save bigger-125"></i>
 										Guardar
 									</a>
@@ -1002,7 +1009,7 @@
 							<div class="span12">
 								<div class="span6">
 								<div class="control-group">
-									<label class="control-label" for="valProductoAD">Producto:</label>
+									<label class="control-label" for="valProductoAD">Producto</label>
 									<div class="controls">
 									<div class="span6">
 										<input type="text" class="span12" id="valProductoAD" name="valProductoAD" />
@@ -1013,7 +1020,7 @@
 				
 								<div class="span6">
 								<div class="control-group">
-									<label class="control-label" for="idCategoriaAD">Categor&iacute;a:</label>
+									<label class="control-label" for="idCategoriaAD">Categor&iacute;a</label>
 									<div class="controls">
 										<div class="span6">
 											<select id="idCategoriaAD" name="idCategoriaAD" >
@@ -1033,7 +1040,7 @@
 							<div class="span12">
 							<div class="span6">
 							<div class="control-group">
-								<label class="control-label" for="valCantidadAD">Cantidad:</label>
+								<label class="control-label" for="valCantidadAD">Cantidad</label>
 								<div class="controls">
 									<div class="span6">
 										<input type="text" class="span12" id="valCantidadAD" name="valCantidadAD"  />
@@ -1044,7 +1051,7 @@
 				
 							<div class="span6">
 							<div class="control-group">
-								<label class="control-label" for="valCostoUnitAD">Costo Unitario:</label>
+								<label class="control-label" for="valCostoUnitAD">Costo Unitario</label>
 								<div class="controls">
 									<div class="span6">
 										<input type="text" class="span12" id="valCostoUnitAD" name="valCostoUnitAD"  />
@@ -1059,7 +1066,7 @@
 							<div class="span12">
 								<div class="span6">
 								<div class="control-group">
-									<label class="control-label" for="fechaAdquirirAD">Fecha Adquisici&oacute;n:</label>
+									<label class="control-label" for="fechaAdquirirAD">Fecha Adquisici&oacute;n</label>
 									<div class="controls">
 										<div class="row-fluid input-append">
 											<input id="fechaAdquirirAD" name="fechaAdquirirAD" type="text" data-date-format="dd-mm-yyyy" />
@@ -1153,7 +1160,7 @@
 							<div class="span12">
 								<div class="span9"></div>
 								<div class="span3" style="float:left;">
-									<a class="btn btn-small btn-info span12" onclick="guardarDetalleCostosOperativos()">
+									<a class="btn btn-small btn-primary span12" onclick="guardarDetalleCostosOperativos()">
 										<i class="icon-save bigger-125"></i>
 										Guardar
 									</a>
@@ -1167,7 +1174,7 @@
 							<div class="span12">								
 								<div class="span6">
 								<div class="control-group">
-									<label class="control-label" for="idTipoCostoOP">Tipo:</label>
+									<label class="control-label" for="idTipoCostoOP">Tipo</label>
 									<div class="controls">
 										<div class="span6">
 											<select id="idTipoCostoOP" name="idTipoCostoOP" >
@@ -1183,7 +1190,7 @@
 								
 								<div class="span6">
 								<div class="control-group">
-									<label class="control-label" for="valDescripcionOP">Descripci&oacute;n:</label>
+									<label class="control-label" for="valDescripcionOP">Descripci&oacute;n</label>
 										<div class="controls">
 											<div class="span6">
 												<input type="text" class="span12" id="valDescripcionOP" name="valDescripcionOP" />
@@ -1198,7 +1205,7 @@
 								<div class="span12">
 								<div class="span6">
 								<div class="control-group">
-									<label class="control-label" for="fechaCostoOP">Fecha:</label>
+									<label class="control-label" for="fechaCostoOP">Fecha</label>
 									<div class="controls">
 										<div class="row-fluid input-append">
 											<input id="fechaCostoOP" name="fechaCostoOP" type="text" data-date-format="dd-mm-yyyy" />
@@ -1212,7 +1219,7 @@
 				
 								<div class="span6">
 								<div class="control-group">
-									<label class="control-label" for="valMontoOP">Monto:</label>
+									<label class="control-label" for="valMontoOP">Monto</label>
 										<div class="controls">
 											<div class="span6">
 												<input type="text" class="span12" id="valMontoOP" name="valMontoOP"  />
@@ -1302,7 +1309,7 @@
 							<div class="span12">
 								<div class="span9"></div>
 								<div class="span3" style="float:left;">
-									<a class="btn btn-small btn-info span12" onclick="guardarFormaPago()">
+									<a class="btn btn-small btn-primary span12" onclick="guardarFormaPago()">
 										<i class="icon-save bigger-125"></i>
 										Guardar
 									</a>
@@ -1316,7 +1323,7 @@
 								<div class="span12">
 								<div class="span6">
 								<div class="control-group">
-									<label class="control-label" for="fechaInicio">Fecha Facturaci&oacute;n:</label>
+									<label class="control-label" for="fechaInicio">Fecha Facturaci&oacute;n</label>
 									<div class="controls">
 										<div class="row-fluid input-append">
 											<input id="fechaFacturaFP" name="fechaFacturaFP" type="text" data-date-format="dd-mm-yyyy" />
@@ -1330,7 +1337,7 @@
 				
 								<div class="span6">
 								<div class="control-group">
-									<label class="control-label" for="idFormaPago">Forma Pago:</label>
+									<label class="control-label" for="idFormaPago">Forma Pago</label>
 									<div class="controls">
 										<div class="span6">
 											<select id="idFormaPago" name="idFormaPago" >
@@ -1350,7 +1357,7 @@
 							<div class="span12">
 								<div class="span6">
 								<div class="control-group">
-									<label class="control-label" for="fechaInicio">Fecha Cobranza:</label>
+									<label class="control-label" for="fechaInicio">Fecha Cobranza</label>
 									<div class="controls">
 										<div class="row-fluid input-append">
 											<input id="fechaCobranzaFP" name="fechaCobranzaFP" type="text" data-date-format="dd-mm-yyyy" />
@@ -1364,7 +1371,7 @@
 								
 								<div class="span6">
 								<div class="control-group">
-									<label class="control-label" for="idEntregableFP">Entregables:</label>
+									<label class="control-label" for="idEntregableFP">Entregables</label>
 									<div class="controls">
 										<div class="span6">
 											<select id="idEntregableFP" name="idEntregableFP" >
@@ -1384,7 +1391,7 @@
 							<div class="span12">
 								<div class="span6">
 								<div class="control-group">
-									<label class="control-label" for="valPorcPago">% Pago:</label>
+									<label class="control-label" for="valPorcPago">% Pago</label>
 										<div class="controls">
 											<div class="span6">
 												<input type="text" class="span12" id="valPorcPago" name="valPorcPago" placeholder="% Pago" />
@@ -1845,6 +1852,7 @@
     <!-- FIN - MODAL GUARDAR DESCRIPCION TIPO ROL CLIENTE -->
     
     <!-- INI - MODAL EJECUTAR - FECHA APROBACIÓN -->
+    <form name="formEjecucion" id="formEjecucion" method="post">
     <div id="modalEjecutarFechaAprobacion" class="modal hide fade form-horizontal" tabindex="-1" data-attr-index="" >
         <div class="modal-header">
             <!-- <div class="table-header"> -->
@@ -1882,6 +1890,7 @@
         </div>
  
     </div>
+    </form>
     <!-- FIN - MODAL EJECUTAR - FECHA APROBACIÓN -->
     <!-- [INI] MODAL ENTREGABLE -->
     <%@ include file="/WEB-INF/views/ventanasEmergentes/planificacion/registrarEntregable.jsp"%>
@@ -1903,7 +1912,7 @@
 					<div class="control-group">
 						<label class="control-label" for="tipo">Tipo</label>	
 						<div class="controls">
-							<select id="idTipoNivel" title="tipo" onchange="cargarBandaSalarial(this)">								
+							<select id="idTipoNivel" onchange="cargarBandaSalarial(this)">								
 							</select>
 						</div>
 					</div>
@@ -1915,7 +1924,7 @@
 						<div class="control-group">
 							<label class="control-label" for="tipo">Banda Salarial</label>	
 							<div class="controls">
-								<select id="idBandaSalarial" title="bandaSalarial">									
+								<select id="idBandaSalarial">									
 								</select>
 							</div>
 						</div>

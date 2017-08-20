@@ -425,11 +425,12 @@ $(document).ready(function() {/* INI - READY */
 		"ajax"		 : function (data, callback, settings) {
 						callback ( { data: dataEntregable } );
 					   },
-		"paging"     : true,
+		"ordering"   : false,		
+		"paging"     : false,
 		"autoWidth"  : true,
 		"pageLength" : 10,
 		"searching"  : false,
-		"bInfo"      : false,
+		"bInfo"      : false, 		
 	    "columns"	 : [
 	             		   {"data": "nombre"},  
 	             		   {"data": "descripcion"},  
@@ -661,7 +662,7 @@ $(document).ready(function() {/* INI - READY */
 	$('#formPlanDescripcion').validate({
 		errorClass: 'help-block',
 		rules: {
-			editor1: {
+			descripcion: {
 				required: true
 			}
 		},
@@ -696,8 +697,185 @@ $(document).ready(function() {/* INI - READY */
 		}
 	});		
 	/* FIN - ALCANCE */	
+
+	/* INI - RRHH */
+	$('#formTipoRolProveedor').validate({
+		errorClass: 'help-block',
+		rules: {
+			idTipoRolProveedor: {
+				required: true
+			},
+			idCantidadTipoRolProveedor: {
+				required: true,
+				digits: true
+			}
+		},
+		
+		highlight: function (e) {
+			$(e).closest('.control-group').removeClass('info').addClass('error');
+		},
+
+		success: function (e) {
+			$(e).closest('.control-group').removeClass('error');
+			$(e).remove();
+		}
+	});
 	
-	/* INICIO - FORMAS DE PAGO */
+	$('#formTipoRolCliente').validate({
+		errorClass: 'help-block',
+		rules: {
+			idTipoRolCliente: {
+				required: true
+			},
+			idCantidadTipoRolCliente: {
+				required: true,
+				digits: true
+			}
+		},
+		
+		highlight: function (e) {
+			$(e).closest('.control-group').removeClass('info').addClass('error');
+		},
+
+		success: function (e) {
+			$(e).closest('.control-group').removeClass('error');
+			$(e).remove();
+		}
+	});	
+	/* FIN - RRHH */
+
+	/* INI - RIESGOS */
+	$('#formDetalleRiesgos').validate({
+		errorClass: 'help-block',
+		rules: {
+			valRiesgo: {
+				required: true
+			},
+			valResponsable: {
+				required: true
+			},
+			valImpacto: {
+				required: true
+			},
+			valProbabilidad: {
+				required: true,
+				number: true
+			},
+			valContigencia: {
+				required: true
+			},
+			valMitigacion: {
+				required: true
+			}
+		},
+		
+		highlight: function (e) {
+			$(e).closest('.control-group').removeClass('info').addClass('error');
+		},
+
+		success: function (e) {
+			$(e).closest('.control-group').removeClass('error');
+			$(e).remove();
+		}
+	});		
+	/* FIN - RIESGOS */
+	
+	/* INI - ADQUISICIONES */
+	$('#formDetalleAdquisicion').validate({
+		errorClass: 'help-block',
+		rules: {
+			valProductoAD: {
+				required: true
+			},
+			idCategoriaAD: {
+				required: true
+			},
+			valCantidadAD: {
+				required: true,
+				digits: true
+			},
+			valCostoUnitAD: {
+				required: true,
+				number: true
+			},
+			fechaAdquirirAD: {
+				required: true
+			}			
+		},
+		
+		highlight: function (e) {
+			$(e).closest('.control-group').removeClass('info').addClass('error');
+		},
+
+		success: function (e) {
+			$(e).closest('.control-group').removeClass('error');
+			$(e).remove();
+		}
+	});		
+	/* FIN - ADQUISICIONES */		
+
+	/* INI - COSTOS OPERATIVOS */
+	$('#formCostoOperativo').validate({
+		errorClass: 'help-block',
+		rules: {
+			idTipoCostoOP: {
+				required: true
+			},
+			valDescripcionOP: {
+				required: true
+			},
+			fechaCostoOP: {
+				required: true
+			},
+			valMontoOP: {
+				required: true,
+				number: true
+			}			
+		},
+		
+		highlight: function (e) {
+			$(e).closest('.control-group').removeClass('info').addClass('error');
+		},
+
+		success: function (e) {
+			$(e).closest('.control-group').removeClass('error');
+			$(e).remove();
+		}
+	});		
+	/* FIN - COSTOS OPERATIVOS */		
+	
+	/* INICIO - FORMAS DE PAGO */	
+		$('#formFormasPago').validate({
+		errorClass: 'help-block',
+		rules: {
+			fechaFacturaFP: {
+				required: true
+			},
+			idFormaPago: {
+				required: true
+			},
+			fechaCobranzaFP: {
+				required: true
+			},
+			idEntregableFP: {
+				required: true
+			},
+			valPorcPago: {
+				required: true,
+				number: true
+			}	
+		},
+		
+		highlight: function (e) {
+			$(e).closest('.control-group').removeClass('info').addClass('error');
+		},
+
+		success: function (e) {
+			$(e).closest('.control-group').removeClass('error');
+			$(e).remove();
+		}
+	});			
+	
 	$('#tablaFormasPago tbody').on( 'click', '#deleteFormaPago', function () {
 		var indice = $(this).parents('tr').index();		
 		$('#modalEliminarFormasPago').attr('data-attr-index',indice);
@@ -736,14 +914,34 @@ $(document).ready(function() {/* INI - READY */
 	                       {        				
 	         				"targets": -1,
 	         				"data": function ( row, type, val, meta ) {
-	         					var abc = type;
-	         					var abcd = val;
+	         					/* var abc = type;
+	         					var abcd = val; */
 	         				},
 	         				"defaultContent": opcionesEliminarFormaPago}	         			
 	       		]
 	});	
 	
-	 /* INI - TAB RECURSOS HUMANOS  */
+	/* INICIO - EJECUCION */	
+	$('#formEjecucion').validate({
+	errorClass: 'help-block',
+	rules: {
+		fechaAprobacion: {
+			required: true
+		}
+	},
+	
+	highlight: function (e) {
+		$(e).closest('.control-group').removeClass('info').addClass('error');
+	},
+
+	success: function (e) {
+		$(e).closest('.control-group').removeClass('error');
+		$(e).remove();
+	}
+});			
+	/* FIN - EJECUCION */		
+	
+	/* INI - TAB RECURSOS HUMANOS  */
     var opcionesTipoRolProveedor = '<a id="deleteTipoRolProveedor" class="red tooltip-error" data-rel="tooltip" title="Eliminar"><i class="icon-trash bigger-130"> </i></a>';
     $('#tablaTipoRolProveedor').DataTable({
         "ajax"         : function (data, callback, settings) {
@@ -863,7 +1061,20 @@ $(document).ready(function() {/* INI - READY */
     } );
     
     $('#modalActualizarTipoRolProveedorResponsabilidad').on('click', '#confirmarActualizarTipoRolProveedorResponsabilidad', function(){
-        actualizarDescripcionTipoRolProveedor();     
+        
+    	if($("#idDescripcionProveedor").val()!=null && $("#idDescripcionProveedor").val()!=""){
+    		$('#idDescripcionProveedor').parent().parent().removeClass('error');
+    		actualizarDescripcionTipoRolProveedor();    		
+    	}else{
+    		$('#idDescripcionProveedor').parent().parent().addClass('error');	
+    		$.gritter.add({
+				title: 'Advertencia!',
+				text: 'Debe llenar descripción',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-warning'
+			});
+    	}
     });
     
     var opcionesRRHHResponsabilidadesCliente = '<a id="actualizarRRHHResponsabilidadesCliente" class="blue tooltip-error" data-rel="tooltip" title="Guardar"><i class="icon-save bigger-130"> </i></a>';
@@ -906,8 +1117,20 @@ $(document).ready(function() {/* INI - READY */
  
     } );
     
-    $('#modalActualizarTipoRolClienteResponsabilidad').on('click', '#confirmarActualizarTipoRolClienteResponsabilidad', function(){
-        actualizarDescripcionTipoRolCliente();     
+    $('#modalActualizarTipoRolClienteResponsabilidad').on('click', '#confirmarActualizarTipoRolClienteResponsabilidad', function(){                 
+        if($("#idDescripcionCliente").val()!=null && $("#idDescripcionCliente").val()!=""){
+    		$('#idDescripcionCliente').parent().parent().removeClass('error');
+    		actualizarDescripcionTipoRolCliente();    		
+    	}else{
+    		$('#idDescripcionCliente').parent().parent().addClass('error');	
+    		$.gritter.add({
+				title: 'Advertencia!',
+				text: 'Debe llenar descripción',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-warning'
+			});
+    	}
     });
     /* FIN - TAB RECURSOS HUMANOS  */
 
@@ -993,7 +1216,6 @@ $(document).ready(function() {/* INI - READY */
         		]
 	});	 */
 	/* FIN - TAB PRESUPUESTO  */
-
 	
     /* listarRRHHResponsabilidades(); */
 	mostrarGrillas();    
@@ -1002,41 +1224,47 @@ $(document).ready(function() {/* INI - READY */
 /* INI - DESCRIPCION DEL PRODUCTO */
 function guardarDescripcion(){
 	
+	var objectForm = $("#formPlanDescripcion");
 	var form=$('#formPlanDescripcion').serializeObject();	
 	var agregarPlanificacionModel = {};
 	agregarPlanificacionModel.descripcionProducto = form.descripcion;
 	agregarPlanificacionModel.idProyecto = $('#codigoPy').val();
-	$.postJSON('${pageContext.request.contextPath}/planificacion/guardarDescripcion.htm',agregarPlanificacionModel, function(data) {
-		if(data.respuesta == 'ERROR'){
-			$.gritter.add({
-				title: 'Error!',
-				text: 'Ocurrió un error al guardar los datos',
-				sticky: false,
-				time: '1200',
-				class_name: 'gritter-error'
-			});
-		}else{
-			$.gritter.add({
-				title: 'Info!',
-				text: 'Se guardó correctamente los datos.',
-				sticky: false,
-				time: '1200',
-				class_name: 'gritter-info gritter-light'
-			});
-		}
-	});
+		
+	if(objectForm.valid()){		
+		$.postJSON('${pageContext.request.contextPath}/planificacion/guardarDescripcion.htm',agregarPlanificacionModel, function(data) {
+			if(data.respuesta == 'ERROR'){
+				$.gritter.add({
+					title: 'Error!',
+					text: 'Ocurrió un error al guardar los datos',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-error'
+				});
+			}else{
+				$.gritter.add({
+					title: 'Info!',
+					text: 'Se guardó correctamente los datos.',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-info gritter-light'
+				});
+			}
+		});				
+	}	
 }	
 /* FIN - DESCRIPCION DEL PRODUCTO */
 /*[INI] CRONOGRAMA */
 	var tablaSegTareas = $('#tablaSegTareas').DataTable({
 		"ajax"		 : function (data, callback, settings) {
 			callback ( { data: dataTarea } );
-		   },				        
-		"paging"     : true,
+		   },
+		"ordering"   : false,
+		"paging"     : false,
 		"autoWidth"  : true,
 		"pageLength" : 10,
 		"searching"  : false,
 		"bInfo"      : false, 
+		
 		"columnDefs"		:
 	    	[
 		    	{	"targets": [ 8 ], "visible": false, "searchable": false, "width": "0%"},
@@ -1096,31 +1324,40 @@ function guardarDescripcion(){
 /* *************************** INI - TAB ALCANCE *************************** */ 
 /* INI - ALCANCE - REQUISITO PROYECTO */
 function agregarPlanificacionRequisito(){	
-	if($('#idTipoRequisito').val()!= null && $('#idTipoRequisito').val()!= "" && $('#idDescripcionAlcance').val()!= null && $('#idDescripcionAlcance').val()!= ""){
-		$('#idTipoRequisito').parent().parent().removeClass('error');
-		$('#idDescripcionAlcance').parent().parent().removeClass('error');
-		var t = $('#tablaReqProyecto').DataTable();
-		var requisitoProyecto = {};		
-		requisitoProyecto.idTipoRequisito = $('#idTipoRequisito').val();		
-		requisitoProyecto.descTipoRequisito = $('#idTipoRequisito option:selected').text();
-		requisitoProyecto.idProyecto = $('#codigoPy').val();
-		requisitoProyecto.descripcion = $('#idDescripcionAlcance').val();	
-		requisitoProyecto.observacion = $('#idObservacionAlcance').val();	
-		dataSetRequisitoProyecto.push(requisitoProyecto);
-	
-		t.ajax.reload();
-	}else{
-		if($('#idTipoRequisito').val()== null || $('#idTipoRequisito').val()== ""){
-			$('#idTipoRequisito').parent().parent().addClass('error');
-		}else{
+		
+		if($('#idTipoRequisito').val()!= null && $('#idTipoRequisito').val()!= "" && $('#idDescripcionAlcance').val()!= null && $('#idDescripcionAlcance').val()!= ""){
 			$('#idTipoRequisito').parent().parent().removeClass('error');
-		}
-		if($('#idDescripcionAlcance').val()== null || $('#idDescripcionAlcance').val()== ""){
-			$('#idDescripcionAlcance').parent().parent().addClass('error');
-		}else{
 			$('#idDescripcionAlcance').parent().parent().removeClass('error');
-		}
-	}
+			var t = $('#tablaReqProyecto').DataTable();
+			var requisitoProyecto = {};		
+			requisitoProyecto.idTipoRequisito = $('#idTipoRequisito').val();		
+			requisitoProyecto.descTipoRequisito = $('#idTipoRequisito option:selected').text();
+			requisitoProyecto.idProyecto = $('#codigoPy').val();
+			requisitoProyecto.descripcion = $('#idDescripcionAlcance').val();	
+			requisitoProyecto.observacion = $('#idObservacionAlcance').val();	
+			dataSetRequisitoProyecto.push(requisitoProyecto);
+		
+			t.ajax.reload();
+		}else{
+			if($('#idTipoRequisito').val()== null || $('#idTipoRequisito').val()== ""){
+				$('#idTipoRequisito').parent().parent().addClass('error');				
+			}else{
+				$('#idTipoRequisito').parent().parent().removeClass('error');
+			}
+			if($('#idDescripcionAlcance').val()== null || $('#idDescripcionAlcance').val()== ""){
+				$('#idDescripcionAlcance').parent().parent().addClass('error');				
+			}else{
+				$('#idDescripcionAlcance').parent().parent().removeClass('error');
+			}
+			
+			$.gritter.add({
+				title: 'Advertencia!',
+				text: 'Debe llenar tipo/descripción de requisito del proyecto',
+				sticky: false,
+				time: '1200',
+				class_name: 'gritter-warning'
+			});
+		}	
 }
 
 function deleteRequisitoProyecto(){
@@ -1149,6 +1386,13 @@ function agregarPlanificacionExclusion(){
 		}else{
 			$('#idDescripcionExlclusion').parent().parent().removeClass('error');
 		}
+		$.gritter.add({
+			title: 'Advertencia!',
+			text: 'Debe llenar descripción de exclusiones',
+			sticky: false,
+			time: '1200',
+			class_name: 'gritter-warning'
+		});
 	}
 }
 
@@ -1186,6 +1430,14 @@ function agregarPlanificacionSupuesto(){
 		}else{
 			$('#idDescripcionSupuesto').parent().parent().removeClass('error');
 		}
+		
+		$.gritter.add({
+			title: 'Advertencia!',
+			text: 'Debe llenar tipo/descripción de supuestos y consideraciones',
+			sticky: false,
+			time: '1200',
+			class_name: 'gritter-warning'
+		});
 	}
 }
 
@@ -1223,6 +1475,14 @@ function agregarPlanificacionDependencia(){
 		}else{
 			$('#idDescripcionDependencia').parent().parent().removeClass('error');
 		}
+		
+		$.gritter.add({
+			title: 'Advertencia!',
+			text: 'Debe llenar tipo/descripción de dependencias',
+			sticky: false,
+			time: '1200',
+			class_name: 'gritter-warning'
+		});
 	}
 }
 
@@ -1252,6 +1512,14 @@ function agregarPlanificacionFactorExito(){
 		}else{
 			$('#idDescripcionFactorExito').parent().parent().removeClass('error');
 		}
+		
+		$.gritter.add({
+			title: 'Advertencia!',
+			text: 'Debe llenar descripción de factores críticos de éxitos',
+			sticky: false,
+			time: '1200',
+			class_name: 'gritter-warning'
+		});
 	}
 }
 
@@ -1266,9 +1534,12 @@ function deleteFactorExito(){
 
 function guardarAlcance(){
 	
+	$('#idTipoRequisito').parent().parent().removeClass('error');
+	$('#idDescripcionAlcance').parent().parent().removeClass('error');
+	$('#idObservacionAlcance').parent().parent().removeClass('error');	
+	
 	var form = $( "#formPlanAlcance" );
 /* 	form.validate(); */
-	
 	if(form.valid()){
 		
 		if(dataSetRequisitoProyecto.length>0
@@ -1333,31 +1604,33 @@ function guardarFormaPago(){
 	agregarFormaPago.porcentajePago = form.valPorcPago;
 	agregarFormaPago.idProyecto = $("#codigoPy").val(); 
 	
-	
-	$.postJSON('${pageContext.request.contextPath}/planificacion/guardarFormaPago.htm',agregarFormaPago, function(data) {
-		if(data.respuesta == 'ERROR'){
-			$.gritter.add({
-				title: 'Error!',
-				text: 'Ocurrió un error al guardar los datos',
-				sticky: false,
-				time: '1200',
-				class_name: 'gritter-error'
-			});
-		}else{
-			$.gritter.add({
-				title: 'Info!',
-				text: 'Se guardó correctamente los datos.',
-				sticky: false,
-				time: '1200',
-				class_name: 'gritter-info gritter-light'
-			});
-			
-			agregarFormaPago.idFormaPagoDetal = data.idFormaPagoDetal;
-			dataSetFormaPago.push(agregarFormaPago);
-			t.ajax.reload();
-			
-		}
-	});
+	var objectForm = $("#formFormasPago");
+	if(objectForm.valid()){
+		$.postJSON('${pageContext.request.contextPath}/planificacion/guardarFormaPago.htm',agregarFormaPago, function(data) {
+			if(data.respuesta == 'ERROR'){
+				$.gritter.add({
+					title: 'Error!',
+					text: 'Ocurrió un error al guardar los datos',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-error'
+				});
+			}else{
+				$.gritter.add({
+					title: 'Info!',
+					text: 'Se guardó correctamente los datos.',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-info gritter-light'
+				});
+				
+				agregarFormaPago.idFormaPagoDetal = data.idFormaPagoDetal;
+				dataSetFormaPago.push(agregarFormaPago);
+				t.ajax.reload();
+				
+			}
+		});
+	}	
 }
 
 function deleteFormasPago(){
@@ -1404,31 +1677,33 @@ function guardarDetalleRiesgos(){
 	agregarDetalleRiesgo.valMitigacion = form.valMitigacion;
 	agregarDetalleRiesgo.idProyecto = $("#codigoPy").val(); 
 	
-	
-	$.postJSON('${pageContext.request.contextPath}/planificacion/guardarDetalleRiesgos.htm',agregarDetalleRiesgo, function(data) {
-		if(data.respuesta == 'ERROR'){
-			$.gritter.add({
-				title: 'Error!',
-				text: 'Ocurrió un error al guardar los datos',
-				sticky: false,
-				time: '1200',
-				class_name: 'gritter-error'
-			});
-		}else{
-			$.gritter.add({
-				title: 'Info!',
-				text: 'Se guardó correctamente los datos.',
-				sticky: false,
-				time: '1200',
-				class_name: 'gritter-info gritter-light'
-			});
-			
-			agregarDetalleRiesgo.idDetalleRiesgos = data.idDetalleRiesgos;
-			dataSetDetalleRiesgo.push(agregarDetalleRiesgo);
-			t.ajax.reload();
-			
-		}
-	});
+	var objectForm = $('#formDetalleRiesgos');
+	if(objectForm.valid()){
+		$.postJSON('${pageContext.request.contextPath}/planificacion/guardarDetalleRiesgos.htm',agregarDetalleRiesgo, function(data) {
+			if(data.respuesta == 'ERROR'){
+				$.gritter.add({
+					title: 'Error!',
+					text: 'Ocurrió un error al guardar los datos',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-error'
+				});
+			}else{
+				$.gritter.add({
+					title: 'Info!',
+					text: 'Se guardó correctamente los datos.',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-info gritter-light'
+				});
+				
+				agregarDetalleRiesgo.idDetalleRiesgos = data.idDetalleRiesgos;
+				dataSetDetalleRiesgo.push(agregarDetalleRiesgo);
+				t.ajax.reload();
+				
+			}
+		});
+	}
 }
 
 function deleteDetalleRiesgos(){
@@ -1475,30 +1750,32 @@ function guardarDetalleAdquisicion(){
 	agregarDetalleAdquisicion.fechaAdquisicion = form.fechaAdquirirAD;
 	agregarDetalleAdquisicion.idproyecto = $("#codigoPy").val(); 
 	
-	
-	$.postJSON('${pageContext.request.contextPath}/planificacion/guardarDetalleAdquisicion.htm',agregarDetalleAdquisicion, function(data) {
-		if(data.respuesta == 'ERROR'){
-			$.gritter.add({
-				title: 'Error!',
-				text: 'Ocurrió un error al guardar los datos',
-				sticky: false,
-				time: '1200',
-				class_name: 'gritter-error'
-			});
-		}else{
-			$.gritter.add({
-				title: 'Info!',
-				text: 'Se guardó correctamente los datos.',
-				sticky: false,
-				time: '1200',
-				class_name: 'gritter-info gritter-light'
-			});
-			
-			agregarDetalleAdquisicion.id = data.id;
-			dataSetDetalleAdquisicion.push(agregarDetalleAdquisicion);
-			t.ajax.reload();			
-		}
-	});
+	var objectForm = $("#formDetalleAdquisicion");
+	if(objectForm.valid()){
+		$.postJSON('${pageContext.request.contextPath}/planificacion/guardarDetalleAdquisicion.htm',agregarDetalleAdquisicion, function(data) {
+			if(data.respuesta == 'ERROR'){
+				$.gritter.add({
+					title: 'Error!',
+					text: 'Ocurrió un error al guardar los datos',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-error'
+				});
+			}else{
+				$.gritter.add({
+					title: 'Info!',
+					text: 'Se guardó correctamente los datos.',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-info gritter-light'
+				});
+				
+				agregarDetalleAdquisicion.id = data.id;
+				dataSetDetalleAdquisicion.push(agregarDetalleAdquisicion);
+				t.ajax.reload();			
+			}
+		});
+	}		
 }
 
 function deleteDetalleAdquisicion(){
@@ -1544,30 +1821,32 @@ function guardarDetalleCostosOperativos(){
 	agregarDetalleCostoOP.monto = form.valMontoOP; 	
 	agregarDetalleCostoOP.idProyecto = $("#codigoPy").val(); 
 	
-	
-	$.postJSON('${pageContext.request.contextPath}/planificacion/guardarDetalleCostoOperativo.htm',agregarDetalleCostoOP, function(data) {
-		if(data.respuesta == 'ERROR'){
-			$.gritter.add({
-				title: 'Error!',
-				text: 'Ocurrió un error al guardar los datos',
-				sticky: false,
-				time: '1200',
-				class_name: 'gritter-error'
-			});
-		}else{
-			$.gritter.add({
-				title: 'Info!',
-				text: 'Se guardó correctamente los datos.',
-				sticky: false,
-				time: '1200',
-				class_name: 'gritter-info gritter-light'
-			});
-			
-			agregarDetalleCostoOP.idCostoOperativo = data.idCostoOperativo;
-			dataSetDetalleCostoOperativo.push(agregarDetalleCostoOP);
-			t.ajax.reload();			
-		}
-	});
+	var objectForm = $("#formCostoOperativo");
+	if(objectForm.valid()){
+		$.postJSON('${pageContext.request.contextPath}/planificacion/guardarDetalleCostoOperativo.htm',agregarDetalleCostoOP, function(data) {
+			if(data.respuesta == 'ERROR'){
+				$.gritter.add({
+					title: 'Error!',
+					text: 'Ocurrió un error al guardar los datos',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-error'
+				});
+			}else{
+				$.gritter.add({
+					title: 'Info!',
+					text: 'Se guardó correctamente los datos.',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-info gritter-light'
+				});
+				
+				agregarDetalleCostoOP.idCostoOperativo = data.idCostoOperativo;
+				dataSetDetalleCostoOperativo.push(agregarDetalleCostoOP);
+				t.ajax.reload();			
+			}
+		});
+	}	
 }
 
 function deleteDetalleCostosOperativos(){
@@ -1617,34 +1896,52 @@ function guardarRolProveedor(){
     detalleRolProyecto.cantidad = form.idCantidadTipoRolProveedor;
     detalleRolProyecto.idProyecto = $("#codigoPy").val(); 
      
-    $.postJSON('${pageContext.request.contextPath}/planificacion/guardarRolProveedor.htm',detalleRolProyecto, function(data) {
-        if(data.respuesta == 'ERROR'){
-            $.gritter.add({
-                title: 'Error!',
-                text: 'Ocurrió un error al guardar los datos',
-                sticky: false,
-                time: '1200',
-                class_name: 'gritter-error'
-            });
-        }else{
-            $.gritter.add({
-                title: 'Info!',
-                text: 'Se guardó correctamente los datos.',
-                sticky: false,
-                time: '1200',
-                class_name: 'gritter-info gritter-light'
-            });
-            
-            detalleRolProyecto.id = data.idTipoRolProveedor;
-            dataSetRolProveedor.push(detalleRolProyecto);
-            t.ajax.reload();
-            
-            /* cargarCostosProyecto(); */
-            
-            actualizarRolProveedorResponsabilidad();
-            
-        }
-    });
+    var objectForm = $('#formTipoRolProveedor');
+    
+    if(objectForm.valid()){
+    	
+    	for(var i=0; i<dataSetRolProveedor.length; i++){
+    		if(detalleRolProyecto.descripcion == dataSetRolProveedor[i].descripcion){
+    			$.gritter.add({
+                    title: 'Error!',
+                    text: 'Rol proveedor ya existe.',
+                    sticky: false,
+                    time: '1200',
+                    class_name: 'gritter-error'
+                });
+    			return false;
+    		}
+    	}
+    	    	
+    	$.postJSON('${pageContext.request.contextPath}/planificacion/guardarRolProveedor.htm',detalleRolProyecto, function(data) {
+            if(data.respuesta == 'ERROR'){
+                $.gritter.add({
+                    title: 'Error!',
+                    text: 'Ocurrió un error al guardar los datos',
+                    sticky: false,
+                    time: '1200',
+                    class_name: 'gritter-error'
+                });
+            }else{
+                $.gritter.add({
+                    title: 'Info!',
+                    text: 'Se guardó correctamente los datos.',
+                    sticky: false,
+                    time: '1200',
+                    class_name: 'gritter-info gritter-light'
+                });
+                
+                detalleRolProyecto.id = data.idTipoRolProveedor;
+                dataSetRolProveedor.push(detalleRolProyecto);
+                t.ajax.reload();
+                
+                /* cargarCostosProyecto(); */
+                
+                actualizarRolProveedorResponsabilidad();
+                
+            }
+        });
+    }    
 }
  
 function deleteTipoRolProveedor(){
@@ -1691,31 +1988,49 @@ function guardarRolCliente(){
     detalleRolProyecto.cantidad = form.idCantidadTipoRolCliente;
     detalleRolProyecto.idProyecto = $("#codigoPy").val(); 
     
-    $.postJSON('${pageContext.request.contextPath}/planificacion/guardarRolProveedor.htm',detalleRolProyecto, function(data) {
-        if(data.respuesta == 'ERROR'){
-            $.gritter.add({
-                title: 'Error!',
-                text: 'Ocurrió un error al guardar los datos',
-                sticky: false,
-                time: '1200',
-                class_name: 'gritter-error'
-            });
-        }else{
-            $.gritter.add({
-                title: 'Info!',
-                text: 'Se guardó correctamente los datos.',
-                sticky: false,
-                time: '1200',
-                class_name: 'gritter-info gritter-light'
-            });
-            
-            detalleRolProyecto.id = data.idTipoRolProveedor;
-            dataSetRolCliente.push(detalleRolProyecto);
-            t.ajax.reload();
-            
-            actualizarRolClienteResponsabilidad();
-        }
-    });
+    var objectForm = $('#formTipoRolCliente');
+    if(objectForm.valid()){
+    	
+    	for(var i=0; i<dataSetRolCliente.length; i++){
+    		if(detalleRolProyecto.descripcion == dataSetRolCliente[i].descripcion){
+    			$.gritter.add({
+                    title: 'Error!',
+                    text: 'Rol cliente ya existe.',
+                    sticky: false,
+                    time: '1200',
+                    class_name: 'gritter-error'
+                });
+    			return false;
+    		}
+    	}
+    	  
+    	
+    	$.postJSON('${pageContext.request.contextPath}/planificacion/guardarRolProveedor.htm',detalleRolProyecto, function(data) {
+            if(data.respuesta == 'ERROR'){
+                $.gritter.add({
+                    title: 'Error!',
+                    text: 'Ocurrió un error al guardar los datos',
+                    sticky: false,
+                    time: '1200',
+                    class_name: 'gritter-error'
+                });
+            }else{
+                $.gritter.add({
+                    title: 'Info!',
+                    text: 'Se guardó correctamente los datos.',
+                    sticky: false,
+                    time: '1200',
+                    class_name: 'gritter-info gritter-light'
+                });
+                
+                detalleRolProyecto.id = data.idTipoRolProveedor;
+                dataSetRolCliente.push(detalleRolProyecto);
+                t.ajax.reload();
+                
+                actualizarRolClienteResponsabilidad();
+            }
+        });
+    }    
 }
  
 function deleteTipoRolCliente(){
@@ -1927,32 +2242,34 @@ function ejecutarEjecucion(){
 	ejecucionModel.idProyecto = $('#codigoPy').val();
 	ejecucionModel.fechaAprobacion = $('#fechaAprobacion').val();
 	
-	$.postJSON('${pageContext.request.contextPath}/planificacion/ejecutarEjecucion.htm',ejecucionModel, function(data) {	
-		$('#modalEjecutarFechaAprobacion').modal('hide');	
-		if(data == 'ERROR'){
-			/* $("body").fadeOut(); */
-			$.gritter.add({
-				title: 'Error!',
-				text: 'Ocurrio un error al ejecutar el proyecto',
-				sticky: false,
-				time: '1200',
-				class_name: 'gritter-error'
-			});
-		}else {
-			$.gritter.add({
-				title: 'Info!',
-				text: 'Se ejecutó correctamente el proyecto.',
-				sticky: false,
-				time: '1200',
-				class_name: 'gritter-info gritter-light'
-			});
-			setTimeout(function(){
-				window.location = '${pageContext.request.contextPath}/planificacion/planificacion.htm';						
-			},1500);
-			
-		}
-	});
-	
+	var objectForm = $("#formEjecucion");
+	if(objectForm.valid()){
+		$.postJSON('${pageContext.request.contextPath}/planificacion/ejecutarEjecucion.htm',ejecucionModel, function(data) {	
+			$('#modalEjecutarFechaAprobacion').modal('hide');	
+			if(data == 'ERROR'){
+				/* $("body").fadeOut(); */
+				$.gritter.add({
+					title: 'Error!',
+					text: 'Ocurrio un error al ejecutar el proyecto',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-error'
+				});
+			}else {
+				$.gritter.add({
+					title: 'Info!',
+					text: 'Se ejecutó correctamente el proyecto.',
+					sticky: false,
+					time: '1200',
+					class_name: 'gritter-info gritter-light'
+				});
+				setTimeout(function(){
+					window.location = '${pageContext.request.contextPath}/planificacion/planificacion.htm';						
+				},1500);
+				
+			}
+		});
+	}
 }
 
 /* **************************** FIN - BOTON EJECUTAR PROYECTO ****************************** */
