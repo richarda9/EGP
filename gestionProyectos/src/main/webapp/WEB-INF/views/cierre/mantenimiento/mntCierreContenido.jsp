@@ -24,6 +24,12 @@
 							<div class="span12">
 								<form:form  class="form-horizontal" action="registrar_cierreProyecto.htm" modelAttribute="registrarProyectoCierre" method="POST">
 									<form:input path="idProyecto" type="hidden" value="${model.idProyecto}" />
+									<div class="row-fluid">
+										<div class="page-header position-relative">
+											<h1>Cierre</h1>
+										</div>
+									</div>
+									<div class="space-20"></div>
 									<div class="control-group">
 										<label class="control-label" for="fechaCierre">Fecha de Cierre</label>
 					
