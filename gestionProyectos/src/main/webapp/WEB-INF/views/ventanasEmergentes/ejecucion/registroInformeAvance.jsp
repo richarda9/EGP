@@ -95,10 +95,10 @@
 								<input id="incluirTareaAtrasadaInfAvance" name="incluirTareaAtrasada" value="1" type="checkbox" />
 								<span class="lbl" style="font-size: 13px;"> tareas Atrasadas</span>
 							</label>
-							<label>
-								<input id="incluirReunionesInfAvance" name="incluirReuniones" value="1" type="checkbox" />
-								<span class="lbl" style="font-size: 13px;"> Reuniones Agendadas</span>
-							</label>
+<!-- 							<label> -->
+<!-- 								<input id="incluirReunionesInfAvance" name="incluirReuniones" value="1" type="checkbox" /> -->
+<!-- 								<span class="lbl" style="font-size: 13px;"> Reuniones Agendadas</span> -->
+<!-- 							</label> -->
 						</div>
 					</div>
 				</div>
