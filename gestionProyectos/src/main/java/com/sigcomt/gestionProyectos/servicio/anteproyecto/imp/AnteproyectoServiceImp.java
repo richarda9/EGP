@@ -308,7 +308,7 @@ public class AnteproyectoServiceImp implements AnteproyectoService{
 			throws ParseException {
 		proyecto.setIdProyectoAsociado(agregarAnteproyectoModel.getIdAsociadoProyecto());
 		if(agregarAnteproyectoModel.getFechaContacto()!= null && agregarAnteproyectoModel.getFechaContacto()!=""){
-			SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 			Date fechaContacto = formatter.parse(agregarAnteproyectoModel.getFechaContacto());
 			proyecto.setFechaContacto(fechaContacto);
 			proyecto.setFechaContactoString(agregarAnteproyectoModel.getFechaContacto());

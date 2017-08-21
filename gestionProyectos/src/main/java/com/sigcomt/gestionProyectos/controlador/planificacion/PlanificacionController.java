@@ -516,7 +516,7 @@ public class PlanificacionController
         
         try {
         	Long idProyecto = Long.parseLong(ejecucionModel.get("idProyecto").toString());        	        	
-        	SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+        	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 			Date fechaAprobacion = formatter.parse(ejecucionModel.get("fechaAprobacion").toString());			
         	planificacionService.ejecutarEjecucion(idProyecto, fechaAprobacion);        	
             respuesta = gSon.toJson("OK");

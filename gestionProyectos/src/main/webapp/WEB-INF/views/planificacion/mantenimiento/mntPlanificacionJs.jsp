@@ -2206,7 +2206,7 @@ function validacionEjecutarProyecto(){
 	
 	var idProyecto = $('#codigoPy').val();
 	
-/* 	$.postJSON('${pageContext.request.contextPath}/planificacion/validacionEjecutarProyecto.htm',idProyecto, function(data) {	
+ 	$.postJSON('${pageContext.request.contextPath}/planificacion/validacionEjecutarProyecto.htm',idProyecto, function(data) {	
 		if(data == 'ERROR'){
 			$.gritter.add({
 				title: 'Error!',
@@ -2228,7 +2228,7 @@ function validacionEjecutarProyecto(){
 			mostrarConfirmacionEjecucion();								
 		}
 		
-	}); */
+	});
 	mostrarConfirmacionEjecucion();		
 } 
 
