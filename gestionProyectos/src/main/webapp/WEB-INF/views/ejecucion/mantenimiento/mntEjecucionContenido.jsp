@@ -394,7 +394,7 @@
 											<th>Entregable</th>
 											<th>Fecha de Envio</th>
 											<th>Responsable</th>
-											<th>Comentarios</th>
+<!-- 											<th>Comentarios</th> -->
 											<th>Estado</th>
 											<th>Fecha de Respuesta</th>
 											<th>Responsable</th>
@@ -402,47 +402,6 @@
 											<th>Opciones</th>
 										</tr>
 									</thead>
-<!-- 									<tbody> -->
-<!-- 										<tr> -->
-<!-- 											<td></td> -->
-<!-- 											<td></td> -->
-<!-- 											<td></td> -->
-<!-- 											<td></td> -->
-<!-- 											<td></td> -->
-<!-- 											<td></td> -->
-<!-- 											<td></td> -->
-<!-- 											<td></td> -->
-<!-- 											<td class="td-actions"> -->
-<!-- 												[INI] BOTON ENVIAR PARA APROBACION -->
-<!-- 												<div class="hidden-phone visible-desktop action-buttons"> -->
-<%-- 													<a class="abrir-eliminarTproyecto blue tooltip-info" href="#modal-EnviarAprobacion" data-toggle="modal" data-id="${tipoProyecto.id}"  --%>
-<!-- 													   data-rel="tooltip" title="Enviar para Aprobaci&oacute;n"> -->
-<!-- 														<i class="icon-envelope bigger-130"></i> -->
-<!-- 													</a> -->
-<!-- 												</div> -->
-	
-<!-- 												<div class="hidden-desktop visible-phone"> -->
-<!-- 													<div class="inline position-relative"> -->
-<!-- 														<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown"> -->
-<!-- 															<i class="icon-caret-down icon-only bigger-120"></i> -->
-<!-- 														</button> -->
-	
-<!-- 														<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close"> -->
-<!-- 															<li> -->
-<!-- 																<a href="#modal-EnviarAprobacion" class="abrir-eliminarTproyecto tooltip-info" data-rel="tooltip"  -->
-<%-- 																	title="Enviar para Aprobaci&oacute;n" data-toggle="modal" data-id="${tipoProyecto.id}"> --%>
-<!-- 																	<span class="blue"> -->
-<!-- 																		<i class="icon-envelope bigger-120"></i> -->
-<!-- 																	</span> -->
-<!-- 																</a> -->
-<!-- 															</li> -->
-<!-- 														</ul> -->
-<!-- 													</div> -->
-<!-- 												</div> -->
-<!-- 												[FIN] BOTON ENVIAR PARA APROBACION -->
-<!-- 											</td> -->
-<!-- 										</tr> -->
-<!-- 									</tbody> -->
 								</table>
 							</div>										
 						</div>
@@ -518,7 +477,7 @@
 										<th>Id</th>
 										<th>Descripci&oacute;n de la Solicitud</th>
 										<th>Fecha de Solicitud</th>
-										<th>Solicitante</th>
+<!-- 										<th>Solicitante</th> -->
 										<th>Complejidad</th>
 										<th>Horas Estimadas</th>
 										<th>Comentarios</th>
@@ -531,7 +490,7 @@
 											<td><c:out value="${listaCtrolCambios.codctrolcambios}"/></td>
 											<td><c:out value="${listaCtrolCambios.descripcionCtrolCambios}"/></td>
 											<td><c:out value="${listaCtrolCambios.fecSolCtrolCambios}"/></td>
-											<td><c:out value="${listaCtrolCambios.dscSolicitante}"/></td>
+<%-- 											<td><c:out value="${listaCtrolCambios.dscSolicitante}"/></td> --%>
 											<td><c:out value="${listaCtrolCambios.dscComplejidad}"/></td>
 											<td><c:out value="${listaCtrolCambios.horasEstimadas}"/></td>
 											<td><c:out value="${listaCtrolCambios.comentarios}"/></td>

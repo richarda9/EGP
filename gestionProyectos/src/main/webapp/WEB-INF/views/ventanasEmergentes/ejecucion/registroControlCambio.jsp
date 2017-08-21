@@ -18,13 +18,13 @@
 					</div>
 				</div>
 				<div class="span6">				
-					<div class="control-group row-fluid">
-						<div class="control-label span4">Solicitante:</div>
-						<div class="span8">
-							<select class="span12" id="solicitanteCtrolCambios" name="solicitanteCtrolCambios">
-							</select>
-						</div>
-					</div>
+<!-- 					<div class="control-group row-fluid"> -->
+<!-- 						<div class="control-label span4">Solicitante:</div> -->
+<!-- 						<div class="span8"> -->
+<!-- 							<select class="span12" id="solicitanteCtrolCambios" name="solicitanteCtrolCambios"> -->
+<!-- 							</select> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
 				</div>
 			</div>
 			<div class="control-group row-fluid">

@@ -147,24 +147,7 @@ $(function()
 										'</div>'+
 									'</div>';
 				    	   else
-				    		   return '<div class="hidden-phone visible-desktop action-buttons">'+
-										'<a class="blue" onclick="visualizarCertificacion('+ data.identregable +')"> <i class="icon-eye-open bigger-130" data-rel="tooltip" title="Visualizar Certificaci&oacute;n"> </i></a></div>'+
-									'<div class="hidden-desktop visible-phone">'+
-										'<div class="inline position-relative">'+
-											'<button class="btn btn-minier btn-yellow dropdown-toggle"'+
-												'data-toggle="dropdown">'+
-												'<i class="icon-caret-down icon-only bigger-120"></i>'+
-											'</button>'+
-		
-											'<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">'+
-												'<li><a class="tooltip-error" onclick=visualizarCertificacion('+ data.identregable +')'+ 
-													' data-rel="tooltip" title="Visualizar Certificaci&oacute;n"> <span class="blue">'+
-															'<i class="icon-eye-open bigger-120"></i>'+
-													'</span>'+
-												'</a></li>'+
-											'</ul>'+
-										'</div>'+
-									'</div>';
+				    		   return '';
 				        }
 		     		   }
 					  ],
@@ -193,10 +176,6 @@ $(function()
 		     		   {"data": "nombentregable"},
 		     		   {"data": "fechaEnvio"}, 
 		     		   {"data": "nombreresponentregable"},
-		     		   {"data": null, render: function ( data, type, row ) {
-		     			   return '';
-		     		   	}
-		     		   },
 		     		   {"data": "dscestadoentregable"},
 		     		   {"data": "fechaAprobacion"}, 
 		     		   {"data": "dsccertificador"}, 		     		   
@@ -1022,6 +1001,10 @@ function registrarSeguiCertificacion(){
 					time: '1200',
 					class_name: 'gritter-info gritter-light'
 				});
+
+		setTimeout(function(){
+						location.reload();						
+					},1500);
 	});
 }
 //-------------------------------------[FIN] SEGUIMIENTO CERTIFICACION ------------------------------------------------

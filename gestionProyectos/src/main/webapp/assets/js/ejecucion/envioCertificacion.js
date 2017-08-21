@@ -85,6 +85,10 @@ $('document').ready(function(){
 						time: '1200',
 						class_name: 'gritter-info gritter-light'
 					});
+
+					setTimeout(function(){
+						location.reload();						
+					},1500);
 				}else if(data == 1){
 					closeModalCargando();
 					$.gritter.add({

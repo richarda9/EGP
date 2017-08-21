@@ -148,7 +148,7 @@ $('document').ready(function(){
 									'<!-- [FIN] BOTON ELIMINAR -->'+
 								'</td>';
 
-					t.row.add([data[i].codctrolcambios, data[i].descripcionCtrolCambios, data[i].fecSolCtrolCambios, data[i].dscSolicitante, 
+					t.row.add([data[i].codctrolcambios, data[i].descripcionCtrolCambios, data[i].fecSolCtrolCambios,  
 							data[i].dscComplejidad, data[i].horasEstimadas, data[i].comentarios, accion ]).draw();
 
 					$("#ctrolCambiosTarea").append("<option value=" + data[i].idCtrolCambios + ">" + data[i].descripcionCtrolCambios + "</option>");
