@@ -119,7 +119,7 @@
 					<th>Empresa</th>
 <!-- 					<th>Id Tipo de Proyecto</th> -->
 					<th>Tipo de Proyecto</th>
-					<th>Fecha de Inicio</th>
+					<th>Fecha de Aprobaci&oacute;n</th>
 <!-- 					<th>Id Responsable</th> -->
 					<th>Responsable</th>
 					<th>Opciones</th>

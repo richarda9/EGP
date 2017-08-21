@@ -71,7 +71,7 @@ AND   p."ID_TIPO_PROYECTO" = (SELECT CASE WHEN $P{idtipoproyecto} = 0 THEN p."ID
 AND   ep."ID_ESTADO_PROYECTO" = (SELECT CASE WHEN $P{idestadoproyecto} = 0 THEN ep."ID_ESTADO_PROYECTO"
             ELSE $P{idestadoproyecto} END)
 AND   p."ESTADO" = $P{estadoregistro}
-AND   p."FECHA_CONTACTO" BETWEEN to_date($P{fechainicio}, 'DD/MM/YYYY') and to_date($P{fechafin}, 'DD/MM/YYYY')
+AND   p."FECHA_CONTACTO"::DATE BETWEEN to_date($P{fechainicio}, 'DD/MM/YYYY') and to_date($P{fechafin}, 'DD/MM/YYYY')
 AND   dep."ESTADO" = 1;]]>
 	</queryString>
 	<field name="nombreproyecto" class="java.lang.String"/>
@@ -269,7 +269,7 @@ AND   dep."ESTADO" = 1;]]>
 			<textField>
 				<reportElement x="116" y="179" width="114" height="20" uuid="c58b7352-100b-4db1-bb8c-65eb9746e545"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{fechainicio}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{fechainicio}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="287" y="179" width="109" height="20" uuid="5c230b6a-6e50-4580-bc68-85b5156e01ec"/>

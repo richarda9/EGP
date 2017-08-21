@@ -47,7 +47,7 @@ $("#formBsqCierre").submit(function()
 		for (i in data) {
 			var accion =  '';
 
-			if(data[i].estado.toUpperCase() != 'CERRADO'){
+			if(data[i].estado.toUpperCase() != 'CERRADO' && data[i].estado.toUpperCase() != 'CANCELADO'){
 
 				accion = '<!-- [INI] BOTON EDITAR -->'+
 						 '<div class="hidden-phone visible-desktop action-buttons">'+ 

@@ -17,6 +17,7 @@ public class LstProyectoEjecucionModel implements Serializable
 	private Long idTipoProyecto;
 	private String dscTipoProyecto;
 	private String fechaInicio;
+	private String fechaAprobacion;
 	private Long idResponsable;
 	private String dscResponsable;
 	
@@ -90,5 +91,13 @@ public class LstProyectoEjecucionModel implements Serializable
 	
 	public void setDscResponsable(String dscResponsable) {
 		this.dscResponsable = dscResponsable;
+	}
+
+	public String getFechaAprobacion() {
+		return fechaAprobacion;
+	}
+
+	public void setFechaAprobacion(String fechaAprobacion) {
+		this.fechaAprobacion = fechaAprobacion;
 	}
 }

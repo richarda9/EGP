@@ -93,7 +93,7 @@ $(function()
 								'</div>'+
 								'<!-- [FIN] BOTON CANCELAR  -->';	
 
-			    t.row.add([data[i].dscProyecto, data[i].dscCliente, data[i].dscTipoProyecto, data[i].fechaInicio, data[i].dscResponsable, accion ]).draw();	
+			    t.row.add([data[i].dscProyecto, data[i].dscCliente, data[i].dscTipoProyecto, data[i].fechaAprobacion, data[i].dscResponsable, accion ]).draw();	
 
 			}
 		

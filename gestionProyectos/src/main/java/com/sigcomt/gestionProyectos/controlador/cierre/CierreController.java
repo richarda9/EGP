@@ -69,8 +69,8 @@ public class CierreController
 		List<EstadoProyecto> listaAux = this.administracionService.listarEstadoProyecto();
 		if(listaAux != null && listaAux.size() > 0)
 			for (EstadoProyecto estadoProyecto : listaAux) {
-				if(estadoProyecto.getDescripcion().equalsIgnoreCase("Ejecucion")  || 
-						estadoProyecto.getDescripcion().equalsIgnoreCase("Cierre"))
+				if(!estadoProyecto.getDescripcion().toUpperCase().equalsIgnoreCase("ANTEPROYECTO")  && 
+						!estadoProyecto.getDescripcion().toUpperCase().equalsIgnoreCase("PLANIFICACION"))
 					lista.add(estadoProyecto);
 			}
 		

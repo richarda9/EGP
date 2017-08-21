@@ -881,6 +881,7 @@
 	   select p."ID_PROYECTO" as idProyecto, P."NOMBRE_PROYECTO" as dscProyecto , e."ID_EMPRESA" as idCliente, 
 	   		  e."RAZON_SOCIAL" as dscCliente, tp."ID_TIPO_PROYECTO" as idTipoProyecto, tp."DESCRIPCION_TIPO_PROYECTO" as dscTipoProyecto, 
 	   		  to_char(p."FECHA_CONTACTO", 'DD/MM/YYYY') as fechaInicio,
+	   		  to_char(dp."FECHA_APROBACION", 'DD/MM/YYYY') as fechaAprobacion,
 	   		    p."ID_RESPONSABLE_PROYECTO" as idResponsable,
 			       (select per."NOMBRE_PERSONA" || per."APELLIDO_PERSONA" 
 			        from seguridad.security_rol_user sru,
@@ -911,18 +912,15 @@
 		<if test="idTipoProyecto != null and idTipoProyecto != ''">
 			and tp."ID_TIPO_PROYECTO" = #{idTipoProyecto} 
 		</if>
-<!-- 		<if test="idResponsableProyecto != null and idResponsableProyecto != ''"> -->
-<!-- 			and py."ID_TIPO_PROYECTO" = #{idResponsableProyecto}  -->
-<!-- 		</if> -->
+		<if test="idResponsableProyecto != null and idResponsableProyecto != ''">
+			and py."ID_TIPO_PROYECTO" = #{idResponsableProyecto} 
+		</if>
 
 		<if test="estado != null and estado != ''">
 			and dp."ID_ESTADO_PROYECTO" = #{estado} 
 		</if>
-		<if test="fechaInicio != null and fechaInicio != ''">
-			and to_char(p."FECHA_CONTACTO", 'dd/mm/yyyy') = #{fechaInicio} 
-		</if>
-		<if test="fechaFin != null and fechaFin != ''">
-			and to_char(p."FECHA_CONTACTO", 'dd/mm/yyyy') = #{fechaFin} 
+		<if test="fechaInicio != null and fechaInicio != '' and fechaFin != null and fechaFin != ''">
+			and dp."FECHA_APROBACION"::date BETWEEN TO_DATE(#{fechaInicio}, 'DD/MM/YYYY') AND TO_DATE(#{fechaFin}, 'DD/MM/YYYY') 
 		</if>
 	</select>
 	<!-- [FIN] EJECUCION -->
@@ -964,12 +962,10 @@
 		<if test="estado != null and estado != ''">
 			and dp."ID_ESTADO_PROYECTO" = #{estado} 
 		</if>
-		<if test="fechaInicio != null and fechaInicio != ''">
-			and to_char(p."FECHA_CONTACTO", 'dd/mm/yyyy') = #{fechaInicio} 
+		<if test="fechaInicio != null and fechaInicio != '' and fechaFin != null and fechaFin != ''">
+			and p."FECHA_CONTACTO"::date BETWEEN TO_DATE(#{fechaInicio}, 'DD/MM/YYYY') AND TO_DATE(#{fechaFin}, 'DD/MM/YYYY') 
 		</if>
-		<if test="fechaFin != null and fechaFin != ''">
-			and to_char(p."FECHA_CONTACTO", 'dd/mm/yyyy') = #{fechaFin} 
-		</if>
+		
 	</select>
 	
 	<update id="actualizarProyecto" parameterType="Proyecto" >
