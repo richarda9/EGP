@@ -1338,6 +1338,8 @@ function agregarPlanificacionRequisito(){
 			dataSetRequisitoProyecto.push(requisitoProyecto);
 		
 			t.ajax.reload();
+			$('#idDescripcionAlcance').val("");
+			$('#idObservacionAlcance').val("");
 		}else{
 			if($('#idTipoRequisito').val()== null || $('#idTipoRequisito').val()== ""){
 				$('#idTipoRequisito').parent().parent().addClass('error');				
@@ -1380,6 +1382,7 @@ function agregarPlanificacionExclusion(){
 		dataSetExclusion.push(exclusion);
 	
 		t.ajax.reload();
+		$('#idDescripcionExlclusion').val("");
 	}else{
 		if($('#idDescripcionExlclusion').val()== null || $('#idDescripcionExlclusion').val()== ""){
 			$('#idDescripcionExlclusion').parent().parent().addClass('error');
@@ -1419,6 +1422,7 @@ function agregarPlanificacionSupuesto(){
 		dataSetSupuesto.push(supuesto);
 	
 		t.ajax.reload();
+		$('#idDescripcionSupuesto').val("");
 	}else{
 		if($('#idTipoSupuesto').val()== null || $('#idTipoSupuesto').val()== ""){
 			$('#idTipoSupuesto').parent().parent().addClass('error');
@@ -1464,6 +1468,7 @@ function agregarPlanificacionDependencia(){
 		dataSetDependencia.push(dependencia);
 	
 		t.ajax.reload();
+		$('#idDescripcionDependencia').val("");
 	}else{
 		if($('#idTipoDependencia').val()== null || $('#idTipoDependencia').val()== ""){
 			$('#idTipoDependencia').parent().parent().addClass('error');
@@ -1484,7 +1489,7 @@ function agregarPlanificacionDependencia(){
 			class_name: 'gritter-warning'
 		});
 	}
-}
+} 
 
 function deleteDependencia(){
 	var t = $('#tablaDependenciaProyecto').DataTable();
@@ -1506,6 +1511,7 @@ function agregarPlanificacionFactorExito(){
 		dataSetFactorExito.push(factorExito);
 	
 		t.ajax.reload();
+		$('#idDescripcionFactorExito').val("");
 	}else{		
 		if($('#idDescripcionFactorExito').val()== null || $('#idDescripcionFactorExito').val()== ""){
 			$('#idDescripcionFactorExito').parent().parent().addClass('error');
@@ -2629,11 +2635,11 @@ function mostrarGrillas(){
     if(datosGrillas.listaDetalleRolProyectoClienteResponsabilidadBD){
     	dataSetRRHHResponsabilidadesCliente=JSON.parse(datosGrillas.listaDetalleRolProyectoClienteResponsabilidadBD);
     }
-    
+      
     /* if(datosGrillas.listaDetalleCostoProyectoBD){
     	dataSetCostosProyecto=JSON.parse(datosGrillas.listaDetalleCostoProyectoBD);
     } */
-	/* tablaInteresado.ajax.reload(); */		
+	/* tablaInteresado.ajax.reload(); */		 
 	
 }
 

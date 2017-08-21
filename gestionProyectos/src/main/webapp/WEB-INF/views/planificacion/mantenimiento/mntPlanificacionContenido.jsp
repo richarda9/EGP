@@ -217,7 +217,7 @@
 												<div class="control-group">
 													<label class="control-label" for="tipo">Tipo</label>	
 													<div class="controls">
-														<select id="idTipoRequisito" name="idTipoRequisito">
+														<select id="idTipoRequisito">
 															<option value="">Seleccionar</option>
 															<c:forEach var="tipoRequisito" items="${model.listaTipoRequisito}" varStatus="contador">
 															   <option value="${tipoRequisito.id}">${tipoRequisito.descripcion}</option>
@@ -233,7 +233,7 @@
 													<div class="control-group">
 														<label class="control-label" for="descripcion">Descripción</label>	
 														<div class="controls">
-															<input type="text" id="idDescripcionAlcance" name="idDescripcionAlcance" class="span12" placeholder="Descripción"/>															
+															<input type="text" id="idDescripcionAlcance" class="span12" placeholder="Descripción"/>															
 														</div>
 													</div>
 												</div>
@@ -241,7 +241,7 @@
 													<div class="control-group">
 														<label class="control-label" for="observacion">Observación</label>	
 														<div class="controls">
-															<input type="text" id="idObservacionAlcance" name="idObservacionAlcance" class="span12" placeholder="Observación"/>															
+															<input type="text" id="idObservacionAlcance" class="span12" placeholder="Observación"/>															
 														</div>
 													</div>
 												</div>
@@ -753,7 +753,7 @@
 											<div class="span3">
 												<a id="btnEliminarTarea" class="btn btn-small btn-primary span12">
 													<i class="icon-trash"></i>Eliminar 
-												</a>
+												</a> 
 											</div>
 										</div>
 									</div>
