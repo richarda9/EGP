@@ -310,12 +310,19 @@ public class EjecucionServiceImp implements EjecucionService
         //ApplicationContext context = new ClassPathXmlApplicationContext("classpath*:/spring/applicationContext.xml");
        // SqlSessionFactoryBean dataSource1 =(SqlSessionFactoryBean)context.getBean("sqlSessionFactory");
 		DateFormat parser = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		DateFormat parser1 = new SimpleDateFormat("DD/MM/YYY");
         DriverManagerDataSource dataSource =(DriverManagerDataSource)ctx.getBean("dataSource");
         Connection cnn = dataSource.getConnection();
         JasperPrint jasperPrint;
         String rutaCompleta = ruta + "WEB-INF\\views\\jasper\\" + "InformeAvance.jasper";
         String fileName = "InformeAvance-" + parser.format(new Date())+".pdf";
 		
+        try{
+        	dato.setFechaEnvio(parser1.format(new Date()));        	
+        }catch(Exception e){
+        	
+        }
+        
         dato.setEnvioCorreo(Constantes.ESTADO_ACTIVO);
         ejecucionDao.actualizarInformeAvance(dato);
         

@@ -449,11 +449,11 @@ $('#registrarProyectoCierre').validate({
 	success: function (e) {
 		$(e).closest('.control-group').removeClass('error');
 		$(e).remove();
-	},
-	
-	submitHandler: function (form) {
-		return false;
 	}
+	
+// 	,submitHandler: function (form) {
+// 		return false;
+// 	} 
 });
 //-------------------------- [FIN] CIERRE PROYECTO ---------------------------------------
 
