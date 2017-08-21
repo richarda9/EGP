@@ -2,10 +2,10 @@ package com.sigcomt.gestionProyectos.common.enumerations;
 
 public enum EstadoEntregableEnum 
 {
-	PENDIENTE ("1","PENDIENTE"),
-	EN_CERTIFICACION ("2", "EN CERTIFICACION"),
-	OBSERVADO ("5", "OBSERVADO"),
-	APROBADO ("6", "APROBADO");
+	PENDIENTE ("2","PENDIENTE"),
+	EN_CERTIFICACION ("3", "EN CERTIFICACION"),
+	OBSERVADO ("4", "OBSERVADO"),
+	APROBADO ("5", "APROBADO");
 	
 	private String codigo;
 	private String descripcion;
