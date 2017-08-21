@@ -44,34 +44,34 @@
 				</div>
 			</div>
 			
-			<div class="row-fluid">
-				<div class="span6">
-					<div class="control-group row-fluid">
-						<div class="control-label span4">Desde:</div>
-						<div class="span8">
-							<div class="row-fluid input-append">
-								<input class="date-picker span10" id="fechaInicioInfAvance" name="fechaInicio" type="text" />
-								<span class="add-on">
-									<i class="icon-calendar"></i>
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="span6">
-					<div class="control-group row-fluid">
-						<div class="control-label span4">Hasta:</div>
-						<div class="span8">
-							<div class="row-fluid input-append">
-								<input class="date-picker span10" id="fechaFinInfAvance" name="fechaFin" type="text" />
-								<span class="add-on">
-									<i class="icon-calendar"></i>
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+<!-- 			<div class="row-fluid"> -->
+<!-- 				<div class="span6"> -->
+<!-- 					<div class="control-group row-fluid"> -->
+<!-- 						<div class="control-label span4">Desde:</div> -->
+<!-- 						<div class="span8"> -->
+<!-- 							<div class="row-fluid input-append"> -->
+<!-- 								<input class="date-picker span10" id="fechaInicioInfAvance" name="fechaInicio" type="text" /> -->
+<!-- 								<span class="add-on"> -->
+<!-- 									<i class="icon-calendar"></i> -->
+<!-- 								</span> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 				<div class="span6"> -->
+<!-- 					<div class="control-group row-fluid"> -->
+<!-- 						<div class="control-label span4">Hasta:</div> -->
+<!-- 						<div class="span8"> -->
+<!-- 							<div class="row-fluid input-append"> -->
+<!-- 								<input class="date-picker span10" id="fechaFinInfAvance" name="fechaFin" type="text" /> -->
+<!-- 								<span class="add-on"> -->
+<!-- 									<i class="icon-calendar"></i> -->
+<!-- 								</span> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
 			<div class="row-fluid">
 				<div class="span12">
 					<div class="control-group row-fluid">
