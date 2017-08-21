@@ -755,7 +755,8 @@ $(document).ready(function() {/* INI - READY */
 				required: true
 			},
 			valImpacto: {
-				required: true
+				required: true,
+				number: true
 			},
 			valProbabilidad: {
 				required: true,
@@ -1633,7 +1634,7 @@ function guardarFormaPago(){
 				agregarFormaPago.idFormaPagoDetal = data.idFormaPagoDetal;
 				dataSetFormaPago.push(agregarFormaPago);
 				t.ajax.reload();
-				
+				document.getElementById("formFormasPago").reset();				
 			}
 		});
 	}	
@@ -1706,6 +1707,7 @@ function guardarDetalleRiesgos(){
 				agregarDetalleRiesgo.idDetalleRiesgos = data.idDetalleRiesgos;
 				dataSetDetalleRiesgo.push(agregarDetalleRiesgo);
 				t.ajax.reload();
+				document.getElementById("formDetalleRiesgos").reset();
 				
 			}
 		});
@@ -1774,11 +1776,11 @@ function guardarDetalleAdquisicion(){
 					sticky: false,
 					time: '1200',
 					class_name: 'gritter-info gritter-light'
-				});
-				
+				});				
 				agregarDetalleAdquisicion.id = data.id;
 				dataSetDetalleAdquisicion.push(agregarDetalleAdquisicion);
-				t.ajax.reload();			
+				t.ajax.reload();	
+				document.getElementById("formDetalleAdquisicion").reset();
 			}
 		});
 	}		
@@ -1850,6 +1852,7 @@ function guardarDetalleCostosOperativos(){
 				agregarDetalleCostoOP.idCostoOperativo = data.idCostoOperativo;
 				dataSetDetalleCostoOperativo.push(agregarDetalleCostoOP);
 				t.ajax.reload();			
+				document.getElementById("formCostoOperativo").reset();
 			}
 		});
 	}	
