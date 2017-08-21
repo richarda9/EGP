@@ -65,7 +65,7 @@ ORDER BY nomproyecto;]]>
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Justified" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[      $F{nomproyecto}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{nomproyecto}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement mode="Opaque" x="0" y="0" width="134" height="20" forecolor="#FFFFFF" backcolor="#FF6600" uuid="3a520afc-1972-4895-a1fd-e1f3eda64142"/>
@@ -297,7 +297,7 @@ ORDER BY nomproyecto;]]>
 	</columnHeader>
 	<detail>
 		<band height="30" splitType="Stretch">
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="0" width="74" height="30" uuid="c368ba63-4f06-44b6-9d49-b918b8eb1688"/>
 				<box>
 					<topPen lineWidth="0.5"/>
@@ -308,7 +308,7 @@ ORDER BY nomproyecto;]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{nombretarea}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="74" y="0" width="60" height="30" uuid="d7ba6da3-7a51-482a-a306-116d6eb63c94"/>
 				<box>
 					<topPen lineWidth="0.5"/>
@@ -319,7 +319,7 @@ ORDER BY nomproyecto;]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{fechainicio}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="134" y="0" width="55" height="30" uuid="ac6d707a-c4b7-4e36-9d59-817658f5dcdb"/>
 				<box>
 					<topPen lineWidth="0.5"/>
@@ -330,7 +330,7 @@ ORDER BY nomproyecto;]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{fechafin}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="231" y="0" width="73" height="30" uuid="2d8be52b-d5aa-4256-8fd1-cbcecb03511a"/>
 				<box>
 					<topPen lineWidth="0.5"/>
@@ -341,7 +341,7 @@ ORDER BY nomproyecto;]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{complejidad}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="304" y="0" width="68" height="30" uuid="be04b101-e3e9-4a9e-8715-800a232fc863"/>
 				<box>
 					<topPen lineWidth="0.5"/>
@@ -352,7 +352,7 @@ ORDER BY nomproyecto;]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{estadotarea}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="372" y="0" width="70" height="30" uuid="fd85a79a-928d-4646-b5a9-909f17986da7"/>
 				<box>
 					<topPen lineWidth="0.5"/>
@@ -363,7 +363,7 @@ ORDER BY nomproyecto;]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{nomctrolcambios}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="189" y="0" width="42" height="30" uuid="77fc9a47-806f-4101-89f8-99c99c1fe8d1"/>
 				<box>
 					<topPen lineWidth="0.5"/>
@@ -374,7 +374,7 @@ ORDER BY nomproyecto;]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{horas}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="442" y="0" width="113" height="30" uuid="f9132ed8-5f7c-4840-af9a-f938a8b0b36d"/>
 				<box>
 					<topPen lineWidth="0.5"/>
