@@ -2229,7 +2229,7 @@ function validacionEjecutarProyecto(){
 		}
 		
 	});
-	mostrarConfirmacionEjecucion();		
+	/* mostrarConfirmacionEjecucion();	 */	
 } 
 
 function mostrarConfirmacionEjecucion(){		
