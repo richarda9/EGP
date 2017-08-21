@@ -201,6 +201,7 @@ function agregarValidacionesContCliente(){
 	});
 	$( "#cargoContEmpresa" ).rules( "add", {required: true});
 	$( "#areaContEmpresa" ).rules( "add", {required: true});
+	$("#anexoContEmpresa").rules( "add", {digits: true, maxlength : 6});
 }
 
 function quitarValidacionesContCliente(){
@@ -230,6 +231,8 @@ function agregarValidacionesEmpresa(){
 			    return true;
 		}, email: true, maxlength : 100
 	});
+	
+	$("#anexoEmpresa").rules( "add", {digits: true, maxlength : 6});
 }
 
 function quitarValidacionesEmpresa(){

@@ -87,8 +87,9 @@
 	
 	<select id="buscarTipoRequisitoProyecto" resultType="int" parameterType="TipoRequisito">
 		select  count(*)
-		from "CREAR_PROYECTO"."ESTADO_PROYECTO"
+		from "PLANIFICAR_PROYECTO"."TIPO_REQUISITO"
 		where "DESCRIPCION_ESTADO_PROYECTO" = #{descripcion}
+		and   "ID_TIPO_PROYECTO" = #{idTipoProyecto} 
 		and "ESTADO" = #{estado};
 	</select>
 	<!-- [FIN] TIPO REQUISITO -->
@@ -118,6 +119,7 @@
 		select  count(*)
 		from "PLANIFICAR_PROYECTO"."TIPO_SUPUESTO" ts
 		where ts."DESCRIPCION" = #{descripcion}
+		and   ts."ID_TIPO_PROYECTO" = #{idTipoProyecto}
 		and   ts."ESTADO" = #{estado};
 	</select>
 	<!-- [FIN] TIPO SUPUESTO -->
@@ -144,9 +146,10 @@
 	</delete>
 	
 	<select id="buscarTipoDependenciaProyecto" resultType="int" parameterType="tipoDependencia">
-		select  count(*)
+		select count(*)
 		from "PLANIFICAR_PROYECTO"."TIPO_DEPENDENCIA" td
 		where td."DESCRIPCION_TIPO_DEPENDENCIA" = #{descripcion}
+		and   td."ID_TIPO_PROYECTO" = #{idTipoProyecto}
 		and   td."ESTADO" = #{estado};
 	</select>
 	<!-- [FIN] TIPO DEPENDENCIA -->

@@ -134,12 +134,13 @@ $('#registrarRecurso').validate({
 				}else
 				return 15;
 			},
-			/*digits: function(element) {	
+			digits: function(element) {	
 				if($("#idTipoDocumento").val() != '1'){
 					return false;
-				}else 
+				}else{ 
 				    return true; 
-			}*/
+				}
+			}
 		},
 
 		nombres: {

@@ -175,17 +175,21 @@
 									</div>
 								</div>
 								<div class="row-fluid">
-									<div class="span3">Tel&eacute;fono</div>
-									<div class="span4"><input type="text" class="span12" id="teleEmpresa" name="teleEmpresa"/></div>
-									<div class="span1">Anexo</div>
-									<div class="span4"><input type="text" class="span12" id="anexoEmpresa" name="anexoEmpresa"/></div>
+								    <div class="control-group span6">
+								    	<div class="control-label span6">Tel&eacute;fono</div>
+										<div class="span6"><input type="text" class="span12" id="teleEmpresa" name="teleEmpresa"/></div>
+								    </div>
+								    <div class="control-group span6">								    	
+									<div class="control-label span4">Anexo</div>
+									<div class="span8"><input type="text" class="span12" id="anexoEmpresa" name="anexoEmpresa"/></div>
+								    </div>
 								</div>
 								<div class="control-group row-fluid">
 									<div class="control-label span3">Correo</div>
 									<div class="span9"><input type="text" class="span12" id="correoEmpresa" name="correoEmpresa"/></div>
 								</div>
-								<div class="row-fluid">
-									<div class="span3">C&oacute;mo se contacto?</div>
+								<div class="control-group row-fluid">
+									<div class="control-label span3">C&oacute;mo se contacto?</div>
 									<div class="span9"><textarea class="span12" id="contactoEmpresa" name="contactoEmpresa"></textarea></div>
 								</div>
 							</div>
@@ -213,16 +217,16 @@
 									<div class="span9"><input type="text" class="span12" id="apeContEmpresa" name="apeContEmpresa"/></div>
 								</div>								
 								<div class="row-fluid">
-									<div class="span7">
+									<div class="span6">
 										<div class="control-group row-fluid">
-											<div class="control-label span5">Tel&eacute;fono</div>
-											<div class="span7"><input type="text" class="span12" id="teleContEmpresa" name="teleContEmpresa"/></div>
+											<div class="control-label span6">Tel&eacute;fono</div>
+											<div class="span6"><input type="text" class="span12" id="teleContEmpresa" name="teleContEmpresa"/></div>
 										</div>
 									</div>
-									<div class="span5">
+									<div class="span6">
 										<div class="control-group row-fluid">
-											<div class="control-label span3">Anexo</div>
-											<div class="span9"><input type="text" class="span12" id="anexoContEmpresa" name="anexoContEmpresa"/></div>
+											<div class="control-label span4">Anexo</div>
+											<div class="span8"><input type="text" class="span12" id="anexoContEmpresa" name="anexoContEmpresa"/></div>
 										</div>
 									</div>
 								</div>	
