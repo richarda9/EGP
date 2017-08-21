@@ -311,6 +311,7 @@ public class AnteproyectoServiceImp implements AnteproyectoService{
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
 			Date fechaContacto = formatter.parse(agregarAnteproyectoModel.getFechaContacto());
 			proyecto.setFechaContacto(fechaContacto);
+			proyecto.setFechaContactoString(agregarAnteproyectoModel.getFechaContacto());
 		}
 		proyecto.setIdTipoProyecto(agregarAnteproyectoModel.getIdTipoProyecto());
 		proyecto.setIdEjecutivoCuenta(agregarAnteproyectoModel.getIdEjecutivoCuenta());

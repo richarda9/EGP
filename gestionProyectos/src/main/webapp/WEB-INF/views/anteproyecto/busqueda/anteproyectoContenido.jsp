@@ -80,7 +80,7 @@
 	
 						<div class="controls">
 							<div class="row-fluid input-append">
-								<input id="fechafin" name="fechafin" type="text" data-date-format="dd-mm-yyyy" />
+								<input id="fechafin" name="fechaFin" type="text" data-date-format="dd-mm-yyyy" />
 								<span class="add-on">
 									<i class="icon-calendar"></i>
 								</span>

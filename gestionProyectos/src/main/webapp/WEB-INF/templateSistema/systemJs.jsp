@@ -115,6 +115,11 @@ function regresar()
 		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/anteproyecto.htm");
 		break;
 	}
+		
+	case "mntAnteproyectoEdit.htm": {
+		$("#btnRegresar").attr("href", "/"+url2[1]+"/"+url2[2]+"/anteproyecto.htm");
+		break;
+	}
 	
 	case "planificacion.htm": {
 		$("#divBtnRegresar").hide();

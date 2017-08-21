@@ -12,7 +12,7 @@
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.Empresa" alias="Empresa"/>
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.Pais" alias="Pais"/>
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.Proyecto" alias="Proyecto"/>		
-		<!-- <typeAlias type="com.sigcomt.gestionProyectos.model.anteproyecto.BuscarAnteproyectoModel" alias="BuscarAnteproyectoModel"/>	 -->
+		<typeAlias type="com.sigcomt.gestionProyectos.model.anteproyecto.BuscarAnteproyectoModel" alias="BuscarAnteproyectoModel"/>	
 		<typeAlias type="com.sigcomt.gestionProyectos.model.ejecucion.LstProyectoEjecucionModel" alias="LstProyEjecucion"/>
 		<typeAlias type="com.sigcomt.gestionProyectos.dominio.administracion.Rol" alias="Rol"/>
 		<typeAlias type="com.sigcomt.gestionProyectos.model.cierre.LstProyectoCierreModel" alias="LstProyCierre"/>

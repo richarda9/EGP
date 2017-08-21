@@ -14,10 +14,12 @@
 		and detEstPy."ESTADO" = #{estado}
 	</select>
 	
-	<select id="buscarProyectoByDetalleEstadoProyectoByEstado"  resultType="Proyecto">
+	<select id="buscarProyectoByDetalleEstadoProyectoByEstado" parameterType="BuscarAnteproyectoModel"  resultType="Proyecto">
 		select py."ID_PROYECTO" as idProyecto,
 			py."NOMBRE_PROYECTO" as nombreProyecto,
-			py."NOMBRE_EMPRESA" as nombreEmpresa,	
+			(SELECT e."RAZON_SOCIAL" FROM "CREAR_PROYECTO"."EMPRESA" e
+			 WHERE e."ID_EMPRESA" = py."ID_EMPRESA")  as nombreEmpresa,	
+			--py."NOMBRE_EMPRESA" as nombreEmpresa,	
 			tipoPy."DESCRIPCION_TIPO_PROYECTO" as descripcionTipoProyecto,
 			to_char(py."FECHA_CONTACTO", 'dd-mm-yyyy')as fechaContactoString,
 			(select per."NOMBRE_PERSONA"||' '||per."APELLIDO_PERSONA" 
@@ -45,13 +47,8 @@
 		<if test="idEmpresa != null and idEmpresa != ''">
 			and py."ID_EMPRESA" = #{idEmpresa} 
 		</if>
-		<if test="fechaInicio != null and fechaInicio != ''">
-			and to_char(py."FECHA_CONTACTO", 'dd/mm/yyyy') >= #{fechaInicio} 
-		</if>
-		<if test="fechaFin != null and fechaFin != ''">
-			<![CDATA[
-			and to_char(py."FECHA_CONTACTO", 'dd/mm/yyyy') <= #{fechaFin}
-			]]>
+		<if test="fechaInicio != null and fechaInicio != '' and fechaFin != null and fechaFin != ''">
+			and py."FECHA_CONTACTO"::date BETWEEN TO_DATE(#{fechaInicio}, 'DD/MM/YYYY') AND TO_DATE(#{fechaFin}, 'DD/MM/YYYY') 
 		</if>
 		<if test="idTipoProyecto != null and idTipoProyecto != ''">
 			and py."ID_TIPO_PROYECTO" = #{idTipoProyecto} 
@@ -86,7 +83,7 @@
         values
         (#{idProyecto}, 
         #{idProyectoAsociado},
-        #{fechaContacto}, 
+        TO_DATE(#{fechaContactoString},'DD/MM/YYYY'), 
         #{idTipoProyecto},
         #{idEjecutivoCuenta},
         #{idResponsableProyecto},
@@ -150,7 +147,7 @@
     <insert id="actualizarProyectoByEstado" parameterType="Proyecto">     
         update "CREAR_PROYECTO"."PROYECTO" 
         set "ID_PROYECTO_ASOCIADO" = #{idProyectoAsociado},
-        "FECHA_CONTACTO" = #{fechaContacto}, 
+        "FECHA_CONTACTO" = TO_DATE(#{fechaContactoString},'DD/MM/YYYY'), 
         "ID_TIPO_PROYECTO" = #{idTipoProyecto},
         "ID_EJECUTIVO_CUENTA" = #{idEjecutivoCuenta},
         "ID_RESPONSABLE_PROYECTO" = #{idResponsableProyecto},
